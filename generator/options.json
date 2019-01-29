@@ -1,0 +1,29 @@
+{
+	"generator": {
+		"info": "This text wont affect the bot if changed, but I would be glad if you'd still leave it like this.",
+		"madeBy": "RedH1ghway aka theDonciuxx",
+		"withTheHelpOf": "4JR",
+		"gitHub": "example.org",
+		"version": "1.0"
+	},
+	"preset": "brawlstars",
+	"map": [
+		"RRRRR...RRR.R..........RR...RRRRRR",
+        "RR..MMMMM..XXXXX..TTTTT..YYYYY..RR",
+		"R.....M....X......T........Y.....R",
+		"R.....M....XXXXX..TTTTT....Y.....R",
+		"R.....M....X..........T....Y.....R",
+		"RR....M....XXXXX..TTTTT....Y....RR",
+		"RRRRRR..RR..........RR......RRRRRR"
+    ],
+	"biome": 3,
+	"sizeMultiplier": 20,
+	"replaceTiles": [
+	{
+		"from": "R",
+		"to": "F"
+	}
+	],
+	"exportFileName": "output.png",
+	"saveLogFile": true
+}

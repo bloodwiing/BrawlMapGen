@@ -1,0 +1,200 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Drawing;
+using System.Drawing.Imaging;
+using Svg;
+using System.IO;
+using Newtonsoft.Json;
+
+namespace generator
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            //string[] map = { "........2.2.2........", "..RRR...........RRR..", "..RRR..Y.....Y..RRR..", ".......Y..9..Y.......", ".......YYYYYYY.......", "RRRRRRRRRRRRRRRRRRR..", "NNNNNCRRRRRRRRRCNNN..", "RRRRRRRRRRRRRRRRRRR..", "RRRRRRRRRRRRRRRRRRR..", ".......CNNNNNC.......", ".....................", ".....................", "YYYYY...YYYYYNNNNN...", "....WWWWW............", "....WWWWW............", ".....................", ".....................", ".....................", "............WWWWW....", "............WWWWW....", "...NNNNNYYYYY...YYYYY", ".....................", ".....................", ".......CNNNNNC.......", "..RRRRRRRRRRRRRRRRRRR", "..RRRRRRRRRRRRRRRRRRR", "..NNNCRRRRRRRRRCNNNNN", "..RRRRRRRRRRRRRRRRRRR", ".......YYYYYYY.......", ".......Y..9..Y.......", "..RRR..Y.....Y..RRR..", "..RRR...........RRR..", "........1.1.1........" };
+            //string[] map = { "........2.2.2........", "..FFF...........FFF..", "..FFF..Y.....Y..FFF..", ".......Y..9..Y.......", ".......YYYYYYY.......", "FFFFFFFFFFFFFFFFFFF..", "NNNNNCFFFFFFFFFCNNN..", "FFFFFFFFFFFFFFFFFFF..", "FFFFFFFFFFFFFFFFFFF..", ".......CNNNNNC.......", ".....................", ".....................", "YYYYY...YYYYYNNNNN...", "....WWWWW............", "....WWWWW............", ".....................", ".....................", ".....................", "............WWWWW....", "............WWWWW....", "...NNNNNYYYYY...YYYYY", ".....................", ".....................", ".......CNNNNNC.......", "..FFFFFFFFFFFFFFFFFFF", "..FFFFFFFFFFFFFFFFFFF", "..NNNCFFFFFFFFFCNNNNN", "..FFFFFFFFFFFFFFFFFFF", ".......YYYYYYY.......", ".......Y..9..Y.......", "..FFF..Y.....Y..FFF..", "..FFF...........FFF..", "........1.1.1........" };
+            //int sizeMultiplier = 20;
+            
+            if (!File.Exists("options.json"))
+            {
+                Environment.Exit(0);
+            }
+
+            StreamReader r = new StreamReader("options.json");
+            string json = r.ReadToEnd();
+            var options = JsonConvert.DeserializeObject<Options>(json);
+
+            if (!File.Exists("presets\\" + options.preset + ".json"))
+            {
+                Environment.Exit(0);
+            }
+
+            StreamReader r2 = new StreamReader("presets\\" + options.preset + ".json");
+            string json2 = r2.ReadToEnd();
+            var tiledata = JsonConvert.DeserializeObject<Tiledata>(json2);
+
+            var map = options.map;
+            var sizeMultiplier = options.sizeMultiplier;
+
+            if (map == null)
+            {
+                Console.WriteLine("Missing map");
+            }
+            else if (map.Length == 0)
+            {
+                Console.WriteLine("Missing map");
+            }
+
+            int xLength = map[0].Length;
+            int yLength = map.Length;
+
+            Console.WriteLine("X:" + xLength + " Y:" + yLength);
+
+            /*Rectangle tileBounds = new Rectangle(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+            Bitmap target = new Bitmap(tileWidth, tileHeight);
+            using (Graphics graphics = Graphics.FromImage(target))
+            {
+                graphics.DrawImage(
+                    image,
+                    new Rectangle(0, 0, tileWidth, tileHeight),
+                    tileBounds,
+                    GraphicsUnit.Pixel);
+            }
+
+            target.Save(outputFileName, ImageFormat.Jpeg);*/
+
+            Bitmap b = new Bitmap(sizeMultiplier * 2 + sizeMultiplier * xLength, sizeMultiplier * 2 + sizeMultiplier * yLength);
+            Graphics g = Graphics.FromImage(b);
+
+            int currentY = 0;
+            int currentX = 0;
+
+            string[] color1s = tiledata.biomes[options.biome - 1].color1.Split(',');
+            Color color1 = Color.FromArgb(int.Parse(color1s[0].Trim()), int.Parse(color1s[1].Trim()), int.Parse(color1s[2].Trim()));
+
+            string[] color2s = tiledata.biomes[options.biome - 1].color2.Split(',');
+            Color color2 = Color.FromArgb(int.Parse(color2s[0].Trim()), int.Parse(color2s[1].Trim()), int.Parse(color2s[2].Trim()));
+
+            foreach (string row in map)
+            {
+
+                foreach (char tile in row.ToCharArray())
+                {
+                    if (currentY % 2 == 0)
+                    {
+                        if (currentX % 2 == 0)
+                        {
+                            g.FillRectangle(new SolidBrush(color1), sizeMultiplier + sizeMultiplier * currentX, sizeMultiplier + sizeMultiplier * currentY, sizeMultiplier, sizeMultiplier);
+                        }
+                        else
+                        {
+                            g.FillRectangle(new SolidBrush(color2), sizeMultiplier + sizeMultiplier * currentX, sizeMultiplier + sizeMultiplier * currentY, sizeMultiplier, sizeMultiplier);
+                        }
+                    }
+                    else
+                    {
+                        if (currentX % 2 == 0)
+                        {
+                            g.FillRectangle(new SolidBrush(color2), sizeMultiplier + sizeMultiplier * currentX, sizeMultiplier + sizeMultiplier * currentY, sizeMultiplier, sizeMultiplier);
+                        }
+                        else
+                        {
+                            g.FillRectangle(new SolidBrush(color1), sizeMultiplier + sizeMultiplier * currentX, sizeMultiplier + sizeMultiplier * currentY, sizeMultiplier, sizeMultiplier);
+                        }
+                    }
+
+                    currentX++;
+
+                }
+
+                currentX = 0;
+                currentY++;
+
+            }
+
+            currentY = 0;
+            currentX = 0;
+
+            foreach (string row in map)
+            {
+
+                foreach (char tTile in row.ToCharArray())
+                {
+
+                    /*if (tile == 'R')
+                    {
+                        var i = SvgDocument.Open(tiledata.type[0].options.respawningForest.asset);
+                        var iw = (int)Math.Round(i.Width * sizeMultiplier);
+                        var ih = (int)Math.Round(i.Height * sizeMultiplier);
+                        var ihm = (int)Math.Round((double)tiledata.type[0].options.respawningForest.tileParts.top * sizeMultiplier / 1000);
+                        g.DrawImage(i.Draw(iw, ih), sizeMultiplier + sizeMultiplier * currentX, sizeMultiplier + sizeMultiplier * currentY - ihm);
+                    }
+                    else if (tile == 'Y')
+                    {
+                        var i = SvgDocument.Open(tiledata.type[0].options.blocking3.asset);
+                        var iw = (int)Math.Round(i.Width * sizeMultiplier);
+                        var ih = (int)Math.Round(i.Height * sizeMultiplier);
+                        var ihm = (int)Math.Round((double)tiledata.type[0].options.blocking3.tileParts.top * sizeMultiplier / 1000);
+                        g.DrawImage(i.Draw(iw, ih), sizeMultiplier + sizeMultiplier * currentX, sizeMultiplier + sizeMultiplier * currentY - ihm);
+                    }
+                    else if (tile == 'N')
+                    {
+                        var i = SvgDocument.Open(tiledata.type[0].options.fence.asset);
+                        var iw = (int)Math.Round(i.Width * sizeMultiplier);
+                        var ih = (int)Math.Round(i.Height * sizeMultiplier);
+                        var ihm = (int)Math.Round((double)tiledata.type[0].options.fence.tileParts.top * sizeMultiplier / 1000);
+                        var iwm = (int)Math.Round((double)tiledata.type[0].options.fence.tileParts.left * sizeMultiplier / 1000);
+                        g.DrawImage(i.Draw(iw, ih), sizeMultiplier + sizeMultiplier * currentX - iwm, sizeMultiplier + sizeMultiplier * currentY - ihm);
+                    }*/
+
+                    var tile = tTile;
+
+                    foreach (Options.Replace repTile in options.replaceTiles)
+                    {
+                        if (tile == repTile.from)
+                        {
+                            tile = repTile.to;
+                        }
+                    }
+
+                    foreach (Tiledata.Tile aTile in tiledata.tiles)
+                    {
+                        if (aTile.tileCode == tile)
+                        {
+                            foreach (Tiledata.TileDefault tileDefault in tiledata.biomes[options.biome - 1].defaults)
+                            {
+                                if (tileDefault.tile == aTile.tileName)
+                                {
+                                    var i = SvgDocument.Open("assets\\tiles\\" + options.preset + "\\" + aTile.tileTypes[tileDefault.type - 1].asset);
+                                    var iw = (int)Math.Round(i.Width * sizeMultiplier);
+                                    var ih = (int)Math.Round(i.Height * sizeMultiplier);
+                                    var ihm = (int)Math.Round((double)aTile.tileTypes[tileDefault.type - 1].tileParts.top * sizeMultiplier / 1000);
+                                    var iwm = (int)Math.Round((double)aTile.tileTypes[tileDefault.type - 1].tileParts.left * sizeMultiplier / 1000);
+                                    g.DrawImage(i.Draw(iw, ih), sizeMultiplier + sizeMultiplier * currentX - iwm, sizeMultiplier + sizeMultiplier * currentY - ihm);
+                                }
+                            }
+                        }
+                    }
+
+                    currentX++;
+
+                }
+
+                currentX = 0;
+                currentY++;
+
+            }
+
+            b.Save("Output.png", ImageFormat.Png);
+                
+            Console.ReadKey(true);
+
+        }
+
+    }
+}

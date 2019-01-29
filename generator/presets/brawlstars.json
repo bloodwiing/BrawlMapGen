@@ -1,0 +1,312 @@
+{
+	"tiles": [
+	{
+		"tileName": "blocking1",
+		"tileCode": "M",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 528,
+				"mid": 1000,
+				"bot": 237,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "wood_block.svg"
+		},
+		{
+			"tileParts": {
+				"top": 512,
+				"mid": 1000,
+				"bot": 291,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "stone_block.svg"
+		}
+		]
+	},
+	{
+		"tileName": "blocking2",
+		"tileCode": "X",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 405,
+				"mid": 1000,
+				"bot": 280,
+				"left": 0,
+				"right": 20
+			},
+			"asset": "mineral_magenta.svg"
+		},
+		{
+			"tileParts": {
+				"top": 528,
+				"mid": 1000,
+				"bot": 237,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "grass_block.svg"
+		},
+		{
+			"tileParts": {
+				"top": 528,
+				"mid": 1000,
+				"bot": 237,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "wood_block.svg"
+		}
+		]
+	},
+	{
+		"tileName": "blocking3",
+		"tileCode": "Y",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 517,
+				"mid": 1000,
+				"bot": 246,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "crate.svg"
+		}
+		]
+	},
+	{
+		"tileName": "blocking4",
+		"tileCode": "C",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 439,
+				"mid": 1000,
+				"bot": 266,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "barrel.svg"
+		}
+		]
+	},
+	{
+		"tileName": "forest",
+		"tileCode": "F",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 447,
+				"mid": 1000,
+				"bot": 296,
+				"left": 0,
+				"right": 0
+			},
+			"color": "green",
+			"asset": "grass_green.svg"
+		},
+		{
+			"tileParts": {
+				"top": 447,
+				"mid": 1000,
+				"bot": 296,
+				"left": 0,
+				"right": 0
+			},
+			"color": "cyan",
+			"asset": "grass_cyan.svg"
+		},
+		{
+			"tileParts": {
+				"top": 447,
+				"mid": 1000,
+				"bot": 296,
+				"left": 0,
+				"right": 0
+			},
+			"color": "yellow",
+			"asset": "grass_yellow.svg"
+		}
+		]
+	},
+	{
+		"tileName": "respawningWall",
+		"tileCode": "T",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 597,
+				"mid": 1000,
+				"bot": 243,
+				"left": 65,
+				"right": 112
+			},
+			"asset": "cactus.svg"
+		},
+		{
+			"tileParts": {
+				"top": 386,
+				"mid": 1000,
+				"bot": 327,
+				"left": 7,
+				"right": 4
+			},
+			"asset": "mushroom.svg"
+		}
+		]
+	},
+	{
+		"tileName": "blockingDestroyableWithWeapon",
+		"tileCode": "B",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 392,
+				"mid": 1000,
+				"bot": 190,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "vase.svg"
+		},
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 980,
+				"bot": 98,
+				"left": 8,
+				"right": 0
+			},
+			"asset": "skull.svg"
+		}
+		]
+	},
+	{
+		"tileName": "blockingDestroyableWithWeapon",
+		"tileCode": "N",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 127,
+				"mid": 1000,
+				"bot": 242,
+				"left": 45,
+				"right": 45
+			},
+			"asset": "fence_hor.svg"
+		}
+		]
+	}
+	],
+	"biomes": [
+	{
+		"name": "canyon",
+		"color1": "237,158,110",
+		"color2": "248,166,116",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 1
+		},
+		{
+			"tile": "blocking2",
+			"type": 3
+		},
+		{
+			"tile": "blocking3",
+			"type": 1
+		},
+		{
+			"tile": "blocking4",
+			"type": 1
+		},
+		{
+			"tile": "forest",
+			"type": 1
+		},
+		{
+			"tile": "respawningWall",
+			"type": 1
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 1
+		}
+		]
+	},
+	{
+		"name": "jungle",
+		"color1": "222,172,113",
+		"color2": "234,180,118",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 1
+		},
+		{
+			"tile": "blocking2",
+			"type": 2
+		},
+		{
+			"tile": "blocking3",
+			"type": 1
+		},
+		{
+			"tile": "blocking4",
+			"type": 1
+		},
+		{
+			"tile": "forest",
+			"type": 1
+		},
+		{
+			"tile": "respawningWall",
+			"type": 1
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 1
+		}
+		]
+	},
+	{
+		"name": "mine",
+		"color1": "91,64,79",
+		"color2": "96,68,83",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 2
+		},
+		{
+			"tile": "blocking2",
+			"type": 1
+		},
+		{
+			"tile": "blocking3",
+			"type": 1
+		},
+		{
+			"tile": "blocking4",
+			"type": 1
+		},
+		{
+			"tile": "forest",
+			"type": 2
+		},
+		{
+			"tile": "respawningWall",
+			"type": 2
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 2
+		}
+		]
+	}
+	]
+}
