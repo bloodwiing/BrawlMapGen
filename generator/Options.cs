@@ -9,7 +9,6 @@ namespace generator
     class Options
     {
 
-        private GeneratorInfo generator { get; set; }
         public string preset { get; set; }
         public string[] map { get; set; }
         public int biome { get; set; }
@@ -22,15 +21,6 @@ namespace generator
         {
             public char from { get; set; }
             public char to { get; set; }
-        }
-
-        public class GeneratorInfo
-        {
-            private string info { get; set; }
-            private string madeBy { get; set; }
-            private string withTheHelpOf { get; set; }
-            private string gitHub { get; set; }
-            private string version { get; set; }
         }
 
     }

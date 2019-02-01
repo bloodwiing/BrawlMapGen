@@ -15,10 +15,6 @@ namespace generator
     {
         static void Main(string[] args)
         {
-
-            //string[] map = { "........2.2.2........", "..RRR...........RRR..", "..RRR..Y.....Y..RRR..", ".......Y..9..Y.......", ".......YYYYYYY.......", "RRRRRRRRRRRRRRRRRRR..", "NNNNNCRRRRRRRRRCNNN..", "RRRRRRRRRRRRRRRRRRR..", "RRRRRRRRRRRRRRRRRRR..", ".......CNNNNNC.......", ".....................", ".....................", "YYYYY...YYYYYNNNNN...", "....WWWWW............", "....WWWWW............", ".....................", ".....................", ".....................", "............WWWWW....", "............WWWWW....", "...NNNNNYYYYY...YYYYY", ".....................", ".....................", ".......CNNNNNC.......", "..RRRRRRRRRRRRRRRRRRR", "..RRRRRRRRRRRRRRRRRRR", "..NNNCRRRRRRRRRCNNNNN", "..RRRRRRRRRRRRRRRRRRR", ".......YYYYYYY.......", ".......Y..9..Y.......", "..RRR..Y.....Y..RRR..", "..RRR...........RRR..", "........1.1.1........" };
-            //string[] map = { "........2.2.2........", "..FFF...........FFF..", "..FFF..Y.....Y..FFF..", ".......Y..9..Y.......", ".......YYYYYYY.......", "FFFFFFFFFFFFFFFFFFF..", "NNNNNCFFFFFFFFFCNNN..", "FFFFFFFFFFFFFFFFFFF..", "FFFFFFFFFFFFFFFFFFF..", ".......CNNNNNC.......", ".....................", ".....................", "YYYYY...YYYYYNNNNN...", "....WWWWW............", "....WWWWW............", ".....................", ".....................", ".....................", "............WWWWW....", "............WWWWW....", "...NNNNNYYYYY...YYYYY", ".....................", ".....................", ".......CNNNNNC.......", "..FFFFFFFFFFFFFFFFFFF", "..FFFFFFFFFFFFFFFFFFF", "..NNNCFFFFFFFFFCNNNNN", "..FFFFFFFFFFFFFFFFFFF", ".......YYYYYYY.......", ".......Y..9..Y.......", "..FFF..Y.....Y..FFF..", "..FFF...........FFF..", "........1.1.1........" };
-            //int sizeMultiplier = 20;
             
             if (!File.Exists("options.json"))
             {
@@ -52,21 +48,6 @@ namespace generator
 
             int xLength = map[0].Length;
             int yLength = map.Length;
-
-            Console.WriteLine("X:" + xLength + " Y:" + yLength);
-
-            /*Rectangle tileBounds = new Rectangle(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
-            Bitmap target = new Bitmap(tileWidth, tileHeight);
-            using (Graphics graphics = Graphics.FromImage(target))
-            {
-                graphics.DrawImage(
-                    image,
-                    new Rectangle(0, 0, tileWidth, tileHeight),
-                    tileBounds,
-                    GraphicsUnit.Pixel);
-            }
-
-            target.Save(outputFileName, ImageFormat.Jpeg);*/
 
             Bitmap b = new Bitmap(sizeMultiplier * 2 + sizeMultiplier * xLength, sizeMultiplier * 2 + sizeMultiplier * yLength);
             Graphics g = Graphics.FromImage(b);
@@ -127,32 +108,6 @@ namespace generator
                 foreach (char tTile in row.ToCharArray())
                 {
 
-                    /*if (tile == 'R')
-                    {
-                        var i = SvgDocument.Open(tiledata.type[0].options.respawningForest.asset);
-                        var iw = (int)Math.Round(i.Width * sizeMultiplier);
-                        var ih = (int)Math.Round(i.Height * sizeMultiplier);
-                        var ihm = (int)Math.Round((double)tiledata.type[0].options.respawningForest.tileParts.top * sizeMultiplier / 1000);
-                        g.DrawImage(i.Draw(iw, ih), sizeMultiplier + sizeMultiplier * currentX, sizeMultiplier + sizeMultiplier * currentY - ihm);
-                    }
-                    else if (tile == 'Y')
-                    {
-                        var i = SvgDocument.Open(tiledata.type[0].options.blocking3.asset);
-                        var iw = (int)Math.Round(i.Width * sizeMultiplier);
-                        var ih = (int)Math.Round(i.Height * sizeMultiplier);
-                        var ihm = (int)Math.Round((double)tiledata.type[0].options.blocking3.tileParts.top * sizeMultiplier / 1000);
-                        g.DrawImage(i.Draw(iw, ih), sizeMultiplier + sizeMultiplier * currentX, sizeMultiplier + sizeMultiplier * currentY - ihm);
-                    }
-                    else if (tile == 'N')
-                    {
-                        var i = SvgDocument.Open(tiledata.type[0].options.fence.asset);
-                        var iw = (int)Math.Round(i.Width * sizeMultiplier);
-                        var ih = (int)Math.Round(i.Height * sizeMultiplier);
-                        var ihm = (int)Math.Round((double)tiledata.type[0].options.fence.tileParts.top * sizeMultiplier / 1000);
-                        var iwm = (int)Math.Round((double)tiledata.type[0].options.fence.tileParts.left * sizeMultiplier / 1000);
-                        g.DrawImage(i.Draw(iw, ih), sizeMultiplier + sizeMultiplier * currentX - iwm, sizeMultiplier + sizeMultiplier * currentY - ihm);
-                    }*/
-
                     var tile = tTile;
 
                     foreach (Options.Replace repTile in options.replaceTiles)
@@ -191,30 +146,6 @@ namespace generator
                                         {
                                             foreach (var rule in aTile.tileLinks.rules)
                                             {
-                                                /*for (int x = 0; x < 8; x++)
-                                                {
-                                                    if (rule.condition.Contains('!'))
-                                                    {
-                                                        if (rule.condition.Replace("!", "").ToCharArray()[x] != nbca[x])
-                                                        {
-                                                            for (int y = 0; y < rule.changeBinary.Length; y++)
-                                                            {
-                                                                nbca[int.Parse(rule.changeBinary[y].Split('a')[1]) - 1] = rule.changeBinary[y].Split('a')[0].ToCharArray()[0];
-                                                            }
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        if (rule.condition.ToCharArray()[x] == nbca[x])
-                                                        {
-                                                            for (int y = 0; y < rule.changeBinary.Length; y++)
-                                                            {
-                                                                nbca[int.Parse(rule.changeBinary[y].Split('a')[1]) - 1] = rule.changeBinary[y].Split('a')[0].ToCharArray()[0];
-                                                            }
-                                                        }
-
-                                                    }
-                                                }*/
                                                 int accuracy = 0;
                                                 for (int x = 0; x < 8; x++)
                                                 {
@@ -259,19 +190,6 @@ namespace generator
                                                     nbca[int.Parse(aRule.changeBinary[y].Split('a')[1]) - 1] = aRule.changeBinary[y].Split('a')[0].ToCharArray()[0];
                                                 }
                                             }
-                                            /*if (aRule.changeAsset != null)
-                                            {
-                                                if (aRule.changeAsset.Contains("!"))
-                                                {
-                                                    Console.WriteLine("changed");
-                                                    defaultAsset = aRule.changeAsset.Split('!')[0];
-                                                    defaultType = aTile.tileTypes[int.Parse(aRule.changeAsset.Split('!')[1].Split('=')[1]) - 1];
-                                                }
-                                                else
-                                                {
-                                                    defaultAsset = aRule.changeAsset;
-                                                }
-                                            }*/
                                             if (aRule.changeTileType != null)
                                             {
                                                 defaultType = aTile.tileTypes[aRule.changeTileType.GetValueOrDefault() - 1];
@@ -281,7 +199,6 @@ namespace generator
                                         var defaultAsset = defaultType.asset;
                                         if (defaultAsset.Contains("!"))
                                         {
-                                            Console.WriteLine("changed");
                                             defaultAsset = defaultAsset.Split('!')[0];
                                         }
 
@@ -289,13 +206,9 @@ namespace generator
 
                                         if (defaultAsset.Contains("?binary+"))
                                         {
-                                            Console.WriteLine("changed");
                                             defaultAsset = defaultAsset.Replace("?binary+", fullBinaryFinal);
                                         }
-
-                                        //Console.WriteLine(fullBinaryFinal);
-                                        //Console.WriteLine("assets\\tiles\\" + options.preset + "\\" + aTile.tileTypes[tileDefault.type - 1].assetFolder + "\\" + String.Join("", nbca) + ".svg");
-
+                                        
                                         string fols = "";
                                         if (aTile.tileLinks.assetFolder != null)
                                         {
@@ -305,7 +218,6 @@ namespace generator
 
                                         if (defaultType.priority != null)
                                         {
-                                            //Console.WriteLine(tile + " written at " + currentX);
                                             priorityTiles.Add(new PriorityTile()
                                             {
                                                 tileType = defaultType,
@@ -314,15 +226,13 @@ namespace generator
                                             });
                                             continue;
                                         }
-
-                                        Console.WriteLine("assets\\tiles\\" + options.preset + "\\" + fols + defaultAsset);
+                                        
                                         var li = SvgDocument.Open("assets\\tiles\\" + options.preset + "\\" + fols + defaultAsset);
                                         var liw = (int)Math.Round(li.Width * sizeMultiplier);
                                         var lih = (int)Math.Round(li.Height * sizeMultiplier);
                                         var lihm = (int)Math.Round((double)defaultType.tileParts.top * sizeMultiplier / 1000);
                                         var liwm = (int)Math.Round((double)defaultType.tileParts.left * sizeMultiplier / 1000);
-
-                                        //Console.WriteLine(li + " @ " + liw + " @ " + lih + " @ " + lihm + " @ " + liwm);
+                                        
 
                                         g.DrawImage(li.Draw(liw, lih), sizeMultiplier + sizeMultiplier * currentX - liwm, sizeMultiplier + sizeMultiplier * currentY - lihm);
                                         continue;
@@ -330,7 +240,6 @@ namespace generator
 
                                     if (aTile.tileTypes[tileDefault.type - 1].priority != null)
                                     {
-                                        //Console.WriteLine(tile + " written at " + currentX);
                                         priorityTiles.Add(new PriorityTile()
                                         {
                                             tileType = aTile.tileTypes[tileDefault.type - 1],
@@ -351,9 +260,7 @@ namespace generator
                             }
                         }
                     }
-
-                    Console.WriteLine("Y:" + (currentY + 1) + " X:" + (currentX + 1) + " TileCode:" + tile);
-                    //Console.WriteLine(tile + " skipped at " + currentX);
+                    
                     currentX++;
 
                 }
@@ -366,7 +273,6 @@ namespace generator
                     {
                         continue;
                     }
-                    Console.WriteLine(pTile.tileType.priority.GetValueOrDefault());
                     if (pTile.tileType.priority.GetValueOrDefault() != currentPriority)
                     {
                         continue;
@@ -385,8 +291,6 @@ namespace generator
             }
 
             b.Save("Output.png", ImageFormat.Png);
-                
-            Console.ReadKey(true);
 
         }
 
