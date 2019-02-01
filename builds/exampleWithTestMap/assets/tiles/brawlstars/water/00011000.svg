@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="0.26458189mm"
+   height="0.26458189mm"
+   viewBox="0 0 0.26458189 0.26458189"
+   version="1.1"
+   id="svg25587"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="00011000.svg">
+  <defs
+     id="defs25581" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="-549.50001"
+     inkscape:cy="349.07143"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata25584">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-104.18914,-240.92723)">
+    <g
+       inkscape:export-ydpi="450"
+       inkscape:export-xdpi="450"
+       inkscape:export-filename="C:\Users\Donatas\Documents\ShareX\Screenshots\2019-01\BSMGWaterTileSet.png"
+       id="g21259"
+       transform="matrix(0.04858588,0,0,0.04858588,177.24014,296.57202)"
+       style="opacity:0.98000004;filter:url(#filter1957)">
+      <path
+         id="path21251"
+         transform="scale(0.26458333)"
+         d="m -5682.6855,-4328.6445 v 10.291 10.291 h 10.291 10.291 v -20.582 h -10.291 z"
+         style="opacity:0.98000004;fill:#89412b;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10.58267689;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path21253"
+         transform="scale(0.26458333)"
+         d="m -5682.6855,-4326.6816 v 8.3281 8.3281 h 10.291 10.291 v -16.6562 h -10.291 z"
+         style="opacity:0.98000004;fill:#b56651;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10.61747932;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path21255"
+         transform="scale(0.26458333)"
+         d="m -5682.6855,-4324.7168 v 6.3633 6.3633 h 10.291 10.291 v -12.7266 h -10.291 z"
+         style="opacity:0.98000004;fill:#4eb9f6;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10.66916656;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path21257"
+         transform="scale(0.26458333)"
+         d="m -5682.6855,-4322.7539 v 4.4004 4.4004 h 10.291 10.291 v -8.8008 h -10.291 z"
+         style="opacity:0.98000004;fill:#1f97df;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10.71935654;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>
