@@ -8,7 +8,7 @@ namespace generator
 {
     class Tiledata
     {
-        
+
         public Tile[] tiles { get; set; }
         public Biome[] biomes { get; set; }
 
@@ -17,6 +17,7 @@ namespace generator
             public string tileName { get; set; }
             public char tileCode { get; set; }
             public TileType[] tileTypes { get; set; }
+            public TileLink tileLinks { get; set; }
         }
 
         public class TileType
@@ -27,6 +28,7 @@ namespace generator
             public bool visible { get; set; }
             public string other { get; set; }
             public string asset { get; set; }
+            public int? priority { get; set; }
         }
 
         public class TileParts
@@ -50,6 +52,27 @@ namespace generator
             public string color1 { get; set; }
             public string color2 { get; set; }
             public TileDefault[] defaults { get; set; }
+        }
+
+        public class TileLink
+        {
+            public TileLinkRule[] rules { get; set; }
+            public TileLinkDefault defaults { get; set; }
+            public string assetFolder { get; set; }
+        }
+
+        public class TileLinkRule
+        {
+            public string condition { get; set; }
+            public string[] changeBinary { get; set; }
+            public int? changeTileType { get; set; }
+            public string changeAsset { get; set; }
+        }
+
+        public class TileLinkDefault
+        {
+            public int tileType { get; set; }
+            public string asset { get; set; }
         }
 
     }

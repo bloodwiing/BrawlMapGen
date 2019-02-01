@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="-237.38519"
-     inkscape:cy="-111.4469"
+     inkscape:zoom="256"
+     inkscape:cx="-0.46433745"
+     inkscape:cy="0.46617052"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -69,6 +69,11 @@
          style="opacity:1;fill:#e0ccb5;fill-opacity:1;fill-rule:nonzero;stroke:#663b19;stroke-width:0.89999998;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
          d="m -352.816,-901.02513 c -1.14083,-0.48059 -2.52452,0.0595 -2.99365,1.17309 -0.30599,0.72637 0.007,1.48943 0.40732,1.90734 l -0.10105,0.23988 c -0.0554,0.13161 0.006,0.28219 0.13749,0.33763 l 0.85689,0.36097 0.85689,0.36098 c 0.1316,0.0554 0.28219,-0.006 0.33763,-0.13749 l 0.10105,-0.23988 c 0.57893,-0.005 1.34332,-0.31459 1.64931,-1.04096 0.46911,-1.11361 -0.11111,-2.48085 -1.25188,-2.96156 z"
          id="path14941" />
+      <path
+         id="path825"
+         d="m -352.816,-901.02513 c -1.14083,-0.48059 -2.52452,0.0595 -2.99365,1.17309 -0.30599,0.72637 0.007,1.48943 0.40732,1.90734 l -0.10105,0.23988 c -0.0554,0.13161 0.006,0.28219 0.13749,0.33763 l 0.85689,0.36097 0.85689,0.36098 c 0.1316,0.0554 0.28219,-0.006 0.33763,-0.13749 l 0.10105,-0.23988 c 0.57893,-0.005 1.34332,-0.31459 1.64931,-1.04096 0.46911,-1.11361 -0.11111,-2.48085 -1.25188,-2.96156 z"
+         style="opacity:1;fill:#e0ccb5;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.89999998;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         inkscape:connector-curvature="0" />
       <path
          style="opacity:1;fill:#fae3c7;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4.01693916;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
          d="m -1336.8145,-3406.1152 c -3.373,0.01 -6.6487,1.9429 -7.9785,5.0996 -1.039,2.4664 -0.1847,5.0359 1.0957,6.6797 a 7.4821118,9.0580285 50.195452 0 0 7.4004,-2.9356 7.4821118,9.0580285 50.195452 0 0 2.918,-8.1289 c -0.034,-0.015 -0.065,-0.034 -0.1,-0.049 -1.078,-0.4541 -2.2116,-0.6677 -3.336,-0.666 z"

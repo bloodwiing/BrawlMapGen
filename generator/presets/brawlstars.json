@@ -145,7 +145,8 @@
 				"left": 65,
 				"right": 112
 			},
-			"asset": "cactus.svg"
+			"asset": "cactus.svg",
+			"priority": 2
 		},
 		{
 			"tileParts": {
@@ -186,7 +187,7 @@
 		]
 	},
 	{
-		"tileName": "blockingDestroyableWithWeapon",
+		"tileName": "fence",
 		"tileCode": "N",
 		"tileTypes": [
 		{
@@ -197,9 +198,90 @@
 				"left": 45,
 				"right": 45
 			},
-			"asset": "fence_hor.svg"
+			"asset": "fence_hor.svg",
+			"priority": 1
+		},
+		{
+			"tileParts": {
+				"top": 601,
+				"mid": 1000,
+				"bot": 243,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "fence_ver.svg"
+		},
+		{
+			"tileParts": {
+				"top": 517,
+				"mid": 1000,
+				"bot": 243,
+				"left": 45,
+				"right": 45
+			},
+			"asset": "fence_cor.svg",
+			"priority": 1
 		}
-		]
+		],
+		"tileLinks": {
+			"rules": [
+			{
+				"condition": "*1****0*",
+				"changeTileType": 3
+			},
+			{
+				"condition": "*0****1*",
+				"changeTileType": 3
+			},
+			{
+				"condition": "*1****1*",
+				"changeTileType": 2
+			}
+			],
+			"defaults": {
+				"tileType": 1
+			}
+		}
+	},
+	{
+		"tileName": "water",
+		"tileCode": "W",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "?binary+.svg!t=1"
+		}
+		],
+		"tileLinks": {
+			"rules": [
+			{
+				"condition": "*0******",
+				"changeBinary": [ "0a1", "0a3" ]
+			},
+			{
+				"condition": "***0****",
+				"changeBinary": [ "0a1", "0a6" ]
+			},
+			{
+				"condition": "****0***",
+				"changeBinary": [ "0a3", "0a8" ]
+			},
+			{
+				"condition": "******0*",
+				"changeBinary": [ "0a6", "0a8" ]
+			}
+			],
+			"defaults": {
+				"tileType": 1
+			},
+			"assetFolder": "water"
+		}
 	}
 	],
 	"biomes": [
@@ -234,6 +316,14 @@
 		},
 		{
 			"tile": "blockingDestroyableWithWeapon",
+			"type": 1
+		},
+		{
+			"tile": "fence",
+			"type": 1
+		},
+		{
+			"tile": "water",
 			"type": 1
 		}
 		]
@@ -270,6 +360,14 @@
 		{
 			"tile": "blockingDestroyableWithWeapon",
 			"type": 1
+		},
+		{
+			"tile": "fence",
+			"type": 1
+		},
+		{
+			"tile": "water",
+			"type": 1
 		}
 		]
 	},
@@ -305,6 +403,57 @@
 		{
 			"tile": "blockingDestroyableWithWeapon",
 			"type": 2
+		},
+		{
+			"tile": "fence",
+			"type": 1
+		},
+		{
+			"tile": "water",
+			"type": 1
+		}
+		]
+	},
+	{
+		"name": "canyon_showdown",
+		"color1": "187,127,93",
+		"color2": "198,135,98",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 1
+		},
+		{
+			"tile": "blocking2",
+			"type": 3
+		},
+		{
+			"tile": "blocking3",
+			"type": 1
+		},
+		{
+			"tile": "blocking4",
+			"type": 1
+		},
+		{
+			"tile": "forest",
+			"type": 3
+		},
+		{
+			"tile": "respawningWall",
+			"type": 1
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 2
+		},
+		{
+			"tile": "fence",
+			"type": 1
+		},
+		{
+			"tile": "water",
+			"type": 1
 		}
 		]
 	}
