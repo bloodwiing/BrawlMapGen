@@ -146,7 +146,7 @@
 				"right": 112
 			},
 			"asset": "cactus.svg",
-			"priority": 2
+			"orderHor": 2
 		},
 		{
 			"tileParts": {
@@ -199,7 +199,7 @@
 				"right": 45
 			},
 			"asset": "fence_hor.svg",
-			"priority": 1
+			"orderHor": 1
 		},
 		{
 			"tileParts": {
@@ -220,7 +220,7 @@
 				"right": 45
 			},
 			"asset": "fence_cor.svg",
-			"priority": 1
+			"orderHor": 1
 		}
 		],
 		"tileLinks": {
@@ -255,7 +255,7 @@
 				"left": 0,
 				"right": 0
 			},
-			"asset": "?binary+.svg!t=1"
+			"asset": "?binary?.svg!t=1"
 		}
 		],
 		"tileLinks": {
@@ -282,6 +282,62 @@
 			},
 			"assetFolder": "water"
 		}
+	},
+	{
+		"tileName": "player1",
+		"tileCode": "1",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 334,
+				"mid": 1000,
+				"bot": 334,
+				"left": 334,
+				"right": 334
+			},
+			"asset": "player_blue.svg",
+			"order": 1
+		},
+		{
+			"tileParts": {
+				"top": 334,
+				"mid": 1000,
+				"bot": 334,
+				"left": 334,
+				"right": 334
+			},
+			"asset": "player_gray.svg",
+			"order": 1
+		}
+		]
+	},
+	{
+		"tileName": "player2",
+		"tileCode": "2",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 334,
+				"mid": 1000,
+				"bot": 334,
+				"left": 334,
+				"right": 334
+			},
+			"asset": "player_red.svg",
+			"order": 1
+		},
+		{
+			"tileParts": {
+				"top": 334,
+				"mid": 1000,
+				"bot": 334,
+				"left": 334,
+				"right": 334
+			},
+			"asset": "player_gray.svg",
+			"order": 1
+		}
+		]
 	}
 	],
 	"biomes": [
@@ -324,6 +380,14 @@
 		},
 		{
 			"tile": "water",
+			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
 			"type": 1
 		}
 		]
@@ -368,6 +432,14 @@
 		{
 			"tile": "water",
 			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
+			"type": 1
 		}
 		]
 	},
@@ -411,6 +483,14 @@
 		{
 			"tile": "water",
 			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
+			"type": 1
 		}
 		]
 	},
@@ -453,6 +533,53 @@
 		},
 		{
 			"tile": "water",
+			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 2
+		}
+		]
+	},
+	{
+		"name": "grassfield",
+		"color1": "57,142,84",
+		"color2": "60,150,88",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 1
+		},
+		{
+			"tile": "blocking2",
+			"type": 3
+		},
+		{
+			"tile": "blocking3",
+			"type": 1
+		},
+		{
+			"tile": "blocking4",
+			"type": 1
+		},
+		{
+			"tile": "forest",
+			"type": 1
+		},
+		{
+			"tile": "fence",
+			"type": 1
+		},
+		{
+			"tile": "water",
+			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
 			"type": 1
 		}
 		]

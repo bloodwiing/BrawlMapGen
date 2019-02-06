@@ -4,26 +4,112 @@
 		"madeBy": "RedH1ghway aka theDonciuxx",
 		"withTheHelpOf": "4JR",
 		"gitHub": "example.org",
-		"version": "1.0"
+		"version": "1.3"
 	},
 	"preset": "brawlstars",
-	"map": [
-		"RRRRR...RRR.R..........RR...RRRRRR",
-		"RR..MMMMM..XXXXX..TTTTT..YYYYY..RR",
-		"R.....M....X......T........Y.....R",
-		"R.....M....XXXXX..TTTTT....Y.....R",
-		"R.....M....X..........T....Y.....R",
-		"RR....M....XXXXX..TTTTT....Y....RR",
-		"RRRRRR..RR..........RR......RRRRRR"
-    ],
-	"biome": 3,
-	"sizeMultiplier": 20,
-	"replaceTiles": [
+	"batch": [
 	{
-		"from": "R",
-		"to": "F"
+		"map": [
+			"JJJJJJJ.7.7.7.JJJJJJJ",
+			"JJJJJJJ.......JJJJJJJ",
+			"JJJJJJJ.......JJJJJJJ",
+			"JJJJJJJYY...YYJJJJJJJ",
+			"..YY.............YY..",
+			"..YY.............YY..",
+			".....................",
+			".........CCC.........",
+			"..CC..Y.......Y..CC..",
+			"..CC..Y.......Y..CC..",
+			"......YYY...YYY......",
+			"......RR2.2.2RR......",
+			"......RR.....RR......",
+			"...............YY....",
+			"..Y.....YYY.RR.YY....",
+			"..Y.........RR......Y",
+			"..Y...RR...........YY",
+			"..Y...RR............Y",
+			"..Y.......YYY..YY....",
+			"...............YY....",
+			"......RR.....RR......",
+			"......RR1.1.1RR......",
+			"......YYY...YYY......",
+			"..CC..Y.......Y..CC..",
+			"..CC..Y.......Y..CC..",
+			".........CCC.........",
+			".....................",
+			"..YY.............YY..",
+			"..YY.............YY..",
+			"JJJJJJJYY...YYJJJJJJJ",
+			"JJJJJJJ.......JJJJJJJ",
+			"JJJJJJJ.......JJJJJJJ",
+			"JJJJJJJ.6.6.6.JJJJJJJ"
+		],
+		"biome": 5,
+		"sizeMultiplier": 20,
+		"skipTiles": [ "J" ],
+		"replaceTiles": [
+		{
+			"from": "R",
+			"to": "F"
+		}
+		]
+	},
+	{
+		"map": [
+			"..RR....2.2.2....RR..",
+			"..RR.............RR..",
+			"NNNN.............NNNN",
+			".................RR..",
+			"..RR......8......RR..",
+			"..RR.................",
+			".....................",
+			"............Y........",
+			"NNNN.RR.....Y....NNNN",
+			"...N.RR.C.....RR.NRR.",
+			"...N.RR.......RR.NRR.",
+			".RRN..........RR.N...",
+			".RRWWWWWW...WWWWWW...",
+			"...WWWWWW...WWWWWW...",
+			".....................",
+			".....................",
+			".......NNNNNNN.......",
+			".....................",
+			".....................",
+			"...WWWWWW...WWWWWW...",
+			".RRWWWWWW...WWWWWW...",
+			".RRN..........RR.N...",
+			"...N.RR.......RR.NRR.",
+			"...N.RR.C.....RR.NRR.",
+			"NNNN.RR.....Y....NNNN",
+			"............Y........",
+			".....................",
+			"..RR.................",
+			"..RR......8......RR..",
+			".................RR..",
+			"NNNN.............NNNN",
+			"..RR.............RR..",
+			"..RR....1.1.1....RR.."
+		],
+		"biome": 1,
+		"sizeMultiplier": 20,
+		"skipTiles": [ "J" ],
+		"replaceTiles": [
+		{
+			"from": "R",
+			"to": "F"
+		}
+		]
 	}
 	],
-	"exportFileName": "output.png",
-	"saveLogFile": true
+	"exportFileName": "batch_?number?.png",
+	"exportFolderName": "output",
+	"saveLogFile": true,
+	"console": {
+		"setup": true,
+		"tileDraw": true,
+		"orderedHorTileDraw": true,
+		"orderedTileDraw": true,
+		"saveLocation": true,
+		"aal": true
+	}
 }

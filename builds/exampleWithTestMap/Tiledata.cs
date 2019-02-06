@@ -28,7 +28,8 @@ namespace generator
             public bool visible { get; set; }
             public string other { get; set; }
             public string asset { get; set; }
-            public int? priority { get; set; }
+            public int? orderHor { get; set; }
+            public int? order { get; set; }
         }
 
         public class TileParts
