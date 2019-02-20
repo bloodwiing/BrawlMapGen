@@ -14,16 +14,65 @@ namespace generator
     {
         static void Main(string[] args)
         {
+            var fArgs = " " + string.Join(" ", args);
+            string oLoc = "options.json";
+            string oStr = "";
+            string oEnd = "";
+            Options options = new Options();
 
-            if (!File.Exists("options.json"))
-                Environment.Exit(0);
+            if (fArgs.ToLower().Contains(" -f "))
+            {
+                oLoc = fArgs.Replace(" -f ", "@").Replace(" -F ", "@").Split('@')[1];
+                if (oLoc.Contains(" -"))
+                    oLoc = oLoc.Replace(" -", "#").Split('#')[0].Trim();
+                else
+                    oLoc = oLoc.Trim();
+            }
 
-            StreamReader r = new StreamReader("options.json");
-            string json = r.ReadToEnd();
-            var options = JsonConvert.DeserializeObject<Options>(json);
+            if (fArgs.ToLower().Contains(" -os "))
+            {
+                oStr = fArgs.Replace(" -os ", "@").Replace(" -Os ", "@").Replace(" -OS ", "@").Replace(" -oS ", "@").Split('@')[1];
+                if (oStr.Contains(" -"))
+                    oStr = oStr.Replace(" -", "#").Split('#')[0].Trim();
+                else
+                    oStr = oStr.Trim();
+            }
+
+            if (fArgs.ToLower().Contains(" -e "))
+            {
+                oEnd = fArgs.Replace(" -e ", "@").Replace(" -E ", "@").Split('@')[1].Trim();
+                if (oEnd.Contains(" -"))
+                    oEnd = oEnd.Replace(" -", "#").Split('#')[0].Trim();
+                else
+                    oEnd = oEnd.Trim();
+            }
+
+            if (oStr == "")
+            {
+                if (!File.Exists(oLoc))
+                {
+                    Console.WriteLine("\nERROR:\nOption file doesn't exist\n[FileReader] Unable to find file in location \"" + oLoc + "\"");
+                    Thread.Sleep(3000);
+                    Environment.Exit(1);
+                }
+
+                StreamReader r = new StreamReader(oLoc);
+                string json = r.ReadToEnd();
+                options = JsonConvert.DeserializeObject<Options>(json);
+            }
+            else
+            {
+                Console.WriteLine(oStr);
+                options = JsonConvert.DeserializeObject<Options>(oStr);
+            }
+
+            if (options.setPath != null)
+                Environment.CurrentDirectory = options.setPath;
+
+            File.WriteAllText("log.txt", JsonConvert.SerializeObject(options));
 
             if (options.console.setup)
-                Console.WriteLine("Brawl Map Gen v1.3\nCreated by RedH1ghway aka TheDonciuxx\nWith the help of 4JR\n\nLoading " + options.preset + " preset");
+                Console.WriteLine("Brawl Map Gen v1.4\nCreated by RedH1ghway aka TheDonciuxx\nWith the help of 4JR\n\nLoading " + options.preset + " preset");
 
             if (options.console.aal)
                 Console.WriteLine("[ AAL ] READ << presets\\" + options.preset + ".json");
@@ -48,7 +97,7 @@ namespace generator
                 bNumber++;
 
                 if (options.console.setup)
-                    Console.WriteLine("Reading the map in the index number " + bNumber + "...");
+                    Console.WriteLine("\nReading the map in the index number " + bNumber + "...");
 
                 var map = batchOption.map;
                 var sizeMultiplier = batchOption.sizeMultiplier;
@@ -68,7 +117,7 @@ namespace generator
                 int yLength = map.Length;
 
                 if (options.console.setup)
-                    Console.WriteLine("Updating info...\n\nImage size set to " + (sizeMultiplier * 2 + sizeMultiplier * xLength) + "px width and " + (sizeMultiplier * 2 + sizeMultiplier * yLength) + "px height.\nBiome set to \"" + tiledata.biomes[batchOption.biome - 1].name + "\"\n");
+                    Console.WriteLine("Updating info...\n\nImage size set to " + (sizeMultiplier * 2 + sizeMultiplier * xLength) + "px width and " + (sizeMultiplier * 2 + sizeMultiplier * yLength) + "px height.\nBiome set to \"" + tiledata.biomes[batchOption.biome - 1].name.ToUpper() + "\"\n");
 
                 Bitmap b = new Bitmap(sizeMultiplier * 2 + sizeMultiplier * xLength, sizeMultiplier * 2 + sizeMultiplier * yLength);
                 Graphics g = Graphics.FromImage(b);
@@ -128,7 +177,10 @@ namespace generator
 
                 List<OrderedTile> orderedTiles = new List<OrderedTile>();
 
-                Console.WriteLine("Drawing map no" + bNumber + "...");
+                if (batchOption.name != null)
+                    Console.WriteLine("Drawing map \"" + batchOption.name.ToUpper() + "\"...");
+                else
+                    Console.WriteLine("Drawing map no " + bNumber + "...");
 
                 foreach (string row in map)
                 {
@@ -259,6 +311,7 @@ namespace generator
                                                 continue;
                                             }
 
+                                            Console.WriteLine("assets\\tiles\\" + options.preset + "\\" + fols + defaultAsset);
                                             var li = SvgDocument.Open("assets\\tiles\\" + options.preset + "\\" + fols + defaultAsset);
                                             var liw = (int)Math.Round(li.Width * sizeMultiplier);
                                             var lih = (int)Math.Round(li.Height * sizeMultiplier);
@@ -375,21 +428,45 @@ namespace generator
                     exportName = exportName.Replace("?number?", bNumberText);
                 }
 
+                Console.WriteLine("[ AAL ] WRITE >> " + options.exportFolderName + "\\" + exportName);
+
                 if (options.exportFolderName != null)
                 {
                     if (options.exportFolderName.Trim() != "")
                     {
-                        if (!Directory.Exists(options.exportFolderName))
-                            Directory.CreateDirectory(options.exportFolderName);
-                        b.Save(options.exportFolderName + "\\" + exportName, ImageFormat.Png);
-                        if (options.console.aal)
-                            Console.WriteLine("[ AAL ] WRITE >> " + options.exportFolderName + "\\" + exportName);
-                        if (options.console.saveLocation)
-                            Console.WriteLine("\nImage saved to " + Environment.CurrentDirectory + options.exportFolderName + "\\" + exportName + ".");
+                        if (batchOption.exportFileName != null)
+                        {
+                            exportName = batchOption.exportFileName;
+                            if (batchOption.exportFileName.Contains("?number?"))
+                            {
+                                string bNumberText = SpaceFiller(bNumber, 4, '0');
+                                exportName = exportName.Replace("?number?", bNumberText);
+                            }
+                            if (!Directory.Exists(options.exportFolderName))
+                                Directory.CreateDirectory(options.exportFolderName);
+                            b.Save(options.exportFolderName + "\\" + exportName, ImageFormat.Png);
+                            if (options.console.aal)
+                                Console.WriteLine("[ AAL ] WRITE >> " + options.exportFolderName + "\\" + exportName);
+                            if (options.console.saveLocation)
+                                Console.WriteLine("\nImage saved to " + Environment.CurrentDirectory + options.exportFolderName + "\\" + exportName + ".");
+                        }
+                        else
+                        {
+                            if (!Directory.Exists(options.exportFolderName))
+                                Directory.CreateDirectory(options.exportFolderName);
+                            b.Save(options.exportFolderName + "\\" + exportName, ImageFormat.Png);
+                            if (options.console.aal)
+                                Console.WriteLine("[ AAL ] WRITE >> " + options.exportFolderName + "\\" + exportName);
+                            if (options.console.saveLocation)
+                                Console.WriteLine("\nImage saved to " + Environment.CurrentDirectory + options.exportFolderName + "\\" + exportName + ".");
+                        }
                     }
                     else
                     {
-                        b.Save(exportName, ImageFormat.Png);
+                        if (batchOption.exportFileName != null)
+                            b.Save(batchOption.exportFileName, ImageFormat.Png);
+                        else
+                            b.Save(exportName, ImageFormat.Png);
                         if (options.console.aal)
                             Console.WriteLine("[ AAL ] WRITE >> " + exportName);
                         Console.WriteLine("\nImage saved to " + Environment.CurrentDirectory + exportName + ".");
@@ -397,7 +474,10 @@ namespace generator
                 }
                 else
                 {
-                    b.Save(exportName, ImageFormat.Png);
+                    if (batchOption.exportFileName != null)
+                        b.Save(batchOption.exportFileName, ImageFormat.Png);
+                    else
+                        b.Save(exportName, ImageFormat.Png);
                     if (options.console.aal)
                         Console.WriteLine("[ AAL ] WRITE >> " + exportName);
                     Console.WriteLine("\nImage saved to " + Environment.CurrentDirectory + exportName + ".");
@@ -407,7 +487,8 @@ namespace generator
 
             Console.WriteLine("\nFinished.");
 
-            Console.ReadKey();
+            if (oEnd.ToLower() == "pause")
+                Console.ReadKey();
 
         }
 

@@ -9,6 +9,7 @@ namespace generator
     class Options
     {
 
+        public string setPath { get; set; }
         public string preset { get; set; }
         public BatchSettings[] batch { get; set; }
         public string exportFileName { get; set; }
@@ -24,11 +25,13 @@ namespace generator
 
         public class BatchSettings
         {
+            public string name { get; set; }
             public string[] map { get; set; }
             public int biome { get; set; }
             public int sizeMultiplier { get; set; }
             public char[] skipTiles { get; set; }
             public Replace[] replaceTiles { get; set; }
+            public string exportFileName { get; set; }
         }
 
         public class ConsoleOptions

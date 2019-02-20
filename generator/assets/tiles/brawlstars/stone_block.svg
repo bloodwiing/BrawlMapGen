@@ -137,9 +137,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="-171.1357"
-     inkscape:cy="215.69878"
+     inkscape:zoom="256"
+     inkscape:cx="0.25810919"
+     inkscape:cy="0.71642294"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -156,7 +156,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -181,6 +181,11 @@
          style="opacity:1;fill:#5671bf;fill-opacity:1;fill-rule:nonzero;stroke:#143c8a;stroke-width:1.01442456;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
          d="m -406.90772,-223.61855 c -0.27881,0 -0.50325,0.22445 -0.50325,0.50325 v 3.67215 2.53984 c 0,0.2788 0.22444,0.50325 0.50325,0.50325 h 3.42473 c 0.27878,0 0.50325,-0.22445 0.50325,-0.50325 v -2.53984 -3.67215 c 0,-0.2788 -0.22447,-0.50325 -0.50325,-0.50325 z"
          id="path14152-9" />
+      <path
+         id="path847"
+         d="m -406.90772,-223.61855 c -0.27881,0 -0.50325,0.22445 -0.50325,0.50325 v 3.67215 2.53984 c 0,0.2788 0.22444,0.50325 0.50325,0.50325 h 3.42473 c 0.27878,0 0.50325,-0.22445 0.50325,-0.50325 v -2.53984 -3.67215 c 0,-0.2788 -0.22447,-0.50325 -0.50325,-0.50325 z"
+         style="opacity:1;fill:#5671bf;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.01442456;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         inkscape:connector-curvature="0" />
       <rect
          ry="0.5032497"
          y="-223.6185"
