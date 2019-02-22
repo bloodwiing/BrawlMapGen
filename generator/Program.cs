@@ -423,8 +423,7 @@ namespace generator
                                                 });
                                                 continue;
                                             }
-
-                                            Console.WriteLine("assets\\tiles\\" + options.preset + "\\" + fols + defaultAsset);
+                                            
                                             var li = SvgDocument.Open("assets\\tiles\\" + options.preset + "\\" + fols + defaultAsset);
                                             var liw = (int)Math.Round(li.Width * sizeMultiplier);
                                             var lih = (int)Math.Round(li.Height * sizeMultiplier);
