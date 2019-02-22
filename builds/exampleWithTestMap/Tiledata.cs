@@ -11,6 +11,7 @@ namespace generator
 
         public Tile[] tiles { get; set; }
         public Biome[] biomes { get; set; }
+        public Gamemode[] gamemodes { get; set; }
 
         public class Tile
         {
@@ -74,6 +75,20 @@ namespace generator
         {
             public int tileType { get; set; }
             public string asset { get; set; }
+        }
+
+        public class Gamemode
+        {
+            public string name { get; set; }
+            public SpecialTile[] specialTiles { get; set; }
+        }
+
+        public class SpecialTile
+        {
+            public string tile { get; set; }
+            public int type { get; set; }
+            public string position { get; set; }
+            public int drawOrder { get; set; }
         }
 
     }
