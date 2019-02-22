@@ -146,7 +146,7 @@
 				"right": 112
 			},
 			"asset": "cactus.svg",
-			"orderHor": 2
+			"orderHor": 1
 		},
 		{
 			"tileParts": {
@@ -336,6 +336,119 @@
 			},
 			"asset": "player_gray.svg",
 			"order": 1
+		},
+		{
+			"tileParts": {
+				"top": 2000,
+				"mid": 1000,
+				"bot": 1000,
+				"left": 1500,
+				"right": 1500
+			},
+			"asset": "player_big.svg",
+			"order": 1
+		},
+		{
+			"tileParts": {
+				"top": 2959,
+				"mid": 1000,
+				"bot": 1842,
+				"left": 2380,
+				"right": 2380
+			},
+			"asset": "player_boss.svg",
+			"order": 1
+		},
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "nothing.svg"
+		}
+		]
+	},
+	{
+		"tileName": "objective",
+		"tileCode": "8",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 600,
+				"left": 545,
+				"right": 545
+			},
+			"asset": "mine.svg"
+		},
+		{
+			"tileParts": {
+				"top": 1171,
+				"mid": 1000,
+				"bot": 92,
+				"left": 530,
+				"right": 529
+			},
+			"asset": "vault.svg",
+			"orderHor": 2
+		},
+		{
+			"tileParts": {
+				"top": 866,
+				"mid": 1000,
+				"bot": 279,
+				"left": 97,
+				"right": 97
+			},
+			"asset": "bounty_star.svg"
+		},
+		{
+			"tileParts": {
+				"top": 1671,
+				"mid": 508,
+				"bot": 0,
+				"left": 530,
+				"right": 529
+			},
+			"asset": "vault.svg",
+			"orderHor": 2
+		},
+		{
+			"tileParts": {
+				"top": 349,
+				"mid": 1000,
+				"bot": 138,
+				"left": 162,
+				"right": 162
+			},
+			"asset": "brawlball.svg",
+			"order": 2
+		},
+		{
+			"tileParts": {
+				"top": 2851,
+				"mid": 1000,
+				"bot": 0,
+				"left": 2829,
+				"right": 2829
+			},
+			"asset": "goal_red.svg",
+			"order": 2
+		},
+		{
+			"tileParts": {
+				"top": 2534,
+				"mid": 1000,
+				"bot": 0,
+				"left": 2829,
+				"right": 2829
+			},
+			"asset": "goal_blue.svg",
+			"order": 2
 		}
 		]
 	}
@@ -389,6 +502,10 @@
 		{
 			"tile": "player2",
 			"type": 1
+		},
+		{
+			"tile": "objective",
+			"type": 2
 		}
 		]
 	},
@@ -440,6 +557,10 @@
 		{
 			"tile": "player2",
 			"type": 1
+		},
+		{
+			"tile": "objective",
+			"type": 2
 		}
 		]
 	},
@@ -538,6 +659,10 @@
 		{
 			"tile": "player1",
 			"type": 2
+		},
+		{
+			"tile": "player2",
+			"type": 5
 		}
 		]
 	},
@@ -581,6 +706,53 @@
 		{
 			"tile": "player2",
 			"type": 1
+		}
+		]
+	}
+	],
+	"gamemodes": [
+	{
+		"name": "Gem Grab",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 1,
+			"position": "m,m",
+			"drawOrder": 2
+		}
+		]
+	},
+	{
+		"name": "Bounty",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 3,
+			"position": "m,m",
+			"drawOrder": 2
+		}
+		]
+	},
+	{
+		"name": "Brawl Ball",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 5,
+			"position": "m,m",
+			"drawOrder": 2
+		},
+		{
+			"tile": "objective",
+			"type": 6,
+			"position": "m,2",
+			"drawOrder": 2
+		},
+		{
+			"tile": "objective",
+			"type": 7,
+			"position": "m,-2",
+			"drawOrder": 2
 		}
 		]
 	}

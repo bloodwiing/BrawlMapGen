@@ -17,7 +17,7 @@ namespace generator
             var fArgs = " " + string.Join(" ", args);
             string oLoc = "options.json";
             string oStr = "";
-            string oEnd = "";
+            string oEnd = "pause";
             Options options = new Options();
 
             if (fArgs.ToLower().Contains(" -f "))
@@ -72,7 +72,7 @@ namespace generator
             File.WriteAllText("log.txt", JsonConvert.SerializeObject(options));
 
             if (options.console.setup)
-                Console.WriteLine("Brawl Map Gen v1.4\nCreated by RedH1ghway aka TheDonciuxx\nWith the help of 4JR\n\nLoading " + options.preset + " preset");
+                Console.WriteLine("Brawl Map Gen v1.5\nCreated by RedH1ghway aka TheDonciuxx\nWith the help of 4JR\n\nLoading " + options.preset + " preset");
 
             if (options.console.aal)
                 Console.WriteLine("[ AAL ] READ << presets\\" + options.preset + ".json");
@@ -182,6 +182,73 @@ namespace generator
                 else
                     Console.WriteLine("Drawing map no " + bNumber + "...");
 
+                Tiledata.Gamemode mapGamemode = null;
+                foreach (var gm in tiledata.gamemodes)
+                {
+                    if (gm == null || batchOption.gamemode == null)
+                        break;
+                    if (gm.name == batchOption.gamemode)
+                        mapGamemode = gm;
+                }
+
+                if (mapGamemode != null)
+                    foreach (var st in mapGamemode.specialTiles)
+                    {
+                        if (st.drawOrder == 1)
+                        {
+                            foreach (Tiledata.Tile oTile in tiledata.tiles)
+                            {
+                                if (oTile.tileName == st.tile)
+                                {
+                                    int xLoc = 0;
+                                    int yLoc = 0;
+                                    string xsLoc = st.position.Split(',')[0].Trim().ToLower();
+                                    string ysLoc = st.position.Split(',')[1].Trim().ToLower();
+                                    if (!int.TryParse(xsLoc, out xLoc))
+                                    {
+                                        if (xsLoc == "left" || xsLoc == "l") { xLoc = 0; xsLoc = "L"; }
+                                        else if (xsLoc == "mid" || xsLoc == "m") { xLoc = (xLength - 1) / 2; xsLoc = "M"; }
+                                        else if (xsLoc == "right" || xsLoc == "r") { xLoc = xLength - 1; xsLoc = "R"; }
+                                    }
+                                    if (!int.TryParse(ysLoc, out yLoc))
+                                    {
+                                        if (ysLoc == "top" || ysLoc == "t") { yLoc = 0; ysLoc = "T"; }
+                                        else if (ysLoc == "mid" || ysLoc == "m") { yLoc = (yLength - 1) / 2; ysLoc = "M"; }
+                                        else if (ysLoc == "bottom" || ysLoc == "bot" || ysLoc == "b") { yLoc = yLength - 1; ysLoc = "B"; }
+                                    }
+
+                                    if (xLoc < 0)
+                                    {
+                                        xLoc = xLength - (1 + xLoc / -1);
+                                        xsLoc = xLoc.ToString();
+                                    }
+                                    if (yLoc < 0)
+                                    {
+                                        yLoc = yLength - (1 + yLoc / -1);
+                                        ysLoc = yLoc.ToString();
+                                    }
+
+                                    var i = SvgDocument.Open("assets\\tiles\\" + options.preset + "\\" + oTile.tileTypes[st.type - 1].asset);
+                                    var iw = (int)Math.Round(i.Width * sizeMultiplier);
+                                    var ih = (int)Math.Round(i.Height * sizeMultiplier);
+                                    var ihm = (int)Math.Round((double)oTile.tileTypes[st.type - 1].tileParts.top * sizeMultiplier / 1000);
+                                    var iwm = (int)Math.Round((double)oTile.tileTypes[st.type - 1].tileParts.left * sizeMultiplier / 1000);
+
+                                    if (options.console.tileDraw)
+                                        Console.WriteLine("g   d [" + oTile.tileCode + "] < y: " + SpaceFiller(ysLoc, yLength.ToString().ToCharArray().Length, ' ') + " / x: " + SpaceFiller(xsLoc, xLength.ToString().ToCharArray().Length, ' ') + " >  DRAWN AS \"" + oTile.tileName.ToUpper() + "\".");
+
+                                    g.DrawImage(i.Draw(iw, ih), sizeMultiplier + sizeMultiplier * xLoc - iwm, sizeMultiplier + sizeMultiplier * yLoc - ihm);
+                                }
+                            }
+                        }
+                    }
+
+                Options.SpecialTileRules[] str = null;
+                if (batchOption.specialTileRules != null)
+                    str = batchOption.specialTileRules;
+
+                List<Options.RecordedSTR> rstr = new List<Options.RecordedSTR>();
+
                 foreach (string row in map)
                 {
                     List<OrderedTile> orderedHorTiles = new List<OrderedTile>();
@@ -204,15 +271,61 @@ namespace generator
                                 tile = repTile.to;
                         }
 
+                        if (str != null)
+                        {
+                            bool drawn = false;
+                            foreach (var ostr in str)
+                                if (ostr.tileCode == tile)
+                                {
+                                    Options.RecordRSTR(rstr, tile);
+                                    foreach (var orstr in rstr)
+                                        if (orstr.tileCode == tile)
+                                            if (ostr.tileTime == orstr.tileTime)
+                                                foreach (var aTile in tiledata.tiles)
+                                                    if (aTile.tileCode == tile)
+                                                    {
+                                                        var i = SvgDocument.Open("assets\\tiles\\" + options.preset + "\\" + aTile.tileTypes[ostr.tileType - 1].asset);
+                                                        var iw = (int)Math.Round(i.Width * sizeMultiplier);
+                                                        var ih = (int)Math.Round(i.Height * sizeMultiplier);
+                                                        var ihm = (int)Math.Round((double)aTile.tileTypes[ostr.tileType - 1].tileParts.top * sizeMultiplier / 1000);
+                                                        var iwm = (int)Math.Round((double)aTile.tileTypes[ostr.tileType - 1].tileParts.left * sizeMultiplier / 1000);
+
+                                                        if (options.console.tileDraw)
+                                                            Console.WriteLine(" s  d [" + tile + "] < y: " + SpaceFiller(currentY, yLength.ToString().ToCharArray().Length, ' ') + " / x: " + SpaceFiller(currentX, xLength.ToString().ToCharArray().Length, ' ') + " >  DRAWN AS \"" + aTile.tileName.ToUpper() + "\" (SPECIAL TILE RULES).");
+
+                                                        g.DrawImage(i.Draw(iw, ih), sizeMultiplier + sizeMultiplier * currentX - iwm, sizeMultiplier + sizeMultiplier * currentY - ihm);
+
+                                                        drawn = true;
+
+                                                        break;
+                                                    }
+                                }
+                            if (drawn)
+                            {
+                                currentX++;
+                                continue;
+                            }
+                        }
+
                         string NeighborBinary = "";
 
                         foreach (Tiledata.Tile aTile in tiledata.tiles)
                         {
                             if (aTile.tileCode == tile)
                             {
+                                Tiledata.TileDefault setTileDefault = null;
                                 foreach (Tiledata.TileDefault tileDefault in tiledata.biomes[batchOption.biome - 1].defaults)
                                 {
-                                    if (tileDefault.tile == aTile.tileName)
+                                    setTileDefault = tileDefault;
+                                    if (batchOption.overrideBiome != null)
+                                        foreach (var overrideTile in batchOption.overrideBiome)
+                                            if (overrideTile.tile == tileDefault.tile)
+                                            {
+                                                setTileDefault = overrideTile;
+                                                break;
+                                            }
+
+                                    if (setTileDefault.tile == aTile.tileName)
                                     {
                                         if (aTile.tileLinks != null)
                                         {
@@ -325,13 +438,13 @@ namespace generator
                                             continue;
                                         }
 
-                                        if (aTile.tileTypes[tileDefault.type - 1].order != null)
+                                        if (aTile.tileTypes[setTileDefault.type - 1].order != null)
                                         {
                                             if (options.console.tileDraw)
                                                 Console.WriteLine("  o   [" + tTile + "] < y: " + SpaceFiller(currentY, yLength.ToString().ToCharArray().Length, ' ') + " / x: " + SpaceFiller(currentX, xLength.ToString().ToCharArray().Length, ' ') + " >  DELAYED FOR ORDERING.");
                                             orderedTiles.Add(new OrderedTile()
                                             {
-                                                tileType = aTile.tileTypes[tileDefault.type - 1],
+                                                tileType = aTile.tileTypes[setTileDefault.type - 1],
                                                 xPosition = currentX,
                                                 yPosition = currentY,
                                                 tileCode = aTile.tileCode,
@@ -339,13 +452,13 @@ namespace generator
                                             });
                                             continue;
                                         }
-                                        if (aTile.tileTypes[tileDefault.type - 1].orderHor != null)
+                                        if (aTile.tileTypes[setTileDefault.type - 1].orderHor != null)
                                         {
                                             if (options.console.tileDraw)
                                                 Console.WriteLine("  oh  [" + tTile + "] < y: " + SpaceFiller(currentY, yLength.ToString().ToCharArray().Length, ' ') + " / x: " + SpaceFiller(currentX, xLength.ToString().ToCharArray().Length, ' ') + " >  DELAYED FOR HORIZONTAL ORDERING.");
                                             orderedHorTiles.Add(new OrderedTile()
                                             {
-                                                tileType = aTile.tileTypes[tileDefault.type - 1],
+                                                tileType = aTile.tileTypes[setTileDefault.type - 1],
                                                 xPosition = currentX,
                                                 yPosition = currentY,
                                                 tileCode = aTile.tileCode,
@@ -354,11 +467,11 @@ namespace generator
                                             continue;
                                         }
 
-                                        var i = SvgDocument.Open("assets\\tiles\\" + options.preset + "\\" + aTile.tileTypes[tileDefault.type - 1].asset);
+                                        var i = SvgDocument.Open("assets\\tiles\\" + options.preset + "\\" + aTile.tileTypes[setTileDefault.type - 1].asset);
                                         var iw = (int)Math.Round(i.Width * sizeMultiplier);
                                         var ih = (int)Math.Round(i.Height * sizeMultiplier);
-                                        var ihm = (int)Math.Round((double)aTile.tileTypes[tileDefault.type - 1].tileParts.top * sizeMultiplier / 1000);
-                                        var iwm = (int)Math.Round((double)aTile.tileTypes[tileDefault.type - 1].tileParts.left * sizeMultiplier / 1000);
+                                        var ihm = (int)Math.Round((double)aTile.tileTypes[setTileDefault.type - 1].tileParts.top * sizeMultiplier / 1000);
+                                        var iwm = (int)Math.Round((double)aTile.tileTypes[setTileDefault.type - 1].tileParts.left * sizeMultiplier / 1000);
 
                                         if (options.console.tileDraw)
                                             Console.WriteLine("    d [" + tTile + "] < y: " + SpaceFiller(currentY, yLength.ToString().ToCharArray().Length, ' ') + " / x: " + SpaceFiller(currentX, xLength.ToString().ToCharArray().Length, ' ') + " >  DRAWN AS \"" + aTile.tileName.ToUpper() + "\".");
@@ -373,15 +486,17 @@ namespace generator
                         currentX++;
 
                     }
-
-                    int currentHorOrdered = 0;
-                    ++currentHorOrdered;
+                    
+                    int highestHorOrder = 1;
                     foreach (var pTile in orderedHorTiles)
                     {
                         if (pTile == null)
                             continue;
-                        if (pTile.tileType.orderHor.GetValueOrDefault() != currentHorOrdered)
+                        if (pTile.tileType.orderHor.GetValueOrDefault() > highestHorOrder)
+                            highestHorOrder = pTile.tileType.orderHor.GetValueOrDefault();
+                        if (pTile.tileType.orderHor.GetValueOrDefault() != 1)
                             continue;
+
                         var i = SvgDocument.Open("assets\\tiles\\" + options.preset + "\\" + pTile.tileType.asset);
                         var iw = (int)Math.Round(i.Width * sizeMultiplier);
                         var ih = (int)Math.Round(i.Height * sizeMultiplier);
@@ -394,18 +509,39 @@ namespace generator
                         g.DrawImage(i.Draw(iw, ih), sizeMultiplier + sizeMultiplier * pTile.xPosition - iwm, sizeMultiplier + sizeMultiplier * pTile.yPosition - ihm);
                     }
 
+                    for (int currentHorOrdered = 2; currentHorOrdered <= highestHorOrder; currentHorOrdered++)
+                        foreach (var pTile in orderedHorTiles)
+                        {
+                            if (pTile == null)
+                                continue;
+                            if (pTile.tileType.orderHor.GetValueOrDefault() != currentHorOrdered)
+                                continue;
+
+                            var i = SvgDocument.Open("assets\\tiles\\" + options.preset + "\\" + pTile.tileType.asset);
+                            var iw = (int)Math.Round(i.Width * sizeMultiplier);
+                            var ih = (int)Math.Round(i.Height * sizeMultiplier);
+                            var ihm = (int)Math.Round((double)pTile.tileType.tileParts.top * sizeMultiplier / 1000);
+                            var iwm = (int)Math.Round((double)pTile.tileType.tileParts.left * sizeMultiplier / 1000);
+
+                            if (options.console.orderedHorTileDraw)
+                                Console.WriteLine("  ohd [" + pTile.tileCode + "] < y: " + SpaceFiller(pTile.yPosition, yLength.ToString().ToCharArray().Length, ' ') + " / x: " + SpaceFiller(pTile.xPosition, xLength.ToString().ToCharArray().Length, ' ') + " >  DRAWN HORIZONTALLY ORDERED TILE AS \"" + pTile.tileName.ToUpper() + "\".");
+
+                            g.DrawImage(i.Draw(iw, ih), sizeMultiplier + sizeMultiplier * pTile.xPosition - iwm, sizeMultiplier + sizeMultiplier * pTile.yPosition - ihm);
+                        }
+
                     currentX = 0;
                     currentY++;
 
                 }
 
-                int currentOrdered = 0;
-                ++currentOrdered;
+                int highestOrder = 1;
                 foreach (var pTile in orderedTiles)
                 {
                     if (pTile == null)
                         continue;
-                    if (pTile.tileType.order.GetValueOrDefault() != currentOrdered)
+                    if (pTile.tileType.orderHor.GetValueOrDefault() > highestOrder)
+                        highestOrder = pTile.tileType.orderHor.GetValueOrDefault();
+                    if (pTile.tileType.order.GetValueOrDefault() != 1)
                         continue;
                     var i = SvgDocument.Open("assets\\tiles\\" + options.preset + "\\" + pTile.tileType.asset);
                     var iw = (int)Math.Round(i.Width * sizeMultiplier);
@@ -419,6 +555,77 @@ namespace generator
                     g.DrawImage(i.Draw(iw, ih), sizeMultiplier + sizeMultiplier * pTile.xPosition - iwm, sizeMultiplier + sizeMultiplier * pTile.yPosition - ihm);
                 }
 
+                for (int currentOrdered = 2; currentOrdered <= highestOrder; currentOrdered++)
+                    foreach (var pTile in orderedTiles)
+                    {
+                        if (pTile == null)
+                            continue;
+                        if (pTile.tileType.order.GetValueOrDefault() != currentOrdered)
+                            continue;
+                        var i = SvgDocument.Open("assets\\tiles\\" + options.preset + "\\" + pTile.tileType.asset);
+                        var iw = (int)Math.Round(i.Width * sizeMultiplier);
+                        var ih = (int)Math.Round(i.Height * sizeMultiplier);
+                        var ihm = (int)Math.Round((double)pTile.tileType.tileParts.top * sizeMultiplier / 1000);
+                        var iwm = (int)Math.Round((double)pTile.tileType.tileParts.left * sizeMultiplier / 1000);
+
+                        if (options.console.orderedTileDraw)
+                            Console.WriteLine("  o d [" + pTile.tileCode + "] < y: " + SpaceFiller(pTile.yPosition, yLength.ToString().ToCharArray().Length, ' ') + " / x: " + SpaceFiller(pTile.xPosition, xLength.ToString().ToCharArray().Length, ' ') + " >  DRAWN ORDERED TILE AS \"" + pTile.tileName.ToUpper() + "\".");
+
+                        g.DrawImage(i.Draw(iw, ih), sizeMultiplier + sizeMultiplier * pTile.xPosition - iwm, sizeMultiplier + sizeMultiplier * pTile.yPosition - ihm);
+                    }
+
+                if (mapGamemode != null)
+                    foreach (var st in mapGamemode.specialTiles)
+                    {
+                        if (st.drawOrder == 2)
+                        {
+                            foreach (Tiledata.Tile oTile in tiledata.tiles)
+                            {
+                                if (oTile.tileName == st.tile)
+                                {
+                                    int xLoc = 0;
+                                    int yLoc = 0;
+                                    string xsLoc = st.position.Split(',')[0].Trim().ToLower();
+                                    string ysLoc = st.position.Split(',')[1].Trim().ToLower();
+                                    if (!int.TryParse(xsLoc, out xLoc))
+                                    {
+                                        if (xsLoc == "left" || xsLoc == "l") { xLoc = 0; xsLoc = "L"; }
+                                        else if (xsLoc == "mid" || xsLoc == "m") { xLoc = (xLength - 1) / 2; xsLoc = "M"; }
+                                        else if (xsLoc == "right" || xsLoc == "r") { xLoc = xLength - 1; xsLoc = "R"; }
+                                    }
+                                    if (!int.TryParse(ysLoc, out yLoc))
+                                    {
+                                        if (ysLoc == "top" || ysLoc == "t") { yLoc = 0; ysLoc = "T"; }
+                                        else if (ysLoc == "mid" || ysLoc == "m") { yLoc = (yLength - 1) / 2; ysLoc = "M"; }
+                                        else if (ysLoc == "bottom" || ysLoc == "bot" || ysLoc == "b") { yLoc = yLength - 1; ysLoc = "B"; }
+                                    }
+
+                                    if (xLoc < 0)
+                                    {
+                                        xLoc = xLength - (1 + xLoc / -1);
+                                        xsLoc = xLoc.ToString();
+                                    }
+                                    if (yLoc < 0)
+                                    {
+                                        yLoc = yLength - (1 + yLoc / -1);
+                                        ysLoc = yLoc.ToString();
+                                    }
+
+                                    var i = SvgDocument.Open("assets\\tiles\\" + options.preset + "\\" + oTile.tileTypes[st.type - 1].asset);
+                                    var iw = (int)Math.Round(i.Width * sizeMultiplier);
+                                    var ih = (int)Math.Round(i.Height * sizeMultiplier);
+                                    var ihm = (int)Math.Round((double)oTile.tileTypes[st.type - 1].tileParts.top * sizeMultiplier / 1000);
+                                    var iwm = (int)Math.Round((double)oTile.tileTypes[st.type - 1].tileParts.left * sizeMultiplier / 1000);
+
+                                    if (options.console.tileDraw)
+                                        Console.WriteLine("g   d [" + oTile.tileCode + "] < y: " + SpaceFiller(ysLoc, yLength.ToString().ToCharArray().Length, ' ') + " / x: " + SpaceFiller(xsLoc, xLength.ToString().ToCharArray().Length, ' ') + " >  DRAWN AS \"" + oTile.tileName.ToUpper() + "\".");
+
+                                    g.DrawImage(i.Draw(iw, ih), sizeMultiplier + sizeMultiplier * xLoc - iwm, sizeMultiplier + sizeMultiplier * yLoc - ihm);
+                                }
+                            }
+                        }
+                    }
+
                 string exportName = options.exportFileName;
 
                 if (exportName.Contains("?number?"))
@@ -427,8 +634,6 @@ namespace generator
 
                     exportName = exportName.Replace("?number?", bNumberText);
                 }
-
-                Console.WriteLine("[ AAL ] WRITE >> " + options.exportFolderName + "\\" + exportName);
 
                 if (options.exportFolderName != null)
                 {

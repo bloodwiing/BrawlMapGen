@@ -32,6 +32,9 @@ namespace generator
             public char[] skipTiles { get; set; }
             public Replace[] replaceTiles { get; set; }
             public string exportFileName { get; set; }
+            public Tiledata.TileDefault[] overrideBiome { get; set; }
+            public SpecialTileRules[] specialTileRules { get; set; }
+            public string gamemode { get; set; }
         }
 
         public class ConsoleOptions
@@ -42,6 +45,35 @@ namespace generator
             public bool orderedTileDraw { get; set; }
             public bool saveLocation { get; set; }
             public bool aal { get; set; }
+        }
+
+        public class SpecialTileRules
+        {
+            public char tileCode { get; set; }
+            public int tileTime { get; set; }
+            public int tileType { get; set; }
+        }
+
+        public class RecordedSTR
+        {
+            public char tileCode { get; set; }
+            public int tileTime { get; set; }
+        }
+
+        public static void RecordRSTR(List<RecordedSTR> rstrArray, char tileCode)
+        {
+            foreach (var rstro in rstrArray)
+                if (rstro.tileCode == tileCode)
+                {
+                    rstro.tileTime++;
+                    return;
+                }
+
+            rstrArray.Add(new RecordedSTR()
+            {
+                tileCode = tileCode,
+                tileTime = 1
+            });
         }
 
     }

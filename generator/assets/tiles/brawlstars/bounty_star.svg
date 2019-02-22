@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="256"
-     inkscape:cx="0.62699963"
-     inkscape:cy="0.93495271"
+     inkscape:cx="0.54496838"
+     inkscape:cy="0.65370271"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -85,6 +85,23 @@
            style="opacity:1;fill:#fce45c;fill-opacity:1;fill-rule:nonzero;stroke:#400f16;stroke-width:7.88934803;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
            sodipodi:type="star" />
         <path
+           sodipodi:type="star"
+           style="opacity:1;fill:#fce45c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:7.88934803;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+           id="path17027"
+           sodipodi:sides="6"
+           sodipodi:cx="-208.44733"
+           sodipodi:cy="-618.0614"
+           sodipodi:r1="25.072561"
+           sodipodi:r2="17.901882"
+           sodipodi:arg1="1.5707963"
+           sodipodi:arg2="2.0943951"
+           inkscape:flatsided="false"
+           inkscape:rounded="0"
+           inkscape:randomized="0"
+           d="m -208.44733,-592.98884 -8.95094,-9.56908 -12.76253,-2.9672 3.81159,-12.53628 -3.81159,-12.53628 12.76253,-2.96721 8.95094,-9.56907 8.95094,9.56907 12.76254,2.96721 -3.81159,12.53628 3.81159,12.53628 -12.76254,2.9672 z"
+           inkscape:transform-center-x="-3.344985e-006"
+           inkscape:transform-center-y="7.786566e-006" />
+        <path
            inkscape:connector-curvature="0"
            id="path13155"
            transform="scale(0.26458333)"
@@ -104,7 +121,7 @@
            style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
       </g>
       <rect
-         style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.04788959;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         style="opacity:0.102;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.04788959;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
          id="rect13163"
          width="5.4445133"
          height="5.4445133"
