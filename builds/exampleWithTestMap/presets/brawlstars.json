@@ -255,7 +255,7 @@
 				"left": 0,
 				"right": 0
 			},
-			"asset": "?binary?.svg!t=1"
+			"asset": "?binary?.svg"
 		}
 		],
 		"tileLinks": {
@@ -394,7 +394,7 @@
 				"right": 529
 			},
 			"asset": "vault.svg",
-			"orderHor": 2
+			"order": 3
 		},
 		{
 			"tileParts": {
@@ -415,7 +415,7 @@
 				"right": 529
 			},
 			"asset": "vault.svg",
-			"orderHor": 2
+			"order": 3
 		},
 		{
 			"tileParts": {
@@ -663,6 +663,10 @@
 		{
 			"tile": "player2",
 			"type": 5
+		},
+		{
+			"tile": "objective",
+			"type": 2
 		}
 		]
 	},
