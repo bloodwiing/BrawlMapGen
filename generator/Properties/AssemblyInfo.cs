@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("generator")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("BrawlMapGen")]
+[assembly: AssemblyDescription("A generator which generates map images from arrays of strings and vector tiles.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("generator")]
+[assembly: AssemblyCompany("MortalCode")]
+[assembly: AssemblyProduct("Brawl Stars Map Generator")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
