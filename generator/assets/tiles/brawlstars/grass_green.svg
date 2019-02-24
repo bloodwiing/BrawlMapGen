@@ -15,7 +15,7 @@
    version="1.1"
    id="svg8660"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="grass.svg">
+   sodipodi:docname="grass_green.svg">
   <defs
      id="defs8654" />
   <sodipodi:namedview
@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="90.509668"
-     inkscape:cx="1.1343849"
-     inkscape:cy="2.8930722"
+     inkscape:zoom="256"
+     inkscape:cx="0.95045516"
+     inkscape:cy="0.84340514"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -40,7 +40,8 @@
      inkscape:window-height="1057"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="1"
+     inkscape:snap-midpoints="true" />
   <metadata
      id="metadata8657">
     <rdf:RDF>
@@ -49,7 +50,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -143,13 +144,6 @@
          style="opacity:1"
          transform="matrix(1.0468529,0,0,1.0468529,79.439752,49.461508)"
          id="g11248-3">
-        <rect
-           y="-1054.8741"
-           x="-1695.2"
-           height="0.25356531"
-           width="5.2898402"
-           id="rect11238-4"
-           style="opacity:1;fill:#055d11;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.89406079;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
         <path
            style="opacity:1;fill:#10741c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4.04755688;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
            d="m -1691.6734,-1057.101 c 0,1.008 -0.3948,1.8251 -0.8817,1.8251 -0.4869,0 -0.8817,-0.8171 -0.8817,-1.8251 0,-0.1983 0.5804,-1.8252 0.8817,-1.8252 0.3013,0 0.8817,1.5897 0.8817,1.8252 z"
@@ -175,6 +169,13 @@
            id="path11246-3"
            inkscape:connector-curvature="0"
            sodipodi:nodetypes="scszs" />
+        <rect
+           y="-1055.1078"
+           x="-1695.2"
+           height="0.48726463"
+           width="5.2906008"
+           id="rect11238-4"
+           style="opacity:1;fill:#055d11;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.23946941;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
       </g>
       <rect
          ry="0"
