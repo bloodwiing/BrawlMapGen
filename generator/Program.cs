@@ -762,6 +762,7 @@ namespace generator
         {
             string p;
             string t;
+            string n = tile.tileName.ToUpper();
 
             if (tat.g) p = "g"; else p = " ";
             if (tat.s) p = p + "s"; else p = p + " ";
@@ -770,7 +771,7 @@ namespace generator
             if (tat.d) p = p + "d"; else p = p + " ";
 
             if (tat.g)
-                t = "DRAWN AS \"" + tile.tileName + "\".";
+                t = "DRAWN AS \"" + n + "\".";
             else if (tat.s)
             {
                 if (tat.o)
@@ -778,22 +779,22 @@ namespace generator
                     if (tat.h)
                     {
                         if (tat.d)
-                            t = "DRAWN HORIZONTALLY ORDERED TILE AS \"" + tile.tileName + "\" (SPECIAL TILE RULES).";
+                            t = "DRAWN HORIZONTALLY ORDERED TILE AS \"" + n + "\" (SPECIAL TILE RULES).";
                         else
-                            t = "\"" + tile.tileName + "\" DELAYED FOR HORIZONTAL ORDERING (SPECIAL TILE RULES).";
+                            t = "\"" + n + "\" DELAYED FOR HORIZONTAL ORDERING (SPECIAL TILE RULES).";
                     }
                     else
                     {
                         if (tat.d)
-                            t = "DRAWN ORDERED TILE AS \"" + tile.tileName + "\" (SPECIAL TILE RULES).";
+                            t = "DRAWN ORDERED TILE AS \"" + n + "\" (SPECIAL TILE RULES).";
                         else
-                            t = "\"" + tile.tileName + "\" DELAYED FOR ORDERING (SPECIAL TILE RULES).";
+                            t = "\"" + n + "\" DELAYED FOR ORDERING (SPECIAL TILE RULES).";
                     }
                 }
                 else
                 {
                     if (tat.d)
-                        t = "DRAWN AS \"" + tile.tileName + "\" (SPECIAL TILE RULES).";
+                        t = "DRAWN AS \"" + n + "\" (SPECIAL TILE RULES).";
                     else
                         t = "SKIPPED.";
                 }
@@ -803,20 +804,20 @@ namespace generator
                 if (tat.h)
                 {
                     if (tat.d)
-                        t = "DRAWN HORIZONTALLY ORDERED TILE AS \"" + tile.tileName + "\".";
+                        t = "DRAWN HORIZONTALLY ORDERED TILE AS \"" + n + "\".";
                     else
-                        t = "\"" + tile.tileName + "\" DELAYED FOR HORIZONTAL ORDERING.";
+                        t = "\"" + n + "\" DELAYED FOR HORIZONTAL ORDERING.";
                 }
                 else
                 {
                     if (tat.d)
-                        t = "DRAWN ORDERED TILE AS \"" + tile.tileName + "\".";
+                        t = "DRAWN ORDERED TILE AS \"" + n + "\".";
                     else
-                        t = "\"" + tile.tileName + "\" DELAYED FOR ORDERING.";
+                        t = "\"" + n + "\" DELAYED FOR ORDERING.";
                 }
             }
             else
-                t = "DRAWN AS \"" + tile.tileName + "\"";
+                t = "DRAWN AS \"" + n + "\"";
 
             return p + " [" + tile.tileCode + "] < y: " + SpaceFiller(yLocation, yLocationMax.ToString().ToCharArray().Length, ' ') + " / x: " + SpaceFiller(xLocation, xLocationMax.ToString().ToCharArray().Length, ' ') + " > " + t;
         }
@@ -824,6 +825,7 @@ namespace generator
         {
             string p;
             string t;
+            string n = tile.tileName.ToUpper();
 
             if (tat.g) p = "g"; else p = " ";
             if (tat.s) p = p + "s"; else p = p + " ";
@@ -832,7 +834,7 @@ namespace generator
             if (tat.d) p = p + "d"; else p = p + " ";
 
             if (tat.g)
-                t = "DRAWN AS \"" + tile.tileName + "\".";
+                t = "DRAWN AS \"" + n + "\".";
             else if (tat.s)
             {
                 if (tat.o)
@@ -840,22 +842,22 @@ namespace generator
                     if (tat.h)
                     {
                         if (tat.d)
-                            t = "DRAWN HORIZONTALLY ORDERED TILE AS \"" + tile.tileName.ToUpper() + "\" (SPECIAL TILE RULES).";
+                            t = "DRAWN HORIZONTALLY ORDERED TILE AS \"" + n + "\" (SPECIAL TILE RULES).";
                         else
-                            t = "\"" + tile.tileName.ToUpper() + "\" DELAYED FOR HORIZONTAL ORDERING (SPECIAL TILE RULES).";
+                            t = "\"" + n + "\" DELAYED FOR HORIZONTAL ORDERING (SPECIAL TILE RULES).";
                     }
                     else
                     {
                         if (tat.d)
-                            t = "DRAWN ORDERED TILE AS \"" + tile.tileName.ToUpper() + "\" (SPECIAL TILE RULES).";
+                            t = "DRAWN ORDERED TILE AS \"" + n + "\" (SPECIAL TILE RULES).";
                         else
-                            t = "\"" + tile.tileName.ToUpper() + "\" DELAYED FOR ORDERING (SPECIAL TILE RULES).";
+                            t = "\"" + n + "\" DELAYED FOR ORDERING (SPECIAL TILE RULES).";
                     }
                 }
                 else
                 {
                     if (tat.d)
-                        t = "DRAWN AS \"" + tile.tileName.ToUpper() + "\" (SPECIAL TILE RULES).";
+                        t = "DRAWN AS \"" + n + "\" (SPECIAL TILE RULES).";
                     else
                         t = "SKIPPED.";
                 }
@@ -865,20 +867,20 @@ namespace generator
                 if (tat.h)
                 {
                     if (tat.d)
-                        t = "DRAWN HORIZONTALLY ORDERED TILE AS \"" + tile.tileName.ToUpper() + "\".";
+                        t = "DRAWN HORIZONTALLY ORDERED TILE AS \"" + n + "\".";
                     else
-                        t = "\"" + tile.tileName.ToUpper() + "\" DELAYED FOR HORIZONTAL ORDERING.";
+                        t = "\"" + n + "\" DELAYED FOR HORIZONTAL ORDERING.";
                 }
                 else
                 {
                     if (tat.d)
-                        t = "DRAWN ORDERED TILE AS \"" + tile.tileName.ToUpper() + "\".";
+                        t = "DRAWN ORDERED TILE AS \"" + n + "\".";
                     else
-                        t = "\"" + tile.tileName.ToUpper() + "\" DELAYED FOR ORDERING.";
+                        t = "\"" + n + "\" DELAYED FOR ORDERING.";
                 }
             }
             else
-                t = "DRAWN AS \"" + tile.tileName.ToUpper() + "\"";
+                t = "DRAWN AS \"" + n + "\"";
 
             return p + " [" + tile.tileCode + "] < y: " + SpaceFiller(yLocation, yLocationMax.ToString().ToCharArray().Length, ' ') + " / x: " + SpaceFiller(xLocation, xLocationMax.ToString().ToCharArray().Length, ' ') + " > " + t;
         }
