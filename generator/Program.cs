@@ -763,6 +763,9 @@ namespace generator
                 if (!Directory.Exists(optionsObject.exportFolderName))
                     Directory.CreateDirectory(optionsObject.exportFolderName);
                 b.Save(optionsObject.exportFolderName + "\\" + fileName, ImageFormat.Png);
+
+                b.Dispose();
+                g.Dispose();
             }
         }
 
