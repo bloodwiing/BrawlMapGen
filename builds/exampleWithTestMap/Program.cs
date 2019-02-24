@@ -72,7 +72,7 @@ namespace generator
                 if (options.setPath != null)
                     Environment.CurrentDirectory = options.setPath;
 
-                voice.Speak("Brawl Map Gen v1.6\nCreated by RedH1ghway aka TheDonciuxx\nWith the help of 4JR\n\nLoading " + options.preset + " preset", ActionType.setup);
+                voice.Speak("Brawl Map Gen v1.6.1\nCreated by RedH1ghway aka TheDonciuxx\nWith the help of 4JR\n\nLoading " + options.preset + " preset", ActionType.setup);
                 voice.Speak("[ AAL ] READ << presets\\" + options.preset + ".json", ActionType.aal);
 
                 if (!File.Exists("presets\\" + options.preset + ".json"))
