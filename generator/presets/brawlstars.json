@@ -23,6 +23,16 @@
 				"right": 0
 			},
 			"asset": "stone_block.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 234,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "ice_block.svg"
 		}
 		]
 	},
@@ -38,7 +48,7 @@
 				"left": 0,
 				"right": 20
 			},
-			"asset": "mineral_magenta.svg"
+			"asset": "crystal_magenta.svg"
 		},
 		{
 			"tileParts": {
@@ -59,6 +69,16 @@
 				"right": 0
 			},
 			"asset": "wood_block.svg"
+		},
+		{
+			"tileParts": {
+				"top": 405,
+				"mid": 1000,
+				"bot": 280,
+				"left": 0,
+				"right": 20
+			},
+			"asset": "crystal_red.svg"
 		}
 		]
 	},
@@ -75,6 +95,16 @@
 				"right": 0
 			},
 			"asset": "crate.svg"
+		},
+		{
+			"tileParts": {
+				"top": 499,
+				"mid": 1000,
+				"bot": 245,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "present_box.svg"
 		}
 		]
 	},
@@ -91,6 +121,16 @@
 				"right": 0
 			},
 			"asset": "barrel.svg"
+		},
+		{
+			"tileParts": {
+				"top": 539,
+				"mid": 1000,
+				"bot": 327,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "present_barrel.svg"
 		}
 		]
 	},
@@ -130,6 +170,17 @@
 			},
 			"color": "yellow",
 			"asset": "grass_yellow.svg"
+		},
+		{
+			"tileParts": {
+				"top": 447,
+				"mid": 1000,
+				"bot": 296,
+				"left": 0,
+				"right": 0
+			},
+			"color": "blue",
+			"asset": "grass_blue.svg"
 		}
 		]
 	},
@@ -157,6 +208,16 @@
 				"right": 4
 			},
 			"asset": "mushroom.svg"
+		},
+		{
+			"tileParts": {
+				"top": 464,
+				"mid": 1000,
+				"bot": 136,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "tree.svg"
 		}
 		]
 	},
@@ -183,6 +244,16 @@
 				"right": 0
 			},
 			"asset": "skull.svg"
+		},
+		{
+			"tileParts": {
+				"top": 265,
+				"mid": 1000,
+				"bot": 91,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "present_mini.svg"
 		}
 		]
 	},
@@ -449,6 +520,16 @@
 			},
 			"asset": "goal_blue.svg",
 			"order": 2
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 600,
+				"left": 545,
+				"right": 545
+			},
+			"asset": "mine_snow.svg"
 		}
 		]
 	}
@@ -712,6 +793,57 @@
 			"type": 1
 		}
 		]
+	},
+	{
+		"name": "snow",
+		"color1": "45,154,242",
+		"color2": "47,162,255",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 3
+		},
+		{
+			"tile": "blocking2",
+			"type": 4
+		},
+		{
+			"tile": "blocking3",
+			"type": 2
+		},
+		{
+			"tile": "blocking4",
+			"type": 2
+		},
+		{
+			"tile": "forest",
+			"type": 4
+		},
+		{
+			"tile": "respawningWall",
+			"type": 3
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 3
+		},
+		{
+			"tile": "fence",
+			"type": 1
+		},
+		{
+			"tile": "water",
+			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
+			"type": 1
+		}
+		]
 	}
 	],
 	"gamemodes": [
@@ -756,6 +888,17 @@
 			"tile": "objective",
 			"type": 7,
 			"position": "m,-2",
+			"drawOrder": 2
+		}
+		]
+	},
+	{
+		"name": "Snow Gem Grab",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 8,
+			"position": "m,m",
 			"drawOrder": 2
 		}
 		]
