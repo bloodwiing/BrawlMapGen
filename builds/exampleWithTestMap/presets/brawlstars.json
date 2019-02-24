@@ -33,6 +33,16 @@
 				"right": 0
 			},
 			"asset": "ice_block.svg"
+		},
+		{
+			"tileParts": {
+				"top": 482,
+				"mid": 1000,
+				"bot": 283,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "wall_block.svg"
 		}
 		]
 	},
@@ -218,6 +228,16 @@
 				"right": 0
 			},
 			"asset": "tree.svg"
+		},
+		{
+			"tileParts": {
+				"top": 875,
+				"mid": 1000,
+				"bot": 331,
+				"left": 3,
+				"right": 3
+			},
+			"asset": "sapling.svg"
 		}
 		]
 	},
@@ -292,10 +312,62 @@
 			},
 			"asset": "fence_cor.svg",
 			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 317,
+				"mid": 1000,
+				"bot": 243,
+				"left": 44,
+				"right": 44
+			},
+			"asset": "fence_hor_lunar.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 602,
+				"mid": 1000,
+				"bot": 243,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "fence_ver_lunar.svg"
+		},
+		{
+			"tileParts": {
+				"top": 517,
+				"mid": 1000,
+				"bot": 243,
+				"left": 45,
+				"right": 45
+			},
+			"asset": "fence_cor_lunar.svg",
+			"orderHor": 1
 		}
 		],
 		"tileLinks": {
 			"rules": [
+			{
+				"condition": "*0****0*",
+				"requiredBiome": 7,
+				"changeTileType": 4
+			},
+			{
+				"condition": "*1****0*",
+				"requiredBiome": 7,
+				"changeTileType": 6
+			},
+			{
+				"condition": "*0****1*",
+				"requiredBiome": 7,
+				"changeTileType": 6
+			},
+			{
+				"condition": "*1****1*",
+				"requiredBiome": 7,
+				"changeTileType": 5
+			},
 			{
 				"condition": "*1****0*",
 				"changeTileType": 3
@@ -795,7 +867,7 @@
 		]
 	},
 	{
-		"name": "snow",
+		"name": "snowy",
 		"color1": "45,154,242",
 		"color2": "47,162,255",
 		"defaults": [
@@ -842,6 +914,61 @@
 		{
 			"tile": "player2",
 			"type": 1
+		}
+		]
+	},
+	{
+		"name": "town",
+		"color1": "140,84,109",
+		"color2": "148,90,115",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 4
+		},
+		{
+			"tile": "blocking2",
+			"type": 3
+		},
+		{
+			"tile": "blocking3",
+			"type": 1
+		},
+		{
+			"tile": "blocking4",
+			"type": 1
+		},
+		{
+			"tile": "forest",
+			"type": 1
+		},
+		{
+			"tile": "respawningWall",
+			"type": 4
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 1
+		},
+		{
+			"tile": "fence",
+			"type": 4
+		},
+		{
+			"tile": "water",
+			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
+			"type": 1
+		},
+		{
+			"tile": "objective",
+			"type": 2
 		}
 		]
 	}

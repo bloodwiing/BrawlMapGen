@@ -66,6 +66,7 @@ namespace generator
         public class TileLinkRule
         {
             public string condition { get; set; }
+            public int? requiredBiome { get; set; }
             public string[] changeBinary { get; set; }
             public int? changeTileType { get; set; }
             public string changeAsset { get; set; }
