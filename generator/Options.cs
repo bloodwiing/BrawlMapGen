@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace generator
 {
-    class Options
+    public class Options
     {
 
         public string setPath { get; set; }

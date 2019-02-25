@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace generator
 {
-    class OrderedTile
+    public class OrderedTile
     {
 
         public OrderedTile()

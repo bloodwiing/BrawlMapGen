@@ -21,6 +21,9 @@ namespace generator
             Options options = new Options();
             Voice voice = new Voice();
 
+            voice.Speak("WARNING!\nTHIS BUILD IS NOT STABLE AND MAY CONTAIN MANY BUGS, ERRORS. EXPECT MANY CRASHES!\nRECOMMENDED TO USE THE STABLE VERSION", ActionType.basic);
+            Console.ReadKey();
+
             try
             {
                 if (fArgs.ToLower().Contains(" -f "))
@@ -72,7 +75,7 @@ namespace generator
                 if (options.setPath != null)
                     Environment.CurrentDirectory = options.setPath;
 
-                voice.Speak("Brawl Map Gen v1.6.2\nCreated by RedH1ghway aka TheDonciuxx\nWith the help of 4JR\n\nLoading " + options.preset + " preset", ActionType.setup);
+                voice.Speak("Brawl Map Gen v1.7b [UNSTABLE BUILD 1]\nCreated by RedH1ghway aka TheDonciuxx\nWith the help of 4JR\n\nLoading " + options.preset + " preset", ActionType.setup);
                 voice.Speak("[ AAL ] READ << presets\\" + options.preset + ".json", ActionType.aal);
 
                 if (!File.Exists("presets\\" + options.preset + ".json"))
@@ -86,6 +89,37 @@ namespace generator
                 StreamReader r2 = new StreamReader("presets\\" + options.preset + ".json");
                 string json2 = r2.ReadToEnd();
                 var tiledata = JsonConvert.DeserializeObject<Tiledata>(json2);
+                List<SavedImages> savedTileImageList = new List<SavedImages>();
+
+                voice.Speak("\nLoading tiles...", ActionType.setup);
+                foreach (Options.BatchSettings single in options.batch)
+                {
+                    bool c = false;
+                    foreach (SavedImages savedTileImage in savedTileImageList)
+                    {
+                        if (single.sizeMultiplier == savedTileImage.listForSizeMultiplier)
+                        {
+                            c = true;
+                            break;
+                        }
+                    }
+                    if (c)
+                        continue;
+
+                    savedTileImageList.Add(new SavedImages(options, tiledata.tiles, single.sizeMultiplier));
+                }
+
+                foreach (SavedImages si in savedTileImageList)
+                {
+                    voice.Speak("new size load: " + si.listForSizeMultiplier, ActionType.basic);
+                    foreach (SavedImages.TileImage ti in si.tileImages)
+                    {
+                        voice.Speak("tile saved: " + ti.imageName + " w:" + ti.imageWidth, ActionType.basic);
+                    }
+                }
+
+                voice.Write("test.txt");
+                Console.ReadKey();
 
                 voice.Speak("Preset \"" + options.preset.ToUpper() + "\" loaded.", ActionType.setup);
 
@@ -415,7 +449,7 @@ namespace generator
                                                     break;
                                                 }
                                                 
-                                                tileDrawer.DrawSelectedTile(new OrderedTile() { tileType = breakerTile, xPosition = currentX, yPosition = currentY, tileCode = aTile.tileCode, tileName = aTile.tileName }, options, sizeMultiplier, xLength, yLength);
+                                                tileDrawer.DrawSelectedTile(new OrderedTile() { tileType = breakerTile, xPosition = currentX, yPosition = currentY, tileCode = aTile.tileCode, tileName = aTile.tileName }, options, sizeMultiplier, xLength, yLength, savedTileImageList);
                                                 voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, false, false, true), aTile, currentY, currentX, yLength, xLength), ActionType.tileDraw);
                                                 break;
                                             }
@@ -469,7 +503,7 @@ namespace generator
                             if (pTile.tileType.orderHor.GetValueOrDefault() != 1)
                                 continue;
 
-                            tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength);
+                            tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, savedTileImageList);
                             if (pTile.str)
                                 voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, true, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedHorTileDraw);
                             else
@@ -484,7 +518,7 @@ namespace generator
                                 if (pTile.tileType.orderHor.GetValueOrDefault() != currentHorOrdered)
                                     continue;
 
-                                tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength);
+                                tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, savedTileImageList);
                                 if (pTile.str)
                                     voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, true, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedHorTileDraw);
                                 else
@@ -506,7 +540,7 @@ namespace generator
                         if (pTile.tileType.order.GetValueOrDefault() != 1)
                             continue;
 
-                        tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength);
+                        tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, savedTileImageList);
                         if (pTile.str)
                             voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
                         else
@@ -521,7 +555,7 @@ namespace generator
                             if (pTile.tileType.order.GetValueOrDefault() != currentOrdered)
                                 continue;
 
-                            tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength);
+                            tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, savedTileImageList);
                             if (pTile.str)
                                 voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
                             else
@@ -633,6 +667,8 @@ namespace generator
             voice.Speak("\nFinished.", ActionType.basic);
             voice.Write("log.txt");
 
+            Console.ReadKey();
+
             if (oEnd.ToLower() == "pause")
                 Console.ReadKey();
 
@@ -706,15 +742,22 @@ namespace generator
                 g.DrawImage(i.Draw(iw, ih), sizeMultiplier + sizeMultiplier * currentX - iwm, sizeMultiplier + sizeMultiplier * currentY - ihm);
             }
 
-            public void DrawSelectedTile(OrderedTile tile, Options optionsObject, int sizeMultiplier, int xLength, int yLength)
+            public void DrawSelectedTile(OrderedTile tile, Options optionsObject, int sizeMultiplier, int xLength, int yLength, List<SavedImages> imageMemory)
             {
-                var i = SvgDocument.Open("assets\\tiles\\" + optionsObject.preset + "\\" + tile.tileType.asset);
-                var iw = (int)Math.Round(i.Width * sizeMultiplier);
-                var ih = (int)Math.Round(i.Height * sizeMultiplier);
-                var ihm = (int)Math.Round((double)tile.tileType.tileParts.top * sizeMultiplier / 1000);
-                var iwm = (int)Math.Round((double)tile.tileType.tileParts.left * sizeMultiplier / 1000);
-
-                g.DrawImage(i.Draw(iw, ih), sizeMultiplier + sizeMultiplier * tile.xPosition - iwm, sizeMultiplier + sizeMultiplier * tile.yPosition - ihm);
+                foreach (SavedImages si in imageMemory)
+                {
+                    if (si.listForSizeMultiplier == sizeMultiplier)
+                    {
+                        foreach (SavedImages.TileImage ti in si.tileImages)
+                        {
+                            if (ti.imageName == tile.tileType.asset)
+                            {
+                                g.DrawImage(ti.renderedImage, sizeMultiplier + sizeMultiplier * tile.xPosition - ti.imageOffsetLeft, sizeMultiplier + sizeMultiplier * tile.yPosition - ti.imageOffsetTop);
+                                return;
+                            }
+                        }
+                    }
+                }
             }
 
             public void ColorBackground(Color color1, Color color2, string[] map, Options.BatchSettings batchOption)

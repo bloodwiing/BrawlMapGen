@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace generator
 {
-    class Tiledata
+    public class Tiledata
     {
 
         public Tile[] tiles { get; set; }

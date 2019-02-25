@@ -82,6 +82,7 @@
     <Compile Include="Tiledata.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="SavedImages.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config">
