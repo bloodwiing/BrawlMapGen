@@ -30,9 +30,9 @@ namespace generator
                                 imageOffsetTop = (int)Math.Round((double)tile.tileTypes[type].tileParts.top * sizeMultiplier / 1000),
                                 imageOffsetLeft = (int)Math.Round((double)tile.tileTypes[type].tileParts.left * sizeMultiplier / 1000)
                             });
+                            tileImages.Last().imageWidth = (int)Math.Round((double)SvgDocument.Open(file).Width * sizeMultiplier);
+                            tileImages.Last().imageHeight = (int)Math.Round((double)SvgDocument.Open(file).Height * sizeMultiplier);
                             tileImages.Last().renderedImage = SvgDocument.Open(file).Draw(tileImages.Last().imageWidth, tileImages.Last().imageHeight);
-                            tileImages.Last().imageWidth = (int)Math.Round((double)tileImages.Last().renderedImage.Width * sizeMultiplier);
-                            tileImages.Last().imageHeight = (int)Math.Round((double)tileImages.Last().renderedImage.Height * sizeMultiplier);
                             break;
                         }
                     }
