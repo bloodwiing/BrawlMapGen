@@ -381,6 +381,7 @@
 				"changeTileType": 2
 			}
 			],
+			"multipleConditionsCouldApply": false,
 			"defaults": {
 				"tileType": 1
 			}
@@ -420,6 +421,7 @@
 				"changeBinary": [ "0a6", "0a8" ]
 			}
 			],
+			"multipleConditionsCouldApply": true,
 			"defaults": {
 				"tileType": 1
 			},

@@ -59,6 +59,7 @@ namespace generator
         public class TileLink
         {
             public TileLinkRule[] rules { get; set; }
+            public bool multipleConditionsCouldApply { get; set; }
             public TileLinkDefault defaults { get; set; }
             public string assetFolder { get; set; }
         }

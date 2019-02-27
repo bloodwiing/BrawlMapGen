@@ -378,10 +378,18 @@ namespace generator
                                                             if (rule.requiredBiome != null)
                                                             {
                                                                 if (rule.requiredBiome.GetValueOrDefault() == batchOption.biome)
+                                                                {
                                                                     accurateRules.Add(rule);
+                                                                    if (!aTile.tileLinks.multipleConditionsCouldApply)
+                                                                        break;
+                                                                }
                                                             }
                                                             else
+                                                            {
                                                                 accurateRules.Add(rule);
+                                                                if (!aTile.tileLinks.multipleConditionsCouldApply)
+                                                                    break;
+                                                            }
                                                         }
                                                     }
                                                 }
