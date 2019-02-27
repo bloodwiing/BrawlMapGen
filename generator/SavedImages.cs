@@ -14,7 +14,7 @@ namespace generator
         public List<TileImage> tileImages = new List<TileImage>();
         public int listForSizeMultiplier;
 
-        public SavedImages(Options optionsObject, Tiledata.Tile[] tiles, int sizeMultiplier)
+        public SavedImages(Options optionsObject, Tiledata.Tile[] tiles, int sizeMultiplier, Program.Voice voice)
         {
             foreach (string file in Directory.GetFiles("assets\\tiles\\" + optionsObject.preset + "\\"))
             {
@@ -33,6 +33,7 @@ namespace generator
                             tileImages.Last().imageWidth = (int)Math.Round((double)SvgDocument.Open(file).Width * sizeMultiplier);
                             tileImages.Last().imageHeight = (int)Math.Round((double)SvgDocument.Open(file).Height * sizeMultiplier);
                             tileImages.Last().renderedImage = SvgDocument.Open(file).Draw(tileImages.Last().imageWidth, tileImages.Last().imageHeight);
+                            voice.Speak("[ AAL ] READ << assets\\tiles\\" + optionsObject.preset + "\\" + tileImages.Last().imageName, Program.ActionType.aal);
                             break;
                         }
                     }

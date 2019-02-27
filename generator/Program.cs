@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace generator
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -89,6 +89,7 @@ namespace generator
 
                 StreamReader r2 = new StreamReader("presets\\" + options.preset + ".json");
                 string json2 = r2.ReadToEnd();
+                voice.Speak("Preset \"" + options.preset.ToUpper() + "\" loaded.", ActionType.setup);
                 var tiledata = JsonConvert.DeserializeObject<Tiledata>(json2);
                 List<SavedImages> savedTileImageList = new List<SavedImages>();
 
@@ -107,22 +108,11 @@ namespace generator
                     if (c)
                         continue;
 
-                    savedTileImageList.Add(new SavedImages(options, tiledata.tiles, single.sizeMultiplier));
+                    savedTileImageList.Add(new SavedImages(options, tiledata.tiles, single.sizeMultiplier, voice));
                 }
-
-                foreach (SavedImages si in savedTileImageList)
-                {
-                    voice.Speak("new size load: " + si.listForSizeMultiplier, ActionType.basic);
-                    foreach (SavedImages.TileImage ti in si.tileImages)
-                    {
-                        voice.Speak("tile saved: " + ti.imageName + " w:" + ti.imageWidth, ActionType.basic);
-                    }
-                }
-
-                voice.Write("test.txt");
-                Console.ReadKey();
-
-                voice.Speak("Preset \"" + options.preset.ToUpper() + "\" loaded.", ActionType.setup);
+                voice.Speak("\nLoaded tiles with tilesizes:", ActionType.setup);
+                foreach (var si in savedTileImageList)
+                    voice.Speak("  " + si.listForSizeMultiplier + "px", ActionType.setup);
 
                 int bNumber = 0;
                 foreach (var batchOption in options.batch)
