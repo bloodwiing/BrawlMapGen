@@ -1031,6 +1031,32 @@
 			"drawOrder": 2
 		}
 		]
+	},
+	{
+		"name": "Big Game",
+		"overrideBiome": [
+		{
+			"tile": "player1",
+			"type": 2
+		},
+		{
+			"tile": "player2",
+			"type": 3
+		}
+		]
+	},
+	{
+		"name": "Robo Rumble",
+		"overrideBiome": [
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
+			"type": 4
+		}
+		]
 	}
 	]
 }
