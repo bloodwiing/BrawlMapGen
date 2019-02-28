@@ -211,16 +211,6 @@
 			"to": "F"
 		}
 		],
-		"overrideBiome": [
-		{
-			"tile": "player1",
-			"type": 2
-		},
-		{
-			"tile": "player2",
-			"type": 3
-		}
-		],
 		"gamemode": "Big Game"
 	},
 	{
@@ -508,20 +498,10 @@
 			"to": "8"
 		}
 		],
-		"overrideBiome": [
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 4
-		}
-		],
 		"gamemode": "Robo Rumble"
 	},
 	{
-		"name": "Snow Gem Grab",
+		"name": "Snowy Gem Grab",
 		"map": [
 			"RRXR....2.2.2....RTRR",
 			"RRXR.............RRRR",
@@ -558,7 +538,7 @@
 			"RRTR....1.1.1....RXRR"
 		],
 		"biome": 6,
-		"sizeMultiplier": 30,
+		"sizeMultiplier": 150,
 		"skipTiles": [ "J" ],
 		"replaceTiles": [
 		{
@@ -566,7 +546,116 @@
 			"to": "F"
 		}
 		],
-		"gamemode": "Snow Gem Grab"
+		"gamemode": "Snowy Gem Grab"
+	},
+	{
+		"name": "Town Heist",
+		"map": [
+			"........2.2.2........",
+			".....................",
+			".............N....T..",
+			"CC...........N.......",
+			"YY........8..NNN.....",
+			".............WWW.....",
+			"......RRRCYWWWWWW....",
+			"......RRRRYWWWWWWW...",
+			".....MMRRRRWWWWWWW...",
+			"NNN...MRRRR...WWWW...",
+			"RRR...MMM......WW....",
+			"RRR............MM....",
+			"RRRM.......M...MM....",
+			"RRRM.....WWM....M....",
+			"RR......WWWMM...M....",
+			"RR......WWWWM........",
+			"........MWWWM........",
+			"........MWWWW......RR",
+			"....M...MMWWW......RR",
+			"....M....MWW.....MRRR",
+			"....MM...M.......MRRR",
+			"....MM............RRR",
+			"....WW......MMM...RRR",
+			"...WWWW...RRRRM...NNN",
+			"...WWWWWWWRRRRMM.....",
+			"...WWWWWWWYRRRR......",
+			"....WWWWWWYCRRR......",
+			".....WWW.............",
+			".....NNN..8........YY",
+			".......N...........CC",
+			"..T....N.............",
+			".....................",
+			"........1.1.1........"
+		],
+		"biome": 7,
+		"sizeMultiplier": 150,
+		"skipTiles": [ "J" ],
+		"replaceTiles": [
+		{
+			"from": "R",
+			"to": "F"
+		}
+		],
+		"gamemode": "Town Heist"
+	},
+	{
+		"name": "Siege",
+		"map": [
+			"YY.........2.2.2.........YY",
+			"C.........................C",
+			"..........D...D............",
+			".............8...D.........",
+			"...CY.....D....D......YC...",
+			"..MMMM.....MMMMM.....MMMM..",
+			"..MMMM.....MMMMM.....MMMM..",
+			"...........................",
+			"RR.......................RR",
+			"RRR.....................RRR",
+			"RRR.....................RRR",
+			"RR.......................RR",
+			"RR.......................RR",
+			"RR.......................RR",
+			"RR....D..................RR",
+			"RR..................RRMMMRR",
+			"RRMMMRRMMM..........RRMMMRR",
+			"RRMMMRRMMM...............RR",
+			"RR.....................G.RR",			
+			"RRH....D.........D.......RR",			
+			"RR.......................RR",			
+			"RR........D......MMMRRMMMRR",			
+			"RRMMMRR..........MMMRRMMMRR",			
+			"RRMMMRR............D.....RR",			
+			"RR.......................RR",			
+			"RR.......................RR",			
+			"RR.......................RR",			
+			"RR.......................RR",			
+			"RRR.....................RRR",			
+			"RRR.....................RRR",			
+			"RR.......................RR",			
+			"...........................",			
+			"..MMMM.....MMMMM.....MMMM..",			
+			"..MMMM.....MMMMM.....MMMM..",			
+			"...CY.......D..D......YC...",			
+			".........D...8.............",			
+			"..........D...D............",			
+			"C.........................C",			
+			"YY.........1.1.1.........YY"
+		],
+		"biome": 7,
+		"sizeMultiplier": 150,
+		"skipTiles": [ "J" ],
+		"replaceTiles": [
+		{
+			"from": "R",
+			"to": "F"
+		}
+		],
+		"specialTileRules": [
+		{
+			"tileCode": "8",
+			"tileTime": 1,
+			"tileType": 9
+		}
+		],
+		"gamemode": "Siege"
 	}
 	],
 	"exportFileName": "batch_?number?.png",
