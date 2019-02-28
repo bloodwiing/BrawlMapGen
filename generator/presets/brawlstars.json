@@ -1022,7 +1022,7 @@
 		]
 	},
 	{
-		"name": "Snow Gem Grab",
+		"name": "Snowy Gem Grab",
 		"specialTiles": [
 		{
 			"tile": "objective",
