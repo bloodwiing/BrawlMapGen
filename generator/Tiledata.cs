@@ -83,6 +83,7 @@ namespace generator
         {
             public string name { get; set; }
             public SpecialTile[] specialTiles { get; set; }
+            public TileDefault[] overrideBiome { get; set; }
         }
 
         public class SpecialTile

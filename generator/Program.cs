@@ -184,46 +184,47 @@ namespace generator
                             }
 
                             if (mapGamemode != null)
-                                foreach (var st in mapGamemode.specialTiles)
-                                {
-                                    if (st.drawOrder == 1)
+                                if (mapGamemode.specialTiles != null)
+                                    foreach (var st in mapGamemode.specialTiles)
                                     {
-                                        foreach (Tiledata.Tile oTile in tiledata.tiles)
+                                        if (st.drawOrder == 1)
                                         {
-                                            if (oTile.tileName == st.tile)
+                                            foreach (Tiledata.Tile oTile in tiledata.tiles)
                                             {
-                                                string xsLoc = st.position.Split(',')[0].Trim().ToLower();
-                                                string ysLoc = st.position.Split(',')[1].Trim().ToLower();
-                                                if (!int.TryParse(xsLoc, out int xLoc))
+                                                if (oTile.tileName == st.tile)
                                                 {
-                                                    if (xsLoc == "left" || xsLoc == "l") { xLoc = 0; xsLoc = "L"; }
-                                                    else if (xsLoc == "mid" || xsLoc == "m") { xLoc = (xLength - 1) / 2; xsLoc = "M"; }
-                                                    else if (xsLoc == "right" || xsLoc == "r") { xLoc = xLength - 1; xsLoc = "R"; }
-                                                }
-                                                if (!int.TryParse(ysLoc, out int yLoc))
-                                                {
-                                                    if (ysLoc == "top" || ysLoc == "t") { yLoc = 0; ysLoc = "T"; }
-                                                    else if (ysLoc == "mid" || ysLoc == "m") { yLoc = (yLength - 1) / 2; ysLoc = "M"; }
-                                                    else if (ysLoc == "bottom" || ysLoc == "bot" || ysLoc == "b") { yLoc = yLength - 1; ysLoc = "B"; }
-                                                }
+                                                    string xsLoc = st.position.Split(',')[0].Trim().ToLower();
+                                                    string ysLoc = st.position.Split(',')[1].Trim().ToLower();
+                                                    if (!int.TryParse(xsLoc, out int xLoc))
+                                                    {
+                                                        if (xsLoc == "left" || xsLoc == "l") { xLoc = 0; xsLoc = "L"; }
+                                                        else if (xsLoc == "mid" || xsLoc == "m") { xLoc = (xLength - 1) / 2; xsLoc = "M"; }
+                                                        else if (xsLoc == "right" || xsLoc == "r") { xLoc = xLength - 1; xsLoc = "R"; }
+                                                    }
+                                                    if (!int.TryParse(ysLoc, out int yLoc))
+                                                    {
+                                                        if (ysLoc == "top" || ysLoc == "t") { yLoc = 0; ysLoc = "T"; }
+                                                        else if (ysLoc == "mid" || ysLoc == "m") { yLoc = (yLength - 1) / 2; ysLoc = "M"; }
+                                                        else if (ysLoc == "bottom" || ysLoc == "bot" || ysLoc == "b") { yLoc = yLength - 1; ysLoc = "B"; }
+                                                    }
 
-                                                if (xLoc < 0)
-                                                {
-                                                    xLoc = xLength - (1 + xLoc / -1);
-                                                    xsLoc = xLoc.ToString();
-                                                }
-                                                if (yLoc < 0)
-                                                {
-                                                    yLoc = yLength - (1 + yLoc / -1);
-                                                    ysLoc = yLoc.ToString();
-                                                }
+                                                    if (xLoc < 0)
+                                                    {
+                                                        xLoc = xLength - (1 + xLoc / -1);
+                                                        xsLoc = xLoc.ToString();
+                                                    }
+                                                    if (yLoc < 0)
+                                                    {
+                                                        yLoc = yLength - (1 + yLoc / -1);
+                                                        ysLoc = yLoc.ToString();
+                                                    }
 
-                                                tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList);
-                                                voice.Speak(TileActionStringMaker(new TileActionTypes(true, false, false, false, true), oTile, ysLoc, xsLoc, yLength, xLength), ActionType.tileDraw);
+                                                    tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList);
+                                                    voice.Speak(TileActionStringMaker(new TileActionTypes(true, false, false, false, true), oTile, ysLoc, xsLoc, yLength, xLength), ActionType.tileDraw);
+                                                }
                                             }
                                         }
                                     }
-                                }
 
                             Options.SpecialTileRules[] str = null;
                             if (batchOption.specialTileRules != null)
@@ -328,6 +329,17 @@ namespace generator
                                                             setTileDefault = overrideTile;
                                                             break;
                                                         }
+
+                                                if (batchOption.gamemode != null)
+                                                    if (mapGamemode != null)
+                                                        if (mapGamemode.overrideBiome != null)
+                                                            if (mapGamemode.name == batchOption.gamemode)
+                                                                foreach (var overrideTile in mapGamemode.overrideBiome)
+                                                                    if (overrideTile.tile == tileDefault.tile)
+                                                                    {
+                                                                        setTileDefault = overrideTile;
+                                                                        break;
+                                                                    }
 
                                                 if (setTileDefault.tile == aTile.tileName)
                                                 {
@@ -566,46 +578,47 @@ namespace generator
                                 }
 
                             if (mapGamemode != null)
-                                foreach (var st in mapGamemode.specialTiles)
-                                {
-                                    if (st.drawOrder == 2)
+                                if (mapGamemode.specialTiles != null)
+                                    foreach (var st in mapGamemode.specialTiles)
                                     {
-                                        foreach (Tiledata.Tile oTile in tiledata.tiles)
+                                        if (st.drawOrder == 2)
                                         {
-                                            if (oTile.tileName == st.tile)
+                                            foreach (Tiledata.Tile oTile in tiledata.tiles)
                                             {
-                                                string xsLoc = st.position.Split(',')[0].Trim().ToLower();
-                                                string ysLoc = st.position.Split(',')[1].Trim().ToLower();
-                                                if (!int.TryParse(xsLoc, out int xLoc))
+                                                if (oTile.tileName == st.tile)
                                                 {
-                                                    if (xsLoc == "left" || xsLoc == "l") { xLoc = 0; xsLoc = "L"; }
-                                                    else if (xsLoc == "mid" || xsLoc == "m") { xLoc = (xLength - 1) / 2; xsLoc = "M"; }
-                                                    else if (xsLoc == "right" || xsLoc == "r") { xLoc = xLength - 1; xsLoc = "R"; }
-                                                }
-                                                if (!int.TryParse(ysLoc, out int yLoc))
-                                                {
-                                                    if (ysLoc == "top" || ysLoc == "t") { yLoc = 0; ysLoc = "T"; }
-                                                    else if (ysLoc == "mid" || ysLoc == "m") { yLoc = (yLength - 1) / 2; ysLoc = "M"; }
-                                                    else if (ysLoc == "bottom" || ysLoc == "bot" || ysLoc == "b") { yLoc = yLength - 1; ysLoc = "B"; }
-                                                }
+                                                    string xsLoc = st.position.Split(',')[0].Trim().ToLower();
+                                                    string ysLoc = st.position.Split(',')[1].Trim().ToLower();
+                                                    if (!int.TryParse(xsLoc, out int xLoc))
+                                                    {
+                                                        if (xsLoc == "left" || xsLoc == "l") { xLoc = 0; xsLoc = "L"; }
+                                                        else if (xsLoc == "mid" || xsLoc == "m") { xLoc = (xLength - 1) / 2; xsLoc = "M"; }
+                                                        else if (xsLoc == "right" || xsLoc == "r") { xLoc = xLength - 1; xsLoc = "R"; }
+                                                    }
+                                                    if (!int.TryParse(ysLoc, out int yLoc))
+                                                    {
+                                                        if (ysLoc == "top" || ysLoc == "t") { yLoc = 0; ysLoc = "T"; }
+                                                        else if (ysLoc == "mid" || ysLoc == "m") { yLoc = (yLength - 1) / 2; ysLoc = "M"; }
+                                                        else if (ysLoc == "bottom" || ysLoc == "bot" || ysLoc == "b") { yLoc = yLength - 1; ysLoc = "B"; }
+                                                    }
 
-                                                if (xLoc < 0)
-                                                {
-                                                    xLoc = xLength - (1 + xLoc / -1);
-                                                    xsLoc = xLoc.ToString();
-                                                }
-                                                if (yLoc < 0)
-                                                {
-                                                    yLoc = yLength - (1 + yLoc / -1);
-                                                    ysLoc = yLoc.ToString();
-                                                }
+                                                    if (xLoc < 0)
+                                                    {
+                                                        xLoc = xLength - (1 + xLoc / -1);
+                                                        xsLoc = xLoc.ToString();
+                                                    }
+                                                    if (yLoc < 0)
+                                                    {
+                                                        yLoc = yLength - (1 + yLoc / -1);
+                                                        ysLoc = yLoc.ToString();
+                                                    }
 
-                                                tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList);
-                                                voice.Speak(TileActionStringMaker(new TileActionTypes(true, false, false, false, true), oTile, ysLoc, xsLoc, yLength, xLength), ActionType.tileDraw);
+                                                    tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList);
+                                                    voice.Speak(TileActionStringMaker(new TileActionTypes(true, false, false, false, true), oTile, ysLoc, xsLoc, yLength, xLength), ActionType.tileDraw);
+                                                }
                                             }
                                         }
                                     }
-                                }
 
                             string exportName = options.exportFileName;
 
