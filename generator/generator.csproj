@@ -145,10 +145,31 @@
     <Content Include="assets\tiles\brawlstars\sapling.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\tiles\brawlstars\spring_bottom.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\tiles\brawlstars\spring_left.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\tiles\brawlstars\spring_right.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\tiles\brawlstars\spring_top.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\tiles\brawlstars\tree.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\tiles\brawlstars\turret_base_blue.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\tiles\brawlstars\turret_base_red.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\tiles\brawlstars\vault.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\tiles\brawlstars\vault_offset.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\tiles\brawlstars\wall_block.svg">

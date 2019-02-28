@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="0.60618424mm"
+   height="0.79929709mm"
+   viewBox="0 0 0.60618424 0.79929709"
+   version="1.1"
+   id="svg20973"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="turret_base_red.svg">
+  <defs
+     id="defs20967">
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient16764"
+       id="linearGradient16404"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.04858568,0,0,0.04858568,-269.94669,-2572.7329)"
+       x1="-362.47147"
+       y1="-2811.3555"
+       x2="-362.47147"
+       y2="-2814.6245" />
+    <linearGradient
+       id="linearGradient16764"
+       inkscape:collect="always">
+      <stop
+         id="stop16760"
+         offset="0"
+         style="stop-color:#000000;stop-opacity:0.427" />
+      <stop
+         id="stop16762"
+         offset="1"
+         style="stop-color:#484864;stop-opacity:0" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient16099"
+       id="linearGradient16406"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.01285496,0,0,0.01285496,-269.94669,-2571.8684)"
+       x1="-1374.4658"
+       y1="-10708.82"
+       x2="-1374.4658"
+       y2="-10692.221" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient16099">
+      <stop
+         style="stop-color:#d63b4b;stop-opacity:1"
+         offset="0"
+         id="stop16095" />
+      <stop
+         style="stop-color:#94242c;stop-opacity:1"
+         offset="1"
+         id="stop16097" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient16231"
+       id="linearGradient16408"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.04858568,0,0,0.04858568,-269.94669,-2571.0393)"
+       x1="-363.6026"
+       y1="-2851.3818"
+       x2="-363.60257"
+       y2="-2858.2537" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient16231">
+      <stop
+         style="stop-color:#ffc434;stop-opacity:1"
+         offset="0"
+         id="stop16227" />
+      <stop
+         style="stop-color:#ffc400;stop-opacity:1"
+         offset="1"
+         id="stop16229" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient16099"
+       id="linearGradient21630"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.01285496,0,0,0.01285496,-269.94669,-2571.8684)"
+       x1="-1374.4658"
+       y1="-10708.82"
+       x2="-1374.4658"
+       y2="-10692.221" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="45.254834"
+     inkscape:cx="1.6542516"
+     inkscape:cy="3.1413139"
+     inkscape:document-units="mm"
+     inkscape:current-layer="g20849"
+     showgrid="false"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:snap-midpoints="true"
+     inkscape:object-paths="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata20970">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-85.993728,-107.87858)">
+    <g
+       transform="translate(373.85186,2817.8148)"
+       id="g20849">
+      <rect
+         style="opacity:0.18000004;fill:#000000;fill-opacity:0.99590167;fill-rule:nonzero;stroke:none;stroke-width:0.36548036;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill;filter:url(#filter1957)"
+         id="rect20804"
+         width="0.42864677"
+         height="0.33719608"
+         x="-287.82965"
+         y="-2709.4741"
+         ry="0.08670073" />
+      <rect
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         ry="0.025452044"
+         y="-2709.6675"
+         x="-287.8313"
+         height="0.44111022"
+         width="0.43669131"
+         id="rect16345"
+         style="opacity:1;fill:#444c70;fill-opacity:1;fill-rule:nonzero;stroke:#10284c;stroke-width:0.05344424;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+      <rect
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         style="opacity:1;fill:#444c70;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.04858568;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         id="rect16412"
+         width="0.43669131"
+         height="0.44111022"
+         x="-287.8313"
+         y="-2709.6675"
+         ry="0.025452044" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         id="path16348"
+         d="m -287.80585,-2709.6674 c -0.0141,0 -0.0254,0.011 -0.0254,0.025 v 0.3644 c 0,0.014 0.0113,0.025 0.0254,0.025 h 0.3858 c 0.0141,0 0.0254,-0.011 0.0254,-0.025 v -0.3644 c 0,-0.014 -0.0114,-0.025 -0.0254,-0.025 z"
+         style="opacity:1;fill:#586490;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.0909939;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         inkscape:connector-curvature="0"
+         style="opacity:1;fill:#ffc834;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12768996;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m -287.74738,-2709.6213 c -0.0218,0 -0.0794,0.034 -0.0835,0.084 h -5.3e-4 v 0.01 0.029 0.1474 h 0.0839 v -0.1474 -0.034 z"
+         id="path16350" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         id="path16410"
+         d="m -287.74738,-2709.6213 c -0.0218,0 -0.0794,0.034 -0.0835,0.084 h -5.3e-4 v 0.01 0.029 0.1474 h 0.0839 v -0.1474 -0.034 z"
+         style="opacity:1;fill:#ffc834;fill-opacity:1;fill-rule:nonzero;stroke:#10284c;stroke-width:0.05344424;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         style="opacity:1;fill:#383c60;fill-opacity:1;stroke:#10284c;stroke-width:0.05344424;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -287.32455,-2709.4879 c 0,0.067 -0.0478,0.094 -0.14845,0.094 v -0.1021 z"
+         id="path16414"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccc" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path16354"
+         d="m -287.32455,-2709.4879 c 0,0.067 -0.0478,0.094 -0.14845,0.094 v -0.1021 z"
+         style="opacity:1;fill:#383c60;fill-opacity:1;stroke:none;stroke-width:0.04858568;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         id="path16356"
+         d="m -287.473,-2709.4489 v 0.055 c 0.0645,0 0.10724,-0.011 0.12965,-0.037 -0.0661,0.026 -0.10341,0.01 -0.12965,-0.018 z"
+         style="opacity:1;fill:#2c3050;fill-opacity:1;stroke:none;stroke-width:0.01602216px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         inkscape:connector-curvature="0"
+         style="opacity:1;fill:#e4a018;fill-opacity:1;fill-rule:nonzero;stroke:#10284c;stroke-width:0.05344424;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.29133892;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m -287.37197,-2709.7022 a 0.09326752,0.07597912 0 0 0 -0.0933,0.076 v 0.076 a 0.09326752,0.07597912 0 0 0 0.0933,0.076 0.09326752,0.07597912 0 0 0 0.0933,-0.076 v -0.076 a 0.09326752,0.07597912 0 0 0 -0.0933,-0.076 z"
+         id="path16416" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         id="path16358"
+         d="m -287.37197,-2709.7022 a 0.09326752,0.07597912 0 0 0 -0.0933,0.076 v 0.076 a 0.09326752,0.07597912 0 0 0 0.0933,0.076 0.09326752,0.07597912 0 0 0 0.0933,-0.076 v -0.076 a 0.09326752,0.07597912 0 0 0 -0.0933,-0.076 z"
+         style="opacity:1;fill:#e4a018;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.0727193;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.29133892;stroke-opacity:1;paint-order:markers fill stroke"
+         inkscape:connector-curvature="0" />
+      <ellipse
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         cy="-2709.6262"
+         cx="-287.37198"
+         id="ellipse16360"
+         style="opacity:1;fill:#ffc434;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.0727193;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.29133892;stroke-opacity:1;paint-order:markers fill stroke"
+         rx="0.09326753"
+         ry="0.075979121" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path16362"
+         d="m -287.83131,-2709.356 h 0.0839 v -0.1179 c -0.0226,0 -0.0839,0.037 -0.0839,0.089 z"
+         style="opacity:1;fill:#cc8800;fill-opacity:1;stroke:none;stroke-width:0.01602216px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         ry="0.058405921"
+         y="-2709.7061"
+         x="-287.79282"
+         height="0.44111431"
+         width="0.36012116"
+         id="rect16352"
+         style="opacity:1;fill:url(#linearGradient16404);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.09145311;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         id="path16418"
+         d="m -287.76078,-2709.7639 c -0.0105,0 -0.019,0.01 -0.019,0.019 v 0.1959 c 0,0 1.4e-4,0 2.7e-4,0 h -10e-5 1.5e-4 l 0.0318,0.2121 h 10e-5 c 0.001,0.01 0.009,0.016 0.0188,0.016 h 0.23603 c 0.01,0 0.0175,-0.01 0.0188,-0.016 h 9e-5 l 0.0283,-0.2132 h -1e-4 c 1.5e-4,0 2.7e-4,0 2.7e-4,0 v -0.196 c 0,-0.011 -0.008,-0.019 -0.019,-0.019 z"
+         style="opacity:1;fill:url(#linearGradient21630);fill-opacity:1;fill-rule:nonzero;stroke:#78181c;stroke-width:0.05344424;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         inkscape:connector-curvature="0"
+         style="opacity:1;fill:url(#linearGradient16406);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.06882476;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m -287.76078,-2709.7639 c -0.0105,0 -0.019,0.01 -0.019,0.019 v 0.1959 c 0,0 1.4e-4,0 2.7e-4,0 h -10e-5 1.5e-4 l 0.0318,0.2121 h 10e-5 c 0.001,0.01 0.009,0.016 0.0188,0.016 h 0.23603 c 0.01,0 0.0175,-0.01 0.0188,-0.016 h 9e-5 l 0.0283,-0.2132 h -1e-4 c 1.5e-4,0 2.7e-4,0 2.7e-4,0 v -0.196 c 0,-0.011 -0.008,-0.019 -0.019,-0.019 z"
+         id="path16364" />
+      <ellipse
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         ry="0.036107026"
+         rx="0.04991471"
+         style="opacity:1;fill:#805808;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.03667309;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.29133892;stroke-opacity:1;paint-order:markers fill stroke"
+         id="ellipse16366"
+         cx="-287.36765"
+         cy="-2709.6262" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         style="opacity:1;fill:#989cc0;fill-opacity:1;stroke:#383c60;stroke-width:0.05344424;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m -287.6894,-2709.5089 c -0.0205,0 -0.0472,0.011 -0.0473,0.048 0,0.037 0.0139,0.1354 0.0576,0.1359 h 0.0663 0.0663 c 0.0437,0 0.0577,-0.099 0.0576,-0.1359 0,-0.037 -0.0268,-0.048 -0.0473,-0.048 h -0.0767 z"
+         id="path16428"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ssscscscs" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         sodipodi:nodetypes="ssscscscs"
+         inkscape:connector-curvature="0"
+         id="path16368"
+         d="m -287.6894,-2709.5089 c -0.0205,0 -0.0472,0.011 -0.0473,0.048 0,0.037 0.0139,0.1354 0.0576,0.1359 h 0.0663 0.0663 c 0.0437,0 0.0577,-0.099 0.0576,-0.1359 0,-0.037 -0.0268,-0.048 -0.0473,-0.048 h -0.0767 z"
+         style="opacity:1;fill:#989cc0;fill-opacity:1;stroke:none;stroke-width:0.01285496px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         id="path16370"
+         d="m -287.6894,-2709.4833 c -0.0187,0 -0.0425,0.01 -0.0466,0.039 0,0 0,0 0,0 0.003,0.043 0.0187,0.119 0.0569,0.1195 h 0.0663 0.0663 c 0.0383,0 0.0537,-0.076 0.0569,-0.1195 0,0 0,-10e-5 0,-10e-5 -0.004,-0.029 -0.0279,-0.039 -0.0466,-0.039 h -0.0767 z"
+         style="opacity:1;fill:#747cac;fill-opacity:1;stroke:none;stroke-width:0.01285496px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <rect
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         ry="0.019015076"
+         y="-2709.7639"
+         x="-287.77979"
+         height="0.23396048"
+         width="0.33439913"
+         id="rect16374"
+         style="opacity:1;fill:#f86480;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.06882476;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" />
+      <rect
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         ry="0.016047994"
+         y="-2709.4688"
+         x="-287.69696"
+         height="0.032095987"
+         width="0.16844559"
+         id="rect16376"
+         style="opacity:1;fill:#38405c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.04858568;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" />
+      <rect
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         style="opacity:1;fill:#8088b0;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.04858568;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         id="rect16378"
+         width="0.16844559"
+         height="0.053118099"
+         x="-287.69696"
+         y="-2709.4275"
+         ry="0.016047994" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         inkscape:connector-curvature="0"
+         style="opacity:1;fill:#2c3038;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.24779147;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m -287.69005,-2709.4575 v 0.033 0.034 0.013 0.054 0.016 c 0,0.01 0.008,0.017 0.0169,0.017 h 0.0164 0.088 0.0164 c 0.009,0 0.0169,-0.01 0.0169,-0.017 v -0.016 -0.054 -0.013 -0.034 -0.033 h -0.0333 -0.088 z"
+         id="path16380" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         inkscape:connector-curvature="0"
+         style="opacity:1;fill:#181c2c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.24779147;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m -287.69005,-2709.4575 v 0.033 0.034 0 c 0,0.019 0.0149,0.033 0.0333,0.033 h 0.0879 c 0.0185,0 0.0333,-0.015 0.0333,-0.033 v 0 -0.034 -0.033 h -0.0333 -0.0879 z"
+         id="path16382" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         id="path16432"
+         d="m -287.61257,-2709.9095 a 0.16722439,0.1881134 0 0 0 -0.16722,0.1881 v 0.021 a 0.16722439,0.16722439 0 0 0 0.16722,0.1673 0.16722439,0.16722439 0 0 0 0.16724,-0.1673 v -0.021 a 0.16722439,0.1881134 0 0 0 -0.16724,-0.1881 z"
+         style="opacity:1;fill:#e8a828;fill-opacity:1;fill-rule:nonzero;stroke:#10284c;stroke-width:0.05344424;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.29133892;stroke-opacity:1;paint-order:markers fill stroke"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         inkscape:connector-curvature="0"
+         style="opacity:1;fill:#e8a828;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.15321349;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.29133892;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m -287.61257,-2709.9095 a 0.16722439,0.1881134 0 0 0 -0.16722,0.1881 v 0.021 a 0.16722439,0.16722439 0 0 0 0.16722,0.1673 0.16722439,0.16722439 0 0 0 0.16724,-0.1673 v -0.021 a 0.16722439,0.1881134 0 0 0 -0.16724,-0.1881 z"
+         id="path16384" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         inkscape:connector-curvature="0"
+         style="opacity:1;fill:url(#linearGradient16408);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.13172071;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.29133892;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m -287.61257,-2709.9095 a 0.16722439,0.1881134 0 0 0 -0.16722,0.1881 v 0.01 0 h 3e-5 a 0.16722439,0.13903808 0 0 0 0.16719,0.1386 0.16722439,0.13903808 0 0 0 0.16724,-0.139 0.16722439,0.13903808 0 0 0 -5e-5,0 v -0.01 a 0.16722439,0.1881134 0 0 0 -0.16719,-0.1869 z"
+         id="path16386" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         style="opacity:1;fill:#ffa800;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.14445646;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.29133892;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m -287.72706,-2709.8239 c -0.0218,0.02 -0.0311,0.07 -0.0311,0.1173 l 10e-4,0.01 c 0.0238,0.063 0.0727,0.1018 0.14432,0.1018 0.0421,0 0.0806,-0.021 0.0994,-0.044 0.0188,-0.023 0.0229,-0.035 0.023,-0.053 -1e-5,-0.089 -0.0863,-0.1621 -0.14357,-0.1621 -0.0549,0 -0.0715,0.015 -0.0933,0.035 z"
+         id="path16388"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="zccscccz" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         inkscape:connector-curvature="0"
+         id="path16438"
+         d="m -287.75727,-2709.7308 c -5.3e-4,0.01 -7.9e-4,0.016 -7.9e-4,0.024 l 10e-4,0.01 c 0.0238,0.063 0.0727,0.1018 0.14432,0.1018 0.0421,0 0.0806,-0.021 0.0994,-0.044 0.002,0 0.004,-0.01 0.006,-0.01 -0.0459,0.026 -0.0893,0.01 -0.12232,-0.01 z"
+         style="opacity:1;fill:#f4a400;fill-opacity:1;stroke:none;stroke-width:0.01285496px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <ellipse
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         ry="0.067539588"
+         rx="0.065883681"
+         style="opacity:1;fill:#545c78;fill-opacity:1;fill-rule:nonzero;stroke:#10284c;stroke-width:0.05344424;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.29133892;stroke-opacity:1;paint-order:markers fill stroke"
+         id="ellipse16434"
+         cx="-287.6741"
+         cy="-2709.7366" />
+      <ellipse
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         cy="-2709.739"
+         cx="-287.67523"
+         id="ellipse16390-1"
+         style="opacity:1;fill:#545c78;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.05660488;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.29133892;stroke-opacity:1;paint-order:markers fill stroke"
+         rx="0.064718187"
+         ry="0.066344798" />
+      <path
+         inkscape:connector-curvature="0"
+         style="opacity:1;fill:#7c809c;fill-opacity:1;stroke:none;stroke-width:0.01547676px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m -287.67524,-2709.8053 a 0.06471818,0.0663448 0 0 0 -0.0581,0.037 c -9.8e-4,0 -0.002,0.01 -0.003,0.01 a 0.06471818,0.0663448 0 0 0 -6.2e-4,0 0.06471818,0.0663448 0 0 0 0,3e-4 c 0.0127,-0.01 0.0329,-0.019 0.0468,-0.02 h 0.003 c 0.0285,0 0.0558,0.025 0.0743,0.057 0.001,-0.01 0.002,-0.011 0.002,-0.017 0,0 0,-1e-4 0,-1e-4 -2e-5,-0.01 -0.002,-0.019 -0.006,-0.028 a 0.06471818,0.0663448 0 0 0 0,-1e-4 c -3e-5,-10e-5 -1.3e-4,-10e-5 -1.3e-4,-2e-4 -0.002,-0.01 -0.006,-0.01 -0.009,-0.014 a 0.06471818,0.0663448 0 0 0 -0.0499,-0.024 z m 0.0626,0.05 v 2e-4 z"
+         id="path16394-1" />
+      <ellipse
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         cy="-2709.7366"
+         cx="-287.68619"
+         id="ellipse16392"
+         style="opacity:1;fill:#282c38;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.03128564;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.29133892;stroke-opacity:1;paint-order:markers fill stroke"
+         rx="0.032109626"
+         ry="0.040848885" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         id="path16396"
+         d="m -287.6552,-2709.747 c -0.0137,0.023 -0.0273,0.031 -0.059,0.031 a 0.03210963,0.04084888 0 0 0 0.028,0.021 0.03210963,0.04084888 0 0 0 0.0321,-0.041 0.03210963,0.04084888 0 0 0 -10e-4,-0.011 z"
+         style="fill:#343444;fill-opacity:1;stroke:none;stroke-width:0.01285496px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         style="opacity:1;fill:#20242c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.24779147;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m -287.67316,-2709.4203 c -0.009,0 -0.0169,0.01 -0.0169,0.017 v 0.01 0 0 0 0 0.016 c 0,0.01 0.008,0.017 0.0169,0.017 h 0.0165 0.0879 0.0164 c 0.009,0 0.0169,-0.01 0.0169,-0.017 v -0.016 c 0,0 0,0 0,0 v -0.01 0 -0.01 c 0,-0.01 -0.008,-0.017 -0.0169,-0.017 h -0.0164 -0.088 z"
+         id="path16398"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="sscccccssccsscsscssccs" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         inkscape:connector-curvature="0"
+         style="opacity:1;fill:#343440;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.03875076;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m -287.66437,-2709.3549 v 0.039 h 0.10324 v -0.039 h -0.008 -0.0879 z"
+         id="path16400" />
+      <path
+         inkscape:export-ydpi="8145.04"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         inkscape:connector-curvature="0"
+         style="opacity:1;fill:#282834;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.24779147;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m -287.66437,-2709.3933 v 0.038 h 0.008 0.0879 0.008 v -0.038 z"
+         id="path16402" />
+    </g>
+  </g>
+</svg>
