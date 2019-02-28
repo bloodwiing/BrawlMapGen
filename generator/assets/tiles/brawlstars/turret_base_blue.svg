@@ -115,9 +115,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="89.6"
-     inkscape:cx="3.0151549"
-     inkscape:cy="2.8601248"
+     inkscape:zoom="256"
+     inkscape:cx="1.2836856"
+     inkscape:cy="2.7065795"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -137,7 +137,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -185,6 +185,15 @@
          cx="-315.62912"
          cy="-2712.0574"
          r="0.25432205" />
+      <circle
+         r="0.25432205"
+         cy="-2712.0574"
+         cx="-315.62912"
+         id="circle867"
+         style="opacity:1;fill:#7c809c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.20199908;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\blue_base.png"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-ydpi="8145.04" />
       <circle
          inkscape:export-ydpi="8145.04"
          inkscape:export-xdpi="8145.04"
@@ -295,6 +304,14 @@
          id="ellipse16558"
          cx="316.7702"
          cy="-2711.0198" />
+      <path
+         id="path866"
+         d="m -315.35132,-2711.0011 c 0.0824,0 0.30014,0.13 0.31572,0.3164 h 10e-4 v 0.021 0.1084 0.5571 h -0.31724 v -0.5571 -0.1293 z"
+         style="opacity:1;fill:#ffc834;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.20199908;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         inkscape:connector-curvature="0"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\blue_base.png"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-ydpi="8145.04" />
       <path
          inkscape:export-ydpi="8145.04"
          inkscape:export-xdpi="8145.04"

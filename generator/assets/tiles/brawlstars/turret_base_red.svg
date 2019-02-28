@@ -103,9 +103,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="45.254834"
-     inkscape:cx="1.6542516"
-     inkscape:cy="3.1413139"
+     inkscape:zoom="256"
+     inkscape:cx="0.59577753"
+     inkscape:cy="0.94692138"
      inkscape:document-units="mm"
      inkscape:current-layer="g20849"
      showgrid="false"
@@ -125,7 +125,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -183,6 +183,14 @@
          style="opacity:1;fill:#ffc834;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.12768996;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
          d="m -287.74738,-2709.6213 c -0.0218,0 -0.0794,0.034 -0.0835,0.084 h -5.3e-4 v 0.01 0.029 0.1474 h 0.0839 v -0.1474 -0.034 z"
          id="path16350" />
+      <path
+         inkscape:connector-curvature="0"
+         style="opacity:1;fill:#ffc834;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.05344424;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         d="m -287.74738,-2709.6213 c -0.0218,0 -0.0794,0.034 -0.0835,0.084 h -5.3e-4 v 0.01 0.029 0.1474 h 0.0839 v -0.1474 -0.034 z"
+         id="path864"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-ydpi="8145.04" />
       <path
          inkscape:export-ydpi="8145.04"
          inkscape:export-xdpi="8145.04"
@@ -244,13 +252,21 @@
          rx="0.09326753"
          ry="0.075979121" />
       <path
+         inkscape:connector-curvature="0"
+         style="opacity:1;fill:#ffc834;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.05344424;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         d="m -287.74738,-2709.6213 c -0.0218,0 -0.0794,0.034 -0.0835,0.084 h -5.3e-4 v 0.01 0.029 0.1474 h 0.0839 v -0.1474 -0.034 z"
+         id="path866"
+         inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
+         inkscape:export-xdpi="8145.04"
+         inkscape:export-ydpi="8145.04" />
+      <path
          inkscape:export-ydpi="8145.04"
          inkscape:export-xdpi="8145.04"
          inkscape:export-filename="F:\For Series\For Friends\SPIKE\red_base.png"
          sodipodi:nodetypes="ccccc"
          inkscape:connector-curvature="0"
          id="path16362"
-         d="m -287.83131,-2709.356 h 0.0839 v -0.1179 c -0.0226,0 -0.0839,0.037 -0.0839,0.089 z"
+         d="m -287.83131,-2709.3509 h 0.0839 v -0.1179 c -0.0226,0 -0.0839,0.037 -0.0839,0.089 z"
          style="opacity:1;fill:#cc8800;fill-opacity:1;stroke:none;stroke-width:0.01602216px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
       <rect
          inkscape:export-ydpi="8145.04"
