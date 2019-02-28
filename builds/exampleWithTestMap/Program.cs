@@ -21,10 +21,6 @@ namespace generator
             Options options = new Options();
             Voice voice = new Voice();
 
-            voice.Speak("Pre-release build\nThe update is finished, but all is left now it to clean it up and fix any problems.\nPlease report any bugs in the \"Issues\" section of the github repository.\nThank you for using BrawlMapGen!", ActionType.basic);
-            Console.ReadKey();
-            Console.Clear();
-
             try
             {
                 if (fArgs.ToLower().Contains(" -f "))
@@ -76,7 +72,7 @@ namespace generator
                 if (options.setPath != null)
                     Environment.CurrentDirectory = options.setPath;
 
-                voice.Speak("Brawl Map Gen v1.7 [PRE-RELEASE]\nCreated by RedH1ghway aka TheDonciuxx\nWith the help of 4JR\n\nLoading " + options.preset + " preset", ActionType.setup);
+                voice.Speak("Brawl Map Gen v1.7\nCreated by RedH1ghway aka TheDonciuxx\nWith the help of 4JR\n\nLoading " + options.preset + " preset", ActionType.setup);
                 voice.Speak("[ AAL ] READ << presets\\" + options.preset + ".json", ActionType.aal);
 
                 if (!File.Exists("presets\\" + options.preset + ".json"))
