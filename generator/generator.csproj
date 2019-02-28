@@ -163,7 +163,13 @@
     <Content Include="assets\tiles\brawlstars\turret_base_blue.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\tiles\brawlstars\turret_base_blue_range.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\tiles\brawlstars\turret_base_red.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\tiles\brawlstars\turret_base_red_range.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\tiles\brawlstars\vault.svg">
