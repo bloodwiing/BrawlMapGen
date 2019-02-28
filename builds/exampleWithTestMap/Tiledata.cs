@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace generator
 {
-    class Tiledata
+    public class Tiledata
     {
 
         public Tile[] tiles { get; set; }
@@ -59,6 +59,7 @@ namespace generator
         public class TileLink
         {
             public TileLinkRule[] rules { get; set; }
+            public bool multipleConditionsCouldApply { get; set; }
             public TileLinkDefault defaults { get; set; }
             public string assetFolder { get; set; }
         }
@@ -82,6 +83,7 @@ namespace generator
         {
             public string name { get; set; }
             public SpecialTile[] specialTiles { get; set; }
+            public TileDefault[] overrideBiome { get; set; }
         }
 
         public class SpecialTile

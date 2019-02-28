@@ -559,7 +559,7 @@
 				"left": 530,
 				"right": 529
 			},
-			"asset": "vault.svg",
+			"asset": "vault_offset.svg",
 			"order": 3
 		},
 		{
@@ -604,6 +604,118 @@
 				"right": 545
 			},
 			"asset": "mine_snow.svg"
+		},
+		{
+			"tileParts": {
+				"top": 2021,
+				"mid": 1000,
+				"bot": 0,
+				"left": 411,
+				"right": 880
+			},
+			"asset": "turret_base_red.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 2235,
+				"mid": 1000,
+				"bot": 0,
+				"left": 873,
+				"right": 417
+			},
+			"asset": "turret_base_blue.svg",
+			"order": 3
+		}
+		]
+	},
+	{
+		"tileName": "springpadRight",
+		"tileCode": "H",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 1117,
+				"left": 0,
+				"right": 894
+			},
+			"asset": "spring_right.svg"
+		}
+		]
+	},
+	{
+		"tileName": "springpadLeft",
+		"tileCode": "G",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 1117,
+				"left": 0,
+				"right": 894
+			},
+			"asset": "spring_left.svg"
+		}
+		]
+	},
+	{
+		"tileName": "springpadBottom",
+		"tileCode": "L",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 1117,
+				"left": 0,
+				"right": 894
+			},
+			"asset": "spring_bottom.svg"
+		}
+		]
+	},
+	{
+		"tileName": "springpadTop",
+		"tileCode": "K",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 1117,
+				"left": 0,
+				"right": 894
+			},
+			"asset": "spring_top.svg"
+		}
+		]
+	},
+	{
+		"tileName": "turretBaseRange",
+		"tileCode": ",",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 12487,
+				"mid": 1000,
+				"bot": 525,
+				"left": 11650,
+				"right": 11667
+			},
+			"asset": "turret_base_blue_range.svg"
+		},
+		{
+			"tileParts": {
+				"top": 525,
+				"mid": 1000,
+				"bot": 12487,
+				"left": 11650,
+				"right": 11667
+			},
+			"asset": "turret_base_red_range.svg"
 		}
 		]
 	}
@@ -661,6 +773,22 @@
 		{
 			"tile": "objective",
 			"type": 2
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
+			"type": 1
 		}
 		]
 	},
@@ -716,6 +844,22 @@
 		{
 			"tile": "objective",
 			"type": 2
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
+			"type": 1
 		}
 		]
 	},
@@ -766,6 +910,22 @@
 		},
 		{
 			"tile": "player2",
+			"type": 1
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
 			"type": 1
 		}
 		]
@@ -822,6 +982,22 @@
 		{
 			"tile": "objective",
 			"type": 2
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
+			"type": 1
 		}
 		]
 	},
@@ -864,6 +1040,22 @@
 		},
 		{
 			"tile": "player2",
+			"type": 1
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
 			"type": 1
 		}
 		]
@@ -915,6 +1107,22 @@
 		},
 		{
 			"tile": "player2",
+			"type": 1
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
 			"type": 1
 		}
 		]
@@ -971,6 +1179,22 @@
 		{
 			"tile": "objective",
 			"type": 2
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
+			"type": 1
 		}
 		]
 	}
@@ -1022,13 +1246,62 @@
 		]
 	},
 	{
-		"name": "Snow Gem Grab",
+		"name": "Snowy Gem Grab",
 		"specialTiles": [
 		{
 			"tile": "objective",
 			"type": 8,
 			"position": "m,m",
 			"drawOrder": 2
+		}
+		]
+	},
+	{
+		"name": "Big Game",
+		"overrideBiome": [
+		{
+			"tile": "player1",
+			"type": 2
+		},
+		{
+			"tile": "player2",
+			"type": 3
+		}
+		]
+	},
+	{
+		"name": "Robo Rumble",
+		"overrideBiome": [
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
+			"type": 4
+		}
+		]
+	},
+	{
+		"name": "Siege",
+		"overrideBiome": [
+		{
+			"tile": "objective",
+			"type": 10
+		}
+		],
+		"specialTiles": [
+		{
+			"tile": "turretBaseRange",
+			"type": 1,
+			"position": "m,-1",
+			"drawOrder": 1
+		},
+		{
+			"tile": "turretBaseRange",
+			"type": 2,
+			"position": "m,1",
+			"drawOrder": 1
 		}
 		]
 	}
