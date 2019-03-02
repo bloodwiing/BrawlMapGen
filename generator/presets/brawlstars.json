@@ -1278,6 +1278,19 @@
 		},
 		{
 			"tile": "player2",
+			"type": 5
+		}
+		]
+	},
+	{
+		"name": "Boss Fight",
+		"overrideBiome": [
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
 			"type": 4
 		}
 		]
