@@ -32,10 +32,9 @@ namespace generator
                             tileImages.Last().imageHeight = (int)Math.Round((double)SvgDocument.Open(file).Height * sizeMultiplier);
                             tileImages.Last().renderedImage = SvgDocument.Open(file).Draw(tileImages.Last().imageWidth, tileImages.Last().imageHeight);
                             voice.Speak("[ AAL ] READ << assets\\tiles\\" + optionsObject.preset + "\\" + tileImages.Last().imageName, Program.ActionType.aal);
-                            Bitmap b = tileImages.Last().renderedImage;
-                            Graphics g = Graphics.FromImage(b);
-                            b.Save("test\\" + tileImages.Last().imageName + ".png", System.Drawing.Imaging.ImageFormat.Png);
-                            voice.Speak(tileImages.Last().imageWidth + "  " + tileImages.Last().imageName, Program.ActionType.basic);
+                            //Bitmap b = tileImages.Last().renderedImage;
+                            //b.Save("test\\" + tileImages.Last().imageName + ".png", System.Drawing.Imaging.ImageFormat.Png);
+                            //voice.Speak(tileImages.Last().imageWidth + "  " + tileImages.Last().imageName, Program.ActionType.basic);
                             break;
                         }
                     }
