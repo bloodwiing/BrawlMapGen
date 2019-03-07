@@ -4,8 +4,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C446C8D8-115B-461F-87CA-D4726EC24FB8}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>generator</RootNamespace>
-    <AssemblyName>generator</AssemblyName>
+    <RootNamespace>BMG</RootNamespace>
+    <AssemblyName>BMG</AssemblyName>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -48,14 +48,10 @@
       <HintPath>Libraries\Svg.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
 	<Reference Include="System.Drawing.Common" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>

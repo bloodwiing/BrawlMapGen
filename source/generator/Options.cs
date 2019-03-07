@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace generator
+namespace BMG
 {
     public class Options
     {

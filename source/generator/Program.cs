@@ -7,7 +7,7 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Threading;
 
-namespace generator
+namespace BMG
 {
     public class Program
     {

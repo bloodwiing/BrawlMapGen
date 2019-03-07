@@ -5,7 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 
-namespace generator
+namespace BMG
 {
     public class SavedImages
     {

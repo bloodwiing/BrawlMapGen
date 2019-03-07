@@ -1,4 +1,4 @@
-﻿namespace generator
+﻿namespace BMG
 {
     public class Tiledata
     {
