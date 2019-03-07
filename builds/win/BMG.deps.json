@@ -1,0 +1,158 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.2/win-x64",
+    "signature": "4a56d4fb15697c32db35cfcc499eca2e95bd2f5f"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.2": {},
+    ".NETCoreApp,Version=v2.2/win-x64": {
+      "BMG/1.0.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.1",
+          "System.Drawing.Common": "4.5.1",
+          "System.Security.Permissions": "4.6.0-preview.19073.11",
+          "Svg": "2.4.5.0"
+        },
+        "runtime": {
+          "BMG.dll": {}
+        }
+      },
+      "Microsoft.NETCore.Platforms/3.0.0-preview.19073.11": {},
+      "Microsoft.Win32.SystemEvents/4.5.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.0.0-preview.19073.11"
+        },
+        "runtime": {
+          "runtimes/win/lib/netcoreapp2.0/Microsoft.Win32.SystemEvents.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.6.26515.6"
+          }
+        }
+      },
+      "Newtonsoft.Json/12.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.1.22727"
+          }
+        }
+      },
+      "System.Drawing.Common/4.5.1": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.0.0-preview.19073.11",
+          "Microsoft.Win32.SystemEvents": "4.5.0"
+        },
+        "runtime": {
+          "runtimes/win/lib/netcoreapp2.0/System.Drawing.Common.dll": {
+            "assemblyVersion": "4.0.0.1",
+            "fileVersion": "4.6.26919.2"
+          }
+        }
+      },
+      "System.Security.AccessControl/4.6.0-preview.19073.11": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.0.0-preview.19073.11",
+          "System.Security.Principal.Windows": "4.6.0-preview.19073.11"
+        },
+        "runtime": {
+          "runtimes/win/lib/netcoreapp2.0/System.Security.AccessControl.dll": {
+            "assemblyVersion": "4.1.2.0",
+            "fileVersion": "4.7.19.7311"
+          }
+        }
+      },
+      "System.Security.Permissions/4.6.0-preview.19073.11": {
+        "dependencies": {
+          "System.Security.AccessControl": "4.6.0-preview.19073.11"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Security.Permissions.dll": {
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.7.19.7311"
+          }
+        }
+      },
+      "System.Security.Principal.Windows/4.6.0-preview.19073.11": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "3.0.0-preview.19073.11"
+        },
+        "runtime": {
+          "runtimes/win/lib/netcoreapp2.1/System.Security.Principal.Windows.dll": {
+            "assemblyVersion": "4.1.2.0",
+            "fileVersion": "4.7.19.7311"
+          }
+        }
+      },
+      "Svg/2.4.5.0": {
+        "runtime": {
+          "Svg.dll": {
+            "assemblyVersion": "2.4.5.0",
+            "fileVersion": "2.4.5.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BMG/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.NETCore.Platforms/3.0.0-preview.19073.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9lLkGd9xOH8kmV1p/evihvUzJxl8r0L5pPJvk4Dq/LmMjaSyeCl3kRFoqtw7/kekSlgXIPb4WO5AQR+wEwzeqA==",
+      "path": "microsoft.netcore.platforms/3.0.0-preview.19073.11",
+      "hashPath": "microsoft.netcore.platforms.3.0.0-preview.19073.11.nupkg.sha512"
+    },
+    "Microsoft.Win32.SystemEvents/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LuI1oG+24TUj1ZRQQjM5Ew73BKnZE5NZ/7eAdh1o8ST5dPhUnJvIkiIn2re3MwnkRy6ELRnvEbBxHP8uALKhJw==",
+      "path": "microsoft.win32.systemevents/4.5.0",
+      "hashPath": "microsoft.win32.systemevents.4.5.0.nupkg.sha512"
+    },
+    "Newtonsoft.Json/12.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pBR3wCgYWZGiaZDYP+HHYnalVnPJlpP1q55qvVb+adrDHmFMDc1NAKio61xTwftK3Pw5h7TZJPJEEVMd6ty8rg==",
+      "path": "newtonsoft.json/12.0.1",
+      "hashPath": "newtonsoft.json.12.0.1.nupkg.sha512"
+    },
+    "System.Drawing.Common/4.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GiyeGi/v4xYDz1vCNFwFvhz9k1XddOG7VD3jxRqzRBCbTHji+s3HxxbxtoymuK4OadEpgotI8zQ5+GEEH9sUEQ==",
+      "path": "system.drawing.common/4.5.1",
+      "hashPath": "system.drawing.common.4.5.1.nupkg.sha512"
+    },
+    "System.Security.AccessControl/4.6.0-preview.19073.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-h1SBvPR+x9H2jmybwrj2Qsg1iSVgVqAYJr/xIav/d/R5KllVUb/7gyShwBiwDNj7TAbbDuxDM3aqzpVQ9m5IZQ==",
+      "path": "system.security.accesscontrol/4.6.0-preview.19073.11",
+      "hashPath": "system.security.accesscontrol.4.6.0-preview.19073.11.nupkg.sha512"
+    },
+    "System.Security.Permissions/4.6.0-preview.19073.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QRBJDO4gM2qqirXH4ODcMBD2bQTceKHzROvuXCeaJ3uA+8lioWakw6wpHwArN9Ynt3IN7PR0q4Wb+R4/TQwqXQ==",
+      "path": "system.security.permissions/4.6.0-preview.19073.11",
+      "hashPath": "system.security.permissions.4.6.0-preview.19073.11.nupkg.sha512"
+    },
+    "System.Security.Principal.Windows/4.6.0-preview.19073.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5VVc3wSdOU4ljUQHkM4W8Rluhyh/Pycz5mq0DFMOULIPHAvjbhrVCRT9bXU9WXZTuL9BHM9GQLMjq6jBoW6K7g==",
+      "path": "system.security.principal.windows/4.6.0-preview.19073.11",
+      "hashPath": "system.security.principal.windows.4.6.0-preview.19073.11.nupkg.sha512"
+    },
+    "Svg/2.4.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
