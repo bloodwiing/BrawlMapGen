@@ -36,6 +36,7 @@
     <PackageId>BrawlMapGen</PackageId>
     <Description>A generator which generates map images from arrays of strings and vector tiles.</Description>
     <Authors>TheDonciuxX</Authors>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath></OutputPath>

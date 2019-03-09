@@ -14,24 +14,24 @@ namespace BMG
 
         public SavedImages(Options optionsObject, Tiledata.Tile[] tiles, int sizeMultiplier, Program.Voice voice)
         {
-            foreach (string file in Directory.GetFiles("assets\\tiles\\" + optionsObject.preset + "\\"))
+            foreach (string file in Directory.GetFiles("assets/tiles/" + optionsObject.preset + "/"))
             {
                 foreach (Tiledata.Tile tile in tiles)
                 {
                     for (int type = 0; type < tile.tileTypes.Length; type++)
                     {
-                        if (file.Split('\\').Last() == tile.tileTypes[type].asset)
+                        if (file.Split('/').Last() == tile.tileTypes[type].asset)
                         {
                             tileImages.Add(new TileImage()
                             {
-                                imageName = file.Split(new string[] { optionsObject.preset + "\\" }, StringSplitOptions.None)[1],
+                                imageName = file.Split(new string[] { optionsObject.preset + "/" }, StringSplitOptions.None)[1],
                                 imageOffsetTop = (int)Math.Round((double)tile.tileTypes[type].tileParts.top * sizeMultiplier / 1000),
                                 imageOffsetLeft = (int)Math.Round((double)tile.tileTypes[type].tileParts.left * sizeMultiplier / 1000)
                             });
                             tileImages.Last().imageWidth = (int)Math.Round((double)SvgDocument.Open(file).Width * sizeMultiplier);
                             tileImages.Last().imageHeight = (int)Math.Round((double)SvgDocument.Open(file).Height * sizeMultiplier);
                             tileImages.Last().renderedImage = SvgDocument.Open(file).Draw(tileImages.Last().imageWidth, tileImages.Last().imageHeight);
-                            voice.Speak("[ AAL ] READ << assets\\tiles\\" + optionsObject.preset + "\\" + tileImages.Last().imageName, Program.ActionType.aal);
+                            voice.Speak("[ AAL ] READ << assets/tiles/" + optionsObject.preset + "/" + tileImages.Last().imageName, Program.ActionType.aal);
                             //Bitmap b = tileImages.Last().renderedImage;
                             //b.Save("test\\" + tileImages.Last().imageName + ".png", System.Drawing.Imaging.ImageFormat.Png);
                             //voice.Speak(tileImages.Last().imageWidth + "  " + tileImages.Last().imageName, Program.ActionType.basic);
@@ -40,7 +40,7 @@ namespace BMG
                     }
                 }
             }
-            foreach (string folder in Directory.GetDirectories("assets\\tiles\\" + optionsObject.preset + "\\"))
+            foreach (string folder in Directory.GetDirectories("assets/tiles/" + optionsObject.preset + ";"))
             {
                 foreach (string file in Directory.GetFiles(folder))
                 {
@@ -49,11 +49,11 @@ namespace BMG
                         for (int type = 0; type < tile.tileTypes.Length; type++)
                         {
                             if (tile.tileLinks != null)
-                                if (folder.Split('\\').Last() == tile.tileLinks.assetFolder)
+                                if (folder.Split('/').Last() == tile.tileLinks.assetFolder)
                                 {
                                     tileImages.Add(new TileImage()
                                     {
-                                        imageName = file.Split(new string[] { optionsObject.preset + "\\" }, StringSplitOptions.None)[1],
+                                        imageName = file.Split(new string[] { optionsObject.preset + "/" }, StringSplitOptions.None)[1],
                                         imageOffsetTop = (int)Math.Round((double)tile.tileTypes[type].tileParts.top * sizeMultiplier / 1000),
                                         imageOffsetLeft = (int)Math.Round((double)tile.tileTypes[type].tileParts.left * sizeMultiplier / 1000)
                                     });

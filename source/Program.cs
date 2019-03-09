@@ -76,13 +76,13 @@ namespace BMG
 
                 if (!File.Exists("presets\\" + options.preset + ".json"))
                 {
-                    voice.Speak("\nERROR:\nPreset doesn't exist\n[FileReader] Unable to find file in location \"presets\\" + options.preset + ".json\"", ActionType.basic);
+                    voice.Speak("\nERROR:\nPreset doesn't exist\n[FileReader] Unable to find file in location \"presets/" + options.preset + ".json\"", ActionType.basic);
                     voice.Write("log.txt");
                     Thread.Sleep(3000);
                     Environment.Exit(1);
                 }
 
-                StreamReader r2 = new StreamReader("presets\\" + options.preset + ".json");
+                StreamReader r2 = new StreamReader("presets/" + options.preset + ".json");
                 string json2 = r2.ReadToEnd();
                 voice.Speak("Preset \"" + options.preset.ToUpper() + "\" loaded.", ActionType.setup);
                 var tiledata = JsonConvert.DeserializeObject<Tiledata>(json2);
