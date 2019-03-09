@@ -40,7 +40,7 @@ namespace BMG
                     }
                 }
             }
-            foreach (string folder in Directory.GetDirectories("assets/tiles/" + optionsObject.preset + ";"))
+            foreach (string folder in Directory.GetDirectories("assets/tiles/" + optionsObject.preset + "/"))
             {
                 foreach (string file in Directory.GetFiles(folder))
                 {
