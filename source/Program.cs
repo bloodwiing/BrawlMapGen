@@ -72,9 +72,9 @@ namespace BMG
                     Environment.CurrentDirectory = options.setPath;
 
                 voice.Speak("Brawl Map Gen v1.7\nCreated by RedH1ghway aka TheDonciuxx\nWith the help of 4JR\n\nLoading " + options.preset + " preset", ActionType.setup);
-                voice.Speak("[ AAL ] READ << presets\\" + options.preset + ".json", ActionType.aal);
+                voice.Speak("[ AAL ] READ << ./presets/" + options.preset + ".json", ActionType.aal);
 
-                if (!File.Exists("presets\\" + options.preset + ".json"))
+                if (!File.Exists("./presets/" + options.preset + ".json"))
                 {
                     voice.Speak("\nERROR:\nPreset doesn't exist\n[FileReader] Unable to find file in location \"presets/" + options.preset + ".json\"", ActionType.basic);
                     voice.Write("log.txt");
@@ -82,7 +82,7 @@ namespace BMG
                     Environment.Exit(1);
                 }
 
-                StreamReader r2 = new StreamReader("presets/" + options.preset + ".json");
+                StreamReader r2 = new StreamReader("./presets/" + options.preset + ".json");
                 string json2 = r2.ReadToEnd();
                 voice.Speak("Preset \"" + options.preset.ToUpper() + "\" loaded.", ActionType.setup);
                 var tiledata = JsonConvert.DeserializeObject<Tiledata>(json2);
@@ -417,7 +417,7 @@ namespace BMG
 
                                                         string fols = "";
                                                         if (aTile.tileLinks.assetFolder != null)
-                                                            fols = aTile.tileLinks.assetFolder + "\\";
+                                                            fols = aTile.tileLinks.assetFolder + "/";
                                                         var assetst = fullBinaryFinal + ".svg";
 
                                                         Tiledata.TileType breakerTile = new Tiledata.TileType()
@@ -638,14 +638,14 @@ namespace BMG
                                         }
 
                                         tileDrawer.ExportImage(options, exportName);
-                                        voice.Speak("[ AAL ] WRITE >> " + options.exportFolderName + "\\" + exportName, ActionType.aal);
-                                        voice.Speak("\nImage saved to " + Environment.CurrentDirectory + options.exportFolderName + "\\" + exportName + ".", ActionType.saveLocation);
+                                        voice.Speak("[ AAL ] WRITE >> " + options.exportFolderName + "/" + exportName, ActionType.aal);
+                                        voice.Speak("\nImage saved to " + Environment.CurrentDirectory + options.exportFolderName + "/" + exportName + ".", ActionType.saveLocation);
                                     }
                                     else
                                     {
                                         tileDrawer.ExportImage(options, exportName);
-                                        voice.Speak("[ AAL ] WRITE >> " + options.exportFolderName + "\\" + exportName, ActionType.aal);
-                                        voice.Speak("\nImage saved to " + Environment.CurrentDirectory + options.exportFolderName + "\\" + exportName + ".", ActionType.saveLocation);
+                                        voice.Speak("[ AAL ] WRITE >> " + options.exportFolderName + "/" + exportName, ActionType.aal);
+                                        voice.Speak("\nImage saved to " + Environment.CurrentDirectory + options.exportFolderName + "/" + exportName + ".", ActionType.saveLocation);
                                     }
                                 }
                                 else
@@ -813,7 +813,7 @@ namespace BMG
             {
                 if (!Directory.Exists(optionsObject.exportFolderName))
                     Directory.CreateDirectory(optionsObject.exportFolderName);
-                b.Save(optionsObject.exportFolderName + "\\" + fileName, ImageFormat.Png);
+                b.Save(optionsObject.exportFolderName + "/" + fileName, ImageFormat.Png);
 
                 b.Dispose();
                 g.Dispose();
@@ -1022,7 +1022,7 @@ namespace BMG
                 if (savedOptionsObject.saveLogFile)
                 {
                     if (savedOptionsObject.console.aal)
-                        Console.WriteLine("[ AAL ] WRITE >> " + fileName + "");
+                        Console.WriteLine("[ AAL ] WRITE >> ./" + fileName + "");
                     File.WriteAllText(fileName, string.Join("\n", loggedLines).Replace("\n", Environment.NewLine));
                     Console.WriteLine("\nLog saved to log.txt");
                 }
