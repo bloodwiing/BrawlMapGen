@@ -55,6 +55,7 @@
             public TileLinkRule[] rules { get; set; }
             public bool multipleConditionsCouldApply { get; set; }
             public TileLinkDefault defaults { get; set; }
+            public EdgeCase edgeCase { get; set; }
             public string assetFolder { get; set; }
         }
 
@@ -86,6 +87,11 @@
             public int type { get; set; }
             public string position { get; set; }
             public int drawOrder { get; set; }
+        }
+
+        public enum EdgeCase
+        {
+            different, copies, mirror
         }
 
     }

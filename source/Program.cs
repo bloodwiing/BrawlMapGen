@@ -340,14 +340,7 @@ namespace BMG
                                                 {
                                                     if (aTile.tileLinks != null)
                                                     {
-                                                        if (currentY != 0 && currentX != 0) { if (map[currentY - 1].ToCharArray()[currentX - 1] == aTile.tileCode) { NeighborBinary = "1"; } else NeighborBinary = "0"; } else NeighborBinary = "0";
-                                                        if (currentY != 0) { if (map[currentY - 1].ToCharArray()[currentX] == aTile.tileCode) { NeighborBinary = NeighborBinary + "1"; } else NeighborBinary = NeighborBinary + "0"; } else NeighborBinary = NeighborBinary + "0";
-                                                        if (currentY != 0 && currentX != xLength - 1) { if (map[currentY - 1].ToCharArray()[currentX + 1] == aTile.tileCode) { NeighborBinary = NeighborBinary + "1"; } else NeighborBinary = NeighborBinary + "0"; } else NeighborBinary = NeighborBinary + "0";
-                                                        if (currentX != 0) { if (map[currentY].ToCharArray()[currentX - 1] == aTile.tileCode) { NeighborBinary = NeighborBinary + "1"; } else NeighborBinary = NeighborBinary + "0"; } else NeighborBinary = NeighborBinary + "0";
-                                                        if (currentX != xLength - 1) { if (map[currentY].ToCharArray()[currentX + 1] == aTile.tileCode) { NeighborBinary = NeighborBinary + "1"; } else NeighborBinary = NeighborBinary + "0"; } else NeighborBinary = NeighborBinary + "0";
-                                                        if (currentY != yLength - 1 && currentX != 0) { if (map[currentY + 1].ToCharArray()[currentX - 1] == aTile.tileCode) { NeighborBinary = NeighborBinary + "1"; } else NeighborBinary = NeighborBinary + "0"; } else NeighborBinary = NeighborBinary + "0";
-                                                        if (currentY != yLength - 1) { if (map[currentY + 1].ToCharArray()[currentX] == aTile.tileCode) { NeighborBinary = NeighborBinary + "1"; } else NeighborBinary = NeighborBinary + "0"; } else NeighborBinary = NeighborBinary + "0";
-                                                        if (currentY != yLength - 1 && currentX != xLength - 1) { if (map[currentY + 1].ToCharArray()[currentX + 1] == aTile.tileCode) { NeighborBinary = NeighborBinary + "1"; } else NeighborBinary = NeighborBinary + "0"; } else NeighborBinary = NeighborBinary + "0";
+                                                        NeighborBinary = tileLinks(map, currentX, currentY, aTile);
 
                                                         List<Tiledata.TileLinkRule> accurateRules = new List<Tiledata.TileLinkRule>();
 
@@ -1029,6 +1022,231 @@ namespace BMG
                 else
                     Console.WriteLine("\nLog saving is disabled.");
             }
+        }
+
+        public static string tileLinks(string[] map, int currentX, int currentY, Tiledata.Tile tileObject)
+        {
+            string binary = "";
+            string neighbors = "";
+
+            if (currentY == 0) // Top
+            {
+                if (currentX == 0)
+                    neighbors = "%%%% %  "; // Left
+                else if (currentX == map[0].Length - 1)
+                    neighbors = "%%% %  %"; // Right
+                else
+                    neighbors = "%%%     "; // Middle
+            }
+            else if (currentY == map.Length - 1) // Bottom
+            {
+                if (currentX == 0)
+                    neighbors = "%  % %%%"; // Left
+                else if (currentX == map[0].Length - 1)
+                    neighbors = "  % %%%%"; // Right
+                else
+                    neighbors = "     %%%"; // Middle
+            }
+            else // Middle
+            {
+                if (currentX == 0)
+                    neighbors = "%  % %  "; // Left
+                else if (currentX == map[0].Length - 1)
+                    neighbors = "  % %  %"; // Right
+                else
+                    neighbors = "        "; // Middle
+            }
+
+            switch (tileObject.tileLinks.edgeCase)
+            {
+                case Tiledata.EdgeCase.different: // edges are filled with non-equal tiles
+                    for (int x = 0; x < neighbors.Length; x++)
+                    {
+                        if (neighbors[x] == '%')
+                            binary = binary + '0'; // edgeCase
+                        else
+                            binary = binary + checkNeighboringTile(map, currentX, currentY, tileObject, x); // check tile in map
+                    }
+                    break;
+                case Tiledata.EdgeCase.copies: // edges are filled with equal tiles
+                    for (int x = 0; x < neighbors.Length; x++)
+                    {
+                        if (neighbors[x] == '%')
+                            binary = binary + '1'; // edgeCase
+                        else
+                            binary = binary + checkNeighboringTile(map, currentX, currentY, tileObject, x); // check tile in map
+                    }
+                    break;
+                case Tiledata.EdgeCase.mirror: // edges are extended
+                    for (int x = 0; x < neighbors.Length; x++)
+                    {
+                        if (neighbors[x] == '%')
+                            if (x % 2 == 1)
+                                binary = binary + '1'; // edgeCase (Edge adjacent edge tiles will always be equal when extending)
+                            else
+                            {
+                                Console.WriteLine(hasAdjacentEqualTiles(map, currentX - 1, currentY - 1, tileObject));
+                                Console.WriteLine(hasAdjacentEqualTiles(map, currentX - 1, currentY + 1, tileObject));
+                                Console.WriteLine(hasAdjacentEqualTiles(map, currentX + 1, currentY - 1, tileObject));
+                                Console.WriteLine(hasAdjacentEqualTiles(map, currentX + 1, currentY + 1, tileObject));
+                                if (hasAdjacentEqualTiles(map, currentX - 1, currentY - 1, tileObject))
+                                    binary = binary + '1';
+                                else if (hasAdjacentEqualTiles(map, currentX - 1, currentY + 1, tileObject))
+                                    binary = binary + '1';
+                                else if (hasAdjacentEqualTiles(map, currentX + 1, currentY - 1, tileObject))
+                                    binary = binary + '1';
+                                else if (hasAdjacentEqualTiles(map, currentX + 1, currentY + 1, tileObject))
+                                    binary = binary + '1';
+                                else
+                                    binary = binary + '0';
+                            }
+                        // binary = binary + checkNeighboringTile(map, currentX, currentY, tileObject, 7 - x); // edgeCase (check opposite tile to extend)
+                        else
+                            binary = binary + checkNeighboringTile(map, currentX, currentY, tileObject, x); // check tile in map
+                    }
+                    break;
+            }
+
+            return binary;
+        }
+
+        public static char checkNeighboringTile(string[] map, int currentX, int currentY, Tiledata.Tile tileObject, int neighbor)
+        {
+            switch (neighbor)
+            {
+                case 0:
+                    if (map[currentY - 1].ToCharArray()[currentX - 1] == tileObject.tileCode)
+                        return '1';
+                    else
+                        return '0';
+                case 1:
+                    if (map[currentY - 1].ToCharArray()[currentX] == tileObject.tileCode)
+                        return '1';
+                    else
+                        return '0';
+                case 2:
+                    if (map[currentY - 1].ToCharArray()[currentX + 1] == tileObject.tileCode)
+                        return '1';
+                    else
+                        return '0';
+                case 3:
+                    if (map[currentY].ToCharArray()[currentX - 1] == tileObject.tileCode)
+                        return '1';
+                    else
+                        return '0';
+                case 4:
+                    if (map[currentY].ToCharArray()[currentX + 1] == tileObject.tileCode)
+                        return '1';
+                    else
+                        return '0';
+                case 5:
+                    if (map[currentY + 1].ToCharArray()[currentX - 1] == tileObject.tileCode)
+                        return '1';
+                    else
+                        return '0';
+                case 6:
+                    if (map[currentY + 1].ToCharArray()[currentX] == tileObject.tileCode)
+                        return '1';
+                    else
+                        return '0';
+                case 7:
+                    if (map[currentY + 1].ToCharArray()[currentX + 1] == tileObject.tileCode)
+                        return '1';
+                    else
+                        return '0';
+                default:
+                    return '0';
+            }
+        }
+
+        public static bool hasAdjacentEqualTiles(string[] map, int x, int y, Tiledata.Tile tileObject)
+        {
+            if (y < 0) // Top edge
+            {
+                if (x < 0) // Left corner
+                {
+                    if (map[y + 1].ToCharArray()[x + 1] == tileObject.tileCode)
+                        return true;
+                    else return false;
+                }
+                else if (x > map[0].Length - 1) // Right corner
+                {
+                    if (map[y + 1].ToCharArray()[x - 1] == tileObject.tileCode)
+                        return true;
+                    else return false;
+                }
+                else // Middle
+                {
+                    if (x != map[0].Length - 1)
+                        if (map[y + 1].ToCharArray()[x + 1] == tileObject.tileCode)
+                            return true;
+                        else return false;
+                    else if (x != 0)
+                        if (map[y + 1].ToCharArray()[x - 1] == tileObject.tileCode)
+                            return true;
+                        else return false;
+                    else return false;
+                }
+            }
+            else if (y > map.Length - 1) // Bottom edge
+            {
+                if (x < 0) // Left corner
+                {
+                    if (map[y - 1].ToCharArray()[x + 1] == tileObject.tileCode)
+                        return true;
+                    else return false;
+                }
+                else if (x > map[0].Length - 1) // Right corner
+                {
+                    if (map[y - 1].ToCharArray()[x - 1] == tileObject.tileCode)
+                        return true;
+                    else return false;
+                }
+                else // Middle
+                {
+                    if (x != map[0].Length - 1)
+                        if (map[y - 1].ToCharArray()[x + 1] == tileObject.tileCode)
+                            return true;
+                        else return false;
+                    else if (x != 0)
+                        if (map[y - 1].ToCharArray()[x - 1] == tileObject.tileCode)
+                            return true;
+                        else return false;
+                    else return false;
+                }
+            }
+            else // -
+            {
+                if (x < 0) // Left edge
+                {
+                    if (y != 0)
+                        if (map[y - 1].ToCharArray()[x + 1] == tileObject.tileCode)
+                            return true;
+                        else return false;
+                    else if (y != map.Length - 1)
+                        if (map[y + 1].ToCharArray()[x + 1] == tileObject.tileCode)
+                            return true;
+                        else return false;
+                    else return false;
+                }
+                else if (x > map[0].Length - 1) // Right edge
+                {
+                    if (y != 0)
+                        if (map[y - 1].ToCharArray()[x - 1] == tileObject.tileCode)
+                            return true;
+                        else return false;
+                    else if (y != map.Length - 1)
+                        if (map[y + 1].ToCharArray()[x - 1] == tileObject.tileCode)
+                            return true;
+                        else return false;
+                    else return false;
+                }
+                else // -
+                {
+                    return false;
+                }
+            }
+
         }
 
     }

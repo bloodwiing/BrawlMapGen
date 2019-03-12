@@ -382,6 +382,7 @@
 			}
 			],
 			"multipleConditionsCouldApply": false,
+			"edgeCase": 0,
 			"defaults": {
 				"tileType": 1
 			}
@@ -425,6 +426,7 @@
 			"defaults": {
 				"tileType": 1
 			},
+			"edgeCase": 2,
 			"assetFolder": "water"
 		}
 	},
