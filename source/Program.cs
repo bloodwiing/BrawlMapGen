@@ -22,7 +22,7 @@ namespace BMG
 
             try
             {
-                if (fArgs.ToLower().Contains(" -f "))
+                if (fArgs.ToLower().Contains(" -f ")) // options.json file location
                 {
                     oLoc = fArgs.Replace(" -f ", "@").Replace(" -F ", "@").Split('@')[1];
                     if (oLoc.Contains(" -"))
@@ -31,7 +31,7 @@ namespace BMG
                         oLoc = oLoc.Trim();
                 }
 
-                if (fArgs.ToLower().Contains(" -os "))
+                if (fArgs.ToLower().Contains(" -os ")) // The options, but in string form
                 {
                     oStr = fArgs.Replace(" -os ", "@").Replace(" -Os ", "@").Replace(" -OS ", "@").Replace(" -oS ", "@").Split('@')[1];
                     if (oStr.Contains(" -"))
@@ -40,7 +40,7 @@ namespace BMG
                         oStr = oStr.Trim();
                 }
 
-                if (fArgs.ToLower().Contains(" -e "))
+                if (fArgs.ToLower().Contains(" -e ")) // Ending type
                 {
                     oEnd = fArgs.Replace(" -e ", "@").Replace(" -E ", "@").Split('@')[1].Trim();
                     if (oEnd.Contains(" -"))
@@ -51,7 +51,7 @@ namespace BMG
 
                 if (oStr == "")
                 {
-                    if (!File.Exists(oLoc))
+                    if (!File.Exists(oLoc)) // Check if file exists
                     {
                         voice.Speak("\nERROR:\nOption file doesn't exist\n[FileReader] Unable to find file in location \"" + oLoc + "\"", ActionType.basic);
                         voice.Write("log.txt");
@@ -71,7 +71,7 @@ namespace BMG
                 if (options.setPath != null)
                     Environment.CurrentDirectory = options.setPath;
 
-                voice.Speak("Brawl Map Gen v1.7\nCreated by RedH1ghway aka TheDonciuxx\nWith the help of 4JR\n\nLoading " + options.preset + " preset", ActionType.setup);
+                voice.Speak("Brawl Map Gen v1.8b [UNSTABLE BUILD 1]\nCreated by RedH1ghway aka TheDonciuxx\nWith the help of 4JR\n\nLoading " + options.preset + " preset", ActionType.setup);
                 voice.Speak("[ AAL ] READ << ./presets/" + options.preset + ".json", ActionType.aal);
 
                 if (!File.Exists("./presets/" + options.preset + ".json"))
@@ -89,7 +89,7 @@ namespace BMG
                 List<SavedImages> savedTileImageList = new List<SavedImages>();
 
                 voice.Speak("\nLoading tiles...", ActionType.setup);
-                foreach (Options.BatchSettings single in options.batch)
+                foreach (Options.BatchSettings single in options.batch) // Tile-preloader
                 {
                     bool c = false;
                     foreach (SavedImages savedTileImage in savedTileImageList)
@@ -101,9 +101,9 @@ namespace BMG
                         }
                     }
                     if (c)
-                        continue;
+                        continue; // Skip. Reason: Tiles are already preloaded for that size
 
-                    savedTileImageList.Add(new SavedImages(options, tiledata.tiles, single.sizeMultiplier, voice));
+                    savedTileImageList.Add(new SavedImages(options, tiledata.tiles, single.sizeMultiplier, voice)); // Preload tiles for a specific tiles
                 }
                 voice.Speak("\nLoaded tiles with tilesizes:", ActionType.setup);
                 foreach (var si in savedTileImageList)
@@ -136,6 +136,7 @@ namespace BMG
                                 continue;
                             }
 
+                            // Preparing and drawing background
                             int xLength = map[0].Length;
                             int yLength = map.Length;
 
@@ -178,7 +179,7 @@ namespace BMG
                                     mapGamemode = gm;
                             }
 
-                            if (mapGamemode != null)
+                            if (mapGamemode != null) // Draw Gamemode Tiles (Before every other tile)
                                 if (mapGamemode.specialTiles != null)
                                     foreach (var st in mapGamemode.specialTiles)
                                     {
@@ -227,13 +228,14 @@ namespace BMG
 
                             List<Options.RecordedSTR> rstr = new List<Options.RecordedSTR>();
 
+                            // Begin to draw map
                             foreach (string row in map)
                             {
                                 List<OrderedTile> orderedHorTiles = new List<OrderedTile>();
 
                                 foreach (char tTile in row.ToCharArray())
                                 {
-                                    if (batchOption.skipTiles.Contains(tTile))
+                                    if (batchOption.skipTiles.Contains(tTile)) // Specified Tile Skipper
                                     {
                                         voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, false, false, false), new Tiledata.Tile() { tileName = "", tileCode = tTile }, currentY, currentX, yLength, xLength), ActionType.tileDraw);
                                         currentX++;
@@ -242,12 +244,13 @@ namespace BMG
 
                                     var tile = tTile;
 
-                                    foreach (Options.Replace repTile in batchOption.replaceTiles)
+                                    foreach (Options.Replace repTile in batchOption.replaceTiles) // Specified Tile Code Replacer
                                     {
                                         if (tile == repTile.from)
                                             tile = repTile.to;
                                     }
 
+                                    // Checking STR (Special Tile Rules) Tiles' occurance number and acting if conditions are met
                                     if (str != null)
                                     {
                                         bool drawn = false;
@@ -261,6 +264,7 @@ namespace BMG
                                                             foreach (var aTile in tiledata.tiles)
                                                                 if (aTile.tileCode == tile)
                                                                 {
+                                                                    // Save tile for later drawing (Ordering and Horizontal Ordering)
                                                                     if (aTile.tileTypes[ostr.tileType - 1].order != null)
                                                                     {
                                                                         voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, false, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedTileDraw);
@@ -292,6 +296,7 @@ namespace BMG
                                                                         break;
                                                                     }
 
+                                                                    // Draw STR Tile
                                                                     tileDrawer.DrawTile(aTile, ostr.tileType, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList);
                                                                     voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, false, false, true), aTile, currentY, currentX, yLength, xLength), ActionType.tileDraw);
 
@@ -311,13 +316,13 @@ namespace BMG
 
                                     foreach (Tiledata.Tile aTile in tiledata.tiles)
                                     {
-                                        if (aTile.tileCode == tile)
+                                        if (aTile.tileCode == tile) // Loop until tile found matching with data
                                         {
                                             Tiledata.TileDefault setTileDefault = null;
                                             foreach (Tiledata.TileDefault tileDefault in tiledata.biomes[batchOption.biome - 1].defaults)
                                             {
                                                 setTileDefault = tileDefault;
-                                                if (batchOption.overrideBiome != null)
+                                                if (batchOption.overrideBiome != null) // Biome overrider
                                                     foreach (var overrideTile in batchOption.overrideBiome)
                                                         if (overrideTile.tile == tileDefault.tile)
                                                         {
@@ -325,7 +330,7 @@ namespace BMG
                                                             break;
                                                         }
 
-                                                if (batchOption.gamemode != null)
+                                                if (batchOption.gamemode != null) // Biome overrider (from Gamemode options)
                                                     if (mapGamemode != null)
                                                         if (mapGamemode.overrideBiome != null)
                                                             if (mapGamemode.name == batchOption.gamemode)
@@ -338,15 +343,16 @@ namespace BMG
 
                                                 if (setTileDefault.tile == aTile.tileName)
                                                 {
-                                                    if (aTile.tileLinks != null)
+                                                    if (aTile.tileLinks != null) // Check if Tile Links are set
                                                     {
                                                         NeighborBinary = tileLinks(map, currentX, currentY, aTile);
 
                                                         List<Tiledata.TileLinkRule> accurateRules = new List<Tiledata.TileLinkRule>();
 
-                                                        var nbca = NeighborBinary.ToCharArray();
+                                                        var nbca = NeighborBinary.ToCharArray(); // Get neighboring tiles in binary
                                                         if (aTile.tileLinks.rules.Length != 0)
                                                         {
+                                                            // Check if tile rule is matching and act
                                                             foreach (var rule in aTile.tileLinks.rules)
                                                             {
                                                                 int accuracy = 0;
@@ -389,6 +395,7 @@ namespace BMG
                                                             }
                                                         }
 
+                                                        // Do actions specified in the rule which was correct
                                                         var defaultType = aTile.tileTypes[aTile.tileLinks.defaults.tileType - 1];
                                                         foreach (Tiledata.TileLinkRule aRule in accurateRules)
                                                         {
@@ -413,6 +420,7 @@ namespace BMG
                                                             fols = aTile.tileLinks.assetFolder + "/";
                                                         var assetst = fullBinaryFinal + ".svg";
 
+                                                        // Make a copy of the tile (not reference)
                                                         Tiledata.TileType breakerTile = new Tiledata.TileType()
                                                         {
                                                             asset = fols + defaultAsset,
@@ -425,6 +433,7 @@ namespace BMG
                                                             visible = defaultType.visible,
                                                         };
 
+                                                        // Save tile for later drawing (Ordering and Horizontal Ordering)
                                                         if (defaultType.order != null)
                                                         {
                                                             voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, false, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedTileDraw);
@@ -452,11 +461,13 @@ namespace BMG
                                                             break;
                                                         }
 
+                                                        // Draw Tile
                                                         tileDrawer.DrawSelectedTile(new OrderedTile() { tileType = breakerTile, xPosition = currentX, yPosition = currentY, tileCode = aTile.tileCode, tileName = aTile.tileName }, options, sizeMultiplier, xLength, yLength, selectedTileImageList);
                                                         voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, false, false, true), aTile, currentY, currentX, yLength, xLength), ActionType.tileDraw);
                                                         break;
                                                     }
 
+                                                    // Save tile for later drawing (Ordering and Horizontal Ordering)
                                                     if (aTile.tileTypes[setTileDefault.type - 1].order != null)
                                                     {
                                                         voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, false, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedTileDraw);
@@ -484,6 +495,7 @@ namespace BMG
                                                         break;
                                                     }
 
+                                                    // Draw Tile
                                                     tileDrawer.DrawTile(aTile, setTileDefault.type, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList);
                                                     voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, false, false, true), aTile, currentY, currentX, yLength, xLength), ActionType.tileDraw);
                                                     break;
@@ -496,6 +508,7 @@ namespace BMG
 
                                 }
 
+                                // Draw Horizontally Ordered Tiles
                                 int highestHorOrder = 1;
                                 foreach (var pTile in orderedHorTiles)
                                 {
@@ -533,6 +546,7 @@ namespace BMG
 
                             }
 
+                            // Draw Ordered Tiles
                             int highestOrder = 1;
                             foreach (var pTile in orderedTiles)
                             {
@@ -565,7 +579,7 @@ namespace BMG
                                         voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
                                 }
 
-                            if (mapGamemode != null)
+                            if (mapGamemode != null) // Draw Gamemode tiles (after everything else)
                                 if (mapGamemode.specialTiles != null)
                                     foreach (var st in mapGamemode.specialTiles)
                                     {
@@ -617,6 +631,7 @@ namespace BMG
                                 exportName = exportName.Replace("?number?", bNumberText);
                             }
 
+                            // Save map image
                             if (options.exportFolderName != null)
                             {
                                 if (options.exportFolderName.Trim() != "")
@@ -680,7 +695,7 @@ namespace BMG
 
         }
 
-        public static string SpaceFiller(string text, int minAmountOfChar, char filler)
+        public static string SpaceFiller(string text, int minAmountOfChar, char filler) // AMTool: Make text more sylish by filling in empty spaces with a selected character to make up for it
         {
             var c = text.ToCharArray();
             string t = "";
@@ -694,7 +709,7 @@ namespace BMG
             return text;
         }
 
-        public static string SpaceFiller(int number, int minAmountOfChar, char filler)
+        public static string SpaceFiller(int number, int minAmountOfChar, char filler) // AMTool: Make text more sylish by filling in empty spaces with a selected character to make up for it
         {
             var c = number.ToString().ToCharArray();
             string t = "";
@@ -737,7 +752,7 @@ namespace BMG
                 g = Graphics.FromImage(b);
             }
 
-            public void DrawTile(Tiledata.Tile tile, int type, Options optionsObject, int sizeMultiplier, int currentX, int currentY, int xLength, int yLength, SavedImages imageMemory)
+            public void DrawTile(Tiledata.Tile tile, int type, Options optionsObject, int sizeMultiplier, int currentX, int currentY, int xLength, int yLength, SavedImages imageMemory) // Drawing a tile (normal)
             {
                 foreach (SavedImages.TileImage ti in imageMemory.tileImages)
                 {
@@ -749,7 +764,7 @@ namespace BMG
                 }
             }
 
-            public void DrawSelectedTile(OrderedTile tile, Options optionsObject, int sizeMultiplier, int xLength, int yLength, SavedImages imageMemory)
+            public void DrawSelectedTile(OrderedTile tile, Options optionsObject, int sizeMultiplier, int xLength, int yLength, SavedImages imageMemory) // Drawing a tile (with saved coordinates and a pre-selected type)
             {
                 foreach (SavedImages.TileImage ti in imageMemory.tileImages)
                 {
@@ -761,7 +776,7 @@ namespace BMG
                 }
             }
 
-            public void ColorBackground(Color color1, Color color2, string[] map, Options.BatchSettings batchOption)
+            public void ColorBackground(Color color1, Color color2, string[] map, Options.BatchSettings batchOption) // Filling in background colors
             {
                 int currentY = 0;
                 int currentX = 0;
@@ -802,7 +817,7 @@ namespace BMG
                 }
             }
 
-            public void ExportImage(Options optionsObject, string fileName)
+            public void ExportImage(Options optionsObject, string fileName) // Saving the generated image
             {
                 if (!Directory.Exists(optionsObject.exportFolderName))
                     Directory.CreateDirectory(optionsObject.exportFolderName);
@@ -812,8 +827,8 @@ namespace BMG
                 g.Dispose();
             }
         }
-
-        public static string TileActionStringMaker(TileActionTypes tat, Tiledata.Tile tile, int yLocation, int xLocation, int yLocationMax, int xLocationMax)
+        
+        public static string TileActionStringMaker(TileActionTypes tat, Tiledata.Tile tile, int yLocation, int xLocation, int yLocationMax, int xLocationMax) // Text maker for a voice when the generator is doing actions related to tiles
         {
             string p;
             string t;
@@ -876,7 +891,7 @@ namespace BMG
 
             return p + " [" + tile.tileCode + "] < y: " + SpaceFiller(yLocation, yLocationMax.ToString().ToCharArray().Length, ' ') + " / x: " + SpaceFiller(xLocation, xLocationMax.ToString().ToCharArray().Length, ' ') + " > " + t;
         }
-        public static string TileActionStringMaker(TileActionTypes tat, Tiledata.Tile tile, string yLocation, string xLocation, int yLocationMax, int xLocationMax)
+        public static string TileActionStringMaker(TileActionTypes tat, Tiledata.Tile tile, string yLocation, string xLocation, int yLocationMax, int xLocationMax) // Text maker for a voice when the generator is doing actions related to tiles
         {
             string p;
             string t;
@@ -957,7 +972,7 @@ namespace BMG
 
             List<string> loggedLines = new List<string>();
 
-            public void Speak(string text, ActionType actionType)
+            public void Speak(string text, ActionType actionType) // Send a line to console + add to log
             {
                 switch (actionType)
                 {
@@ -1010,7 +1025,7 @@ namespace BMG
                 }
             }
 
-            public void Write(string fileName)
+            public void Write(string fileName) // Save log file
             {
                 if (savedOptionsObject.saveLogFile)
                 {
@@ -1085,10 +1100,6 @@ namespace BMG
                                 binary = binary + '1'; // edgeCase (Edge adjacent edge tiles will always be equal when extending)
                             else
                             {
-                                Console.WriteLine(hasAdjacentEqualTiles(map, currentX - 1, currentY - 1, tileObject));
-                                Console.WriteLine(hasAdjacentEqualTiles(map, currentX - 1, currentY + 1, tileObject));
-                                Console.WriteLine(hasAdjacentEqualTiles(map, currentX + 1, currentY - 1, tileObject));
-                                Console.WriteLine(hasAdjacentEqualTiles(map, currentX + 1, currentY + 1, tileObject));
                                 if (hasAdjacentEqualTiles(map, currentX - 1, currentY - 1, tileObject))
                                     binary = binary + '1';
                                 else if (hasAdjacentEqualTiles(map, currentX - 1, currentY + 1, tileObject))
