@@ -615,7 +615,7 @@
 				"left": 411,
 				"right": 880
 			},
-			"asset": "turret_base_red.svg",
+			"asset": "ike_red.svg",
 			"order": 3
 		},
 		{
@@ -626,7 +626,7 @@
 				"left": 873,
 				"right": 417
 			},
-			"asset": "turret_base_blue.svg",
+			"asset": "ike_blue.svg",
 			"order": 3
 		}
 		]
@@ -696,7 +696,7 @@
 		]
 	},
 	{
-		"tileName": "turretBaseRange",
+		"tileName": "ikeRange",
 		"tileCode": ",",
 		"tileTypes": [
 		{
@@ -707,7 +707,7 @@
 				"left": 11650,
 				"right": 11667
 			},
-			"asset": "turret_base_blue_range.svg"
+			"asset": "ike_blue_range.svg"
 		},
 		{
 			"tileParts": {
@@ -717,7 +717,7 @@
 				"left": 11650,
 				"right": 11667
 			},
-			"asset": "turret_base_red_range.svg"
+			"asset": "ike_red_range.svg"
 		}
 		]
 	}
