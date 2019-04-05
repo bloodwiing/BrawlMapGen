@@ -6,6 +6,8 @@ using System.Drawing.Imaging;
 using System.IO;
 using Newtonsoft.Json;
 using System.Threading;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace BMG
 {
@@ -14,14 +16,26 @@ namespace BMG
         static void Main(string[] args)
         {
             var fArgs = " " + string.Join(" ", args);
+            string version = "1.8b";
+            string buildText = " [UNSTABLE BUILD 2]";
             string oLoc = "options.json";
             string oStr = "";
             string oEnd = "";
+
+            // Fun statistical ending numbers
+            int tilesDrawn = 0;
+            List<char> tilesFailedChars = new List<char>();
+            Dictionary<char, int> tilesFailed = new Dictionary<char, int>();
+
             Options options = new Options();
             Voice voice = new Voice();
 
+            Stopwatch stopwatch = new Stopwatch();
+
             try
             {
+                stopwatch.Start();
+
                 if (fArgs.ToLower().Contains(" -f ")) // options.json file location
                 {
                     oLoc = fArgs.Replace(" -f ", "@").Replace(" -F ", "@").Split('@')[1];
@@ -53,7 +67,7 @@ namespace BMG
                 {
                     if (!File.Exists(oLoc)) // Check if file exists
                     {
-                        voice.Speak("\nERROR:\nOption file doesn't exist\n[FileReader] Unable to find file in location \"" + oLoc + "\"", ActionType.basic);
+                        voice.Speak("\n[Forced] Status: ERROR!\n  Error reason:\n  Option file doesn't exist\n  [FileReader] Unable to find file in location \"" + oLoc + "\"", ActionType.basic);
                         voice.Write("log.txt");
                         Thread.Sleep(3000);
                         Environment.Exit(1);
@@ -66,17 +80,24 @@ namespace BMG
                 else
                     options = JsonConvert.DeserializeObject<Options>(oStr);
 
-                voice.UpdateOptions(options);
+                voice.UpdateOptions(options, version);
 
                 if (options.setPath != null)
                     Environment.CurrentDirectory = options.setPath;
 
-                voice.Speak("Brawl Map Gen v1.8b [UNSTABLE BUILD 1]\nCreated by RedH1ghway aka TheDonciuxx\nWith the help of 4JR\n\nLoading " + options.preset + " preset", ActionType.setup);
+                voice.Speak("\n  BMG (Brawl Map Gen)\n    Version: v" + version + buildText + "\n    Created by: RedH1ghway (aka TheDonciuxX)\n    Helped by: 4JR\n\n", ActionType.basic);
+                voice.Speak(" Status: App is launched!", ActionType.statusChange);
+                voice.Speak("Loading preset: \"" + options.preset.ToUpper() + "\"...", ActionType.setup);
                 voice.Speak("[ AAL ] READ << ./presets/" + options.preset + ".json", ActionType.aal);
+
+                voice.Title.Job.UpdateJob(0, 1, "Preparing...");
+                voice.Title.Status.UpdateStatus(0, 1, "Loading preset...");
+                voice.Title.UpdateStatusDetails(options.preset.ToUpper(), Voice.TitleClass.StatusDetailsType.basic);
+                voice.Title.RefreshTitle();
 
                 if (!File.Exists("./presets/" + options.preset + ".json"))
                 {
-                    voice.Speak("\nERROR:\nPreset doesn't exist\n[FileReader] Unable to find file in location \"presets/" + options.preset + ".json\"", ActionType.basic);
+                    voice.Speak("\n [Forced] Status: ERROR!\n  Error reason:\n  Preset doesn't exist\n  [FileReader] Unable to find file in location \"presets/" + options.preset + ".json\"", ActionType.basic);
                     voice.Write("log.txt");
                     Thread.Sleep(3000);
                     Environment.Exit(1);
@@ -84,608 +105,686 @@ namespace BMG
 
                 StreamReader r2 = new StreamReader("./presets/" + options.preset + ".json");
                 string json2 = r2.ReadToEnd();
-                voice.Speak("Preset \"" + options.preset.ToUpper() + "\" loaded.", ActionType.setup);
+                voice.Speak("Preset loaded: \"" + options.preset.ToUpper() + "\"!", ActionType.setup);
+                voice.Speak(" Status: Tiles will be drawn from preset \"" + options.preset.ToUpper() + "\".", ActionType.statusChange);
                 var tiledata = JsonConvert.DeserializeObject<Tiledata>(json2);
-                List<SavedImages> savedTileImageList = new List<SavedImages>();
+                Dictionary<int, SavedImages> savedTileImageList = new Dictionary<int, SavedImages>();
 
-                voice.Speak("\nLoading tiles...", ActionType.setup);
-                foreach (Options.BatchSettings single in options.batch) // Tile-preloader
+                voice.Title.Job.UpdateJob(0, options.batch.Length, "Preloading tiles...");
+                voice.Title.RefreshTitle();
+                voice.Speak("\n Status: Tile Preloading started.", ActionType.setup);
+                foreach (Options.BatchSettings single in options.batch) // Tile preloader
                 {
-                    bool c = false;
-                    foreach (SavedImages savedTileImage in savedTileImageList)
-                    {
-                        if (single.sizeMultiplier == savedTileImage.listForSizeMultiplier)
-                        {
-                            c = true;
-                            break;
-                        }
-                    }
-                    if (c)
-                        continue; // Skip. Reason: Tiles are already preloaded for that size
+                    voice.Title.Job.IncreaseJob();
+                    voice.Title.Status.UpdateStatus(0, 1, "Reading...");
+                    voice.Title.RefreshTitle();
 
-                    savedTileImageList.Add(new SavedImages(options, tiledata.tiles, single.sizeMultiplier, voice)); // Preload tiles for a specific tiles
+                    if (savedTileImageList.ContainsKey(single.sizeMultiplier))
+                        continue;
+
+                    voice.Speak("Found new tilesize.", ActionType.setup);
+                    savedTileImageList.Add(single.sizeMultiplier, new SavedImages(options, tiledata.tiles, single.sizeMultiplier, voice)); // Preload tiles for a specific tiles
                 }
-                voice.Speak("\nLoaded tiles with tilesizes:", ActionType.setup);
+                voice.Speak("\n Status: Tile Preload complete.", ActionType.statusChange);
+                voice.Speak("Preloaded tiles with tilesizes:", ActionType.setup);
                 foreach (var si in savedTileImageList)
-                    voice.Speak("  " + si.listForSizeMultiplier + "px", ActionType.setup);
+                    voice.Speak("  " + si.Key + "px", ActionType.setup);
 
                 int bNumber = 0;
+                voice.Speak("\n Status: Map image generator starting...", ActionType.statusChange);
+                voice.Title.Job.UpdateJob(0, options.batch.Length, "\"temp_name\"");
                 foreach (var batchOption in options.batch)
                 {
-                    foreach (SavedImages selectedTileImageList in savedTileImageList)
+                    voice.Title.Job.UpdateJobName(("\"" + batchOption.name + "\"").Replace("\"?number?\"", "Number " + bNumber));
+                    voice.Title.Job.IncreaseJob();
+
+                    SavedImages selectedTileImageList = savedTileImageList[batchOption.sizeMultiplier];
+
+                    bNumber++;
+
+                    voice.Speak("\n Status: Getting map...", ActionType.statusChange);
+                    voice.Speak("Looking for map number " + bNumber + "...", ActionType.setup);
+
+                    var map = batchOption.map;
+                    var sizeMultiplier = batchOption.sizeMultiplier;
+
+                    if (map == null)
                     {
-                        if (selectedTileImageList.listForSizeMultiplier == batchOption.sizeMultiplier)
-                        {
-                            bNumber++;
+                        voice.Speak("\n [Forced] Status: Warning!\n  Warning details:\n  Map is empty!\n  [Object] Map in the index number " + bNumber + " is not defined.", ActionType.basic);
+                        Thread.Sleep(3000);
+                        continue;
+                    }
+                    else if (map.Length == 0)
+                    {
+                        voice.Speak("\n [Forced] Status: Warning!\n  Warning details:\n  Map is empty!\n  [Object] Map in the index number " + bNumber + " has no string arrays.", ActionType.basic);
+                        Thread.Sleep(3000);
+                        continue;
+                    }
 
-                            voice.Speak("\nReading the map in the index number " + bNumber + "...", ActionType.setup);
+                    // Preparing and drawing background
+                    int xLength = map[0].Length;
+                    int yLength = map.Length;
 
-                            var map = batchOption.map;
-                            var sizeMultiplier = batchOption.sizeMultiplier;
+                    voice.Speak("  Map found.", ActionType.setup);
+                    voice.Speak(" Status: Map gotten.", ActionType.statusChange);
+                    voice.Speak("\nMap details:\n  Width: " + (sizeMultiplier * 2 + sizeMultiplier * xLength) + "px\n  Height: " + (sizeMultiplier * 2 + sizeMultiplier * yLength) + "px\n  Biome: \"" + tiledata.biomes[batchOption.biome - 1].name.ToUpper() + "\"\n", ActionType.setup);
 
-                            if (map == null)
+                    TileDrawer tileDrawer = new TileDrawer(batchOption.sizeMultiplier, batchOption.map[0].Length, batchOption.map.Length);
+
+                    int currentY = 0;
+                    int currentX = 0;
+
+                    voice.Speak("Coloring background...", ActionType.setup);
+                    voice.Speak(" Status: Fetching tile colors...", ActionType.statusChange);
+
+                    string[] color1s = tiledata.biomes[batchOption.biome - 1].color1.Split(',');
+                    Color color1 = Color.FromArgb(int.Parse(color1s[0].Trim()), int.Parse(color1s[1].Trim()), int.Parse(color1s[2].Trim()));
+
+                    string[] color2s = tiledata.biomes[batchOption.biome - 1].color2.Split(',');
+                    Color color2 = Color.FromArgb(int.Parse(color2s[0].Trim()), int.Parse(color2s[1].Trim()), int.Parse(color2s[2].Trim()));
+
+                    voice.Speak(" Status: Colors fetched.", ActionType.statusChange);
+                    voice.Speak(" Status: Coloring background...", ActionType.statusChange);
+
+                    tileDrawer.ColorBackground(color1, color2, map, batchOption);
+                    voice.Speak(" Status: Background colored.", ActionType.statusChange);
+
+                    List<OrderedTile> orderedTiles = new List<OrderedTile>();
+
+                    voice.Speak("Drawing map tiles...", ActionType.basic);
+                    if (batchOption.name != "?number?")
+                        voice.Speak(" Status: Drawing map (\"" + batchOption.name + "\")...", ActionType.statusChange);
+                    else
+                        voice.Speak(" Status: Drawing map (#" + bNumber + ")...", ActionType.statusChange);
+
+                    Tiledata.Gamemode mapGamemode = null;
+                    foreach (var gm in tiledata.gamemodes)
+                    {
+                        if (gm == null || batchOption.gamemode == null)
+                            break;
+                        if (gm.name == batchOption.gamemode)
+                            mapGamemode = gm;
+                    }
+
+                    if (mapGamemode != null) // Draw Gamemode Tiles (Before every other tile)
+                        if (mapGamemode.specialTiles != null)
+                            foreach (var st in mapGamemode.specialTiles)
                             {
-                                voice.Speak("\nWARNING:\nMap is empty!\n[Object] Map in the index number " + bNumber + " is not defined.", ActionType.basic);
-                                Thread.Sleep(3000);
-                                continue;
-                            }
-                            else if (map.Length == 0)
-                            {
-                                voice.Speak("\nWARNING:\nMap is empty!\n[Object] Map in the index number " + bNumber + " has no string arrays.", ActionType.basic);
-                                Thread.Sleep(3000);
-                                continue;
-                            }
-
-                            // Preparing and drawing background
-                            int xLength = map[0].Length;
-                            int yLength = map.Length;
-
-                            voice.Speak("Updating info...\n\nImage size set to " + (sizeMultiplier * 2 + sizeMultiplier * xLength) + "px width and " + (sizeMultiplier * 2 + sizeMultiplier * yLength) + "px height.\nBiome set to \"" + tiledata.biomes[batchOption.biome - 1].name.ToUpper() + "\"\n", ActionType.setup);
-
-                            TileDrawer tileDrawer = new TileDrawer(batchOption.sizeMultiplier, batchOption.map[0].Length, batchOption.map.Length);
-
-                            int currentY = 0;
-                            int currentX = 0;
-
-                            voice.Speak("Fetching tile colors...", ActionType.setup);
-
-                            string[] color1s = tiledata.biomes[batchOption.biome - 1].color1.Split(',');
-                            Color color1 = Color.FromArgb(int.Parse(color1s[0].Trim()), int.Parse(color1s[1].Trim()), int.Parse(color1s[2].Trim()));
-
-                            string[] color2s = tiledata.biomes[batchOption.biome - 1].color2.Split(',');
-                            Color color2 = Color.FromArgb(int.Parse(color2s[0].Trim()), int.Parse(color2s[1].Trim()), int.Parse(color2s[2].Trim()));
-
-                            voice.Speak("Coloring the tiles...", ActionType.setup);
-
-                            tileDrawer.ColorBackground(color1, color2, map, batchOption);
-
-                            List<OrderedTile> orderedTiles = new List<OrderedTile>();
-
-                            if (batchOption.name != null)
-                            {
-                                voice.Speak("Drawing map \"" + batchOption.name.ToUpper() + "\"...", ActionType.basic);
-                            }
-                            else
-                            {
-                                voice.Speak("Drawing map no " + bNumber + "...", ActionType.basic);
-                            }
-
-                            Tiledata.Gamemode mapGamemode = null;
-                            foreach (var gm in tiledata.gamemodes)
-                            {
-                                if (gm == null || batchOption.gamemode == null)
-                                    break;
-                                if (gm.name == batchOption.gamemode)
-                                    mapGamemode = gm;
-                            }
-
-                            if (mapGamemode != null) // Draw Gamemode Tiles (Before every other tile)
-                                if (mapGamemode.specialTiles != null)
-                                    foreach (var st in mapGamemode.specialTiles)
-                                    {
-                                        if (st.drawOrder == 1)
-                                        {
-                                            foreach (Tiledata.Tile oTile in tiledata.tiles)
-                                            {
-                                                if (oTile.tileName == st.tile)
-                                                {
-                                                    string xsLoc = st.position.Split(',')[0].Trim().ToLower();
-                                                    string ysLoc = st.position.Split(',')[1].Trim().ToLower();
-                                                    if (!int.TryParse(xsLoc, out int xLoc))
-                                                    {
-                                                        if (xsLoc == "left" || xsLoc == "l") { xLoc = 0; xsLoc = "L"; }
-                                                        else if (xsLoc == "mid" || xsLoc == "m") { xLoc = (xLength - 1) / 2; xsLoc = "M"; }
-                                                        else if (xsLoc == "right" || xsLoc == "r") { xLoc = xLength - 1; xsLoc = "R"; }
-                                                    }
-                                                    if (!int.TryParse(ysLoc, out int yLoc))
-                                                    {
-                                                        if (ysLoc == "top" || ysLoc == "t") { yLoc = 0; ysLoc = "T"; }
-                                                        else if (ysLoc == "mid" || ysLoc == "m") { yLoc = (yLength - 1) / 2; ysLoc = "M"; }
-                                                        else if (ysLoc == "bottom" || ysLoc == "bot" || ysLoc == "b") { yLoc = yLength - 1; ysLoc = "B"; }
-                                                    }
-
-                                                    if (xLoc < 0)
-                                                    {
-                                                        xLoc = xLength - (1 + xLoc / -1);
-                                                        xsLoc = xLoc.ToString();
-                                                    }
-                                                    if (yLoc < 0)
-                                                    {
-                                                        yLoc = yLength - (1 + yLoc / -1);
-                                                        ysLoc = yLoc.ToString();
-                                                    }
-
-                                                    tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList);
-                                                    voice.Speak(TileActionStringMaker(new TileActionTypes(true, false, false, false, true), oTile, ysLoc, xsLoc, yLength, xLength), ActionType.tileDraw);
-                                                }
-                                            }
-                                        }
-                                    }
-
-                            Options.SpecialTileRules[] str = null;
-                            if (batchOption.specialTileRules != null)
-                                str = batchOption.specialTileRules;
-
-                            List<Options.RecordedSTR> rstr = new List<Options.RecordedSTR>();
-
-                            // Begin to draw map
-                            foreach (string row in map)
-                            {
-                                List<OrderedTile> orderedHorTiles = new List<OrderedTile>();
-
-                                foreach (char tTile in row.ToCharArray())
+                                if (st.drawOrder == 1)
                                 {
-                                    if (batchOption.skipTiles.Contains(tTile)) // Specified Tile Skipper
+                                    foreach (Tiledata.Tile oTile in tiledata.tiles)
                                     {
-                                        voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, false, false, false), new Tiledata.Tile() { tileName = "", tileCode = tTile }, currentY, currentX, yLength, xLength), ActionType.tileDraw);
-                                        currentX++;
-                                        continue;
-                                    }
-
-                                    var tile = tTile;
-
-                                    foreach (Options.Replace repTile in batchOption.replaceTiles) // Specified Tile Code Replacer
-                                    {
-                                        if (tile == repTile.from)
-                                            tile = repTile.to;
-                                    }
-
-                                    // Checking STR (Special Tile Rules) Tiles' occurance number and acting if conditions are met
-                                    if (str != null)
-                                    {
-                                        bool drawn = false;
-                                        foreach (var ostr in str)
-                                            if (ostr.tileCode == tile)
-                                            {
-                                                Options.RecordRSTR(rstr, tile);
-                                                foreach (var orstr in rstr)
-                                                    if (orstr.tileCode == tile)
-                                                        if (ostr.tileTime == orstr.tileTime)
-                                                            foreach (var aTile in tiledata.tiles)
-                                                                if (aTile.tileCode == tile)
-                                                                {
-                                                                    // Save tile for later drawing (Ordering and Horizontal Ordering)
-                                                                    if (aTile.tileTypes[ostr.tileType - 1].order != null)
-                                                                    {
-                                                                        voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, false, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedTileDraw);
-                                                                        orderedTiles.Add(new OrderedTile()
-                                                                        {
-                                                                            tileType = aTile.tileTypes[ostr.tileType - 1],
-                                                                            xPosition = currentX,
-                                                                            yPosition = currentY,
-                                                                            tileCode = aTile.tileCode,
-                                                                            tileName = aTile.tileName,
-                                                                            str = true
-                                                                        });
-                                                                        drawn = true;
-                                                                        break;
-                                                                    }
-                                                                    if (aTile.tileTypes[ostr.tileType - 1].orderHor != null)
-                                                                    {
-                                                                        voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, true, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedHorTileDraw);
-                                                                        orderedHorTiles.Add(new OrderedTile()
-                                                                        {
-                                                                            tileType = aTile.tileTypes[ostr.tileType - 1],
-                                                                            xPosition = currentX,
-                                                                            yPosition = currentY,
-                                                                            tileCode = aTile.tileCode,
-                                                                            tileName = aTile.tileName,
-                                                                            str = true
-                                                                        });
-                                                                        drawn = true;
-                                                                        break;
-                                                                    }
-
-                                                                    // Draw STR Tile
-                                                                    tileDrawer.DrawTile(aTile, ostr.tileType, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList);
-                                                                    voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, false, false, true), aTile, currentY, currentX, yLength, xLength), ActionType.tileDraw);
-
-                                                                    drawn = true;
-
-                                                                    break;
-                                                                }
-                                            }
-                                        if (drawn)
+                                        if (oTile.tileName == st.tile)
                                         {
-                                            currentX++;
-                                            continue;
+                                            string xsLoc = st.position.Split(',')[0].Trim().ToLower();
+                                            string ysLoc = st.position.Split(',')[1].Trim().ToLower();
+                                            if (!int.TryParse(xsLoc, out int xLoc))
+                                            {
+                                                if (xsLoc == "left" || xsLoc == "l") { xLoc = 0; xsLoc = "L"; }
+                                                else if (xsLoc == "mid" || xsLoc == "m") { xLoc = (xLength - 1) / 2; xsLoc = "M"; }
+                                                else if (xsLoc == "right" || xsLoc == "r") { xLoc = xLength - 1; xsLoc = "R"; }
+                                            }
+                                            if (!int.TryParse(ysLoc, out int yLoc))
+                                            {
+                                                if (ysLoc == "top" || ysLoc == "t") { yLoc = 0; ysLoc = "T"; }
+                                                else if (ysLoc == "mid" || ysLoc == "m") { yLoc = (yLength - 1) / 2; ysLoc = "M"; }
+                                                else if (ysLoc == "bottom" || ysLoc == "bot" || ysLoc == "b") { yLoc = yLength - 1; ysLoc = "B"; }
+                                            }
+
+                                            if (xLoc < 0)
+                                            {
+                                                xLoc = xLength - (1 + xLoc / -1);
+                                                xsLoc = xLoc.ToString();
+                                            }
+                                            if (yLoc < 0)
+                                            {
+                                                yLoc = yLength - (1 + yLoc / -1);
+                                                ysLoc = yLoc.ToString();
+                                            }
+
+                                            tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList);
+                                            tilesDrawn++;
+                                            voice.Speak(TileActionStringMaker(new TileActionTypes(true, false, false, false, true), oTile, ysLoc, xsLoc, yLength, xLength), ActionType.tileDraw);
                                         }
                                     }
+                                }
+                            }
 
-                                    string NeighborBinary = "";
+                    Options.SpecialTileRules[] str = null;
+                    if (batchOption.specialTileRules != null)
+                        str = batchOption.specialTileRules;
 
-                                    foreach (Tiledata.Tile aTile in tiledata.tiles)
+                    List<Options.RecordedSTR> rstr = new List<Options.RecordedSTR>();
+
+                    voice.Title.Status.UpdateStatus(0, map.Length * map[0].Length, "Drawing tiles...");
+                    // Begin to draw map
+                    foreach (string row in map)
+                    {
+                        List<OrderedTile> orderedHorTiles = new List<OrderedTile>();
+
+                        foreach (char tTile in row.ToCharArray())
+                        {
+                            voice.Title.Status.IncreaseStatus();
+                            voice.Title.RefreshTitle();
+
+                            bool tileDrawn = false;
+
+                            if (batchOption.skipTiles.Contains(tTile)) // Specified Tile Skipper
+                            {
+                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, false, false, false), new Tiledata.Tile() { tileName = "", tileCode = tTile }, currentY, currentX, yLength, xLength), ActionType.tileDraw);
+                                currentX++;
+                                tileDrawn = true;
+                                continue;
+                            }
+
+                            if (tiledata.ignoreTiles.Contains(tTile)) // Specified Tile Ignorer
+                            {
+                                currentX++;
+                                tileDrawn = true;
+                                continue;
+                            }
+
+                            var tile = tTile;
+
+                            foreach (Options.Replace repTile in batchOption.replaceTiles) // Specified Tile Code Replacer
+                            {
+                                if (tile == repTile.from)
+                                    tile = repTile.to;
+                            }
+
+                            // Checking STR (Special Tile Rules) Tiles' occurance number and acting if conditions are met
+                            if (str != null)
+                            {
+                                bool drawn = false;
+                                foreach (var ostr in str)
+                                    if (ostr.tileCode == tile)
                                     {
-                                        if (aTile.tileCode == tile) // Loop until tile found matching with data
-                                        {
-                                            Tiledata.TileDefault setTileDefault = null;
-                                            foreach (Tiledata.TileDefault tileDefault in tiledata.biomes[batchOption.biome - 1].defaults)
-                                            {
-                                                setTileDefault = tileDefault;
-                                                if (batchOption.overrideBiome != null) // Biome overrider
-                                                    foreach (var overrideTile in batchOption.overrideBiome)
-                                                        if (overrideTile.tile == tileDefault.tile)
+                                        Options.RecordRSTR(rstr, tile);
+                                        foreach (var orstr in rstr)
+                                            if (orstr.tileCode == tile)
+                                                if (ostr.tileTime == orstr.tileTime)
+                                                    foreach (var aTile in tiledata.tiles)
+                                                        if (aTile.tileCode == tile)
                                                         {
-                                                            setTileDefault = overrideTile;
+                                                            // Save tile for later drawing (Ordering and Horizontal Ordering)
+                                                            if (aTile.tileTypes[ostr.tileType - 1].order != null)
+                                                            {
+                                                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, false, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedTileDraw);
+                                                                orderedTiles.Add(new OrderedTile()
+                                                                {
+                                                                    tileType = aTile.tileTypes[ostr.tileType - 1],
+                                                                    xPosition = currentX,
+                                                                    yPosition = currentY,
+                                                                    tileCode = aTile.tileCode,
+                                                                    tileName = aTile.tileName,
+                                                                    str = true
+                                                                });
+                                                                drawn = true;
+                                                                break;
+                                                            }
+                                                            if (aTile.tileTypes[ostr.tileType - 1].orderHor != null)
+                                                            {
+                                                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, true, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedHorTileDraw);
+                                                                orderedHorTiles.Add(new OrderedTile()
+                                                                {
+                                                                    tileType = aTile.tileTypes[ostr.tileType - 1],
+                                                                    xPosition = currentX,
+                                                                    yPosition = currentY,
+                                                                    tileCode = aTile.tileCode,
+                                                                    tileName = aTile.tileName,
+                                                                    str = true
+                                                                });
+                                                                drawn = true;
+                                                                break;
+                                                            }
+
+                                                            // Draw STR Tile
+                                                            tileDrawer.DrawTile(aTile, ostr.tileType, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList);
+                                                            tilesDrawn++;
+                                                            voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, false, false, true), aTile, currentY, currentX, yLength, xLength), ActionType.tileDraw);
+
+                                                            drawn = true;
+
                                                             break;
                                                         }
+                                    }
+                                if (drawn)
+                                {
+                                    currentX++;
+                                    tileDrawn = true;
+                                    continue;
+                                }
+                            }
 
-                                                if (batchOption.gamemode != null) // Biome overrider (from Gamemode options)
-                                                    if (mapGamemode != null)
-                                                        if (mapGamemode.overrideBiome != null)
-                                                            if (mapGamemode.name == batchOption.gamemode)
-                                                                foreach (var overrideTile in mapGamemode.overrideBiome)
-                                                                    if (overrideTile.tile == tileDefault.tile)
-                                                                    {
-                                                                        setTileDefault = overrideTile;
-                                                                        break;
-                                                                    }
+                            string NeighborBinary = "";
 
-                                                if (setTileDefault.tile == aTile.tileName)
+                            foreach (Tiledata.Tile aTile in tiledata.tiles)
+                            {
+                                if (aTile.tileCode == tile) // Loop until tile found matching with data
+                                {
+                                    Tiledata.TileDefault setTileDefault = null;
+                                    foreach (Tiledata.TileDefault tileDefault in tiledata.biomes[batchOption.biome - 1].defaults)
+                                    {
+                                        setTileDefault = tileDefault;
+                                        if (batchOption.overrideBiome != null) // Biome overrider
+                                            foreach (var overrideTile in batchOption.overrideBiome)
+                                                if (overrideTile.tile == tileDefault.tile)
                                                 {
-                                                    if (aTile.tileLinks != null) // Check if Tile Links are set
-                                                    {
-                                                        NeighborBinary = tileLinks(map, currentX, currentY, aTile);
+                                                    setTileDefault = overrideTile;
+                                                    break;
+                                                }
 
-                                                        List<Tiledata.TileLinkRule> accurateRules = new List<Tiledata.TileLinkRule>();
-
-                                                        var nbca = NeighborBinary.ToCharArray(); // Get neighboring tiles in binary
-                                                        if (aTile.tileLinks.rules.Length != 0)
-                                                        {
-                                                            // Check if tile rule is matching and act
-                                                            foreach (var rule in aTile.tileLinks.rules)
+                                        if (batchOption.gamemode != null) // Biome overrider (from Gamemode options)
+                                            if (mapGamemode != null)
+                                                if (mapGamemode.overrideBiome != null)
+                                                    if (mapGamemode.name == batchOption.gamemode)
+                                                        foreach (var overrideTile in mapGamemode.overrideBiome)
+                                                            if (overrideTile.tile == tileDefault.tile)
                                                             {
-                                                                int accuracy = 0;
-                                                                for (int x = 0; x < 8; x++)
-                                                                {
-                                                                    if (rule.condition.Contains('!'))
-                                                                    {
-                                                                        if (rule.condition.Replace("!", "").ToCharArray()[x] == '*')
-                                                                            accuracy++;
-                                                                        else if (rule.condition.Replace("!", "").ToCharArray()[x] != nbca[x])
-                                                                            accuracy++;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        if (rule.condition.ToCharArray()[x] == '*')
-                                                                            accuracy++;
-                                                                        else if (rule.condition.ToCharArray()[x] == nbca[x])
-                                                                            accuracy++;
-                                                                    }
-                                                                }
+                                                                setTileDefault = overrideTile;
+                                                                break;
+                                                            }
 
-                                                                if (accuracy == 8)
-                                                                {
-                                                                    if (rule.requiredBiome != null)
-                                                                    {
-                                                                        if (rule.requiredBiome.GetValueOrDefault() == batchOption.biome)
-                                                                        {
-                                                                            accurateRules.Add(rule);
-                                                                            if (!aTile.tileLinks.multipleConditionsCouldApply)
-                                                                                break;
-                                                                        }
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        accurateRules.Add(rule);
-                                                                        if (!aTile.tileLinks.multipleConditionsCouldApply)
-                                                                            break;
-                                                                    }
-                                                                }
+                                        if (setTileDefault.tile == aTile.tileName)
+                                        {
+                                            if (aTile.tileLinks != null) // Check if Tile Links are set
+                                            {
+                                                NeighborBinary = tileLinks(map, currentX, currentY, aTile);
+
+                                                List<Tiledata.TileLinkRule> accurateRules = new List<Tiledata.TileLinkRule>();
+
+                                                var nbca = NeighborBinary.ToCharArray(); // Get neighboring tiles in binary
+                                                if (aTile.tileLinks.rules.Length != 0)
+                                                {
+                                                    // Check if tile rule is matching and act
+                                                    foreach (var rule in aTile.tileLinks.rules)
+                                                    {
+                                                        int accuracy = 0;
+                                                        for (int x = 0; x < 8; x++)
+                                                        {
+                                                            if (rule.condition.Contains('!'))
+                                                            {
+                                                                if (rule.condition.Replace("!", "").ToCharArray()[x] == '*')
+                                                                    accuracy++;
+                                                                else if (rule.condition.Replace("!", "").ToCharArray()[x] != nbca[x])
+                                                                    accuracy++;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (rule.condition.ToCharArray()[x] == '*')
+                                                                    accuracy++;
+                                                                else if (rule.condition.ToCharArray()[x] == nbca[x])
+                                                                    accuracy++;
                                                             }
                                                         }
 
-                                                        // Do actions specified in the rule which was correct
-                                                        var defaultType = aTile.tileTypes[aTile.tileLinks.defaults.tileType - 1];
-                                                        foreach (Tiledata.TileLinkRule aRule in accurateRules)
+                                                        if (accuracy == 8)
                                                         {
-                                                            if (aRule.changeBinary != null)
-                                                                for (int y = 0; y < aRule.changeBinary.Length; y++)
+                                                            if (rule.requiredBiome != null)
+                                                            {
+                                                                if (rule.requiredBiome.GetValueOrDefault() == batchOption.biome)
                                                                 {
-                                                                    nbca[int.Parse(aRule.changeBinary[y].Split('a')[1]) - 1] = aRule.changeBinary[y].Split('a')[0].ToCharArray()[0];
+                                                                    accurateRules.Add(rule);
+                                                                    if (!aTile.tileLinks.multipleConditionsCouldApply)
+                                                                        break;
                                                                 }
-                                                            if (aRule.changeTileType != null)
-                                                                defaultType = aTile.tileTypes[aRule.changeTileType.GetValueOrDefault() - 1];
-                                                        }
-
-                                                        var defaultAsset = defaultType.asset;
-
-                                                        var fullBinaryFinal = string.Join("", nbca);
-
-                                                        if (defaultAsset.Contains("?binary?"))
-                                                            defaultAsset = defaultAsset.Replace("?binary?", fullBinaryFinal);
-
-                                                        string fols = "";
-                                                        if (aTile.tileLinks.assetFolder != null)
-                                                            fols = aTile.tileLinks.assetFolder + "/";
-                                                        var assetst = fullBinaryFinal + ".svg";
-
-                                                        // Make a copy of the tile (not reference)
-                                                        Tiledata.TileType breakerTile = new Tiledata.TileType()
-                                                        {
-                                                            asset = fols + defaultAsset,
-                                                            color = defaultType.color,
-                                                            detailed = defaultType.detailed,
-                                                            order = defaultType.order,
-                                                            orderHor = defaultType.orderHor,
-                                                            other = defaultType.other,
-                                                            tileParts = defaultType.tileParts,
-                                                            visible = defaultType.visible,
-                                                        };
-
-                                                        // Save tile for later drawing (Ordering and Horizontal Ordering)
-                                                        if (defaultType.order != null)
-                                                        {
-                                                            voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, false, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedTileDraw);
-                                                            orderedTiles.Add(new OrderedTile()
+                                                            }
+                                                            else
                                                             {
-                                                                tileType = breakerTile,
-                                                                xPosition = currentX,
-                                                                yPosition = currentY,
-                                                                tileCode = aTile.tileCode,
-                                                                tileName = aTile.tileName
-                                                            });
-                                                            break;
+                                                                accurateRules.Add(rule);
+                                                                if (!aTile.tileLinks.multipleConditionsCouldApply)
+                                                                    break;
+                                                            }
                                                         }
-                                                        if (defaultType.orderHor != null)
+                                                    }
+                                                }
+
+                                                // Do actions specified in the rule which was correct
+                                                var defaultType = aTile.tileTypes[aTile.tileLinks.defaults.tileType - 1];
+                                                foreach (Tiledata.TileLinkRule aRule in accurateRules)
+                                                {
+                                                    if (aRule.changeBinary != null)
+                                                        for (int y = 0; y < aRule.changeBinary.Length; y++)
                                                         {
-                                                            voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, true, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedHorTileDraw);
-                                                            orderedHorTiles.Add(new OrderedTile()
-                                                            {
-                                                                tileType = breakerTile,
-                                                                xPosition = currentX,
-                                                                yPosition = currentY,
-                                                                tileCode = aTile.tileCode,
-                                                                tileName = aTile.tileName
-                                                            });
-                                                            break;
+                                                            nbca[int.Parse(aRule.changeBinary[y].Split('a')[1]) - 1] = aRule.changeBinary[y].Split('a')[0].ToCharArray()[0];
                                                         }
+                                                    if (aRule.changeTileType != null)
+                                                        defaultType = aTile.tileTypes[aRule.changeTileType.GetValueOrDefault() - 1];
+                                                }
 
-                                                        // Draw Tile
-                                                        tileDrawer.DrawSelectedTile(new OrderedTile() { tileType = breakerTile, xPosition = currentX, yPosition = currentY, tileCode = aTile.tileCode, tileName = aTile.tileName }, options, sizeMultiplier, xLength, yLength, selectedTileImageList);
-                                                        voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, false, false, true), aTile, currentY, currentX, yLength, xLength), ActionType.tileDraw);
-                                                        break;
-                                                    }
+                                                var defaultAsset = defaultType.asset;
 
-                                                    // Save tile for later drawing (Ordering and Horizontal Ordering)
-                                                    if (aTile.tileTypes[setTileDefault.type - 1].order != null)
+                                                var fullBinaryFinal = string.Join("", nbca);
+
+                                                if (defaultAsset.Contains("?binary?"))
+                                                    defaultAsset = defaultAsset.Replace("?binary?", fullBinaryFinal);
+
+                                                string fols = "";
+                                                if (aTile.tileLinks.assetFolder != null)
+                                                    fols = aTile.tileLinks.assetFolder + "/";
+                                                var assetst = fullBinaryFinal + ".svg";
+
+                                                // Make a copy of the tile (not reference)
+                                                Tiledata.TileType breakerTile = new Tiledata.TileType()
+                                                {
+                                                    asset = fols + defaultAsset,
+                                                    color = defaultType.color,
+                                                    detailed = defaultType.detailed,
+                                                    order = defaultType.order,
+                                                    orderHor = defaultType.orderHor,
+                                                    other = defaultType.other,
+                                                    tileParts = defaultType.tileParts,
+                                                    visible = defaultType.visible,
+                                                };
+
+                                                // Save tile for later drawing (Ordering and Horizontal Ordering)
+                                                if (defaultType.order != null)
+                                                {
+                                                    voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, false, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedTileDraw);
+                                                    orderedTiles.Add(new OrderedTile()
                                                     {
-                                                        voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, false, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedTileDraw);
-                                                        orderedTiles.Add(new OrderedTile()
-                                                        {
-                                                            tileType = aTile.tileTypes[setTileDefault.type - 1],
-                                                            xPosition = currentX,
-                                                            yPosition = currentY,
-                                                            tileCode = aTile.tileCode,
-                                                            tileName = aTile.tileName
-                                                        });
-                                                        break;
-                                                    }
-                                                    if (aTile.tileTypes[setTileDefault.type - 1].orderHor != null)
-                                                    {
-                                                        voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, true, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedHorTileDraw);
-                                                        orderedHorTiles.Add(new OrderedTile()
-                                                        {
-                                                            tileType = aTile.tileTypes[setTileDefault.type - 1],
-                                                            xPosition = currentX,
-                                                            yPosition = currentY,
-                                                            tileCode = aTile.tileCode,
-                                                            tileName = aTile.tileName
-                                                        });
-                                                        break;
-                                                    }
-
-                                                    // Draw Tile
-                                                    tileDrawer.DrawTile(aTile, setTileDefault.type, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList);
-                                                    voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, false, false, true), aTile, currentY, currentX, yLength, xLength), ActionType.tileDraw);
+                                                        tileType = breakerTile,
+                                                        xPosition = currentX,
+                                                        yPosition = currentY,
+                                                        tileCode = aTile.tileCode,
+                                                        tileName = aTile.tileName
+                                                    });
+                                                    tileDrawn = true;
                                                     break;
                                                 }
+                                                if (defaultType.orderHor != null)
+                                                {
+                                                    voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, true, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedHorTileDraw);
+                                                    orderedHorTiles.Add(new OrderedTile()
+                                                    {
+                                                        tileType = breakerTile,
+                                                        xPosition = currentX,
+                                                        yPosition = currentY,
+                                                        tileCode = aTile.tileCode,
+                                                        tileName = aTile.tileName
+                                                    });
+                                                    tileDrawn = true;
+                                                    break;
+                                                }
+
+                                                // Draw Tile
+                                                tileDrawer.DrawSelectedTile(new OrderedTile() { tileType = breakerTile, xPosition = currentX, yPosition = currentY, tileCode = aTile.tileCode, tileName = aTile.tileName }, options, sizeMultiplier, xLength, yLength, selectedTileImageList);
+                                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, false, false, true), aTile, currentY, currentX, yLength, xLength), ActionType.tileDraw);
+                                                tileDrawn = true;
+                                                break;
                                             }
+
+                                            // Save tile for later drawing (Ordering and Horizontal Ordering)
+                                            if (aTile.tileTypes[setTileDefault.type - 1].order != null)
+                                            {
+                                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, false, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedTileDraw);
+                                                orderedTiles.Add(new OrderedTile()
+                                                {
+                                                    tileType = aTile.tileTypes[setTileDefault.type - 1],
+                                                    xPosition = currentX,
+                                                    yPosition = currentY,
+                                                    tileCode = aTile.tileCode,
+                                                    tileName = aTile.tileName
+                                                });
+                                                tileDrawn = true;
+                                                break;
+                                            }
+                                            if (aTile.tileTypes[setTileDefault.type - 1].orderHor != null)
+                                            {
+                                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, true, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedHorTileDraw);
+                                                orderedHorTiles.Add(new OrderedTile()
+                                                {
+                                                    tileType = aTile.tileTypes[setTileDefault.type - 1],
+                                                    xPosition = currentX,
+                                                    yPosition = currentY,
+                                                    tileCode = aTile.tileCode,
+                                                    tileName = aTile.tileName
+                                                });
+                                                tileDrawn = true;
+                                                break;
+                                            }
+
+                                            // Draw Tile
+                                            tileDrawer.DrawTile(aTile, setTileDefault.type, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList);
+                                            tilesDrawn++;
+                                            voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, false, false, true), aTile, currentY, currentX, yLength, xLength), ActionType.tileDraw);
+                                            tileDrawn = true;
+                                            break;
                                         }
                                     }
-
-                                    currentX++;
-
                                 }
-
-                                // Draw Horizontally Ordered Tiles
-                                int highestHorOrder = 1;
-                                foreach (var pTile in orderedHorTiles)
-                                {
-                                    if (pTile == null)
-                                        continue;
-                                    if (pTile.tileType.orderHor.GetValueOrDefault() > highestHorOrder)
-                                        highestHorOrder = pTile.tileType.orderHor.GetValueOrDefault();
-                                    if (pTile.tileType.orderHor.GetValueOrDefault() != 1)
-                                        continue;
-
-                                    tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList);
-                                    if (pTile.str)
-                                        voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, true, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedHorTileDraw);
-                                    else
-                                        voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, true, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedHorTileDraw);
-                                }
-
-                                for (int currentHorOrdered = 2; currentHorOrdered <= highestHorOrder; currentHorOrdered++)
-                                    foreach (var pTile in orderedHorTiles)
-                                    {
-                                        if (pTile == null)
-                                            continue;
-                                        if (pTile.tileType.orderHor.GetValueOrDefault() != currentHorOrdered)
-                                            continue;
-
-                                        tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList);
-                                        if (pTile.str)
-                                            voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, true, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedHorTileDraw);
-                                        else
-                                            voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, true, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedHorTileDraw);
-                                    }
-
-                                currentX = 0;
-                                currentY++;
-
                             }
 
-                            // Draw Ordered Tiles
-                            int highestOrder = 1;
-                            foreach (var pTile in orderedTiles)
+                            if (!tileDrawn)
+                            {
+                                if (!tilesFailedChars.Contains(tTile))
+                                {
+                                    tilesFailed.Add(tTile, 1);
+                                    tilesFailedChars.Add(tTile);
+                                }
+                                else
+                                    tilesFailed[tTile]++;
+                            }
+
+                            currentX++;
+
+                        }
+
+                        // Draw Horizontally Ordered Tiles
+                        int highestHorOrder = 1;
+                        foreach (var pTile in orderedHorTiles)
+                        {
+                            if (pTile == null)
+                                continue;
+                            if (pTile.tileType.orderHor.GetValueOrDefault() > highestHorOrder)
+                                highestHorOrder = pTile.tileType.orderHor.GetValueOrDefault();
+                            if (pTile.tileType.orderHor.GetValueOrDefault() != 1)
+                                continue;
+
+                            tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList);
+                            if (pTile.str)
+                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, true, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedHorTileDraw);
+                            else
+                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, true, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedHorTileDraw);
+                        }
+
+                        for (int currentHorOrdered = 2; currentHorOrdered <= highestHorOrder; currentHorOrdered++)
+                            foreach (var pTile in orderedHorTiles)
                             {
                                 if (pTile == null)
                                     continue;
-                                if (pTile.tileType.order.GetValueOrDefault() > highestOrder)
-                                    highestOrder = pTile.tileType.order.GetValueOrDefault();
-                                if (pTile.tileType.order.GetValueOrDefault() != 1)
+                                if (pTile.tileType.orderHor.GetValueOrDefault() != currentHorOrdered)
                                     continue;
 
                                 tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList);
                                 if (pTile.str)
-                                    voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
+                                    voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, true, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedHorTileDraw);
                                 else
-                                    voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
+                                    voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, true, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedHorTileDraw);
                             }
 
-                            for (int currentOrdered = 2; currentOrdered <= highestOrder; currentOrdered++)
-                                foreach (var pTile in orderedTiles)
+                        currentX = 0;
+                        currentY++;
+
+                    }
+
+                    // Draw Ordered Tiles
+                    int highestOrder = 1;
+                    foreach (var pTile in orderedTiles)
+                    {
+                        if (pTile == null)
+                            continue;
+                        if (pTile.tileType.order.GetValueOrDefault() > highestOrder)
+                            highestOrder = pTile.tileType.order.GetValueOrDefault();
+                        if (pTile.tileType.order.GetValueOrDefault() != 1)
+                            continue;
+
+                        tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList);
+                        if (pTile.str)
+                            voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
+                        else
+                            voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
+                    }
+
+                    for (int currentOrdered = 2; currentOrdered <= highestOrder; currentOrdered++)
+                        foreach (var pTile in orderedTiles)
+                        {
+                            if (pTile == null)
+                                continue;
+                            if (pTile.tileType.order.GetValueOrDefault() != currentOrdered)
+                                continue;
+
+                            tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList);
+                            if (pTile.str)
+                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
+                            else
+                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
+                        }
+
+                    if (mapGamemode != null) // Draw Gamemode tiles (after everything else)
+                        if (mapGamemode.specialTiles != null)
+                            foreach (var st in mapGamemode.specialTiles)
+                            {
+                                if (st.drawOrder == 2)
                                 {
-                                    if (pTile == null)
-                                        continue;
-                                    if (pTile.tileType.order.GetValueOrDefault() != currentOrdered)
-                                        continue;
-
-                                    tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList);
-                                    if (pTile.str)
-                                        voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
-                                    else
-                                        voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
-                                }
-
-                            if (mapGamemode != null) // Draw Gamemode tiles (after everything else)
-                                if (mapGamemode.specialTiles != null)
-                                    foreach (var st in mapGamemode.specialTiles)
+                                    foreach (Tiledata.Tile oTile in tiledata.tiles)
                                     {
-                                        if (st.drawOrder == 2)
+                                        if (oTile.tileName == st.tile)
                                         {
-                                            foreach (Tiledata.Tile oTile in tiledata.tiles)
+                                            string xsLoc = st.position.Split(',')[0].Trim().ToLower();
+                                            string ysLoc = st.position.Split(',')[1].Trim().ToLower();
+                                            if (!int.TryParse(xsLoc, out int xLoc))
                                             {
-                                                if (oTile.tileName == st.tile)
-                                                {
-                                                    string xsLoc = st.position.Split(',')[0].Trim().ToLower();
-                                                    string ysLoc = st.position.Split(',')[1].Trim().ToLower();
-                                                    if (!int.TryParse(xsLoc, out int xLoc))
-                                                    {
-                                                        if (xsLoc == "left" || xsLoc == "l") { xLoc = 0; xsLoc = "L"; }
-                                                        else if (xsLoc == "mid" || xsLoc == "m") { xLoc = (xLength - 1) / 2; xsLoc = "M"; }
-                                                        else if (xsLoc == "right" || xsLoc == "r") { xLoc = xLength - 1; xsLoc = "R"; }
-                                                    }
-                                                    if (!int.TryParse(ysLoc, out int yLoc))
-                                                    {
-                                                        if (ysLoc == "top" || ysLoc == "t") { yLoc = 0; ysLoc = "T"; }
-                                                        else if (ysLoc == "mid" || ysLoc == "m") { yLoc = (yLength - 1) / 2; ysLoc = "M"; }
-                                                        else if (ysLoc == "bottom" || ysLoc == "bot" || ysLoc == "b") { yLoc = yLength - 1; ysLoc = "B"; }
-                                                    }
-
-                                                    if (xLoc < 0)
-                                                    {
-                                                        xLoc = xLength - (1 + xLoc / -1);
-                                                        xsLoc = xLoc.ToString();
-                                                    }
-                                                    if (yLoc < 0)
-                                                    {
-                                                        yLoc = yLength - (1 + yLoc / -1);
-                                                        ysLoc = yLoc.ToString();
-                                                    }
-
-                                                    tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList);
-                                                    voice.Speak(TileActionStringMaker(new TileActionTypes(true, false, false, false, true), oTile, ysLoc, xsLoc, yLength, xLength), ActionType.tileDraw);
-                                                }
+                                                if (xsLoc == "left" || xsLoc == "l") { xLoc = 0; xsLoc = "L"; }
+                                                else if (xsLoc == "mid" || xsLoc == "m") { xLoc = (xLength - 1) / 2; xsLoc = "M"; }
+                                                else if (xsLoc == "right" || xsLoc == "r") { xLoc = xLength - 1; xsLoc = "R"; }
                                             }
+                                            if (!int.TryParse(ysLoc, out int yLoc))
+                                            {
+                                                if (ysLoc == "top" || ysLoc == "t") { yLoc = 0; ysLoc = "T"; }
+                                                else if (ysLoc == "mid" || ysLoc == "m") { yLoc = (yLength - 1) / 2; ysLoc = "M"; }
+                                                else if (ysLoc == "bottom" || ysLoc == "bot" || ysLoc == "b") { yLoc = yLength - 1; ysLoc = "B"; }
+                                            }
+
+                                            if (xLoc < 0)
+                                            {
+                                                xLoc = xLength - (1 + xLoc / -1);
+                                                xsLoc = xLoc.ToString();
+                                            }
+                                            if (yLoc < 0)
+                                            {
+                                                yLoc = yLength - (1 + yLoc / -1);
+                                                ysLoc = yLoc.ToString();
+                                            }
+
+                                            tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList);
+                                            tilesDrawn++;
+                                            voice.Speak(TileActionStringMaker(new TileActionTypes(true, false, false, false, true), oTile, ysLoc, xsLoc, yLength, xLength), ActionType.tileDraw);
                                         }
                                     }
-
-                            string exportName = options.exportFileName;
-
-                            if (exportName.Contains("?number?"))
-                            {
-                                string bNumberText = SpaceFiller(bNumber, 4, '0');
-
-                                exportName = exportName.Replace("?number?", bNumberText);
+                                }
                             }
 
-                            // Save map image
-                            if (options.exportFolderName != null)
-                            {
-                                if (options.exportFolderName.Trim() != "")
-                                {
-                                    if (batchOption.exportFileName != null)
-                                    {
-                                        exportName = batchOption.exportFileName;
-                                        if (batchOption.exportFileName.Contains("?number?"))
-                                        {
-                                            string bNumberText = SpaceFiller(bNumber, 4, '0');
-                                            exportName = exportName.Replace("?number?", bNumberText);
-                                        }
+                    string exportName = options.exportFileName;
 
-                                        tileDrawer.ExportImage(options, exportName);
-                                        voice.Speak("[ AAL ] WRITE >> " + options.exportFolderName + "/" + exportName, ActionType.aal);
-                                        voice.Speak("\nImage saved to " + Environment.CurrentDirectory + options.exportFolderName + "/" + exportName + ".", ActionType.saveLocation);
-                                    }
-                                    else
-                                    {
-                                        tileDrawer.ExportImage(options, exportName);
-                                        voice.Speak("[ AAL ] WRITE >> " + options.exportFolderName + "/" + exportName, ActionType.aal);
-                                        voice.Speak("\nImage saved to " + Environment.CurrentDirectory + options.exportFolderName + "/" + exportName + ".", ActionType.saveLocation);
-                                    }
-                                }
-                                else
+                    if (exportName.Contains("?number?"))
+                    {
+                        string bNumberText = LeftSpaceFiller(bNumber, 4, '0');
+
+                        exportName = exportName.Replace("?number?", bNumberText);
+                    }
+
+                    // Save map image
+                    voice.Speak(" Status: Map drawn.", ActionType.statusChange);
+                    if (options.exportFolderName != null)
+                    {
+                        if (options.exportFolderName.Trim() != "")
+                        {
+                            if (batchOption.exportFileName != null)
+                            {
+                                exportName = batchOption.exportFileName;
+                                if (batchOption.exportFileName.Contains("?number?"))
                                 {
-                                    if (batchOption.exportFileName != null)
-                                        tileDrawer.ExportImage(options, batchOption.exportFileName);
-                                    else
-                                        tileDrawer.ExportImage(options, exportName);
-                                    voice.Speak("[ AAL ] WRITE >> " + exportName, ActionType.aal);
-                                    voice.Speak("\nImage saved to " + Environment.CurrentDirectory + exportName + ".", ActionType.basic);
+                                    string bNumberText = LeftSpaceFiller(bNumber, 4, '0');
+                                    exportName = exportName.Replace("?number?", bNumberText);
                                 }
+
+                                tileDrawer.ExportImage(options, exportName);
+                                voice.Speak("[ AAL ] WRITE >> " + options.exportFolderName + "/" + exportName, ActionType.aal);
+                                if (Regex.IsMatch(options.exportFolderName, "\\S:"))
+                                    voice.Speak("\nImage saved!\n  Location: " + options.exportFolderName + "/" + exportName, ActionType.basic);
+                                else
+                                    voice.Speak("\nImage saved!\n  Location: " + Path.GetFullPath("./" + options.exportFolderName + "/" + exportName), ActionType.saveLocation);
                             }
                             else
                             {
-                                if (batchOption.exportFileName != null)
-                                    tileDrawer.ExportImage(options, batchOption.exportFileName);
+                                tileDrawer.ExportImage(options, exportName);
+                                voice.Speak("[ AAL ] WRITE >> " + options.exportFolderName + "/" + exportName, ActionType.aal);
+                                if (Regex.IsMatch(options.exportFolderName, "\\S:"))
+                                    voice.Speak("\nImage saved!\n  Location: " + options.exportFolderName + "/" + exportName, ActionType.basic);
                                 else
-                                    tileDrawer.ExportImage(options, exportName);
-                                voice.Speak("[ AAL ] WRITE >> " + exportName, ActionType.aal);
-                                voice.Speak("\nImage saved to " + Environment.CurrentDirectory + exportName + ".", ActionType.basic);
+                                    voice.Speak("\nImage saved!\n  Location: " + Path.GetFullPath("./" + options.exportFolderName + "/" + exportName), ActionType.saveLocation);
                             }
-
                         }
+                        else
+                        {
+                            if (batchOption.exportFileName != null)
+                                tileDrawer.ExportImage(options, batchOption.exportFileName);
+                            else
+                                tileDrawer.ExportImage(options, exportName);
+                            voice.Speak("[ AAL ] WRITE >> " + exportName, ActionType.aal);
+                            if (Regex.IsMatch(exportName, "\\S:"))
+                                voice.Speak("\nImage saved!\n  Location: " + exportName, ActionType.basic);
+                            else
+                                voice.Speak("\nImage saved!\n  Location: " + Path.GetFullPath("./" + exportName), ActionType.basic);
+                        }
+                    }
+                    else
+                    {
+                        if (batchOption.exportFileName != null)
+                            tileDrawer.ExportImage(options, batchOption.exportFileName);
+                        else
+                            tileDrawer.ExportImage(options, exportName);
+                        voice.Speak("[ AAL ] WRITE >> " + exportName, ActionType.aal);
+                        if (Regex.IsMatch(exportName, "\\S:"))
+                            voice.Speak("\nImage saved!\n  Location: " + exportName, ActionType.basic);
+                        else
+                            voice.Speak("\nImage saved!\n  Location: " + Path.GetFullPath("./" + exportName), ActionType.basic);
                     }
                 }
             }
             catch (Exception e)
             {
-                voice.Speak("\nERROR:\n" + e, ActionType.basic);
+                voice.Speak("\n [Forced] Status: ERROR!\n  Error reason:\n  " + e, ActionType.basic);
             }
 
+            stopwatch.Stop();
             voice.Speak("\nFinished.", ActionType.basic);
+
+            string stTime = "";
+            if (stopwatch.ElapsedMilliseconds / 86400000 != 0)
+                stTime = (stopwatch.ElapsedMilliseconds / 86400000) + "d " + (stopwatch.ElapsedMilliseconds / 3600000 - stopwatch.ElapsedMilliseconds / 86400000 * 24) + "h " + (stopwatch.ElapsedMilliseconds / 60000 - stopwatch.ElapsedMilliseconds / 3600000 * 60) + "m " + (stopwatch.ElapsedMilliseconds / 1000 - stopwatch.ElapsedMilliseconds / 60000 * 60) + "s " + (stopwatch.ElapsedMilliseconds - stopwatch.ElapsedMilliseconds / 1000 * 1000) + "ms";
+            else if (stopwatch.ElapsedMilliseconds / 3600000 != 0)
+                stTime = (stopwatch.ElapsedMilliseconds / 3600000) + "h " + (stopwatch.ElapsedMilliseconds / 60000 - stopwatch.ElapsedMilliseconds / 3600000 * 60) + "m " + (stopwatch.ElapsedMilliseconds / 1000 - stopwatch.ElapsedMilliseconds / 60000 * 60) + "s " + (stopwatch.ElapsedMilliseconds - stopwatch.ElapsedMilliseconds / 1000 * 1000) + "ms";
+            else if (stopwatch.ElapsedMilliseconds / 60000 != 0)
+                stTime = (stopwatch.ElapsedMilliseconds / 60000) + "m " + (stopwatch.ElapsedMilliseconds / 1000 - stopwatch.ElapsedMilliseconds / 60000 * 60) + "s " + (stopwatch.ElapsedMilliseconds - stopwatch.ElapsedMilliseconds / 1000 * 1000) + "ms";
+            else if (stopwatch.ElapsedMilliseconds / 1000 != 0)
+                stTime = (stopwatch.ElapsedMilliseconds / 1000) + "s " + (stopwatch.ElapsedMilliseconds - stopwatch.ElapsedMilliseconds / 1000 * 1000) + "ms";
+            else
+                stTime = stopwatch.ElapsedMilliseconds + "ms";
+
+            voice.Speak("\nResults:\n  Total Maps Drawn: " + options.batch.Length + "\n  Total Tiles Drawn: " + tilesDrawn + "\n  Completed in: " + stTime, ActionType.basic);
+
+            if (tilesFailed.Count == 0)
+                voice.Speak("  No unrecognized tiles encountered.", ActionType.basic);
+            else
+            {
+                voice.Speak("  Unrecognized tiles encountered:", ActionType.basic);
+                foreach (var t in tilesFailedChars)
+                    voice.Speak("    \"" + t + "\": " + tilesFailed[t], ActionType.basic);
+            }
+            voice.Speak("", ActionType.basic);
+
             voice.Write("log.txt");
 
             Console.ReadKey();
@@ -695,7 +794,7 @@ namespace BMG
 
         }
 
-        public static string SpaceFiller(string text, int minAmountOfChar, char filler) // AMTool: Make text more sylish by filling in empty spaces with a selected character to make up for it
+        public static string LeftSpaceFiller(string text, int minAmountOfChar, char filler) // AMTool: Make text more sylish by filling in empty spaces with a selected character to make up for it
         {
             var c = text.ToCharArray();
             string t = "";
@@ -709,7 +808,7 @@ namespace BMG
             return text;
         }
 
-        public static string SpaceFiller(int number, int minAmountOfChar, char filler) // AMTool: Make text more sylish by filling in empty spaces with a selected character to make up for it
+        public static string LeftSpaceFiller(int number, int minAmountOfChar, char filler) // AMTool: Make text more sylish by filling in empty spaces with a selected character to make up for it
         {
             var c = number.ToString().ToCharArray();
             string t = "";
@@ -721,6 +820,45 @@ namespace BMG
                 return t + number;
             }
             return number.ToString();
+        }
+
+        public static string RightSpaceFiller(string text, int minAmountOfChar, char filler) // AMTool: Make text more sylish by filling in empty spaces with a selected character to make up for it
+        {
+            var c = text.ToCharArray();
+            string t = "";
+
+            if (c.Length < minAmountOfChar)
+            {
+                for (int x = 0; x < minAmountOfChar - c.Length; x++)
+                    t = filler + t;
+                return text + t;
+            }
+            return text;
+        }
+
+        public static string RightSpaceFiller(int number, int minAmountOfChar, char filler) // AMTool: Make text more sylish by filling in empty spaces with a selected character to make up for it
+        {
+            var c = number.ToString().ToCharArray();
+            string t = "";
+
+            if (c.Length < minAmountOfChar)
+            {
+                for (int x = 0; x < minAmountOfChar - c.Length; x++)
+                    t = filler + t;
+                return number + t;
+            }
+            return number.ToString();
+        }
+
+        public static string MakeProgressBar(int lenght, char fill, char background, double percent, bool leftToRight = true) // AMTool: Text progress bars
+        {
+            string prog = "";
+            for (int x = 0; x < Math.Floor(lenght * percent); x++)
+                prog = prog + fill;
+            if (leftToRight)
+                return RightSpaceFiller(prog, lenght, background);
+            else
+                return LeftSpaceFiller(prog, lenght, background);   
         }
 
         public class TileActionTypes
@@ -821,7 +959,10 @@ namespace BMG
             {
                 if (!Directory.Exists(optionsObject.exportFolderName))
                     Directory.CreateDirectory(optionsObject.exportFolderName);
-                b.Save(optionsObject.exportFolderName + "/" + fileName, ImageFormat.Png);
+                if (Regex.IsMatch(fileName, "\\S:"))
+                    b.Save(fileName, ImageFormat.Png);
+                else
+                    b.Save(optionsObject.exportFolderName + "/" + fileName, ImageFormat.Png);
 
                 b.Dispose();
                 g.Dispose();
@@ -889,7 +1030,7 @@ namespace BMG
             else
                 t = "DRAWN AS \"" + n + "\"";
 
-            return p + " [" + tile.tileCode + "] < y: " + SpaceFiller(yLocation, yLocationMax.ToString().ToCharArray().Length, ' ') + " / x: " + SpaceFiller(xLocation, xLocationMax.ToString().ToCharArray().Length, ' ') + " > " + t;
+            return p + " [" + tile.tileCode + "] < y: " + LeftSpaceFiller(yLocation, yLocationMax.ToString().ToCharArray().Length, ' ') + " / x: " + LeftSpaceFiller(xLocation, xLocationMax.ToString().ToCharArray().Length, ' ') + " > " + t;
         }
         public static string TileActionStringMaker(TileActionTypes tat, Tiledata.Tile tile, string yLocation, string xLocation, int yLocationMax, int xLocationMax) // Text maker for a voice when the generator is doing actions related to tiles
         {
@@ -952,22 +1093,27 @@ namespace BMG
             else
                 t = "DRAWN AS \"" + n + "\"";
 
-            return p + " [" + tile.tileCode + "] < y: " + SpaceFiller(yLocation, yLocationMax.ToString().ToCharArray().Length, ' ') + " / x: " + SpaceFiller(xLocation, xLocationMax.ToString().ToCharArray().Length, ' ') + " > " + t;
+            return p + " [" + tile.tileCode + "] < y: " + LeftSpaceFiller(yLocation, yLocationMax.ToString().ToCharArray().Length, ' ') + " / x: " + LeftSpaceFiller(xLocation, xLocationMax.ToString().ToCharArray().Length, ' ') + " > " + t;
         }
 
-        public enum ActionType { setup, tileDraw, orderedHorTileDraw, orderedTileDraw, saveLocation, aal, basic }
+        public enum ActionType { setup, tileDraw, orderedHorTileDraw, orderedTileDraw, saveLocation, aal, statusChange, basic }
         public class Voice
         {
-            Options savedOptionsObject;
+            private Options savedOptionsObject;
+            public TitleClass Title;
+            public string version;
 
             public Voice()
             {
                 savedOptionsObject = new Options { console = new Options.ConsoleOptions() { aal = true, orderedHorTileDraw = true, orderedTileDraw = true, saveLocation = true, setup = true, tileDraw = true }, saveLogFile = true };
+                Title = new TitleClass();
             }
 
-            public void UpdateOptions(Options optionsObject)
+            public void UpdateOptions(Options optionsObject, string version)
             {
                 savedOptionsObject = optionsObject;
+                Title.UpdateObjects(optionsObject.title);
+                Title.version = version;
             }
 
             List<string> loggedLines = new List<string>();
@@ -1014,6 +1160,13 @@ namespace BMG
                     case ActionType.aal:
                         if (savedOptionsObject.console.aal)
                         {
+                            Console.WriteLine(" " + text);
+                            loggedLines.Add(" " + text);
+                        }
+                        break;
+                    case ActionType.statusChange:
+                        if (savedOptionsObject.console.statusChange)
+                        {
                             Console.WriteLine(text);
                             loggedLines.Add(text);
                         }
@@ -1025,14 +1178,153 @@ namespace BMG
                 }
             }
 
+            public class TitleClass
+            {
+                public JobClass Job;
+                public StatusClass Status;
+                public string StatusDetails;
+                public string version;
+                public Options.Title optionReference;
+
+                public TitleClass()
+                {
+                    Job = new JobClass();
+                    Status = new StatusClass();
+                    StatusDetails = "";
+                }
+
+                public void UpdateObjects(Options.Title options)
+                {
+                    optionReference = options;
+                    Job.titleObject = options.modules.job;
+                    Status.titleObject = options.modules.status;
+                }
+
+                public class JobClass
+                {
+                    public int current;
+                    public int max;
+                    public string percentage;
+                    public string progressBar;
+                    public string jobsRatio;
+                    public string jobName;
+                    public Options.Job titleObject;
+
+                    public JobClass UpdateJob(int currentJobIndex, int maxJobIndex, string job)
+                    {
+                        current = currentJobIndex;
+                        max = maxJobIndex;
+                        jobName = job;
+                        jobsRatio = LeftSpaceFiller(currentJobIndex, maxJobIndex.ToString().Length, ' ') + "/" + maxJobIndex;
+                        percentage = Math.Floor(Convert.ToDouble(currentJobIndex) / Convert.ToDouble(maxJobIndex) * 100) + "%";
+                        progressBar = MakeProgressBar(10, titleObject.percentageBarFillCharacter, titleObject.percentageBarBackgroundCharacter, Convert.ToDouble(currentJobIndex) / Convert.ToDouble(maxJobIndex));
+
+                        return this;
+                    }
+
+                    public JobClass UpdateJobName(string job)
+                    {
+                        jobName = job;
+
+                        return this;
+                    }
+
+                    public JobClass IncreaseJob()
+                    {
+                        jobsRatio = LeftSpaceFiller(++current, max.ToString().Length, ' ') + "/" + max;
+                        percentage = Math.Floor(Convert.ToDouble(current) / Convert.ToDouble(max) * 100) + "%";
+                        progressBar = MakeProgressBar(10, titleObject.percentageBarFillCharacter, titleObject.percentageBarBackgroundCharacter, Convert.ToDouble(current) / Convert.ToDouble(max));
+
+                        return this;
+                    }
+                }
+
+                public string GetAppInfo()
+                {
+                    if (optionReference.modules.appInfo.showVersion == true)
+                        return "BMG " + version;
+                    else
+                        return "BMG";
+                }
+
+                public enum StatusDetailsType { basic, biome, tile }
+
+                public void UpdateStatusDetails(string newDetails, StatusDetailsType type)
+                {
+                    switch (type)
+                    {
+                        case StatusDetailsType.basic:
+                            StatusDetails = newDetails;
+                            break;
+                        case StatusDetailsType.biome:
+                            if (optionReference.modules.statusDetails.showBiome != false)
+                                StatusDetails = newDetails;
+                            break;
+                        case StatusDetailsType.tile:
+                            if (optionReference.modules.statusDetails.showTile != false)
+                                StatusDetails = newDetails;
+                            break;
+                    }
+                }
+
+                public class StatusClass
+                {
+                    public int current;
+                    public int max;
+                    public string percentage;
+                    public string progressBar;
+                    public string actionRatio;
+                    public string statusText;
+                    public Options.Status titleObject;
+
+                    public StatusClass UpdateStatus(int currentActionIndex, int maxActionIndex, string action)
+                    {
+                        current = currentActionIndex;
+                        max = maxActionIndex;
+                        statusText = action;
+                        actionRatio = LeftSpaceFiller(currentActionIndex, maxActionIndex.ToString().Length, ' ') + "/" + maxActionIndex;
+                        percentage = Math.Floor(Convert.ToDouble(currentActionIndex) / Convert.ToDouble(maxActionIndex) * 100) + "%";
+                        progressBar = MakeProgressBar(10, titleObject.percentageBarFillCharacter, titleObject.percentageBarBackgroundCharacter, Convert.ToDouble(currentActionIndex) / Convert.ToDouble(maxActionIndex));
+
+                        return this;
+                    }
+
+                    public StatusClass IncreaseStatus()
+                    {
+                        actionRatio = LeftSpaceFiller(++current, max.ToString().Length, ' ') + "/" + max;
+                        percentage = Math.Floor(Convert.ToDouble(current) / Convert.ToDouble(max) * 100) + "%";
+                        progressBar = MakeProgressBar(10, titleObject.percentageBarFillCharacter, titleObject.percentageBarBackgroundCharacter, Convert.ToDouble(current) / Convert.ToDouble(max));
+
+                        return this;
+                    }
+                }
+
+                public void RefreshTitle()
+                {
+                    Console.Title = optionReference.layout
+                        .Replace("?job?", Job.titleObject.order
+                            .Replace("?percentage?", Job.percentage)
+                            .Replace("?progressBar?", Job.progressBar)
+                            .Replace("?jobName?", Job.jobName)
+                            .Replace("?jobsRatio?", Job.jobsRatio))
+                        .Replace("?status?", Status.titleObject.order
+                            .Replace("?percentage?", Status.percentage)
+                            .Replace("?progressBar?", Status.progressBar)
+                            .Replace("?statusText?", Status.statusText)
+                            .Replace("?actionRatio?", Status.actionRatio))
+                        .Replace("?appInfo?", GetAppInfo())
+                        .Replace("?statusDetails?", StatusDetails);
+                }
+            }
+
             public void Write(string fileName) // Save log file
             {
                 if (savedOptionsObject.saveLogFile)
                 {
                     if (savedOptionsObject.console.aal)
-                        Console.WriteLine("[ AAL ] WRITE >> ./" + fileName + "");
+                        Console.WriteLine(" [ AAL ] WRITE >> " + "./" + fileName);
                     File.WriteAllText(fileName, string.Join("\n", loggedLines).Replace("\n", Environment.NewLine));
-                    Console.WriteLine("\nLog saved to log.txt");
+                    Console.WriteLine("\nLog saved!\n  Location: " + Path.GetFullPath("./" + fileName));
                 }
                 else
                     Console.WriteLine("\nLog saving is disabled.");

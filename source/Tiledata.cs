@@ -3,6 +3,8 @@
     public class Tiledata
     {
 
+        public PresetOptions presetOptions { get; set; }
+        public char[] ignoreTiles { get; set; }
         public Tile[] tiles { get; set; }
         public Biome[] biomes { get; set; }
         public Gamemode[] gamemodes { get; set; }
@@ -25,6 +27,7 @@
             public string asset { get; set; }
             public int? orderHor { get; set; }
             public int? order { get; set; }
+            public bool tileTransitions { get; set; } = false;
         }
 
         public class TileParts
@@ -92,6 +95,11 @@
         public enum EdgeCase
         {
             different, copies, mirror
+        }
+
+        public class PresetOptions
+        {
+            public int tileTransitionSize { get; set; }
         }
 
     }

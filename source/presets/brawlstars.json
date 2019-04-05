@@ -1,4 +1,14 @@
 {
+	"presetOptions": {
+		"tileTransitionSize": 2
+	},
+	"ignoreTiles": [ 
+		".",
+		"D",
+		"4",
+		"7",
+		"6"
+	],
 	"tiles": [
 	{
 		"tileName": "blocking1",
@@ -157,7 +167,8 @@
 				"right": 0
 			},
 			"color": "green",
-			"asset": "grass_green.svg"
+			"asset": "grass_green.svg",
+			"tileTransitions": true
 		},
 		{
 			"tileParts": {
@@ -168,7 +179,8 @@
 				"right": 0
 			},
 			"color": "cyan",
-			"asset": "grass_cyan.svg"
+			"asset": "grass_cyan.svg",
+			"tileTransitions": true
 		},
 		{
 			"tileParts": {
@@ -179,7 +191,8 @@
 				"right": 0
 			},
 			"color": "yellow",
-			"asset": "grass_yellow.svg"
+			"asset": "grass_yellow.svg",
+			"tileTransitions": true
 		},
 		{
 			"tileParts": {
@@ -190,7 +203,8 @@
 				"right": 0
 			},
 			"color": "blue",
-			"asset": "grass_blue.svg"
+			"asset": "grass_blue.svg",
+			"tileTransitions": true
 		}
 		]
 	},
@@ -400,7 +414,8 @@
 				"left": 0,
 				"right": 0
 			},
-			"asset": "?binary?.svg"
+			"asset": "?binary?.svg",
+			"tileTransitions": true
 		}
 		],
 		"tileLinks": {
@@ -696,6 +711,38 @@
 		]
 	},
 	{
+		"tileName": "springpadBottomRight",
+		"tileCode": "P",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 1117,
+				"left": 0,
+				"right": 894
+			},
+			"asset": "spring_bottom_right.svg"
+		}
+		]
+	},
+	{
+		"tileName": "springpadTopLeft",
+		"tileCode": "Z",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 1117,
+				"left": 0,
+				"right": 894
+			},
+			"asset": "spring_top_left.svg"
+		}
+		]
+	},
+	{
 		"tileName": "ikeRange",
 		"tileCode": ",",
 		"tileTypes": [
@@ -791,6 +838,14 @@
 		{
 			"tile": "springpadBottom",
 			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
+			"type": 1
 		}
 		]
 	},
@@ -862,6 +917,14 @@
 		{
 			"tile": "springpadBottom",
 			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
+			"type": 1
 		}
 		]
 	},
@@ -928,6 +991,14 @@
 		},
 		{
 			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
 			"type": 1
 		}
 		]
@@ -1000,6 +1071,14 @@
 		{
 			"tile": "springpadBottom",
 			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
+			"type": 1
 		}
 		]
 	},
@@ -1058,6 +1137,14 @@
 		},
 		{
 			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
 			"type": 1
 		}
 		]
@@ -1125,6 +1212,14 @@
 		},
 		{
 			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
 			"type": 1
 		}
 		]
@@ -1196,6 +1291,14 @@
 		},
 		{
 			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
 			"type": 1
 		}
 		]

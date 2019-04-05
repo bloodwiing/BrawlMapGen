@@ -74,6 +74,45 @@ namespace BMG
             });
         }
 
+        public class AppInfo
+        {
+            public bool showVersion { get; set; } = true;
+        }
+
+        public class Job
+        {
+            public char percentageBarFillCharacter { get; set; } = '#';
+            public char percentageBarBackgroundCharacter { get; set; } = '-';
+            public string order { get; set; } = "?percentage? [?progressBar?] ?jobName? ?jobsRatio?";
+        }
+
+        public class Status
+        {
+            public char percentageBarFillCharacter { get; set; } = '#';
+            public char percentageBarBackgroundCharacter { get; set; } = '-';
+            public string order { get; set; } = "?percentage? [?progressBar?] ?statusText? ?actionRatio?";
+        }
+
+        public class StatusDetails
+        {
+            public bool showBiome { get; set; } = true;
+            public bool showTile { get; set; } = true;
+        }
+
+        public class Modules
+        {
+            public AppInfo appInfo { get; set; }
+            public Job job { get; set; }
+            public Status status { get; set; }
+            public StatusDetails statusDetails { get; set; }
+        }
+
+        public class Title
+        {
+            public Modules modules { get; set; }
+            public string layout { get; set; } = "?appInfo? - ?job? - ?status? - ?statusDetails?";
+        }
+
     }
 
 }

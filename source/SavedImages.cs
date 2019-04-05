@@ -10,7 +10,6 @@ namespace BMG
     public class SavedImages
     {
         public List<TileImage> tileImages = new List<TileImage>();
-        public int listForSizeMultiplier;
 
         public SavedImages(Options optionsObject, Tiledata.Tile[] tiles, int sizeMultiplier, Program.Voice voice)
         {
@@ -32,9 +31,6 @@ namespace BMG
                             tileImages.Last().imageHeight = (int)Math.Round((double)SvgDocument.Open(file).Height * sizeMultiplier);
                             tileImages.Last().renderedImage = SvgDocument.Open(file).Draw(tileImages.Last().imageWidth, tileImages.Last().imageHeight);
                             voice.Speak("[ AAL ] READ << ./assets/tiles/" + optionsObject.preset + "/" + tileImages.Last().imageName, Program.ActionType.aal);
-                            //Bitmap b = tileImages.Last().renderedImage;
-                            //b.Save("test\\" + tileImages.Last().imageName + ".png", System.Drawing.Imaging.ImageFormat.Png);
-                            //voice.Speak(tileImages.Last().imageWidth + "  " + tileImages.Last().imageName, Program.ActionType.basic);
                             break;
                         }
                     }
@@ -67,7 +63,6 @@ namespace BMG
                     }
                 }
             }
-            listForSizeMultiplier = sizeMultiplier;
         }
 
         public class TileImage
