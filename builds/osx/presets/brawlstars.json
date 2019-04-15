@@ -1,4 +1,14 @@
 {
+	"presetOptions": {
+		"tileTransitionSize": 2
+	},
+	"ignoreTiles": [ 
+		".",
+		"D",
+		"4",
+		"7",
+		"6"
+	],
 	"tiles": [
 	{
 		"tileName": "blocking1",
@@ -157,7 +167,8 @@
 				"right": 0
 			},
 			"color": "green",
-			"asset": "grass_green.svg"
+			"asset": "grass_green.svg",
+			"tileTransitions": true
 		},
 		{
 			"tileParts": {
@@ -168,7 +179,8 @@
 				"right": 0
 			},
 			"color": "cyan",
-			"asset": "grass_cyan.svg"
+			"asset": "grass_cyan.svg",
+			"tileTransitions": true
 		},
 		{
 			"tileParts": {
@@ -179,7 +191,8 @@
 				"right": 0
 			},
 			"color": "yellow",
-			"asset": "grass_yellow.svg"
+			"asset": "grass_yellow.svg",
+			"tileTransitions": true
 		},
 		{
 			"tileParts": {
@@ -190,7 +203,8 @@
 				"right": 0
 			},
 			"color": "blue",
-			"asset": "grass_blue.svg"
+			"asset": "grass_blue.svg",
+			"tileTransitions": true
 		}
 		]
 	},
@@ -382,6 +396,7 @@
 			}
 			],
 			"multipleConditionsCouldApply": false,
+			"edgeCase": 0,
 			"defaults": {
 				"tileType": 1
 			}
@@ -399,7 +414,8 @@
 				"left": 0,
 				"right": 0
 			},
-			"asset": "?binary?.svg"
+			"asset": "?binary?.svg",
+			"tileTransitions": true
 		}
 		],
 		"tileLinks": {
@@ -425,6 +441,7 @@
 			"defaults": {
 				"tileType": 1
 			},
+			"edgeCase": 2,
 			"assetFolder": "water"
 		}
 	},
@@ -613,7 +630,7 @@
 				"left": 411,
 				"right": 880
 			},
-			"asset": "turret_base_red.svg",
+			"asset": "ike_red.svg",
 			"order": 3
 		},
 		{
@@ -624,7 +641,7 @@
 				"left": 873,
 				"right": 417
 			},
-			"asset": "turret_base_blue.svg",
+			"asset": "ike_blue.svg",
 			"order": 3
 		}
 		]
@@ -694,7 +711,39 @@
 		]
 	},
 	{
-		"tileName": "turretBaseRange",
+		"tileName": "springpadBottomRight",
+		"tileCode": "P",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 1117,
+				"left": 0,
+				"right": 894
+			},
+			"asset": "spring_bottom_right.svg"
+		}
+		]
+	},
+	{
+		"tileName": "springpadTopLeft",
+		"tileCode": "Z",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 1117,
+				"left": 0,
+				"right": 894
+			},
+			"asset": "spring_top_left.svg"
+		}
+		]
+	},
+	{
+		"tileName": "ikeRange",
 		"tileCode": ",",
 		"tileTypes": [
 		{
@@ -705,7 +754,7 @@
 				"left": 11650,
 				"right": 11667
 			},
-			"asset": "turret_base_blue_range.svg"
+			"asset": "ike_blue_range.svg"
 		},
 		{
 			"tileParts": {
@@ -715,7 +764,7 @@
 				"left": 11650,
 				"right": 11667
 			},
-			"asset": "turret_base_red_range.svg"
+			"asset": "ike_red_range.svg"
 		}
 		]
 	}
@@ -789,6 +838,14 @@
 		{
 			"tile": "springpadBottom",
 			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
+			"type": 1
 		}
 		]
 	},
@@ -860,6 +917,14 @@
 		{
 			"tile": "springpadBottom",
 			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
+			"type": 1
 		}
 		]
 	},
@@ -926,6 +991,14 @@
 		},
 		{
 			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
 			"type": 1
 		}
 		]
@@ -998,6 +1071,14 @@
 		{
 			"tile": "springpadBottom",
 			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
+			"type": 1
 		}
 		]
 	},
@@ -1056,6 +1137,14 @@
 		},
 		{
 			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
 			"type": 1
 		}
 		]
@@ -1123,6 +1212,14 @@
 		},
 		{
 			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
 			"type": 1
 		}
 		]
@@ -1194,6 +1291,14 @@
 		},
 		{
 			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
 			"type": 1
 		}
 		]
