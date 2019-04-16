@@ -7,7 +7,8 @@
 		"D",
 		"4",
 		"7",
-		"6"
+		"6",
+		"Q"
 	],
 	"tiles": [
 	{
@@ -743,6 +744,38 @@
 		]
 	},
 	{
+		"tileName": "springpadBottomLeft",
+		"tileCode": "O",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 1117,
+				"left": 0,
+				"right": 894
+			},
+			"asset": "spring_bottom_left.svg"
+		}
+		]
+	},
+	{
+		"tileName": "springpadTopRight",
+		"tileCode": "U",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 1117,
+				"left": 0,
+				"right": 894
+			},
+			"asset": "spring_top_right.svg"
+		}
+		]
+	},
+	{
 		"tileName": "ikeRange",
 		"tileCode": ",",
 		"tileTypes": [
@@ -846,6 +879,14 @@
 		{
 			"tile": "springpadBottomRight",
 			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
+			"type": 1
 		}
 		]
 	},
@@ -925,6 +966,14 @@
 		{
 			"tile": "springpadBottomRight",
 			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
+			"type": 1
 		}
 		]
 	},
@@ -999,6 +1048,14 @@
 		},
 		{
 			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
 			"type": 1
 		}
 		]
@@ -1079,6 +1136,14 @@
 		{
 			"tile": "springpadBottomRight",
 			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
+			"type": 1
 		}
 		]
 	},
@@ -1145,6 +1210,14 @@
 		},
 		{
 			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
 			"type": 1
 		}
 		]
@@ -1220,6 +1293,14 @@
 		},
 		{
 			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
 			"type": 1
 		}
 		]
@@ -1299,6 +1380,14 @@
 		},
 		{
 			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
 			"type": 1
 		}
 		]
@@ -1410,13 +1499,13 @@
 		],
 		"specialTiles": [
 		{
-			"tile": "turretBaseRange",
+			"tile": "ikeRange",
 			"type": 1,
 			"position": "m,-1",
 			"drawOrder": 1
 		},
 		{
-			"tile": "turretBaseRange",
+			"tile": "ikeRange",
 			"type": 2,
 			"position": "m,1",
 			"drawOrder": 1
