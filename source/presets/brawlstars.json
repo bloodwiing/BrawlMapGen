@@ -800,6 +800,22 @@
 			"asset": "ike_red_range.svg"
 		}
 		]
+	},
+	{
+		"tileName": "rails",
+		"tileCode": "Q",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 10343,
+				"mid": 1000,
+				"bot": 10265,
+				"left": 10097,
+				"right": 10270
+			},
+			"asset": "rails.svg"
+		}
+		]
 	}
 	],
 	"biomes": [
@@ -1508,6 +1524,23 @@
 			"tile": "ikeRange",
 			"type": 2,
 			"position": "m,1",
+			"drawOrder": 1
+		}
+		]
+	},
+	{
+		"name": "Railed Gem Grab",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 1,
+			"position": "m,m",
+			"drawOrder": 2
+		},
+		{
+			"tile": "rails",
+			"type": 1,
+			"position": "m,m",
 			"drawOrder": 1
 		}
 		]
