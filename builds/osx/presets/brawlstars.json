@@ -7,7 +7,8 @@
 		"D",
 		"4",
 		"7",
-		"6"
+		"6",
+		"Q"
 	],
 	"tiles": [
 	{
@@ -539,11 +540,11 @@
 		"tileTypes": [
 		{
 			"tileParts": {
-				"top": 500,
+				"top": 402,
 				"mid": 1000,
-				"bot": 600,
-				"left": 545,
-				"right": 545
+				"bot": 481,
+				"left": 440,
+				"right": 440
 			},
 			"asset": "mine.svg"
 		},
@@ -743,6 +744,38 @@
 		]
 	},
 	{
+		"tileName": "springpadBottomLeft",
+		"tileCode": "O",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 1117,
+				"left": 0,
+				"right": 894
+			},
+			"asset": "spring_bottom_left.svg"
+		}
+		]
+	},
+	{
+		"tileName": "springpadTopRight",
+		"tileCode": "U",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 1117,
+				"left": 0,
+				"right": 894
+			},
+			"asset": "spring_top_right.svg"
+		}
+		]
+	},
+	{
 		"tileName": "ikeRange",
 		"tileCode": ",",
 		"tileTypes": [
@@ -765,6 +798,22 @@
 				"right": 11667
 			},
 			"asset": "ike_red_range.svg"
+		}
+		]
+	},
+	{
+		"tileName": "rails",
+		"tileCode": "Q",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 10343,
+				"mid": 1000,
+				"bot": 10265,
+				"left": 10097,
+				"right": 10270
+			},
+			"asset": "rails.svg"
 		}
 		]
 	}
@@ -846,6 +895,14 @@
 		{
 			"tile": "springpadBottomRight",
 			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
+			"type": 1
 		}
 		]
 	},
@@ -925,6 +982,14 @@
 		{
 			"tile": "springpadBottomRight",
 			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
+			"type": 1
 		}
 		]
 	},
@@ -999,6 +1064,14 @@
 		},
 		{
 			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
 			"type": 1
 		}
 		]
@@ -1079,6 +1152,14 @@
 		{
 			"tile": "springpadBottomRight",
 			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
+			"type": 1
 		}
 		]
 	},
@@ -1145,6 +1226,14 @@
 		},
 		{
 			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
 			"type": 1
 		}
 		]
@@ -1220,6 +1309,14 @@
 		},
 		{
 			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
 			"type": 1
 		}
 		]
@@ -1299,6 +1396,14 @@
 		},
 		{
 			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
 			"type": 1
 		}
 		]
@@ -1410,15 +1515,32 @@
 		],
 		"specialTiles": [
 		{
-			"tile": "turretBaseRange",
+			"tile": "ikeRange",
 			"type": 1,
 			"position": "m,-1",
 			"drawOrder": 1
 		},
 		{
-			"tile": "turretBaseRange",
+			"tile": "ikeRange",
 			"type": 2,
 			"position": "m,1",
+			"drawOrder": 1
+		}
+		]
+	},
+	{
+		"name": "Railed Gem Grab",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 1,
+			"position": "m,m",
+			"drawOrder": 2
+		},
+		{
+			"tile": "rails",
+			"type": 1,
+			"position": "m,m",
 			"drawOrder": 1
 		}
 		]
