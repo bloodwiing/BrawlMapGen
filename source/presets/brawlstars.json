@@ -539,11 +539,11 @@
 		"tileTypes": [
 		{
 			"tileParts": {
-				"top": 500,
+				"top": 402,
 				"mid": 1000,
-				"bot": 600,
-				"left": 545,
-				"right": 545
+				"bot": 481,
+				"left": 440,
+				"right": 440
 			},
 			"asset": "mine.svg"
 		},
