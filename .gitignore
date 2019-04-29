@@ -260,5 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 
-# Publishing profiles
+# Publishing profiles 
 [Pp]ublish[Pp]rofiles/
