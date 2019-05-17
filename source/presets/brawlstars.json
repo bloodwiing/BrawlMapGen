@@ -644,6 +644,17 @@
 			},
 			"asset": "ike_blue.svg",
 			"order": 3
+		},
+		{
+      "tileParts": {
+        "top": 618,
+        "mid": 1000,
+        "bot": 775,
+        "left": 436,
+        "right": 702
+      },
+			"asset": "mine_town.svg",
+			"order": 3
 		}
 		]
 	},
@@ -1542,6 +1553,17 @@
 			"type": 1,
 			"position": "m,m",
 			"drawOrder": 1
+		}
+		]
+	},
+	{
+		"name": "Town Gem Grab",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 11,
+			"position": "m,m",
+			"drawOrder": 2
 		}
 		]
 	}
