@@ -29,8 +29,8 @@ namespace BMG
                             });
                             tileImages.Last().imageWidth = (int)Math.Round((double)SvgDocument.Open(file).Width * sizeMultiplier);
                             tileImages.Last().imageHeight = (int)Math.Round((double)SvgDocument.Open(file).Height * sizeMultiplier);
-                            tileImages.Last().renderedImage = SvgDocument.Open(file).Draw(tileImages.Last().imageWidth, tileImages.Last().imageHeight);
                             voice.Speak("[ AAL ] READ << ./assets/tiles/" + optionsObject.preset + "/" + tileImages.Last().imageName, Program.ActionType.aal);
+                            tileImages.Last().renderedImage = SvgDocument.Open(file).Draw(tileImages.Last().imageWidth, tileImages.Last().imageHeight);
                             break;
                         }
                     }
@@ -55,8 +55,8 @@ namespace BMG
                                     });
                                     tileImages.Last().imageWidth = (int)Math.Round((double)SvgDocument.Open(file).Width * sizeMultiplier);
                                     tileImages.Last().imageHeight = (int)Math.Round((double)SvgDocument.Open(file).Height * sizeMultiplier);
-                                    tileImages.Last().renderedImage = SvgDocument.Open(file).Draw(tileImages.Last().imageWidth, tileImages.Last().imageHeight);
                                     voice.Speak("[ AAL ] READ << ./assets/tiles/" + optionsObject.preset + "/" + tileImages.Last().imageName, Program.ActionType.aal);
+                                    tileImages.Last().renderedImage = SvgDocument.Open(file).Draw(tileImages.Last().imageWidth, tileImages.Last().imageHeight);
                                     break;
                                 }
                         }
