@@ -644,6 +644,17 @@
 			},
 			"asset": "ike_blue.svg",
 			"order": 3
+		},
+		{
+      "tileParts": {
+        "top": 618,
+        "mid": 1000,
+        "bot": 775,
+        "left": 436,
+        "right": 702
+      },
+			"asset": "mine_town.svg",
+			"order": 3
 		}
 		]
 	},
@@ -1407,6 +1418,93 @@
 			"type": 1
 		}
 		]
+	},
+	{
+    "name": "retro",
+		"color1": "85,63,105",
+		"color2": "90,66,111",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 4
+		},
+		{
+			"tile": "blocking2",
+			"type": 3
+		},
+		{
+			"tile": "blocking3",
+			"type": 1
+		},
+		{
+			"tile": "blocking4",
+			"type": 1
+		},
+		{
+			"tile": "forest",
+			"type": 1
+		},
+		{
+			"tile": "respawningWall",
+			"type": 4
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 1
+		},
+		{
+			"tile": "fence",
+			"type": 4
+		},
+		{
+			"tile": "water",
+			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
+			"type": 1
+		},
+		{
+			"tile": "objective",
+			"type": 2
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
+			"type": 1
+		}
+		]
 	}
 	],
 	"gamemodes": [
@@ -1542,6 +1640,17 @@
 			"type": 1,
 			"position": "m,m",
 			"drawOrder": 1
+		}
+		]
+	},
+	{
+		"name": "Town Gem Grab",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 11,
+			"position": "m,m",
+			"drawOrder": 2
 		}
 		]
 	}
