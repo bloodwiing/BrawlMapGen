@@ -17,7 +17,7 @@ namespace BMG
         {
             var fArgs = " " + string.Join(" ", args);
             string version = "1.8b";
-            string buildText = " [UNSTABLE BUILD 3]";
+            string buildText = " [UNSTABLE BUILD 4]";
             string oLoc = "options.json";
             string oStr = "";
             string oEnd = "";
