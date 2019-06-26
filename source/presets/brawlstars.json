@@ -12,6 +12,7 @@
 	],
 	"tiles": [
 	{
+		"display": "Wall Block",
 		"tileName": "blocking1",
 		"tileCode": "M",
 		"tileTypes": [
@@ -23,7 +24,8 @@
 				"left": 0,
 				"right": 0
 			},
-			"asset": "wood_block.svg"
+			"asset": "wood_block.svg",
+			"sound": "wood.ogg"
 		},
 		{
 			"tileParts": {
@@ -56,13 +58,13 @@
 			"asset": "wall_block.svg"
 		},
 		{
-      "tileParts": {
-        "top": 500,
-        "mid": 1000,
-        "bot": 243,
-        "left": 0,
-        "right": 0
-      },
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 243,
+				"left": 0,
+				"right": 0
+			},
 			"asset": "wall_block_red.svg"
 		}
 		]
@@ -112,13 +114,13 @@
 			"asset": "crystal_red.svg"
 		},
 		{
-      "tileParts": {
-        "top": 544,
-        "mid": 1000,
-        "bot": 243,
-        "left": 0,
-        "right": 0
-      },
+			"tileParts": {
+				"top": 544,
+				"mid": 1000,
+				"bot": 243,
+				"left": 0,
+				"right": 0
+			},
 			"asset": "tires.svg"
 		}
 		]
@@ -148,13 +150,13 @@
 			"asset": "present_box.svg"
 		},
 		{
-      "tileParts": {
-        "top": 500,
-        "mid": 1000,
-        "bot": 243,
-        "left": 0,
-        "right": 0
-      },
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 243,
+				"left": 0,
+				"right": 0
+			},
 			"asset": "crate_red.svg"
 		}
 		]
@@ -184,13 +186,13 @@
 			"asset": "present_barrel.svg"
 		},
 		{
-      "tileParts": {
-        "top": 566,
-        "mid": 1000,
-        "bot": 243,
-        "left": 0,
-        "right": 0
-      },
+			"tileParts": {
+				"top": 566,
+				"mid": 1000,
+				"bot": 243,
+				"left": 0,
+				"right": 0
+			},
 			"asset": "metal_barrel.svg"
 		}
 		]
@@ -343,13 +345,13 @@
 			"asset": "present_mini.svg"
 		},
 		{
-      "tileParts": {
-        "top": 351,
-        "mid": 1000,
-        "bot": 156,
-        "left": 0,
-        "right": 0
-      },
+			"tileParts": {
+				"top": 351,
+				"mid": 1000,
+				"bot": 156,
+				"left": 0,
+				"right": 0
+			},
 			"asset": "cone.svg"
 		}
 		]
@@ -433,100 +435,100 @@
 			"asset": "neon_railing_hor.svg"
 		},
 		{
-      "tileParts": {
-        "top": 200,
-        "mid": 1000,
-        "bot": 0,
-        "left": 0,
-        "right": 0
-      },
+			"tileParts": {
+				"top": 650,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
 			"asset": "neon_railing_ver.svg"
 		},
 		{
-      "tileParts": {
-        "top": 500,
-        "mid": 1000,
-        "bot": 0,
-        "left": 2,
-        "right": 0
-      },
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 0,
+				"left": 2,
+				"right": 0
+			},
 			"asset": "neon_railing_r.svg",
 			"orderHor": 1
 		},
 		{
-      "tileParts": {
-        "top": 500,
-        "mid": 1000,
-        "bot": 0,
-        "left": 0,
-        "right": 2
-      },
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 2
+			},
 			"asset": "neon_railing_l.svg",
 			"orderHor": 1
 		},
 		{
-      "tileParts": {
-        "top": 450,
-        "mid": 1000,
-        "bot": 0,
-        "left": 0,
-        "right": 0
-      },
+			"tileParts": {
+				"top": 650,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
 			"asset": "neon_railing_t.svg",
 			"orderHor": 1
 		},
 		{
-      "tileParts": {
-        "top": 0,
-        "mid": 1000,
-        "bot": 0,
-        "left": 0,
-        "right": 0
-      },
+			"tileParts": {
+				"top": 440,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
 			"asset": "neon_railing_b.svg",
 			"orderHor": 1
 		},
 		{
-      "tileParts": {
-        "top": 500,
-        "mid": 1000,
-        "bot": 0,
-        "left": 0,
-        "right": 0
-      },
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
 			"asset": "neon_railing_tr.svg",
 			"orderHor": 1
 		},
 		{
-      "tileParts": {
-        "top": 500,
-        "mid": 1000,
-        "bot": 0,
-        "left": 0,
-        "right": 0
-      },
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
 			"asset": "neon_railing_tl.svg",
 			"orderHor": 1
 		},
 		{
-      "tileParts": {
-        "top": 650,
-        "mid": 1000,
-        "bot": 0,
-        "left": 0,
-        "right": 0
-      },
+			"tileParts": {
+				"top": 650,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
 			"asset": "neon_railing_br.svg",
 			"orderHor": 1
 		},
 		{
-      "tileParts": {
-        "top": 650,
-        "mid": 1000,
-        "bot": 0,
-        "left": 0,
-        "right": 0
-      },
+			"tileParts": {
+				"top": 650,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
 			"asset": "neon_railing_bl.svg",
 			"orderHor": 1
 		}
@@ -584,7 +586,7 @@
 				"changeTileType": 16
 			},
 			{	
-        "condition": "*0****0*",
+				"condition": "*0****0*",
 				"requiredBiome": 7,
 				"changeTileType": 4
 			},
@@ -866,24 +868,24 @@
 			"order": 3
 		},
 		{
-      "tileParts": {
-        "top": 618,
-        "mid": 1000,
-        "bot": 775,
-        "left": 436,
-        "right": 702
-      },
+			"tileParts": {
+				"top": 618,
+				"mid": 1000,
+				"bot": 775,
+				"left": 436,
+				"right": 702
+			},
 			"asset": "mine_town.svg",
 			"order": 3
 		},
 		{
-      "tileParts": {
-        "top": 618,
-        "mid": 1000,
-        "bot": 775,
-        "left": 436,
-        "right": 702
-      },
+			"tileParts": {
+				"top": 618,
+				"mid": 1000,
+				"bot": 775,
+				"left": 436,
+				"right": 702
+			},
 			"asset": "mine_retro.svg",
 			"order": 3
 		}
@@ -1058,6 +1060,148 @@
 			"asset": "rails.svg"
 		}
 		]
+	},
+	{
+		"tileName": "bench1",
+		"tileCode": "E",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 438,
+				"mid": 1000,
+				"bot": 0,
+				"left": 46,
+				"right": 0
+			},
+			"asset": "bench_top_left.svg"
+		},
+		{
+			"tileParts": {
+				"top": 438,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 46
+			},
+			"asset": "bench_top_right.svg"
+		},
+		{
+			"tileParts": {
+				"top": 302,
+				"mid": 1000,
+				"bot": 0,
+				"left": 150,
+				"right": 0
+			},
+			"asset": "bench_left_top.svg"
+		},
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 243,
+				"left": 150,
+				"right": 0
+			},
+			"asset": "bench_left_bottom.svg"
+		}
+		],
+		"tileLinks": {
+			"rules": [
+			{
+				"condition": "***01***",
+				"changeTileType": 1
+			},
+			{
+				"condition": "***10***",
+				"changeTileType": 2
+			},
+			{
+				"condition": "*0****1*",
+				"changeTileType": 3
+			},
+			{
+				"condition": "*1****0*",
+				"changeTileType": 4
+			}
+			],
+			"multipleConditionsCouldApply": false,
+			"edgeCase": 0,
+			"defaults": {
+				"tileType": 1
+			}
+		}
+	},
+	{
+		"tileName": "bench2",
+		"tileCode": "A",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 400,
+				"mid": 1000,
+				"bot": 243,
+				"left": 46,
+				"right": 0
+			},
+			"asset": "bench_bottom_left.svg"
+		},
+		{
+			"tileParts": {
+				"top": 400,
+				"mid": 1000,
+				"bot": 243,
+				"left": 0,
+				"right": 46
+			},
+			"asset": "bench_bottom_right.svg"
+		},
+		{
+			"tileParts": {
+				"top": 302,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 150
+			},
+			"asset": "bench_right_top.svg"
+		},
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 243,
+				"left": 0,
+				"right": 150
+			},
+			"asset": "bench_right_bottom.svg"
+		}
+		],
+		"tileLinks": {
+			"rules": [
+			{
+				"condition": "***01***",
+				"changeTileType": 1
+			},
+			{
+				"condition": "***10***",
+				"changeTileType": 2
+			},
+			{
+				"condition": "*0****1*",
+				"changeTileType": 3
+			},
+			{
+				"condition": "*1****0*",
+				"changeTileType": 4
+			}
+			],
+			"multipleConditionsCouldApply": false,
+			"edgeCase": 0,
+			"defaults": {
+				"tileType": 1
+			}
+		}
 	}
 	],
 	"biomes": [
@@ -1144,6 +1288,14 @@
 		},
 		{
 			"tile": "springpadBottomLeft",
+			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
 			"type": 1
 		}
 		]
@@ -1232,6 +1384,14 @@
 		{
 			"tile": "springpadBottomLeft",
 			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
+			"type": 1
 		}
 		]
 	},
@@ -1314,6 +1474,14 @@
 		},
 		{
 			"tile": "springpadBottomLeft",
+			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
 			"type": 1
 		}
 		]
@@ -1402,6 +1570,14 @@
 		{
 			"tile": "springpadBottomLeft",
 			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
+			"type": 1
 		}
 		]
 	},
@@ -1476,6 +1652,14 @@
 		},
 		{
 			"tile": "springpadBottomLeft",
+			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
 			"type": 1
 		}
 		]
@@ -1559,6 +1743,14 @@
 		},
 		{
 			"tile": "springpadBottomLeft",
+			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
 			"type": 1
 		}
 		]
@@ -1647,6 +1839,14 @@
 		{
 			"tile": "springpadBottomLeft",
 			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
+			"type": 1
 		}
 		]
 	},
@@ -1657,7 +1857,7 @@
 		"defaults": [
 		{
 			"tile": "blocking1",
-      "type": 5
+			"type": 5
 		},
 		{
 			"tile": "blocking2",
@@ -1733,6 +1933,14 @@
 		},
 		{
 			"tile": "springpadBottomLeft",
+			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
 			"type": 1
 		}
 		]
