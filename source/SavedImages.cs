@@ -45,7 +45,13 @@ namespace BMG
                         for (int type = 0; type < tile.tileTypes.Length; type++)
                         {
                             if (tile.tileLinks != null)
-                                if (folder.Split('/').Last() == tile.tileLinks.assetFolder)
+                            {
+                                List<string> folders = new List<string>();
+                                folders.Add(tile.tileLinks.assetFolder);
+                                foreach (Tiledata.TileLinkRule rule in tile.tileLinks.rules)
+                                    if (rule.changeFolder != null && !folders.Contains(rule.changeFolder))
+                                        folders.Add(rule.changeFolder);
+                                if (folders.Contains(folder.Split('/').Last()))
                                 {
                                     tileImages.Add(new TileImage()
                                     {
@@ -59,6 +65,7 @@ namespace BMG
                                     tileImages.Last().renderedImage = SvgDocument.Open(file).Draw(tileImages.Last().imageWidth, tileImages.Last().imageHeight);
                                     break;
                                 }
+                            }
                         }
                     }
                 }

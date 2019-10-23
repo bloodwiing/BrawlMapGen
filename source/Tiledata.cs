@@ -69,6 +69,7 @@
             public string[] changeBinary { get; set; }
             public int? changeTileType { get; set; }
             public string changeAsset { get; set; }
+            public string changeFolder { get; set; }
         }
 
         public class TileLinkDefault

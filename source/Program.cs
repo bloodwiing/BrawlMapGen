@@ -269,27 +269,27 @@ namespace BMG
 
                             bool tileDrawn = false;
 
-                            if (batchOption.skipTiles.Contains(tTile)) // Specified Tile Skipper
-                            {
-                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, false, false, false), new Tiledata.Tile() { tileName = "", tileCode = tTile }, currentY, currentX, yLength, xLength), ActionType.tileDraw);
-                                currentX++;
-                                tileDrawn = true;
-                                continue;
-                            }
-
-                            if (tiledata.ignoreTiles.Contains(tTile)) // Specified Tile Ignorer
-                            {
-                                currentX++;
-                                tileDrawn = true;
-                                continue;
-                            }
-
                             var tile = tTile;
 
                             foreach (Options.Replace repTile in batchOption.replaceTiles) // Specified Tile Code Replacer
                             {
                                 if (tile == repTile.from)
                                     tile = repTile.to;
+                            }
+
+                            if (batchOption.skipTiles.Contains(tile)) // Specified Tile Skipper
+                            {
+                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, false, false, false), new Tiledata.Tile() { tileName = "", tileCode = tile }, currentY, currentX, yLength, xLength), ActionType.tileDraw);
+                                currentX++;
+                                tileDrawn = true;
+                                continue;
+                            }
+
+                            if (tiledata.ignoreTiles.Contains(tile)) // Specified Tile Ignorer
+                            {
+                                currentX++;
+                                tileDrawn = true;
+                                continue;
                             }
 
                             // Checking STR (Special Tile Rules) Tiles' occurance number and acting if conditions are met
@@ -439,6 +439,8 @@ namespace BMG
                                                     }
                                                 }
 
+                                                string fols = "";
+
                                                 // Do actions specified in the rule which was correct
                                                 var defaultType = aTile.tileTypes[aTile.tileLinks.defaults.tileType - 1];
                                                 foreach (Tiledata.TileLinkRule aRule in accurateRules)
@@ -450,6 +452,8 @@ namespace BMG
                                                         }
                                                     if (aRule.changeTileType != null)
                                                         defaultType = aTile.tileTypes[aRule.changeTileType.GetValueOrDefault() - 1];
+                                                    if (aRule.changeFolder != null && aTile.tileLinks.assetFolder != null)
+                                                        fols = aRule.changeFolder + "/";
                                                 }
 
                                                 var defaultAsset = defaultType.asset;
@@ -459,8 +463,7 @@ namespace BMG
                                                 if (defaultAsset.Contains("?binary?"))
                                                     defaultAsset = defaultAsset.Replace("?binary?", fullBinaryFinal);
 
-                                                string fols = "";
-                                                if (aTile.tileLinks.assetFolder != null)
+                                                if (aTile.tileLinks.assetFolder != null && fols == "")
                                                     fols = aTile.tileLinks.assetFolder + "/";
                                                 var assetst = fullBinaryFinal + ".svg";
 
@@ -1184,6 +1187,7 @@ namespace BMG
                 public StatusClass Status;
                 public string StatusDetails;
                 public string version;
+                public bool show;
                 public Options.Title optionReference;
 
                 public TitleClass()
@@ -1195,6 +1199,9 @@ namespace BMG
 
                 public void UpdateObjects(Options.Title options)
                 {
+                    show = options != null;
+                    if (!show)
+                        return;
                     optionReference = options;
                     Job.titleObject = options.modules.job;
                     Status.titleObject = options.modules.status;
@@ -1212,6 +1219,8 @@ namespace BMG
 
                     public JobClass UpdateJob(int currentJobIndex, int maxJobIndex, string job)
                     {
+                        if (titleObject == null)
+                            return this;
                         current = currentJobIndex;
                         max = maxJobIndex;
                         jobName = job;
@@ -1231,6 +1240,8 @@ namespace BMG
 
                     public JobClass IncreaseJob()
                     {
+                        if (titleObject == null)
+                            return this;
                         jobsRatio = LeftSpaceFiller(++current, max.ToString().Length, ' ') + "/" + max;
                         percentage = Math.Floor(Convert.ToDouble(current) / Convert.ToDouble(max) * 100) + "%";
                         progressBar = MakeProgressBar(10, titleObject.percentageBarFillCharacter, titleObject.percentageBarBackgroundCharacter, Convert.ToDouble(current) / Convert.ToDouble(max));
@@ -1279,6 +1290,8 @@ namespace BMG
 
                     public StatusClass UpdateStatus(int currentActionIndex, int maxActionIndex, string action)
                     {
+                        if (titleObject == null)
+                            return this;
                         current = currentActionIndex;
                         max = maxActionIndex;
                         statusText = action;
@@ -1291,6 +1304,8 @@ namespace BMG
 
                     public StatusClass IncreaseStatus()
                     {
+                        if (titleObject == null)
+                            return this;
                         actionRatio = LeftSpaceFiller(++current, max.ToString().Length, ' ') + "/" + max;
                         percentage = Math.Floor(Convert.ToDouble(current) / Convert.ToDouble(max) * 100) + "%";
                         progressBar = MakeProgressBar(10, titleObject.percentageBarFillCharacter, titleObject.percentageBarBackgroundCharacter, Convert.ToDouble(current) / Convert.ToDouble(max));
@@ -1301,6 +1316,8 @@ namespace BMG
 
                 public void RefreshTitle()
                 {
+                    if (!show)
+                        return;
                     Console.Title = optionReference.layout
                         .Replace("?job?", Job.titleObject.order
                             .Replace("?percentage?", Job.percentage)

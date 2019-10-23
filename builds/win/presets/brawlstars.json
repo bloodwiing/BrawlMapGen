@@ -66,6 +66,16 @@
 				"right": 0
 			},
 			"asset": "wall_block_red.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "wall_block_gray.svg"
 		}
 		]
 	},
@@ -122,6 +132,16 @@
 				"right": 0
 			},
 			"asset": "tires.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "tombstone.svg"
 		}
 		]
 	},
@@ -154,6 +174,16 @@
 				"top": 500,
 				"mid": 1000,
 				"bot": 243,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "crate_orange.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
 				"left": 0,
 				"right": 0
 			},
@@ -194,6 +224,16 @@
 				"right": 0
 			},
 			"asset": "metal_barrel.svg"
+		},
+		{
+			"tileParts": {
+				"top": 400,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "red_barrel.svg"
 		}
 		]
 	},
@@ -260,6 +300,18 @@
 			"color": "blue",
 			"asset": "grass_neon_blue.svg",
 			"tileTransitions": true
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"color": "blue gradient",
+			"asset": "grass_blue_fade.svg",
+			"tileTransitions": true
 		}
 		]
 	},
@@ -307,6 +359,16 @@
 				"right": 3
 			},
 			"asset": "sapling.svg"
+		},
+		{
+			"tileParts": {
+				"top": 400,
+				"mid": 1000,
+				"bot": 300,
+				"left": 100,
+				"right": 100
+			},
+			"asset": "stump.svg"
 		}
 		]
 	},
@@ -353,6 +415,16 @@
 				"right": 0
 			},
 			"asset": "cone.svg"
+		},
+		{
+			"tileParts": {
+				"top": 350,
+				"mid": 1000,
+				"bot": 150,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "candles.svg"
 		}
 		]
 	},
@@ -531,10 +603,73 @@
 			},
 			"asset": "neon_railing_bl.svg",
 			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 550,
+				"mid": 1000,
+				"bot": 300,
+				"left": 50,
+				"right": 50
+			},
+			"asset": "fence_hor_mor.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 750,
+				"mid": 1000,
+				"bot": 300,
+				"left": -150,
+				"right": -150
+			},
+			"asset": "fence_ver_mor.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 550,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "fence_cor_mor.svg",
+			"orderHor": 1
 		}
 		],
 		"tileLinks": {
 			"rules": [
+			{
+				"condition": "***11***",
+				"requiredBiome": 9,
+				"changeTileType": 17
+			},
+			{
+				"condition": "*1****1*",
+				"requiredBiome": 9,
+				"changeTileType": 18
+			},
+			{
+				"condition": "*0****1*",
+				"requiredBiome": 9,
+				"changeTileType": 19
+			},
+			{
+				"condition": "*1****0*",
+				"requiredBiome": 9,
+				"changeTileType": 19
+			},
+			{
+				"condition": "***01***",
+				"requiredBiome": 9,
+				"changeTileType": 19
+			},
+			{
+				"condition": "***10***",
+				"requiredBiome": 9,
+				"changeTileType": 19
+			},
 			{
 				"condition": "*0*11*0*",
 				"requiredBiome": 8,
@@ -585,11 +720,6 @@
 				"requiredBiome": 8,
 				"changeTileType": 16
 			},
-			{	
-				"condition": "*0****0*",
-				"requiredBiome": 7,
-				"changeTileType": 4
-			},
 			{
 				"condition": "*1****0*",
 				"requiredBiome": 7,
@@ -597,6 +727,16 @@
 			},
 			{
 				"condition": "*0****1*",
+				"requiredBiome": 7,
+				"changeTileType": 6
+			},
+			{
+				"condition": "***01***",
+				"requiredBiome": 7,
+				"changeTileType": 6
+			},
+			{
+				"condition": "***10***",
 				"requiredBiome": 7,
 				"changeTileType": 6
 			},
@@ -605,6 +745,11 @@
 				"requiredBiome": 7,
 				"changeTileType": 5
 			},
+			{	
+				"condition": "*0****0*",
+				"requiredBiome": 7,
+				"changeTileType": 4
+			},
 			{
 				"condition": "*1****0*",
 				"changeTileType": 3
@@ -614,12 +759,20 @@
 				"changeTileType": 3
 			},
 			{
+				"condition": "***01***",
+				"changeTileType": 3
+			},
+			{
+				"condition": "***10***",
+				"changeTileType": 3
+			},
+			{
 				"condition": "*1****1*",
 				"changeTileType": 2
 			}
 			],
 			"multipleConditionsCouldApply": false,
-			"edgeCase": 0,
+			"edgeCase": 1,
 			"defaults": {
 				"tileType": 1
 			}
@@ -643,6 +796,11 @@
 		],
 		"tileLinks": {
 			"rules": [
+			{
+				"condition": "********",
+				"requiredBiome": 9,
+				"changeFolder": "green_water"
+			},
 			{
 				"condition": "*0******",
 				"changeBinary": [ "0a1", "0a3" ]
@@ -887,6 +1045,17 @@
 				"right": 702
 			},
 			"asset": "mine_retro.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 509,
+				"mid": 1000,
+				"bot": 785,
+				"left": 698,
+				"right": 608
+			},
+			"asset": "mine_mortuary.svg",
 			"order": 3
 		}
 		]
@@ -1529,11 +1698,11 @@
 		},
 		{
 			"tile": "player1",
-			"type": 2
+			"type": 1
 		},
 		{
 			"tile": "player2",
-			"type": 5
+			"type": 1
 		},
 		{
 			"tile": "objective",
@@ -1851,7 +2020,7 @@
 		]
 	},
 	{
-    "name": "retro",
+    	"name": "retro",
 		"color1": "85,63,105",
 		"color2": "90,66,111",
 		"defaults": [
@@ -1882,6 +2051,101 @@
 		{
 			"tile": "blockingDestroyableWithWeapon",
 			"type": 4
+		},
+		{
+			"tile": "fence",
+			"type": 4
+		},
+		{
+			"tile": "water",
+			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
+			"type": 1
+		},
+		{
+			"tile": "objective",
+			"type": 2
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
+			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
+			"type": 1
+		}
+		]
+	},
+	{
+    	"name": "mortuary",
+		"color1": "70,49,78",
+		"color2": "74,52,82",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 6
+		},
+		{
+			"tile": "blocking2",
+			"type": 6
+		},
+		{
+			"tile": "blocking3",
+			"type": 4
+		},
+		{
+			"tile": "blocking4",
+			"type": 4
+		},
+		{
+			"tile": "forest",
+			"type": 6
+		},
+		{
+			"tile": "respawningWall",
+			"type": 5
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 5
 		},
 		{
 			"tile": "fence",
@@ -1993,6 +2257,19 @@
 		]
 	},
 	{
+		"name": "Showdown",
+		"overrideBiome": [
+		{
+			"tile": "player1",
+			"type": 2
+		},
+		{
+			"tile": "player2",
+			"type": 5
+		}
+		]
+	},
+	{
 		"name": "Snowy Gem Grab",
 		"specialTiles": [
 		{
@@ -2099,6 +2376,49 @@
 		{
 			"tile": "objective",
 			"type": 12,
+			"position": "m,m",
+			"drawOrder": 2
+		}
+		]
+	},
+	{
+        "name": "Takedown",
+        "overrideBiome": [
+            {
+                "tile": "player1",
+                "type": 2
+            },
+            {
+                "tile": "player2",
+                "type": 5
+            }
+        ],
+		"specialTiles": [
+        {
+            "tile": "player2",
+            "type": 4,
+            "position": "m,m",
+            "drawOrder": 2
+        }
+		]
+    },
+    {
+        "name": "Lone Star",
+        "specialTiles": [
+        {
+            "tile": "objective",
+            "type": 3,
+            "position": "m,m",
+            "drawOrder": 2
+        }
+        ]
+    },
+	{
+		"name": "Mortuary Gem Grab",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 13,
 			"position": "m,m",
 			"drawOrder": 2
 		}
