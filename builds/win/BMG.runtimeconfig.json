@@ -1,3 +1,5 @@
 {
-  "runtimeOptions": {}
+  "runtimeOptions": {
+    "tfm": "netcoreapp2.2"
+  }
 }

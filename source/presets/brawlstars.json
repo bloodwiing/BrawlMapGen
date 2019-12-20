@@ -76,6 +76,16 @@
 				"right": 0
 			},
 			"asset": "wall_block_gray.svg"
+		},
+		{
+			"tileParts": {
+				"top": 600,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "metal_box.svg"
 		}
 		]
 	},
@@ -142,6 +152,16 @@
 				"right": 0
 			},
 			"asset": "tombstone.svg"
+		},
+		{
+			"tileParts": {
+				"top": 550,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "chest.svg"
 		}
 		]
 	},
@@ -312,6 +332,18 @@
 			"color": "blue gradient",
 			"asset": "grass_blue_fade.svg",
 			"tileTransitions": true
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"color": "green round",
+			"asset": "grass_green_round.svg",
+			"tileTransitions": true
 		}
 		]
 	},
@@ -369,6 +401,16 @@
 				"right": 100
 			},
 			"asset": "stump.svg"
+		},
+		{
+			"tileParts": {
+				"top": 400,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "ship_barrel.svg"
 		}
 		]
 	},
@@ -425,6 +467,16 @@
 				"right": 0
 			},
 			"asset": "candles.svg"
+		},
+		{
+			"tileParts": {
+				"top": -50,
+				"mid": 1000,
+				"bot": 0,
+				"left": -50,
+				"right": 0
+			},
+			"asset": "round_shot.svg"
 		}
 		]
 	},
@@ -636,10 +688,184 @@
 			},
 			"asset": "fence_cor_mor.svg",
 			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 450,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "ship_railing_hor.svg"
+		},
+		{
+			"tileParts": {
+				"top": -50,
+				"mid": 1000,
+				"bot": 0,
+				"left": -150,
+				"right": 0
+			},
+			"asset": "ship_railing_ver.svg"
+		},
+		{
+			"tileParts": {
+				"top": 450,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "ship_railing_r.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 450,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "ship_railing_l.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": -50,
+				"mid": 1000,
+				"bot": 0,
+				"left": -150,
+				"right": 0
+			},
+			"asset": "ship_railing_b.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": -250,
+				"mid": 1000,
+				"bot": 0,
+				"left": -150,
+				"right": 0
+			},
+			"asset": "ship_railing_t.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 450,
+				"mid": 1000,
+				"bot": 50,
+				"left": -150,
+				"right": 0
+			},
+			"asset": "ship_railing_tr.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 450,
+				"mid": 1000,
+				"bot": 50,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "ship_railing_tl.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 600,
+				"mid": 1000,
+				"bot": 0,
+				"left": -150,
+				"right": 0
+			},
+			"asset": "ship_railing_br.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 600,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "ship_railing_bl.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 200,
+				"mid": 1000,
+				"bot": 0,
+				"left": -150,
+				"right": 0
+			},
+			"asset": "ship_railing_to.svg",
+			"orderHor": 1
 		}
 		],
 		"tileLinks": {
 			"rules": [
+			{
+				"condition": "*0*00010",
+				"requiredBiome": 10,
+				"changeTileType": 25
+			},
+			{
+				"condition": "*0*11*0*",
+				"requiredBiome": 10,
+				"changeTileType": 20
+			},
+			{
+				"condition": "*1*00*1*",
+				"requiredBiome": 10,
+				"changeTileType": 21
+			},
+			{
+				"condition": "*0*01*0*",
+				"requiredBiome": 10,
+				"changeTileType": 22
+			},
+			{
+				"condition": "*0*10*0*",
+				"requiredBiome": 10,
+				"changeTileType": 23
+			},
+			{
+				"condition": "*1*00*0*",
+				"requiredBiome": 10,
+				"changeTileType": 24
+			},
+			{
+				"condition": "*0*01*1*",
+				"requiredBiome": 10,
+				"changeTileType": 26
+			},
+			{
+				"condition": "*0*10*1*",
+				"requiredBiome": 10,
+				"changeTileType": 27
+			},
+			{
+				"condition": "*1*01*0*",
+				"requiredBiome": 10,
+				"changeTileType": 28
+			},
+			{
+				"condition": "*1*10*0*",
+				"requiredBiome": 10,
+				"changeTileType": 29
+			},
+			{
+				"condition": "*0*00*1*",
+				"requiredBiome": 10,
+				"changeTileType": 30
+			},
 			{
 				"condition": "***11***",
 				"requiredBiome": 9,
@@ -796,6 +1022,11 @@
 		],
 		"tileLinks": {
 			"rules": [
+			{
+				"condition": "********",
+				"requiredBiome": 10,
+				"changeFolder": "ship_water"
+			},
 			{
 				"condition": "********",
 				"requiredBiome": 9,
@@ -1056,6 +1287,39 @@
 				"right": 608
 			},
 			"asset": "mine_mortuary.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 450,
+				"mid": 1000,
+				"bot": 750,
+				"left": 450,
+				"right": 450
+			},
+			"asset": "mine_ship.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 2000,
+				"mid": 1000,
+				"bot": 0,
+				"left": 1500,
+				"right": 450
+			},
+			"asset": "flag_present_red.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 2000,
+				"mid": 1000,
+				"bot": 750,
+				"left": 1500,
+				"right": 450
+			},
+			"asset": "flag_present_blue.svg",
 			"order": 3
 		}
 		]
@@ -2208,6 +2472,101 @@
 			"type": 1
 		}
 		]
+	},
+	{
+    	"name": "darryl",
+		"color1": "213,116,84",
+		"color2": "224,122,89",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 7
+		},
+		{
+			"tile": "blocking2",
+			"type": 7
+		},
+		{
+			"tile": "blocking3",
+			"type": 1
+		},
+		{
+			"tile": "blocking4",
+			"type": 1
+		},
+		{
+			"tile": "forest",
+			"type": 7
+		},
+		{
+			"tile": "respawningWall",
+			"type": 6
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 6
+		},
+		{
+			"tile": "fence",
+			"type": 4
+		},
+		{
+			"tile": "water",
+			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
+			"type": 1
+		},
+		{
+			"tile": "objective",
+			"type": 2
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
+			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
+			"type": 1
+		}
+		]
 	}
 	],
 	"gamemodes": [
@@ -2423,6 +2782,26 @@
 			"drawOrder": 2
 		}
 		]
+	},
+	{
+		"name": "Darryl Gem Grab",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 14,
+			"position": "m,m",
+			"drawOrder": 2
+		}
+		]
+	},
+	{
+		"name": "Darryl CTF",
+		"overrideBiome": [
+            {
+                "tile": "objective",
+                "type": 15
+            }
+        ]
 	}
 	]
 }
