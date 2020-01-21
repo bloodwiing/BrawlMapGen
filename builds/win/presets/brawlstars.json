@@ -86,6 +86,16 @@
 				"right": 0
 			},
 			"asset": "metal_box.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "arcade_wall.svg"
 		}
 		]
 	},
@@ -162,6 +172,16 @@
 				"right": 0
 			},
 			"asset": "chest.svg"
+		},
+		{
+			"tileParts": {
+				"top": 450,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "yellow_block.svg"
 		}
 		]
 	},
@@ -254,6 +274,16 @@
 				"right": 0
 			},
 			"asset": "red_barrel.svg"
+		},
+		{
+			"tileParts": {
+				"top": 600,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "orange_barrel.svg"
 		}
 		]
 	},
@@ -411,6 +441,16 @@
 				"right": 0
 			},
 			"asset": "ship_barrel.svg"
+		},
+		{
+			"tileParts": {
+				"top": 400,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "road_sign.svg"
 		}
 		]
 	},
@@ -807,10 +847,73 @@
 			},
 			"asset": "ship_railing_to.svg",
 			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 800,
+				"mid": 1000,
+				"bot": 300,
+				"left": 150,
+				"right": 150
+			},
+			"asset": "arcade_fence_corner.svg",
+			"orderHor": 2
+		},
+		{
+			"tileParts": {
+				"top": 400,
+				"mid": 1000,
+				"bot": 300,
+				"left": 50,
+				"right": 50
+			},
+			"asset": "arcade_fence_hor.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 450,
+				"mid": 1000,
+				"bot": 0,
+				"left": -125,
+				"right": -125
+			},
+			"asset": "arcade_fence_ver.svg",
+			"orderHor": 1
 		}
 		],
 		"tileLinks": {
 			"rules": [
+			{
+				"condition": "***11***",
+				"requiredBiome": 11,
+				"changeTileType": 32
+			},
+			{
+				"condition": "*1****1*",
+				"requiredBiome": 11,
+				"changeTileType": 33
+			},
+			{
+				"condition": "*0****1*",
+				"requiredBiome": 11,
+				"changeTileType": 31
+			},
+			{
+				"condition": "*1****0*",
+				"requiredBiome": 11,
+				"changeTileType": 31
+			},
+			{
+				"condition": "***01***",
+				"requiredBiome": 11,
+				"changeTileType": 31
+			},
+			{
+				"condition": "***10***",
+				"requiredBiome": 11,
+				"changeTileType": 31
+			},
 			{
 				"condition": "*0*00010",
 				"requiredBiome": 10,
@@ -897,12 +1000,12 @@
 				"changeTileType": 19
 			},
 			{
-				"condition": "*0*11*0*",
+				"condition": "***11***",
 				"requiredBiome": 8,
 				"changeTileType": 7
 			},
 			{
-				"condition": "*1*00*1*",
+				"condition": "*1****1*",
 				"requiredBiome": 8,
 				"changeTileType": 8
 			},
@@ -1320,6 +1423,17 @@
 				"right": 450
 			},
 			"asset": "flag_present_blue.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 4100,
+				"mid": 1000,
+				"bot": 4100,
+				"left": 4100,
+				"right": 4100
+			},
+			"asset": "hot_zone_blue.svg",
 			"order": 3
 		}
 		]
@@ -2474,7 +2588,7 @@
 		]
 	},
 	{
-    	"name": "darryls",
+    	"name": "darryl",
 		"color1": "213,116,84",
 		"color2": "224,122,89",
 		"defaults": [
@@ -2501,6 +2615,101 @@
 		{
 			"tile": "respawningWall",
 			"type": 6
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 6
+		},
+		{
+			"tile": "fence",
+			"type": 4
+		},
+		{
+			"tile": "water",
+			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
+			"type": 1
+		},
+		{
+			"tile": "objective",
+			"type": 2
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
+			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
+			"type": 1
+		}
+		]
+	},
+	{
+    	"name": "arcade",
+		"color1": "47,42,75",
+		"color2": "50,44,79",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 8
+		},
+		{
+			"tile": "blocking2",
+			"type": 8
+		},
+		{
+			"tile": "blocking3",
+			"type": 1
+		},
+		{
+			"tile": "blocking4",
+			"type": 5
+		},
+		{
+			"tile": "forest",
+			"type": 1
+		},
+		{
+			"tile": "respawningWall",
+			"type": 7
 		},
 		{
 			"tile": "blockingDestroyableWithWeapon",
@@ -2795,11 +3004,20 @@
 		]
 	},
 	{
-		"name": "Darryl CTF",
+		"name": "Present Plunder",
 		"overrideBiome": [
             {
                 "tile": "objective",
                 "type": 15
+            }
+        ]
+	},
+	{
+		"name": "Hot Zone",
+		"overrideBiome": [
+            {
+                "tile": "objective",
+                "type": 17
             }
         ]
 	}
