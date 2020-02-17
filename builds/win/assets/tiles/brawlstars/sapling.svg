@@ -15,7 +15,7 @@
    viewBox="0 0 0.2653273 0.58372927"
    version="1.1"
    id="svg16306"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
    sodipodi:docname="sapling.svg">
   <defs
      id="defs16300">
@@ -191,8 +191,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="256"
-     inkscape:cx="0.38224918"
-     inkscape:cy="0.68763315"
+     inkscape:cx="1.4935773"
+     inkscape:cy="0.18763315"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -267,6 +267,12 @@
          id="circle18880-0"
          d="m -1297.1016,-9744.873 v 6.4277 a 2.3678632,2.3678632 0 0 0 2.3672,2.3672 2.3678632,2.3678632 0 0 0 2.3672,-2.3672 v -6.4277 z"
          style="opacity:1;fill:#aa5d2f;fill-opacity:1;fill-rule:nonzero;stroke:#854623;stroke-width:3.77952766;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" />
+      <path
+         style="opacity:1;fill:#aa5d2f;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.77952766;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+         d="m -1297.1016,-9744.873 v 6.4277 a 2.3678632,2.3678632 0 0 0 2.3672,2.3672 2.3678632,2.3678632 0 0 0 2.3672,-2.3672 v -6.4277 z"
+         id="path860"
+         transform="scale(0.26458333)"
+         inkscape:connector-curvature="0" />
       <rect
          ry="1.0056016"
          y="-2582.2654"

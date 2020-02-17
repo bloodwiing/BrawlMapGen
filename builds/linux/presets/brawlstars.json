@@ -1000,12 +1000,12 @@
 				"changeTileType": 19
 			},
 			{
-				"condition": "***11***",
+				"condition": "*0*11*0*",
 				"requiredBiome": 8,
 				"changeTileType": 7
 			},
 			{
-				"condition": "*1****1*",
+				"condition": "*1*00*1*",
 				"requiredBiome": 8,
 				"changeTileType": 8
 			},
