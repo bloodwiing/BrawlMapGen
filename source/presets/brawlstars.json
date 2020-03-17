@@ -228,6 +228,16 @@
 				"right": 0
 			},
 			"asset": "crate_red.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "orange_wall.svg"
 		}
 		]
 	},
@@ -886,6 +896,36 @@
 			"rules": [
 			{
 				"condition": "***11***",
+				"requiredBiome": 12,
+				"changeTileType": 32
+			},
+			{
+				"condition": "*1****1*",
+				"requiredBiome": 12,
+				"changeTileType": 33
+			},
+			{
+				"condition": "*0****1*",
+				"requiredBiome": 12,
+				"changeTileType": 31
+			},
+			{
+				"condition": "*1****0*",
+				"requiredBiome": 12,
+				"changeTileType": 31
+			},
+			{
+				"condition": "***01***",
+				"requiredBiome": 12,
+				"changeTileType": 31
+			},
+			{
+				"condition": "***10***",
+				"requiredBiome": 12,
+				"changeTileType": 31
+			},
+			{
+				"condition": "***11***",
 				"requiredBiome": 11,
 				"changeTileType": 32
 			},
@@ -1434,6 +1474,39 @@
 				"right": 4100
 			},
 			"asset": "hot_zone_blue.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 250,
+				"mid": 1000,
+				"bot": 200,
+				"left": 150,
+				"right": 150
+			},
+			"asset": "soccerball.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 3600,
+				"mid": 1000,
+				"bot": -450,
+				"left": 3000,
+				"right": 3000
+			},
+			"asset": "goal_red_2.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 1600,
+				"mid": 1000,
+				"bot": 200,
+				"left": 2925,
+				"right": 2925
+			},
+			"asset": "goal_blue_2.svg",
 			"order": 3
 		}
 		]
@@ -2776,6 +2849,101 @@
 			"type": 1
 		}
 		]
+	},
+	{
+    	"name": "galaxy_arena",
+		"color1": "57,142,84",
+		"color2": "60,150,88",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 8
+		},
+		{
+			"tile": "blocking2",
+			"type": 5
+		},
+		{
+			"tile": "blocking3",
+			"type": 5
+		},
+		{
+			"tile": "blocking4",
+			"type": 3
+		},
+		{
+			"tile": "forest",
+			"type": 1
+		},
+		{
+			"tile": "respawningWall",
+			"type": 7
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 6
+		},
+		{
+			"tile": "fence",
+			"type": 4
+		},
+		{
+			"tile": "water",
+			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
+			"type": 1
+		},
+		{
+			"tile": "objective",
+			"type": 1
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
+			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
+			"type": 1
+		}
+		]
 	}
 	],
 	"gamemodes": [
@@ -3020,6 +3188,29 @@
                 "type": 17
             }
         ]
+	},
+	{
+		"name": "PSG Brawl Ball",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 18,
+			"position": "m,m",
+			"drawOrder": 2
+		},
+		{
+			"tile": "objective",
+			"type": 19,
+			"position": "m,2",
+			"drawOrder": 2
+		},
+		{
+			"tile": "objective",
+			"type": 20,
+			"position": "m,-2",
+			"drawOrder": 2
+		}
+		]
 	}
 	]
 }

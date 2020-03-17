@@ -169,7 +169,9 @@ namespace BMG
                     voice.Speak(" Status: Map gotten.", ActionType.statusChange);
                     voice.Speak("\nMap details:\n  Width: " + (sizeMultiplier * 2 + sizeMultiplier * xLength) + "px\n  Height: " + (sizeMultiplier * 2 + sizeMultiplier * yLength) + "px\n  Biome: \"" + tiledata.biomes[batchOption.biome - 1].name.ToUpper() + "\"\n", ActionType.setup);
 
-                    TileDrawer tileDrawer = new TileDrawer(batchOption.sizeMultiplier, batchOption.map[0].Length, batchOption.map.Length);
+                    float[] border = emptyBorderAmoutNormalizer(batchOption.emptyBorderAmount);
+
+                    TileDrawer tileDrawer = new TileDrawer(batchOption.sizeMultiplier, batchOption.map[0].Length, batchOption.map.Length, border);
 
                     int currentY = 0;
                     int currentX = 0;
@@ -186,7 +188,7 @@ namespace BMG
                     voice.Speak(" Status: Colors fetched.", ActionType.statusChange);
                     voice.Speak(" Status: Coloring background...", ActionType.statusChange);
 
-                    tileDrawer.ColorBackground(color1, color2, map, batchOption);
+                    tileDrawer.ColorBackground(color1, color2, map, batchOption, border);
                     voice.Speak(" Status: Background colored.", ActionType.statusChange);
 
                     List<OrderedTile> orderedTiles = new List<OrderedTile>();
@@ -242,7 +244,7 @@ namespace BMG
                                                 ysLoc = yLoc.ToString();
                                             }
 
-                                            tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList);
+                                            tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList, border);
                                             tilesDrawn++;
                                             voice.Speak(TileActionStringMaker(new TileActionTypes(true, false, false, false, true), oTile, ysLoc, xsLoc, yLength, xLength), ActionType.tileDraw);
                                         }
@@ -339,7 +341,7 @@ namespace BMG
                                                             }
 
                                                             // Draw STR Tile
-                                                            tileDrawer.DrawTile(aTile, ostr.tileType, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList);
+                                                            tileDrawer.DrawTile(aTile, ostr.tileType, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList, border);
                                                             tilesDrawn++;
                                                             voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, false, false, true), aTile, currentY, currentX, yLength, xLength), ActionType.tileDraw);
 
@@ -511,7 +513,7 @@ namespace BMG
                                                 }
 
                                                 // Draw Tile
-                                                tileDrawer.DrawSelectedTile(new OrderedTile() { tileType = breakerTile, xPosition = currentX, yPosition = currentY, tileCode = aTile.tileCode, tileName = aTile.tileName }, options, sizeMultiplier, xLength, yLength, selectedTileImageList);
+                                                tileDrawer.DrawSelectedTile(new OrderedTile() { tileType = breakerTile, xPosition = currentX, yPosition = currentY, tileCode = aTile.tileCode, tileName = aTile.tileName }, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
                                                 voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, false, false, true), aTile, currentY, currentX, yLength, xLength), ActionType.tileDraw);
                                                 tileDrawn = true;
                                                 break;
@@ -548,7 +550,7 @@ namespace BMG
                                             }
 
                                             // Draw Tile
-                                            tileDrawer.DrawTile(aTile, setTileDefault.type, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList);
+                                            tileDrawer.DrawTile(aTile, setTileDefault.type, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList, border);
                                             tilesDrawn++;
                                             voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, false, false, true), aTile, currentY, currentX, yLength, xLength), ActionType.tileDraw);
                                             tileDrawn = true;
@@ -584,7 +586,7 @@ namespace BMG
                             if (pTile.tileType.orderHor.GetValueOrDefault() != 1)
                                 continue;
 
-                            tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList);
+                            tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
                             if (pTile.str)
                                 voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, true, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedHorTileDraw);
                             else
@@ -599,7 +601,7 @@ namespace BMG
                                 if (pTile.tileType.orderHor.GetValueOrDefault() != currentHorOrdered)
                                     continue;
 
-                                tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList);
+                                tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
                                 if (pTile.str)
                                     voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, true, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedHorTileDraw);
                                 else
@@ -622,7 +624,7 @@ namespace BMG
                         if (pTile.tileType.order.GetValueOrDefault() != 1)
                             continue;
 
-                        tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList);
+                        tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
                         if (pTile.str)
                             voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
                         else
@@ -637,7 +639,7 @@ namespace BMG
                             if (pTile.tileType.order.GetValueOrDefault() != currentOrdered)
                                 continue;
 
-                            tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList);
+                            tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
                             if (pTile.str)
                                 voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
                             else
@@ -680,7 +682,7 @@ namespace BMG
                                                 ysLoc = yLoc.ToString();
                                             }
 
-                                            tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList);
+                                            tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList, border);
                                             tilesDrawn++;
                                             voice.Speak(TileActionStringMaker(new TileActionTypes(true, false, false, false, true), oTile, ysLoc, xsLoc, yLength, xLength), ActionType.tileDraw);
                                         }
@@ -887,37 +889,37 @@ namespace BMG
             Graphics g;
             Bitmap b;
 
-            public TileDrawer(int sizeMultiplier, int horizontalLengthInTiles, int verticalLengthInTiles)
+            public TileDrawer(int sizeMultiplier, int horizontalLengthInTiles, int verticalLengthInTiles, float[] borderSize)
             {
-                b = new Bitmap(sizeMultiplier * 2 + sizeMultiplier * horizontalLengthInTiles, sizeMultiplier * 2 + sizeMultiplier * verticalLengthInTiles);
+                b = new Bitmap((int)Math.Round(sizeMultiplier * (borderSize[2] + borderSize[3] + horizontalLengthInTiles)), (int)Math.Round(sizeMultiplier * (borderSize[0] + borderSize[1] + verticalLengthInTiles)));
                 g = Graphics.FromImage(b);
             }
 
-            public void DrawTile(Tiledata.Tile tile, int type, Options optionsObject, int sizeMultiplier, int currentX, int currentY, int xLength, int yLength, SavedImages imageMemory) // Drawing a tile (normal)
+            public void DrawTile(Tiledata.Tile tile, int type, Options optionsObject, int sizeMultiplier, int currentX, int currentY, int xLength, int yLength, SavedImages imageMemory, float[] borderSize) // Drawing a tile (normal)
             {
                 foreach (SavedImages.TileImage ti in imageMemory.tileImages)
                 {
                     if (ti.imageName == tile.tileTypes[type - 1].asset)
                     {
-                        g.DrawImage(ti.renderedImage, sizeMultiplier + sizeMultiplier * currentX - ti.imageOffsetLeft, sizeMultiplier + sizeMultiplier * currentY - ti.imageOffsetTop);
+                        g.DrawImage(ti.renderedImage, (int)Math.Round(sizeMultiplier * (currentX + borderSize[2])) - ti.imageOffsetLeft, (int)Math.Round(sizeMultiplier * (currentY + borderSize[0])) - ti.imageOffsetTop);
                         return;
                     }
                 }
             }
 
-            public void DrawSelectedTile(OrderedTile tile, Options optionsObject, int sizeMultiplier, int xLength, int yLength, SavedImages imageMemory) // Drawing a tile (with saved coordinates and a pre-selected type)
+            public void DrawSelectedTile(OrderedTile tile, Options optionsObject, int sizeMultiplier, int xLength, int yLength, SavedImages imageMemory, float[] borderSize) // Drawing a tile (with saved coordinates and a pre-selected type)
             {
                 foreach (SavedImages.TileImage ti in imageMemory.tileImages)
                 {
                     if (ti.imageName == tile.tileType.asset)
                     {
-                        g.DrawImage(ti.renderedImage, sizeMultiplier + sizeMultiplier * tile.xPosition - ti.imageOffsetLeft, sizeMultiplier + sizeMultiplier * tile.yPosition - ti.imageOffsetTop);
+                        g.DrawImage(ti.renderedImage, (int)Math.Round(sizeMultiplier * (tile.xPosition + borderSize[2])) - ti.imageOffsetLeft, (int)Math.Round(sizeMultiplier * (tile.yPosition + borderSize[0])) - ti.imageOffsetTop);
                         return;
                     }
                 }
             }
 
-            public void ColorBackground(Color color1, Color color2, string[] map, Options.BatchSettings batchOption) // Filling in background colors
+            public void ColorBackground(Color color1, Color color2, string[] map, Options.BatchSettings batchOption, float[] borderSize) // Filling in background colors
             {
                 int currentY = 0;
                 int currentX = 0;
@@ -936,16 +938,32 @@ namespace BMG
                         if (currentY % 2 == 0)
                         {
                             if (currentX % 2 == 0)
-                                g.FillRectangle(new SolidBrush(color1), batchOption.sizeMultiplier + batchOption.sizeMultiplier * currentX, batchOption.sizeMultiplier + batchOption.sizeMultiplier * currentY, batchOption.sizeMultiplier, batchOption.sizeMultiplier);
+                                g.FillRectangle(
+                                    new SolidBrush(color1),
+                                    (int)Math.Round(batchOption.sizeMultiplier * (currentX + borderSize[2])),
+                                    (int)Math.Round(batchOption.sizeMultiplier * (currentY + borderSize[0])),
+                                    batchOption.sizeMultiplier, batchOption.sizeMultiplier);
                             else
-                                g.FillRectangle(new SolidBrush(color2), batchOption.sizeMultiplier + batchOption.sizeMultiplier * currentX, batchOption.sizeMultiplier + batchOption.sizeMultiplier * currentY, batchOption.sizeMultiplier, batchOption.sizeMultiplier);
+                                g.FillRectangle(
+                                    new SolidBrush(color2),
+                                    (int)Math.Round(batchOption.sizeMultiplier * (currentX + borderSize[2])),
+                                    (int)Math.Round(batchOption.sizeMultiplier * (currentY + borderSize[0])),
+                                    batchOption.sizeMultiplier, batchOption.sizeMultiplier);
                         }
                         else
                         {
                             if (currentX % 2 == 0)
-                                g.FillRectangle(new SolidBrush(color2), batchOption.sizeMultiplier + batchOption.sizeMultiplier * currentX, batchOption.sizeMultiplier + batchOption.sizeMultiplier * currentY, batchOption.sizeMultiplier, batchOption.sizeMultiplier);
+                                g.FillRectangle(
+                                    new SolidBrush(color2),
+                                    (int)Math.Round(batchOption.sizeMultiplier * (currentX + borderSize[2])),
+                                    (int)Math.Round(batchOption.sizeMultiplier * (currentY + borderSize[0])),
+                                    batchOption.sizeMultiplier, batchOption.sizeMultiplier);
                             else
-                                g.FillRectangle(new SolidBrush(color1), batchOption.sizeMultiplier + batchOption.sizeMultiplier * currentX, batchOption.sizeMultiplier + batchOption.sizeMultiplier * currentY, batchOption.sizeMultiplier, batchOption.sizeMultiplier);
+                                g.FillRectangle(
+                                    new SolidBrush(color1),
+                                    (int)Math.Round(batchOption.sizeMultiplier * (currentX + borderSize[2])),
+                                    (int)Math.Round(batchOption.sizeMultiplier * (currentY + borderSize[0])),
+                                    batchOption.sizeMultiplier, batchOption.sizeMultiplier);
                         }
 
                         currentX++;
@@ -1567,6 +1585,44 @@ namespace BMG
                 }
             }
 
+        }
+
+        static float[] emptyBorderAmoutNormalizer(float[] raw)
+        {
+            float[] normalized = new float[4];
+
+            switch (raw.Length)
+            {
+                case 0:
+                    normalized[0] = 1;
+                    normalized[1] = 1;
+                    normalized[2] = 1;
+                    normalized[3] = 1;
+                    break;
+                case 1:
+                    normalized[0] = raw[0];
+                    normalized[1] = raw[0];
+                    normalized[2] = raw[0];
+                    normalized[3] = raw[0];
+                    break;
+                case 2:
+                    normalized[0] = raw[0];
+                    normalized[1] = raw[0];
+                    normalized[2] = raw[1];
+                    normalized[3] = raw[1];
+                    break;
+                case 3:
+                    normalized[0] = raw[0];
+                    normalized[1] = raw[1];
+                    normalized[2] = raw[2];
+                    normalized[3] = raw[2];
+                    break;
+                case 4:
+                    normalized = raw;
+                    break;
+            }
+
+            return normalized;
         }
 
     }

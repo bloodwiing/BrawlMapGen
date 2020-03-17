@@ -31,6 +31,7 @@ namespace BMG
             public string exportFileName { get; set; }
             public Tiledata.TileDefault[] overrideBiome { get; set; }
             public SpecialTileRules[] specialTileRules { get; set; }
+            public float[] emptyBorderAmount { get; set; } = new float[] { 1 };
             public string gamemode { get; set; }
         }
 
