@@ -16,8 +16,8 @@ namespace BMG
         static void Main(string[] args)
         {
             var fArgs = " " + string.Join(" ", args);
-            string version = "1.8b";
-            string buildText = " [UNSTABLE BUILD 5]";
+            string version = "1.9";
+            string buildText = " Release";
             string oLoc = "options.json";
             string oStr = "";
             string oEnd = "";
@@ -85,7 +85,7 @@ namespace BMG
                 if (options.setPath != null)
                     Environment.CurrentDirectory = options.setPath;
 
-                voice.Speak("\n  BMG (Brawl Map Gen)\n    Version: v" + version + buildText + "\n    Created by: RedH1ghway (aka TheDonciuxX)\n    Helped by: 4JR\n\n", ActionType.basic);
+                voice.Speak("\n  BMG (Brawl Map Gen)\n    Version: v" + version + buildText + "\n    Created by: RedH1ghway (aka BloodWiing)\n    Helped by: 4JR, Henry, tryso\n\n", ActionType.basic);
                 voice.Speak(" Status: App is launched!", ActionType.statusChange);
                 voice.Speak("Loading preset: \"" + options.preset.ToUpper() + "\"...", ActionType.setup);
                 voice.Speak("[ AAL ] READ << ./presets/" + options.preset + ".json", ActionType.aal);
@@ -391,7 +391,7 @@ namespace BMG
                                         {
                                             if (aTile.tileLinks != null) // Check if Tile Links are set
                                             {
-                                                NeighborBinary = tileLinks(map, currentX, currentY, aTile);
+                                                NeighborBinary = tileLinks(map, currentX, currentY, aTile, batchOption.replaceTiles);
 
                                                 List<Tiledata.TileLinkRule> accurateRules = new List<Tiledata.TileLinkRule>();
 
@@ -424,6 +424,7 @@ namespace BMG
                                                         {
                                                             if (rule.requiredBiome != null)
                                                             {
+
                                                                 if (rule.requiredBiome.GetValueOrDefault() == batchOption.biome)
                                                                 {
                                                                     accurateRules.Add(rule);
@@ -443,7 +444,7 @@ namespace BMG
 
                                                 string fols = "";
 
-                                                // Do actions specified in the rule which was correct
+                                                // Do actions specified in the rule which were correct
                                                 var defaultType = aTile.tileTypes[aTile.tileLinks.defaults.tileType - 1];
                                                 foreach (Tiledata.TileLinkRule aRule in accurateRules)
                                                 {
@@ -1366,11 +1367,10 @@ namespace BMG
             }
         }
 
-        public static string tileLinks(string[] map, int currentX, int currentY, Tiledata.Tile tileObject)
+        public static string tileLinks(string[] map, int currentX, int currentY, Tiledata.Tile tileObject, Options.Replace[] replaces)
         {
             string binary = "";
-            string neighbors = "";
-
+            string neighbors;
             if (currentY == 0) // Top
             {
                 if (currentX == 0)
@@ -1407,7 +1407,7 @@ namespace BMG
                         if (neighbors[x] == '%')
                             binary = binary + '0'; // edgeCase
                         else
-                            binary = binary + checkNeighboringTile(map, currentX, currentY, tileObject, x); // check tile in map
+                            binary = binary + checkNeighboringTile(map, currentX, currentY, tileObject, replaces, x); // check tile in map
                     }
                     break;
                 case Tiledata.EdgeCase.copies: // edges are filled with equal tiles
@@ -1416,7 +1416,7 @@ namespace BMG
                         if (neighbors[x] == '%')
                             binary = binary + '1'; // edgeCase
                         else
-                            binary = binary + checkNeighboringTile(map, currentX, currentY, tileObject, x); // check tile in map
+                            binary = binary + checkNeighboringTile(map, currentX, currentY, tileObject, replaces, x); // check tile in map
                     }
                     break;
                 case Tiledata.EdgeCase.mirror: // edges are extended
@@ -1440,7 +1440,7 @@ namespace BMG
                             }
                         // binary = binary + checkNeighboringTile(map, currentX, currentY, tileObject, 7 - x); // edgeCase (check opposite tile to extend)
                         else
-                            binary = binary + checkNeighboringTile(map, currentX, currentY, tileObject, x); // check tile in map
+                            binary = binary + checkNeighboringTile(map, currentX, currentY, tileObject, replaces, x); // check tile in map
                     }
                     break;
             }
@@ -1448,53 +1448,61 @@ namespace BMG
             return binary;
         }
 
-        public static char checkNeighboringTile(string[] map, int currentX, int currentY, Tiledata.Tile tileObject, int neighbor)
+        public static char checkNeighboringTile(string[] map, int currentX, int currentY, Tiledata.Tile tile, Options.Replace[] replaces, int neighbor)
         {
             switch (neighbor)
             {
                 case 0:
-                    if (map[currentY - 1].ToCharArray()[currentX - 1] == tileObject.tileCode)
+                    if (CNTFilter(map[currentY - 1].ToCharArray()[currentX - 1], replaces) == tile.tileCode)
                         return '1';
                     else
                         return '0';
                 case 1:
-                    if (map[currentY - 1].ToCharArray()[currentX] == tileObject.tileCode)
+                    if (CNTFilter(map[currentY - 1].ToCharArray()[currentX], replaces) == tile.tileCode)
                         return '1';
                     else
                         return '0';
                 case 2:
-                    if (map[currentY - 1].ToCharArray()[currentX + 1] == tileObject.tileCode)
+                    if (CNTFilter(map[currentY - 1].ToCharArray()[currentX + 1], replaces) == tile.tileCode)
                         return '1';
                     else
                         return '0';
                 case 3:
-                    if (map[currentY].ToCharArray()[currentX - 1] == tileObject.tileCode)
+                    if (CNTFilter(map[currentY].ToCharArray()[currentX - 1], replaces) == tile.tileCode)
                         return '1';
                     else
                         return '0';
                 case 4:
-                    if (map[currentY].ToCharArray()[currentX + 1] == tileObject.tileCode)
+                    if (CNTFilter(map[currentY].ToCharArray()[currentX + 1], replaces) == tile.tileCode)
                         return '1';
                     else
                         return '0';
                 case 5:
-                    if (map[currentY + 1].ToCharArray()[currentX - 1] == tileObject.tileCode)
+                    if (CNTFilter(map[currentY + 1].ToCharArray()[currentX - 1], replaces) == tile.tileCode)
                         return '1';
                     else
                         return '0';
                 case 6:
-                    if (map[currentY + 1].ToCharArray()[currentX] == tileObject.tileCode)
+                    if (CNTFilter(map[currentY + 1].ToCharArray()[currentX], replaces) == tile.tileCode)
                         return '1';
                     else
                         return '0';
                 case 7:
-                    if (map[currentY + 1].ToCharArray()[currentX + 1] == tileObject.tileCode)
+                    if (CNTFilter(map[currentY + 1].ToCharArray()[currentX + 1], replaces) == tile.tileCode)
                         return '1';
                     else
                         return '0';
                 default:
                     return '0';
             }
+        }
+
+        private static char CNTFilter(char original, Options.Replace[] replaces)
+        {
+            foreach (var r in replaces)
+                if (original == r.from)
+                    return r.to;
+            return original;
         }
 
         public static bool hasAdjacentEqualTiles(string[] map, int x, int y, Tiledata.Tile tileObject)
