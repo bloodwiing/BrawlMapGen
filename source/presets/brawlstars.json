@@ -1741,6 +1741,17 @@
 			},
 			"asset": "mine_bazaar.svg",
 			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 3075,
+				"mid": 1000,
+				"bot": 3075,
+				"left": 3075,
+				"right": 3075
+			},
+			"asset": "hot_zone_both.svg",
+			"order": 3
 		}
 		]
 	},
@@ -3550,6 +3561,15 @@
 			"drawOrder": 2
 		}
 		]
+	},
+	{
+		"name": "Hot Zone (mod)",
+		"overrideBiome": [
+            {
+                "tile": "objective",
+                "type": 22
+            }
+        ]
 	}
 	]
 }
