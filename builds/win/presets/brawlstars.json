@@ -96,6 +96,16 @@
 				"right": 0
 			},
 			"asset": "arcade_wall.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "sandstone_star.svg"
 		}
 		]
 	},
@@ -182,6 +192,16 @@
 				"right": 0
 			},
 			"asset": "yellow_block.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "sandstone_rombus.svg"
 		}
 		]
 	},
@@ -238,6 +258,16 @@
 				"right": 0
 			},
 			"asset": "orange_wall.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 50,
+				"right": 50
+			},
+			"asset": "tent.svg"
 		}
 		]
 	},
@@ -294,6 +324,16 @@
 				"right": 0
 			},
 			"asset": "orange_barrel.svg"
+		},
+		{
+			"tileParts": {
+				"top": 400,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "basket.svg"
 		}
 		]
 	},
@@ -384,6 +424,18 @@
 			"color": "green round",
 			"asset": "grass_green_round.svg",
 			"tileTransitions": true
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"color": "pink",
+			"asset": "grass_pink.svg",
+			"tileTransitions": true
 		}
 		]
 	},
@@ -461,6 +513,16 @@
 				"right": 0
 			},
 			"asset": "road_sign.svg"
+		},
+		{
+			"tileParts": {
+				"top": 550,
+				"mid": 1000,
+				"bot": 300,
+				"left": 75,
+				"right": 75
+			},
+			"asset": "pot.svg"
 		}
 		]
 	},
@@ -890,10 +952,170 @@
 			},
 			"asset": "arcade_fence_ver.svg",
 			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 550,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "wall_sand_hor.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 600,
+				"mid": 1000,
+				"bot": -100,
+				"left": -150,
+				"right": -150
+			},
+			"asset": "wall_sand_ver.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 550,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "wall_sand_r.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 550,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "wall_sand_l.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 600,
+				"mid": 1000,
+				"bot": -200,
+				"left": -150,
+				"right": -150
+			},
+			"asset": "wall_sand_b.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 600,
+				"mid": 1000,
+				"bot": -100,
+				"left": -150,
+				"right": -150
+			},
+			"asset": "wall_sand_t.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 550,
+				"mid": 1000,
+				"bot": 300,
+				"left": -150,
+				"right": 0
+			},
+			"asset": "wall_sand_tr.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 550,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": -150
+			},
+			"asset": "wall_sand_tl.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 1000,
+				"mid": 1000,
+				"bot": 300,
+				"left": -150,
+				"right": 0
+			},
+			"asset": "wall_sand_br.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 1000,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": -150
+			},
+			"asset": "wall_sand_bl.svg",
+			"orderHor": 1
 		}
 		],
 		"tileLinks": {
 			"rules": [
+			{
+				"condition": "***11***",
+				"requiredBiome": 13,
+				"changeTileType": 34
+			},
+			{
+				"condition": "*1****1*",
+				"requiredBiome": 13,
+				"changeTileType": 35
+			},
+			{
+				"condition": "*0*01*0*",
+				"requiredBiome": 13,
+				"changeTileType": 36
+			},
+			{
+				"condition": "*0*10*0*",
+				"requiredBiome": 13,
+				"changeTileType": 37
+			},
+			{
+				"condition": "*1*00*0*",
+				"requiredBiome": 13,
+				"changeTileType": 38
+			},
+			{
+				"condition": "*0*00*1*",
+				"requiredBiome": 13,
+				"changeTileType": 39
+			},
+			{
+				"condition": "*0*01*1*",
+				"requiredBiome": 13,
+				"changeTileType": 40
+			},
+			{
+				"condition": "*0*10*1*",
+				"requiredBiome": 13,
+				"changeTileType": 41
+			},
+			{
+				"condition": "*1*01*0*",
+				"requiredBiome": 13,
+				"changeTileType": 42
+			},
+			{
+				"condition": "*1*10*0*",
+				"requiredBiome": 13,
+				"changeTileType": 43
+			},
 			{
 				"condition": "***11***",
 				"requiredBiome": 12,
@@ -1467,11 +1689,11 @@
 		},
 		{
 			"tileParts": {
-				"top": 4100,
+				"top": 3000,
 				"mid": 1000,
-				"bot": 4100,
-				"left": 4100,
-				"right": 4100
+				"bot": 3000,
+				"left": 3000,
+				"right": 3000
 			},
 			"asset": "hot_zone_blue.svg",
 			"order": 3
@@ -1507,6 +1729,28 @@
 				"right": 2925
 			},
 			"asset": "goal_blue_2.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 450,
+				"mid": 1000,
+				"bot": 750,
+				"left": 450,
+				"right": 450
+			},
+			"asset": "mine_bazaar.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 3075,
+				"mid": 1000,
+				"bot": 3075,
+				"left": 3075,
+				"right": 3075
+			},
+			"asset": "hot_zone_both.svg",
 			"order": 3
 		}
 		]
@@ -2944,6 +3188,101 @@
 			"type": 1
 		}
 		]
+	},
+	{
+    	"name": "bazaar",
+		"color1": "175,86,80",
+		"color2": "188,90,87",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 9
+		},
+		{
+			"tile": "blocking2",
+			"type": 9
+		},
+		{
+			"tile": "blocking3",
+			"type": 6
+		},
+		{
+			"tile": "blocking4",
+			"type": 6
+		},
+		{
+			"tile": "forest",
+			"type": 8
+		},
+		{
+			"tile": "respawningWall",
+			"type": 8
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 2
+		},
+		{
+			"tile": "fence",
+			"type": 34
+		},
+		{
+			"tile": "water",
+			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
+			"type": 1
+		},
+		{
+			"tile": "objective",
+			"type": 2
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
+			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
+			"type": 1
+		}
+		]
 	}
 	],
 	"gamemodes": [
@@ -3211,6 +3550,26 @@
 			"drawOrder": 2
 		}
 		]
+	},
+	{
+		"name": "Bazaar Gem Grab",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 21,
+			"position": "m,m",
+			"drawOrder": 2
+		}
+		]
+	},
+	{
+		"name": "Hot Zone (mod)",
+		"overrideBiome": [
+            {
+                "tile": "objective",
+                "type": 22
+            }
+        ]
 	}
 	]
 }
