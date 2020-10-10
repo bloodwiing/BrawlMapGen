@@ -102,15 +102,15 @@ namespace BMG
 
         public class Modules
         {
-            public AppInfo appInfo { get; set; }
-            public Job job { get; set; }
-            public Status status { get; set; }
-            public StatusDetails statusDetails { get; set; }
+            public AppInfo appInfo { get; set; } = new AppInfo();
+            public Job job { get; set; } = new Job();
+            public Status status { get; set; } = new Status();
+            public StatusDetails statusDetails { get; set; } = new StatusDetails();
         }
 
         public class Title
         {
-            public Modules modules { get; set; }
+            public Modules modules { get; set; } = new Modules();
             public string layout { get; set; } = "?appInfo? - ?job? - ?status? - ?statusDetails?";
         }
 

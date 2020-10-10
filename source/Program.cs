@@ -16,8 +16,12 @@ namespace BMG
         static void Main(string[] args)
         {
             var fArgs = " " + string.Join(" ", args);
-            string version = "1.9";
-            string buildText = " Release";
+
+            int phase = 1;
+            int version = 10;
+            int build = 2; 
+            string access = " Early Access";
+            int buildID = 101026;  // D, AA, BB, E, G
             string oLoc = "options.json";
             string oStr = "";
             string oEnd = "";
@@ -80,12 +84,12 @@ namespace BMG
                 else
                     options = JsonConvert.DeserializeObject<Options>(oStr);
 
-                voice.UpdateOptions(options, version);
+                voice.UpdateOptions(options, phase + "." + version + "." + build);
 
                 if (options.setPath != null)
                     Environment.CurrentDirectory = options.setPath;
 
-                voice.Speak("\n  BMG (Brawl Map Gen)\n    Version: v" + version + buildText + "\n    Created by: RedH1ghway (aka BloodWiing)\n    Helped by: 4JR, Henry, tryso\n\n", ActionType.basic);
+                voice.Speak("\n  BMG (Brawl Map Gen)\n    Version: v" + phase + "." + version + "." + build + " " + access + "\n    Created by: RedH1ghway (aka BloodWiing)\n    Helped by: 4JR, Henry, tryso\n\n", ActionType.basic);
                 voice.Speak(" Status: App is launched!", ActionType.statusChange);
                 voice.Speak("Loading preset: \"" + options.preset.ToUpper() + "\"...", ActionType.setup);
                 voice.Speak("[ AAL ] READ << ./presets/" + options.preset + ".json", ActionType.aal);
@@ -201,6 +205,7 @@ namespace BMG
 
                     Tiledata.Gamemode mapGamemode = null;
                     foreach (var gm in tiledata.gamemodes)
+
                     {
                         if (gm == null || batchOption.gamemode == null)
                             break;
