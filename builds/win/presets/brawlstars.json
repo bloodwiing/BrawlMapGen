@@ -2592,25 +2592,246 @@
 		"tileTypes": [
 		{
 			"tileParts": {
-				"top": 950,
+				"top": 500,
 				"mid": 1000,
-				"bot": 150,
+				"bot": 300,
 				"left": 0,
 				"right": 0
 			},
-			"asset": "rope_barrier_post.svg"
+			"asset": "rope_post.svg"
 		},
 		{
 			"tileParts": {
-				"top": 1450,
+				"top": 1325,
 				"mid": 1000,
-				"bot": 0,
-				"left": -100,
-				"right": -100
+				"bot": 300,
+				"left": 0,
+				"right": 0
 			},
-			"asset": "power_line.svg"
+			"asset": "rope_post_t.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 500
+			},
+			"asset": "rope_post_r.svg"
+		},
+		{
+			"tileParts": {
+				"top": 1325,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 500
+			},
+			"asset": "rope_post_tr.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "rope_post_mine.svg"
+		},
+		{
+			"tileParts": {
+				"top": 1325,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "rope_post_mine_t.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 500
+			},
+			"asset": "rope_post_mine_r.svg"
+		},
+		{
+			"tileParts": {
+				"top": 1325,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 500
+			},
+			"asset": "rope_post_mine_tr.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "rope_post_mortuary.svg"
+		},
+		{
+			"tileParts": {
+				"top": 1325,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "rope_post_mortuary_t.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 500
+			},
+			"asset": "rope_post_mortuary_r.svg"
+		},
+		{
+			"tileParts": {
+				"top": 1325,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 500
+			},
+			"asset": "rope_post_mortuary_tr.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "rope_post_giftshop.svg"
+		},
+		{
+			"tileParts": {
+				"top": 1325,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "rope_post_giftshop_t.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 500
+			},
+			"asset": "rope_post_giftshop_r.svg"
+		},
+		{
+			"tileParts": {
+				"top": 1325,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 500
+			},
+			"asset": "rope_post_giftshop_tr.svg"
 		}
-		]
+		],
+		"tileLinks": {
+			"rules": [
+			{
+				"condition": "*1**1***",
+				"requiredBiome": 15,
+				"changeTileType": 16
+			},
+			{
+				"condition": "*0**1***",
+				"requiredBiome": 15,
+				"changeTileType": 15
+			},
+			{
+				"condition": "*1**0***",
+				"requiredBiome": 15,
+				"changeTileType": 14
+			},
+			{
+				"condition": "********",
+				"requiredBiome": 15,
+				"changeTileType": 13
+			},
+			{
+				"condition": "*1**1***",
+				"requiredBiome": 9,
+				"changeTileType": 12
+			},
+			{
+				"condition": "*0**1***",
+				"requiredBiome": 9,
+				"changeTileType": 11
+			},
+			{
+				"condition": "*1**0***",
+				"requiredBiome": 9,
+				"changeTileType": 10
+			},
+			{
+				"condition": "********",
+				"requiredBiome": 9,
+				"changeTileType": 9
+			},
+			{
+				"condition": "*1**1***",
+				"requiredBiome": 3,
+				"changeTileType": 8
+			},
+			{
+				"condition": "*0**1***",
+				"requiredBiome": 3,
+				"changeTileType": 7
+			},
+			{
+				"condition": "*1**0***",
+				"requiredBiome": 3,
+				"changeTileType": 6
+			},
+			{
+				"condition": "********",
+				"requiredBiome": 3,
+				"changeTileType": 5
+			},
+			{
+				"condition": "*1**1***",
+				"changeTileType": 4
+			},
+			{
+				"condition": "*0**1***",
+				"changeTileType": 3
+			},
+			{
+				"condition": "*1**0***",
+				"changeTileType": 2
+			}
+			],
+			"multipleConditionsCouldApply": false,
+			"edgeCase": 0,
+			"defaults": {
+				"tileType": 1
+			}
+		}
 	}
 	],
 	"biomes": [
@@ -2903,7 +3124,7 @@
 		},
 		{
 			"tile": "RopeFence",
-			"type": 1
+			"type": 5
 		}
 		]
 	},
@@ -3481,7 +3702,7 @@
 		},
 		{
 			"tile": "RopeFence",
-			"type": 1
+			"type": 9
 		}
 		]
 	},
@@ -4075,7 +4296,7 @@
 		},
 		{
 			"tile": "RopeFence",
-			"type": 2
+			"type": 13
 		}
 		]
 	}
