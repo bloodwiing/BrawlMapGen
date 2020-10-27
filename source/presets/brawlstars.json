@@ -127,6 +127,16 @@
 				"right": 0
 			},
 			"asset": "merch_closed.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "bandstand_wall.svg"
 		}
 		]
 	},
@@ -243,6 +253,16 @@
 				"right": 0
 			},
 			"asset": "merch_display.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "bandstand_wall_2.svg"
 		}
 		]
 	},
@@ -1418,18 +1438,167 @@
 		},
 		{
 			"tileParts": {
-				"top": 200,
+				"top": 550,
 				"mid": 1000,
-				"bot": 0,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "wall_band_hor.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 600,
+				"mid": 1000,
+				"bot": -100,
+				"left": -150,
+				"right": -150
+			},
+			"asset": "wall_band_ver.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 550,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "wall_band_r.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 550,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "wall_band_l.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 600,
+				"mid": 1000,
+				"bot": -200,
+				"left": -150,
+				"right": -150
+			},
+			"asset": "wall_band_b.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 600,
+				"mid": 1000,
+				"bot": -100,
+				"left": -150,
+				"right": -150
+			},
+			"asset": "wall_band_t.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 550,
+				"mid": 1000,
+				"bot": 300,
 				"left": -150,
 				"right": 0
 			},
-			"asset": "gift_fence_to.svg",
+			"asset": "wall_band_tr.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 550,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": -150
+			},
+			"asset": "wall_band_tl.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 1000,
+				"mid": 1000,
+				"bot": 300,
+				"left": -150,
+				"right": 0
+			},
+			"asset": "wall_band_br.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 1000,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": -150
+			},
+			"asset": "wall_band_bl.svg",
 			"orderHor": 1
 		}
 		],
 		"tileLinks": {
 			"rules": [
+			{
+				"condition": "***11***",
+				"requiredBiome": 16,
+				"changeTileType": 64
+			},
+			{
+				"condition": "*1****1*",
+				"requiredBiome": 16,
+				"changeTileType": 65
+			},
+			{
+				"condition": "*0*01*0*",
+				"requiredBiome": 16,
+				"changeTileType": 66
+			},
+			{
+				"condition": "*0*10*0*",
+				"requiredBiome": 16,
+				"changeTileType": 67
+			},
+			{
+				"condition": "*1*00*0*",
+				"requiredBiome": 16,
+				"changeTileType": 68
+			},
+			{
+				"condition": "*0*00*1*",
+				"requiredBiome": 16,
+				"changeTileType": 69
+			},
+			{
+				"condition": "*0*01*1*",
+				"requiredBiome": 16,
+				"changeTileType": 70
+			},
+			{
+				"condition": "*0*10*1*",
+				"requiredBiome": 16,
+				"changeTileType": 71
+			},
+			{
+				"condition": "*1*01*0*",
+				"requiredBiome": 16,
+				"changeTileType": 72
+			},
+			{
+				"condition": "*1*10*0*",
+				"requiredBiome": 16,
+				"changeTileType": 73
+			},
 			{
 				"condition": "***11***",
 				"requiredBiome": 15,
@@ -2587,6 +2756,70 @@
 		}
 	},
 	{
+		"tileName": "teleporterBlue",
+		"tileCode": "c",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": -35,
+				"mid": 1000,
+				"bot": 1115,
+				"left": 41,
+				"right": 1040
+			},
+			"asset": "teleporter_blue.svg"
+		}
+		]
+	},
+	{
+		"tileName": "teleporterGreen",
+		"tileCode": "d",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": -35,
+				"mid": 1000,
+				"bot": 1115,
+				"left": 41,
+				"right": 1040
+			},
+			"asset": "teleporter_green.svg"
+		}
+		]
+	},
+	{
+		"tileName": "teleporterRed",
+		"tileCode": "e",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": -35,
+				"mid": 1000,
+				"bot": 1115,
+				"left": 41,
+				"right": 1040
+			},
+			"asset": "teleporter_red.svg"
+		}
+		]
+	},
+	{
+		"tileName": "teleporterYellow",
+		"tileCode": "f",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": -35,
+				"mid": 1000,
+				"bot": 1115,
+				"left": 41,
+				"right": 1040
+			},
+			"asset": "teleporter_yellow.svg"
+		}
+		]
+	},
+	{
 		"tileName": "RopeFence",
 		"tileCode": "a",
 		"tileTypes": [
@@ -2753,6 +2986,26 @@
 		],
 		"tileLinks": {
 			"rules": [
+			{
+				"condition": "*1**1***",
+				"requiredBiome": 16,
+				"changeTileType": 16
+			},
+			{
+				"condition": "*0**1***",
+				"requiredBiome": 16,
+				"changeTileType": 15
+			},
+			{
+				"condition": "*1**0***",
+				"requiredBiome": 16,
+				"changeTileType": 14
+			},
+			{
+				"condition": "********",
+				"requiredBiome": 16,
+				"changeTileType": 13
+			},
 			{
 				"condition": "*1**1***",
 				"requiredBiome": 15,
@@ -2931,6 +3184,22 @@
 		{
 			"tile": "RopeFence",
 			"type": 1
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
+			"type": 1
 		}
 		]
 	},
@@ -3030,6 +3299,22 @@
 		{
 			"tile": "RopeFence",
 			"type": 1
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
+			"type": 1
 		}
 		]
 	},
@@ -3125,6 +3410,22 @@
 		{
 			"tile": "RopeFence",
 			"type": 5
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
+			"type": 1
 		}
 		]
 	},
@@ -3224,6 +3525,22 @@
 		{
 			"tile": "RopeFence",
 			"type": 1
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
+			"type": 1
 		}
 		]
 	},
@@ -3310,6 +3627,22 @@
 		},
 		{
 			"tile": "RopeFence",
+			"type": 1
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
 			"type": 1
 		}
 		]
@@ -3405,6 +3738,22 @@
 		},
 		{
 			"tile": "RopeFence",
+			"type": 1
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
 			"type": 1
 		}
 		]
@@ -3505,6 +3854,22 @@
 		{
 			"tile": "RopeFence",
 			"type": 1
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
+			"type": 1
 		}
 		]
 	},
@@ -3603,6 +3968,22 @@
 		},
 		{
 			"tile": "RopeFence",
+			"type": 1
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
 			"type": 1
 		}
 		]
@@ -3703,6 +4084,22 @@
 		{
 			"tile": "RopeFence",
 			"type": 9
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
+			"type": 1
 		}
 		]
 	},
@@ -3801,6 +4198,22 @@
 		},
 		{
 			"tile": "RopeFence",
+			"type": 1
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
 			"type": 1
 		}
 		]
@@ -3901,6 +4314,22 @@
 		{
 			"tile": "RopeFence",
 			"type": 1
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
+			"type": 1
 		}
 		]
 	},
@@ -3999,6 +4428,22 @@
 		},
 		{
 			"tile": "RopeFence",
+			"type": 1
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
 			"type": 1
 		}
 		]
@@ -4099,6 +4544,22 @@
 		{
 			"tile": "RopeFence",
 			"type": 1
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
+			"type": 1
 		}
 		]
 	},
@@ -4198,6 +4659,22 @@
 		{
 			"tile": "RopeFence",
 			"type": 2
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
+			"type": 1
 		}
 		]
 	},
@@ -4297,6 +4774,137 @@
 		{
 			"tile": "RopeFence",
 			"type": 13
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
+			"type": 1
+		}
+		]
+	},
+	{
+    	"name": "bandstand",
+		"color1": "234,141,95",
+		"color2": "247,148,100",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 12
+		},
+		{
+			"tile": "blocking2",
+			"type": 12
+		},
+		{
+			"tile": "blocking3",
+			"type": 1
+		},
+		{
+			"tile": "blocking4",
+			"type": 4
+		},
+		{
+			"tile": "forest",
+			"type": 8
+		},
+		{
+			"tile": "respawningWall",
+			"type": 1
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 1
+		},
+		{
+			"tile": "fence",
+			"type": 54
+		},
+		{
+			"tile": "water",
+			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
+			"type": 1
+		},
+		{
+			"tile": "objective",
+			"type": 2
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
+			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
+			"type": 1
+		},
+		{
+			"tile": "RopeFence",
+			"type": 13
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
+			"type": 1
 		}
 		]
 	}
@@ -4631,6 +5239,17 @@
 		{
 			"tile": "objective",
 			"type": 25,
+			"position": "m,m",
+			"drawOrder": 2
+		}
+		]
+	},
+	{
+		"name": "Bandstand Gem Grab",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 21,
 			"position": "m,m",
 			"drawOrder": 2
 		}
