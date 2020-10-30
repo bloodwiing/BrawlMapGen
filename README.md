@@ -14,7 +14,9 @@ Before opening the built app, notice the `options.json` which should be provided
 
 #### Generation steps:
 BMG/AMG first preloads every single tile found in the chosen preset file, doing a pass through every file for each different tileSize you set in `options.json`.
-**! The bigger the tilesize, the longer it's going to do a pass, at really big values it might even fail !**
+
+**The bigger the tilesize, the longer it's going to do a pass, at really big values it might even fail!**
+
 After loading in all assets, the generator starts to generate the images as fast as possible, your disk speed will have an impact on the speed of generation as after each map image is constructed, it's saved to a file and discarded from memory for efficiency and so that the RAM usage doesn't pile on.
 
 For information about what gamemodes, biomes, tiles, etc. can be set in the `options.json` file, you can find [here](https://github.com/thedonciuxx/BrawlMapGen/wiki/Options.json-explained).
