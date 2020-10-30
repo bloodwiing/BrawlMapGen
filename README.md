@@ -7,7 +7,7 @@ BMG (Advanced Map Generator) is a generator which takes arrays of strings and ti
 * [System.Drawing.Common](https://www.nuget.org/packages/System.Drawing.Common)
 
 ## Compiling
-You can use the built versions in `/builds/` or build the program yourself using a compiler like Visual Studio.
+You can use the built versions in found in tags or build the program yourself using a compiler like Visual Studio.
 
 ## Using
 Before opening the built app, notice the `options.json` which should be provided in the repository's root folder, to use the file make sure it's in the same folder as the executable. The provided file contains some generation data, like the map, biome, gamemode. Play around with the settings to understand it better!
