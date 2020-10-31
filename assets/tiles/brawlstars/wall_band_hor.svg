@@ -1,0 +1,22 @@
+<?xml version="1.0" ?><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" sodipodi:docname="wall_band_hor.svg" inkscape:version="1.0 (4035a4fb49, 2020-05-01)" id="svg3893" version="1.1" viewBox="0 0 0.26458335 0.48947757" height="0.48947757mm" width="0.26458335mm">
+  <defs id="defs3887"/>
+  <sodipodi:namedview inkscape:window-maximized="1" inkscape:window-y="-8" inkscape:window-x="-8" inkscape:window-height="1057" inkscape:window-width="1920" showgrid="false" inkscape:document-rotation="0" inkscape:current-layer="layer1" inkscape:document-units="px" inkscape:cy="0.82387461" inkscape:cx="0.53532026" inkscape:zoom="253.42707" inkscape:pageshadow="2" inkscape:pageopacity="0.0" borderopacity="1.0" bordercolor="#666666" pagecolor="#ffffff" id="base"/>
+  <metadata id="metadata3890">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <dc:title/>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g transform="translate(-99.029748,-167.0844)" id="layer1" inkscape:groupmode="layer" inkscape:label="Layer 1">
+    <g style="stroke-width:20.0001" id="g11853" transform="matrix(0.04999971,0,0,0.04999971,82.00391,234.2813)">
+      <rect y="-1337.3312" x="340.51874" height="3.1749847" width="5.2916756" id="rect19227-0-4-9-9-3-8-5-7-7-0" style="opacity:1;fill:#000000;fill-opacity:0.18;fill-rule:nonzero;stroke:none;stroke-width:78.7947;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill;filter:url(#filter1957)"/>
+      <path id="rect11722" d="m 340.51875,-1343.9458 v 8.2021 a 0.52921955,0.5292873 0 0 0 10e-4,0 h 5.29063 v -8.2021 h -5.29063 a 0.52921955,0.5292873 0 0 0 -10e-4,0 z" style="opacity:1;fill:#004030;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:21.1681;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" inkscape:connector-curvature="0"/>
+      <rect transform="rotate(90)" style="opacity:1;fill:#006c50;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:21.1669;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" id="rect11660" width="7.1437516" height="5.291667" x="-1343.4166" y="-345.81039"/>
+      <rect y="-345.81039" x="-1343.4166" height="5.291667" width="2.6458247" id="rect11662" style="opacity:1;fill:#00a87c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:21.1667;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" transform="rotate(90)"/>
+      <rect transform="rotate(90)" style="opacity:1;fill:#a43068;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:21.1667;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" id="rect11664" width="2.9104486" height="5.2916832" x="-1339.1833" y="-345.81042"/>
+    </g>
+  </g>
+</svg>
