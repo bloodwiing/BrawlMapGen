@@ -1,0 +1,28 @@
+<?xml version="1.0" ?><!-- Created with Inkscape (http://www.inkscape.org/) --><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="0.18520834mm" height="0.34395832mm" viewBox="0 0 0.18520834 0.34395832" version="1.1" id="svg13843" inkscape:version="0.92.4 (5da689c313, 2019-01-14)" sodipodi:docname="wall_sand_b.svg">
+  <defs id="defs13837">
+    <radialGradient inkscape:collect="always" xlink:href="#linearGradient11704" id="radialGradient11688" cx="332.05209" cy="-1334.6232" fx="332.05209" fy="-1334.6232" r="1.322915" gradientTransform="matrix(-1.4000159,0,0,-1.400007,796.93033,-3203.0349)" gradientUnits="userSpaceOnUse"/>
+    <linearGradient id="linearGradient11704" inkscape:collect="always">
+      <stop id="stop11698" offset="0" style="stop-color:#ffb88c;stop-opacity:1"/>
+      <stop style="stop-color:#ffb88c;stop-opacity:1" offset="0.70004094" id="stop11700"/>
+      <stop id="stop11702" offset="1" style="stop-color:#ec9070;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="256" inkscape:cx="0.23754396" inkscape:cy="1.0108866" inkscape:document-units="mm" inkscape:current-layer="layer1" showgrid="false" inkscape:window-width="1920" inkscape:window-height="1057" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:window-maximized="1"/>
+  <metadata id="metadata13840">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <dc:title/>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1" transform="translate(283.82232,-43.071863)">
+    <g transform="matrix(0.05,0,0,0.05,-300.33232,109.88551)" id="g11847" style="stroke-width:20">
+      <path inkscape:connector-curvature="0" style="opacity:1;fill:#000000;fill-opacity:0.18000004;fill-rule:nonzero;stroke:none;stroke-width:79.99999237;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" d="m 1248,-5043.4805 v 12 a 6.9999261,6.999877 0 0 0 7,7 6.9999261,6.999877 0 0 0 7,-7 v -12 z" transform="scale(0.26458333)" id="path6763-8-9-3"/>
+      <path inkscape:connector-curvature="0" id="path11714" transform="scale(0.26458333)" d="m 1248,-5050.4805 v 1 5 7 c 0,3.8423 3.1577,7 7,7 3.8423,0 7,-3.1577 7,-7 v -7 -5 -1 z" style="opacity:1;fill:#743828;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:79.99999237;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"/>
+      <path inkscape:connector-curvature="0" style="opacity:1;fill:url(#radialGradient11688);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:21.16666603;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" d="m 332.05209,-1331.5104 a 1.3229166,1.3229166 0 0 0 1.32291,-1.3229 v -3.175 h -2.64583 v 3.175 a 1.3229166,1.3229166 0 0 0 1.32292,1.3229 z" id="path11648"/>
+      <path style="opacity:1;fill:#ffb88c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:21.16666603;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill" d="m 332.05209,-1333.3625 c 0.73062,0 1.32291,-0.5923 1.32291,-1.3228 v -1.5876 h -2.64583 v 1.5876 c 0,0.7306 0.5923,1.3228 1.32292,1.3228 z" id="path11650" inkscape:connector-curvature="0" sodipodi:nodetypes="ssccss"/>
+    </g>
+  </g>
+</svg>
