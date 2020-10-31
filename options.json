@@ -1,0 +1,121 @@
+{
+  "generator": {
+    "info": "Example options.json for BMG. For documentation check https://github.com/thedonciuxx/BrawlMapGen/wiki/Options.json-explained",
+    "madeBy": "BloodWiing (theDonciuxX / RedH1ghway)",
+    "withTheHelpOf": "4JR",
+    "gitHub": "https://github.com/thedonciuxx/BrawlMapGen",
+    "version": "1.8"
+  },
+  "preset": "brawlstars",
+  "batch": [
+    {
+      "name": "Erratic Blocks",
+      "map": [
+        "WWWWWWWMMMFF........D......MMMMMMMF...............MMMWWWWWWW",
+        "WWWWWWMM4...................MMMMMFF....1...........4MMWWWWWW",
+        "WWWWWMMM......212....FM......MMMFF..................MMMWWWWW",
+        "WWWWFFMM............FFM......MMMFF..................MMFFWWWW",
+        "WWWFFFFMM...........FMM..C4...MMFF....MMF..........MMFFFFWWW",
+        "WWFFFFFM............FM.........MFF...MMMF...........MFFFFFWW",
+        "WFFFFF......M..................MF....MMMFFF....YY.....FFFFFW",
+        "FFFFFF......MMMFF....................FMMMMFFD.........FFFFFF",
+        "FFFFF.......FMMMF....................FFMMMMM...........FFFFF",
+        "4FFF........FMMM.....MFFMMMMMM..........................FFF4",
+        "FFF.........FMMM....FMFFFFFF4M...................FF......FFF",
+        "FFF.....FFF...MM....FMFFFFFFFM.........D....F...MMF.FFM..FFF",
+        "......MMMMF..........MFFFFFFF....FFMM4.....FFFF.MM..FMM.....",
+        "......MMMMM..........MMMMM.......MMMMM....MFFFFF............",
+        "......FFMMM....FFF............FFMMMMMM...MMFFFFFF........212",
+        "..1......M...4MMMM............MMMMMMMF......FFFFFF...FFF....",
+        ".............MM....D.........MMMMMMMFF......FFFFFFF..MMMM...",
+        "............................D..MMMM...........FFFFF..MMMMM..",
+        "F.D......D.....FF.MM..FFFF.................MM4..FF...MFFFF..",
+        "FF....MM.......FFFMM..FFFF............DM...MM.......MM......",
+        "WW..FMMMM......FFFFM..FFMM....FFFFF....MFF..........MF......",
+        "WW..FFM.........FFFM..FFMM4...FFFFFF...MMF.........MMF....FF",
+        "WWW........N....FFFMM..FMMM...MMMMMFF..FMF................F4",
+        "WWWW......4N.....FMMM....M...YMMMMMMF..FMM...MMM..........FF",
+        "WWWW.......N...N..4MM........FFFF4MMF.......DFMMM....N......",
+        "WWWWNNN........N....MMM......FFFFFFMM........FMMM...4NFF....",
+        "WWWFFFF........N........FFWW.FFFFFF4M..D.....FMMM....NNF....",
+        "WWWFFFF.............D...FFWWC.FFFFFF.....MM..FFFF...........",
+        "WW4.....................FFYY4.FFFFFF....4MM..............1..",
+        "WW.....MMMMMMFF...FFMM.........D.......MMMF.................",
+        "FF....MMFF..MMF...MMM.................MMFFF....T..........WW",
+        "F...........4M...MM4....FFFFFF.4YYFF......................WW",
+        "212..........M...MM.....FFFFFF.CWWFF..............T..FFFFWWW",
+        "......FFFFF.DM.........M4FFFFFF.WWFF.........T.......FFFFWWW",
+        "...Y..FWWWF..M.........MMFFFFFF......MMM.............NNNWWWW",
+        "......FWWWF.........D..FMM4FFFF........MM4......N.......WWWW",
+        "......FFWWF............FMMMMMMY...M.....MMF.....N4......WWWW",
+        "FF.....FFFF......FM....FFMMMMMD..MMMF....FFF....N......D.WWW",
+        "FFFF........FMC..FMM....FFFFFF...4MMFF...FFF.............FWW",
+        "FFFFF.......FM...FMMM....FFFFF....MMFF.M.FFFF....D.......FWW",
+        "FFMMM.......FM...FMMM.............FFFF.MMMFFF.....M......FFF",
+        "MMM.....D........MMMM.............FFFF..MMMFF....MMMM....FFF",
+        "MFF....M........MMMFF........M...................MMMM.......",
+        "M.....MMMMMM....MMFFF...FFFMMMM...................MMMM......",
+        "..1..MMMMMMMM..........FFMMMMMMC...NNNN...........FFMM......",
+        ".....MMMMMMMM..........FFMMMMMMFF..N.........T......FF..212.",
+        "......MMMFFFF.....D....FF.4MMMMFF..D........................",
+        "............................MM...........MM.................",
+        "FFF..........FFFFMM..........M...........MM.....FFFD.....FFF",
+        "FFF..........MMMMM.......................4......MMF......FFF",
+        "4FFF.....MM..MMM4......FMM..D...MMMM............MMF.....FFF4",
+        "FFFFF.....M..MMF.......FM4.....MM...........T..........FFFFF",
+        "FFFFFF....M..MMF.......FM...FFFF.......MMF............FFFFFF",
+        "WFFFFF.....................FFFFFFFF....MMF............FFFFFW",
+        "WWFFFFFM...........MMM..FFFFFMMFFF4M...FFF...NNN....MFFFFFWW",
+        "WWWFFFFMM.........MMMMMMFFFFFMMFFMMM...........N...MMFFFFWWW",
+        "WWWWFFMM.....212....MM..FFFFFFFFF...................MMFFWWWW",
+        "WWWWWMMM................FFMFFFFFF.4.........1.......MMMWWWWW",
+        "WWWWWWMM4.......W......FFMMMFFFFMMM....D...........4MMWWWWWW",
+        "WWWWWWWMMM....TWWWT....MMMMMMMFFMMMMMMM...........MMMWWWWWWW"
+      ],
+      "biome": 9,
+      "sizeMultiplier": 30,
+      "skipTiles": [ "J" ],
+      "replaceTiles": [
+        {
+          "from": "R",
+          "to": "F"
+        }
+      ],
+      "gamemode": "Showdown"
+    }
+  ],
+  "exportFileName": "batch_?number?.png",
+  "exportFolderName": "output",
+  "saveLogFile": true,
+  "console": {
+    "setup": true,
+    "tileDraw": true,
+    "orderedHorTileDraw": true,
+    "orderedTileDraw": true,
+    "saveLocation": true,
+    "aal": true,
+    "statusChange": true
+  },
+  "title": {
+    "modules": {
+      "appInfo": {
+        "showVersion": true
+      },
+      "job": {
+        "percentageBarFillCharacter": "#",
+        "percentageBarBackgroundCharacter": "-",
+        "order": "?percentage? [?progressBar?] ?jobName? ?jobsRatio?"
+      },
+      "status": {
+        "percentageBarFillCharacter": "#",
+        "percentageBarBackgroundCharacter": "-",
+        "order": "?percentage? [?progressBar?] ?statusText? ?actionRatio?"
+      },
+      "statusDetails": {
+        "showBiome": true,
+        "showTile": true
+      }
+    },
+    "layout": "?appInfo? - ?job? - ?status? - ?statusDetails?"
+  }
+}
