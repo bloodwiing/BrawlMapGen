@@ -17,8 +17,8 @@ namespace BMG
         {
             var fArgs = " " + string.Join(" ", args);
 
-            int phase = 2;
-            int version = 0;
+            int phase = 1;
+            int version = 8;
             int build = 0; 
             string access = " Release";
             int buildID = 101026;  // D, AA, BB, E, G
