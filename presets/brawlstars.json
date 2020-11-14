@@ -138,6 +138,16 @@
 				"right": 0
 			},
 			"asset": "bandstand_wall.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "ice_wall.svg"
 		}
 		]
 	},
@@ -264,6 +274,16 @@
 				"right": 0
 			},
 			"asset": "bandstand_wall_2.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "ice_wall_2.svg"
 		}
 		]
 	},
@@ -659,6 +679,16 @@
 				"right": 50
 			},
 			"asset": "old_tv.svg"
+		},
+		{
+			"tileParts": {
+				"top": 400,
+				"mid": 1000,
+				"bot": 300,
+				"left": 7,
+				"right": 7
+			},
+			"asset": "tree_snowless.svg"
 		}
 		]
 	},
@@ -745,6 +775,16 @@
 				"right": -50
 			},
 			"asset": "balloon.svg"
+		},
+		{
+			"tileParts": {
+				"top": 250,
+				"mid": 1000,
+				"bot": 150,
+				"left": 75,
+				"right": 75
+			},
+			"asset": "snowballs.svg"
 		}
 		]
 	},
@@ -1546,10 +1586,72 @@
 			},
 			"asset": "wall_band_bl.svg",
 			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 300,
+				"mid": 1000,
+				"bot": 300,
+				"left": 50,
+				"right": 50
+			},
+			"asset": "fence_hor_ice.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 550,
+				"mid": 1000,
+				"bot": 250,
+				"left": -200,
+				"right": -200
+			},
+			"asset": "fence_ver_ice.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 50,
+				"right": 50
+			},
+			"asset": "fence_cor_ice.svg",
+			"orderHor": 1
 		}
 		],
 		"tileLinks": {
 			"rules": [
+			{
+				"condition": "*1****0*",
+				"requiredBiome": 17,
+				"changeTileType": 76
+			},
+			{
+				"condition": "*0****1*",
+				"requiredBiome": 17,
+				"changeTileType": 76
+			},
+			{
+				"condition": "***01***",
+				"requiredBiome": 17,
+				"changeTileType": 76
+			},
+			{
+				"condition": "***10***",
+				"requiredBiome": 17,
+				"changeTileType": 76
+			},
+			{
+				"condition": "*1****1*",
+				"requiredBiome": 17,
+				"changeTileType": 75
+			},
+			{	
+				"condition": "*0****0*",
+				"requiredBiome": 17,
+				"changeTileType": 74
+			},
 			{
 				"condition": "***11***",
 				"requiredBiome": 16,
@@ -4908,6 +5010,121 @@
 			"type": 1
 		}
 		]
+	},
+	{
+    	"name": "snowtell",
+		"color1": "42,66,109",
+		"color2": "50,70,115",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 13
+		},
+		{
+			"tile": "blocking2",
+			"type": 13
+		},
+		{
+			"tile": "blocking3",
+			"type": 1
+		},
+		{
+			"tile": "blocking4",
+			"type": 4
+		},
+		{
+			"tile": "forest",
+			"type": 4
+		},
+		{
+			"tile": "respawningWall",
+			"type": 11
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 9
+		},
+		{
+			"tile": "fence",
+			"type": 74
+		},
+		{
+			"tile": "water",
+			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
+			"type": 1
+		},
+		{
+			"tile": "objective",
+			"type": 2
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
+			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
+			"type": 1
+		},
+		{
+			"tile": "RopeFence",
+			"type": 13
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
+			"type": 1
+		}
+		]
 	}
 	],
 	"gamemodes": [
@@ -5251,6 +5468,17 @@
 		{
 			"tile": "objective",
 			"type": 21,
+			"position": "m,m",
+			"drawOrder": 2
+		}
+		]
+	},
+	{
+		"name": "Snowtell Gem Grab",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 12,
 			"position": "m,m",
 			"drawOrder": 2
 		}
