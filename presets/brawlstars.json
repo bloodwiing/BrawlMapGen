@@ -158,6 +158,16 @@
 				"right": 0
 			},
 			"asset": "scrap_cube.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "metal_crate.svg"
 		}
 		]
 	},
@@ -304,6 +314,16 @@
 				"right": 0
 			},
 			"asset": "concrete_wall.svg"
+		},
+		{
+			"tileParts": {
+				"top": 700,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "metal_crate_2.svg"
 		}
 		]
 	},
@@ -390,6 +410,16 @@
 				"right": 0
 			},
 			"asset": "merch_crate.svg"
+		},
+		{
+			"tileParts": {
+				"top": 400,
+				"mid": 1000,
+				"bot": 300,
+				"left": 50,
+				"right": 50
+			},
+			"asset": "x_box.svg"
 		}
 		]
 	},
@@ -466,6 +496,16 @@
 				"right": 0
 			},
 			"asset": "office.svg"
+		},
+		{
+			"tileParts": {
+				"top": 600,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "fuel_barrel.svg"
 		}
 		]
 	},
@@ -591,6 +631,18 @@
 			},
 			"color": "dull green",
 			"asset": "grass_dull.svg",
+			"tileTransitions": true
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"color": "pink round",
+			"asset": "grass_pink_round.svg",
 			"tileTransitions": true
 		}
 		]
@@ -719,6 +771,16 @@
 				"right": 0
 			},
 			"asset": "tires.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "computer.svg"
 		}
 		]
 	},
@@ -815,6 +877,16 @@
 				"right": 75
 			},
 			"asset": "snowballs.svg"
+		},
+		{
+			"tileParts": {
+				"top": 450,
+				"mid": 1000,
+				"bot": 250,
+				"left": 50,
+				"right": 50
+			},
+			"asset": "alien_plant.svg"
 		}
 		]
 	},
@@ -1758,10 +1830,170 @@
 			},
 			"asset": "pipe_bl.svg",
 			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 350,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "spacestation_wall_hor.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 600,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "spacestation_wall_ver.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 350,
+				"mid": 1000,
+				"bot": 300,
+				"left": 150,
+				"right": 0
+			},
+			"asset": "spacestation_wall_r.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 350,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 150
+			},
+			"asset": "spacestation_wall_l.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 600,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "spacestation_wall_b.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 650,
+				"mid": 1000,
+				"bot": 50,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "spacestation_wall_t.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 350,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "spacestation_wall_tr.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 350,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "spacestation_wall_tl.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 600,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "spacestation_wall_br.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 600,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "spacestation_wall_bl.svg",
+			"orderHor": 1
 		}
 		],
 		"tileLinks": {
 			"rules": [
+			{
+				"condition": "***11***",
+				"requiredBiome": 19,
+				"changeTileType": 87
+			},
+			{
+				"condition": "*1****1*",
+				"requiredBiome": 19,
+				"changeTileType": 88
+			},
+			{
+				"condition": "*0*01*0*",
+				"requiredBiome": 19,
+				"changeTileType": 89
+			},
+			{
+				"condition": "*0*10*0*",
+				"requiredBiome": 19,
+				"changeTileType": 90
+			},
+			{
+				"condition": "*1*00*0*",
+				"requiredBiome": 19,
+				"changeTileType": 91
+			},
+			{
+				"condition": "*0*00*1*",
+				"requiredBiome": 19,
+				"changeTileType": 92
+			},
+			{
+				"condition": "*0*01*1*",
+				"requiredBiome": 19,
+				"changeTileType": 93
+			},
+			{
+				"condition": "*0*10*1*",
+				"requiredBiome": 19,
+				"changeTileType": 94
+			},
+			{
+				"condition": "*1*01*0*",
+				"requiredBiome": 19,
+				"changeTileType": 95
+			},
+			{
+				"condition": "*1*10*0*",
+				"requiredBiome": 19,
+				"changeTileType": 96
+			},
 			{
 				"condition": "***11***",
 				"requiredBiome": 18,
@@ -2315,6 +2547,11 @@
 			"rules": [
 			{
 				"condition": "********",
+				"requiredBiome": 19,
+				"changeFolder": "alien_water"
+			},
+			{
+				"condition": "********",
 				"requiredBiome": 18,
 				"changeFolder": "green_water"
 			},
@@ -2737,6 +2974,17 @@
 				"right": 584
 			},
 			"asset": "mine_burst.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 521,
+				"mid": 1000,
+				"bot": 700,
+				"left": 450,
+				"right": 450
+			},
+			"asset": "mine_hatch.svg",
 			"order": 3
 		}
 		]
@@ -3280,10 +3528,70 @@
 				"right": 500
 			},
 			"asset": "rope_post_giftshop_tr.svg"
+		},
+		{
+			"tileParts": {
+				"top": 475,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "rope_post_danger.svg"
+		},
+		{
+			"tileParts": {
+				"top": 1200,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "rope_post_danger_t.svg"
+		},
+		{
+			"tileParts": {
+				"top": 475,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 600
+			},
+			"asset": "rope_post_danger_r.svg"
+		},
+		{
+			"tileParts": {
+				"top": 1200,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 600
+			},
+			"asset": "rope_post_danger_tr.svg"
 		}
 		],
 		"tileLinks": {
 			"rules": [
+			{
+				"condition": "*1**1***",
+				"requiredBiome": 19,
+				"changeTileType": 20
+			},
+			{
+				"condition": "*0**1***",
+				"requiredBiome": 19,
+				"changeTileType": 19
+			},
+			{
+				"condition": "*1**0***",
+				"requiredBiome": 19,
+				"changeTileType": 18
+			},
+			{
+				"condition": "********",
+				"requiredBiome": 19,
+				"changeTileType": 17
+			},
 			{
 				"condition": "*1**1***",
 				"requiredBiome": 16,
@@ -5435,6 +5743,121 @@
 			"type": 1
 		}
 		]
+	},
+	{
+    	"name": "starrforce",
+		"color1": "27,54,94",
+		"color2": "28,57,99",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 15
+		},
+		{
+			"tile": "blocking2",
+			"type": 15
+		},
+		{
+			"tile": "blocking3",
+			"type": 9
+		},
+		{
+			"tile": "blocking4",
+			"type": 8
+		},
+		{
+			"tile": "forest",
+			"type": 11
+		},
+		{
+			"tile": "respawningWall",
+			"type": 13
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 10
+		},
+		{
+			"tile": "fence",
+			"type": 87
+		},
+		{
+			"tile": "water",
+			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
+			"type": 1
+		},
+		{
+			"tile": "objective",
+			"type": 2
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
+			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
+			"type": 1
+		},
+		{
+			"tile": "RopeFence",
+			"type": 17
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
+			"type": 1
+		}
+		]
 	}
 	],
 	"gamemodes": [
@@ -5789,6 +6212,17 @@
 		{
 			"tile": "objective",
 			"type": 12,
+			"position": "m,m",
+			"drawOrder": 2
+		}
+		]
+	},
+	{
+		"name": "Space Gem Grab",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 26,
 			"position": "m,m",
 			"drawOrder": 2
 		}
