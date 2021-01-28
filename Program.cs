@@ -19,9 +19,8 @@ namespace BMG
 
             int phase = 1;
             int version = 8;
-            int build = 0; 
+            int build = 1; 
             string access = " Release";
-            int buildID = 101026;  // D, AA, BB, E, G
             string oLoc = "options.json";
             string oStr = "";
             string oEnd = "";
@@ -114,13 +113,27 @@ namespace BMG
                 var tiledata = JsonConvert.DeserializeObject<Tiledata>(json2);
                 Dictionary<int, SavedImages> savedTileImageList = new Dictionary<int, SavedImages>();
 
-                voice.Title.Job.UpdateJob(0, options.batch.Length, "Preloading tiles...");
+                int totalSizes, totalImages = 0;
+
+                {  // Local calculations
+                    List<int> sizes = new List<int>();
+                    foreach (Options.BatchSettings single in options.batch)
+                        if (!sizes.Contains(single.sizeMultiplier))
+                            sizes.Add(single.sizeMultiplier);
+                    totalSizes = sizes.Count;
+                }
+
+                foreach (string folder in Directory.GetDirectories("./assets/tiles/" + options.preset + "/"))
+                    totalImages += Directory.GetFiles(folder).Length;
+                totalImages += Directory.GetFiles("./assets/tiles/" + options.preset + "/").Length;
+
+                voice.Title.Job.UpdateJob(0, totalSizes, "Preloading tiles...");
                 voice.Title.RefreshTitle();
                 voice.Speak("\n Status: Tile Preloading started.", ActionType.setup);
                 foreach (Options.BatchSettings single in options.batch) // Tile preloader
                 {
                     voice.Title.Job.IncreaseJob();
-                    voice.Title.Status.UpdateStatus(0, 1, "Reading...");
+                    voice.Title.Status.UpdateStatus(0, totalImages, "Reading...");
                     voice.Title.RefreshTitle();
 
                     if (savedTileImageList.ContainsKey(single.sizeMultiplier))

@@ -21,6 +21,9 @@ namespace BMG
                     {
                         if (file.Split('/').Last() == tile.tileTypes[type].asset)
                         {
+                            voice.Title.Status.IncreaseStatus();
+                            voice.Title.RefreshTitle();
+
                             tileImages.Add(new TileImage()
                             {
                                 imageName = file.Split(new string[] { optionsObject.preset + "/" }, StringSplitOptions.None)[1],
@@ -46,6 +49,9 @@ namespace BMG
                         {
                             if (tile.tileLinks != null)
                             {
+                                voice.Title.Status.IncreaseStatus();
+                                voice.Title.RefreshTitle();
+
                                 List<string> folders = new List<string>();
                                 folders.Add(tile.tileLinks.assetFolder);
                                 foreach (Tiledata.TileLinkRule rule in tile.tileLinks.rules)
