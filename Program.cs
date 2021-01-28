@@ -19,7 +19,7 @@ namespace BMG
 
             int phase = 1;
             int version = 8;
-            int build = 1; 
+            int build = 2; 
             string access = " Release";
             string oLoc = "options.json";
             string oStr = "";
