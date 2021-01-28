@@ -148,6 +148,16 @@
 				"right": 0
 			},
 			"asset": "ice_wall.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "scrap_cube.svg"
 		}
 		]
 	},
@@ -284,6 +294,16 @@
 				"right": 0
 			},
 			"asset": "ice_wall_2.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "concrete_wall.svg"
 		}
 		]
 	},
@@ -689,6 +709,16 @@
 				"right": 7
 			},
 			"asset": "tree_snowless.svg"
+		},
+		{
+			"tileParts": {
+				"top": 544,
+				"mid": 1000,
+				"bot": 243,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "tires.svg"
 		}
 		]
 	},
@@ -1618,10 +1648,170 @@
 			},
 			"asset": "fence_cor_ice.svg",
 			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "pipe_hor.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "pipe_ver.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 100,
+				"mid": 1000,
+				"bot": 300,
+				"left": 200,
+				"right": 0
+			},
+			"asset": "pipe_r.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 100,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 200
+			},
+			"asset": "pipe_l.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 500,
+				"left": 100,
+				"right": 100
+			},
+			"asset": "pipe_b.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 100,
+				"mid": 1000,
+				"bot": 0,
+				"left": 100,
+				"right": 100
+			},
+			"asset": "pipe_t.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "pipe_tr.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "pipe_tl.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "pipe_br.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 300,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "pipe_bl.svg",
+			"orderHor": 1
 		}
 		],
 		"tileLinks": {
 			"rules": [
+			{
+				"condition": "***11***",
+				"requiredBiome": 18,
+				"changeTileType": 77
+			},
+			{
+				"condition": "*1****1*",
+				"requiredBiome": 18,
+				"changeTileType": 78
+			},
+			{
+				"condition": "*0*01*0*",
+				"requiredBiome": 18,
+				"changeTileType": 79
+			},
+			{
+				"condition": "*0*10*0*",
+				"requiredBiome": 18,
+				"changeTileType": 80
+			},
+			{
+				"condition": "*1*00*0*",
+				"requiredBiome": 18,
+				"changeTileType": 81
+			},
+			{
+				"condition": "*0*00*1*",
+				"requiredBiome": 18,
+				"changeTileType": 82
+			},
+			{
+				"condition": "*0*01*1*",
+				"requiredBiome": 18,
+				"changeTileType": 83
+			},
+			{
+				"condition": "*0*10*1*",
+				"requiredBiome": 18,
+				"changeTileType": 84
+			},
+			{
+				"condition": "*1*01*0*",
+				"requiredBiome": 18,
+				"changeTileType": 85
+			},
+			{
+				"condition": "*1*10*0*",
+				"requiredBiome": 18,
+				"changeTileType": 86
+			},
 			{
 				"condition": "*1****0*",
 				"requiredBiome": 17,
@@ -2123,6 +2313,11 @@
 		],
 		"tileLinks": {
 			"rules": [
+			{
+				"condition": "********",
+				"requiredBiome": 18,
+				"changeFolder": "green_water"
+			},
 			{
 				"condition": "********",
 				"requiredBiome": 10,
@@ -5107,6 +5302,121 @@
 		{
 			"tile": "RopeFence",
 			"type": 13
+		},
+		{
+			"tile": "teleporterBlue",
+			"type": 1
+		},
+		{
+			"tile": "teleporterGreen",
+			"type": 1
+		},
+		{
+			"tile": "teleporterRed",
+			"type": 1
+		},
+		{
+			"tile": "teleporterYellow",
+			"type": 1
+		}
+		]
+	},
+	{
+    	"name": "scrapyard",
+		"color1": "46,40,75",
+		"color2": "48,42,79",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 14
+		},
+		{
+			"tile": "blocking2",
+			"type": 14
+		},
+		{
+			"tile": "blocking3",
+			"type": 1
+		},
+		{
+			"tile": "blocking4",
+			"type": 3
+		},
+		{
+			"tile": "forest",
+			"type": 2
+		},
+		{
+			"tile": "respawningWall",
+			"type": 12
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 4
+		},
+		{
+			"tile": "fence",
+			"type": 77
+		},
+		{
+			"tile": "water",
+			"type": 1
+		},
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
+			"type": 1
+		},
+		{
+			"tile": "objective",
+			"type": 2
+		},
+		{
+			"tile": "springpadRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadTop",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottom",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopLeft",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadTopRight",
+			"type": 1
+		},
+		{
+			"tile": "springpadBottomLeft",
+			"type": 1
+		},
+		{
+			"tile": "bench1",
+			"type": 1
+		},
+		{
+			"tile": "bench2",
+			"type": 1
+		},
+		{
+			"tile": "RopeFence",
+			"type": 17
 		},
 		{
 			"tile": "teleporterBlue",
