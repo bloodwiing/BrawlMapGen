@@ -5,7 +5,7 @@
 ![Vector count](https://img.shields.io/github/directory-file-count/thedonciuxx/brawlmapgen/assets?extension=svg&label=tiles)
 
 # BrawlMapGen
-BMG (Advanced Map Generator) is a generator which takes arrays of strings and tiles with vector graphics to make generated map images of any size.
+BMG (also known as AMG - Advanced Map Generator) is a generator which takes arrays of strings and tiles with vector graphics to make generated map images of any size.
 
 ## Compiling
 You can use the built versions in found in tags.
