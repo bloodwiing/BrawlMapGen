@@ -132,12 +132,12 @@ namespace BMG
                 voice.Speak("\n Status: Tile Preloading started.", ActionType.setup);
                 foreach (Options.BatchSettings single in options.batch) // Tile preloader
                 {
+                    if (savedTileImageList.ContainsKey(single.sizeMultiplier))
+                        continue;
+
                     voice.Title.Job.IncreaseJob();
                     voice.Title.Status.UpdateStatus(0, totalImages, "Reading...");
                     voice.Title.RefreshTitle();
-
-                    if (savedTileImageList.ContainsKey(single.sizeMultiplier))
-                        continue;
 
                     voice.Speak("Found new tilesize.", ActionType.setup);
                     savedTileImageList.Add(single.sizeMultiplier, new SavedImages(options, tiledata.tiles, single.sizeMultiplier, voice)); // Preload tiles for a specific tiles

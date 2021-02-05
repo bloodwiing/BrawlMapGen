@@ -49,25 +49,30 @@ namespace BMG
                         {
                             if (tile.tileLinks != null)
                             {
-                                voice.Title.Status.IncreaseStatus();
-                                voice.Title.RefreshTitle();
-
                                 List<string> folders = new List<string>();
                                 folders.Add(tile.tileLinks.assetFolder);
+
                                 foreach (Tiledata.TileLinkRule rule in tile.tileLinks.rules)
                                     if (rule.changeFolder != null && !folders.Contains(rule.changeFolder))
                                         folders.Add(rule.changeFolder);
+
                                 if (folders.Contains(folder.Split('/').Last()))
                                 {
+                                    voice.Title.Status.IncreaseStatus();
+                                    voice.Title.RefreshTitle();
+
                                     tileImages.Add(new TileImage()
                                     {
                                         imageName = file.Split(new string[] { optionsObject.preset + "/" }, StringSplitOptions.None)[1].Replace("\\", "/"),
                                         imageOffsetTop = (int)Math.Round((double)tile.tileTypes[type].tileParts.top * sizeMultiplier / 1000),
                                         imageOffsetLeft = (int)Math.Round((double)tile.tileTypes[type].tileParts.left * sizeMultiplier / 1000)
                                     });
+
                                     tileImages.Last().imageWidth = (int)Math.Round((double)SvgDocument.Open(file).Width * sizeMultiplier);
                                     tileImages.Last().imageHeight = (int)Math.Round((double)SvgDocument.Open(file).Height * sizeMultiplier);
+                                    
                                     voice.Speak("[ AAL ] READ << ./assets/tiles/" + optionsObject.preset + "/" + tileImages.Last().imageName, Program.ActionType.aal);
+
                                     tileImages.Last().renderedImage = SvgDocument.Open(file).Draw(tileImages.Last().imageWidth, tileImages.Last().imageHeight);
                                     break;
                                 }
