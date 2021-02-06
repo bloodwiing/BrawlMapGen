@@ -3700,112 +3700,8 @@
 		"color2": "248,166,116",
 		"defaults": [
 		{
-			"tile": "blocking1",
-			"type": 1
-		},
-		{
 			"tile": "blocking2",
 			"type": 3
-		},
-		{
-			"tile": "blocking3",
-			"type": 1
-		},
-		{
-			"tile": "blocking4",
-			"type": 1
-		},
-		{
-			"tile": "forest",
-			"type": 1
-		},
-		{
-			"tile": "respawningWall",
-			"type": 1
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 1
-		},
-		{
-			"tile": "fence",
-			"type": 1
-		},
-		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "objective",
-			"type": 2
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
-			"tile": "RopeFence",
-			"type": 1
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -3815,112 +3711,8 @@
 		"color2": "234,180,118",
 		"defaults": [
 		{
-			"tile": "blocking1",
-			"type": 1
-		},
-		{
 			"tile": "blocking2",
 			"type": 2
-		},
-		{
-			"tile": "blocking3",
-			"type": 1
-		},
-		{
-			"tile": "blocking4",
-			"type": 1
-		},
-		{
-			"tile": "forest",
-			"type": 1
-		},
-		{
-			"tile": "respawningWall",
-			"type": 1
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 1
-		},
-		{
-			"tile": "fence",
-			"type": 1
-		},
-		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "objective",
-			"type": 2
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
-			"tile": "RopeFence",
-			"type": 1
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -3934,18 +3726,6 @@
 			"type": 2
 		},
 		{
-			"tile": "blocking2",
-			"type": 1
-		},
-		{
-			"tile": "blocking3",
-			"type": 1
-		},
-		{
-			"tile": "blocking4",
-			"type": 1
-		},
-		{
 			"tile": "forest",
 			"type": 2
 		},
@@ -3958,80 +3738,8 @@
 			"type": 2
 		},
 		{
-			"tile": "fence",
-			"type": 1
-		},
-		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
 			"tile": "RopeFence",
 			"type": 5
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -4041,112 +3749,16 @@
 		"color2": "198,135,98",
 		"defaults": [
 		{
-			"tile": "blocking1",
-			"type": 1
-		},
-		{
 			"tile": "blocking2",
 			"type": 3
-		},
-		{
-			"tile": "blocking3",
-			"type": 1
-		},
-		{
-			"tile": "blocking4",
-			"type": 1
 		},
 		{
 			"tile": "forest",
 			"type": 3
 		},
 		{
-			"tile": "respawningWall",
-			"type": 1
-		},
-		{
 			"tile": "blockingDestroyableWithWeapon",
 			"type": 2
-		},
-		{
-			"tile": "fence",
-			"type": 1
-		},
-		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "objective",
-			"type": 2
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
-			"tile": "RopeFence",
-			"type": 1
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -4162,94 +3774,6 @@
 		{
 			"tile": "blocking2",
 			"type": 3
-		},
-		{
-			"tile": "blocking3",
-			"type": 1
-		},
-		{
-			"tile": "blocking4",
-			"type": 1
-		},
-		{
-			"tile": "forest",
-			"type": 1
-		},
-		{
-			"tile": "fence",
-			"type": 1
-		},
-		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
-			"tile": "RopeFence",
-			"type": 1
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -4285,82 +3809,6 @@
 		{
 			"tile": "blockingDestroyableWithWeapon",
 			"type": 3
-		},
-		{
-			"tile": "fence",
-			"type": 1
-		},
-		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
-			"tile": "RopeFence",
-			"type": 1
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -4400,82 +3848,6 @@
 		{
 			"tile": "fence",
 			"type": 4
-		},
-		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "objective",
-			"type": 2
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
-			"tile": "RopeFence",
-			"type": 1
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -4515,82 +3887,6 @@
 		{
 			"tile": "fence",
 			"type": 4
-		},
-		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "objective",
-			"type": 2
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
-			"tile": "RopeFence",
-			"type": 1
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -4632,80 +3928,8 @@
 			"type": 4
 		},
 		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "objective",
-			"type": 2
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
 			"tile": "RopeFence",
 			"type": 9
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -4745,82 +3969,6 @@
 		{
 			"tile": "fence",
 			"type": 4
-		},
-		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "objective",
-			"type": 2
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
-			"tile": "RopeFence",
-			"type": 1
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -4855,87 +4003,11 @@
 		},
 		{
 			"tile": "blockingDestroyableWithWeapon",
-			"type": 6
+			"type": 4
 		},
 		{
 			"tile": "fence",
 			"type": 4
-		},
-		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "objective",
-			"type": 2
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
-			"tile": "RopeFence",
-			"type": 1
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -4975,82 +4047,6 @@
 		{
 			"tile": "fence",
 			"type": 4
-		},
-		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "objective",
-			"type": 1
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
-			"tile": "RopeFence",
-			"type": 1
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -5090,82 +4086,6 @@
 		{
 			"tile": "fence",
 			"type": 34
-		},
-		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "objective",
-			"type": 2
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
-			"tile": "RopeFence",
-			"type": 1
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -5207,80 +4127,8 @@
 			"type": 44
 		},
 		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "objective",
-			"type": 2
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
 			"tile": "RopeFence",
 			"type": 2
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -5322,80 +4170,8 @@
 			"type": 54
 		},
 		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "objective",
-			"type": 2
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
 			"tile": "RopeFence",
 			"type": 13
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -5437,85 +4213,13 @@
 			"type": 54
 		},
 		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "objective",
-			"type": 2
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
 			"tile": "RopeFence",
 			"type": 13
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
 	{
-    	"name": "snowtell",
+    	"name": "snowtel",
 		"color1": "42,66,109",
 		"color2": "50,70,115",
 		"defaults": [
@@ -5552,80 +4256,8 @@
 			"type": 74
 		},
 		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "objective",
-			"type": 2
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
 			"tile": "RopeFence",
 			"type": 13
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -5667,80 +4299,8 @@
 			"type": 77
 		},
 		{
-			"tile": "water",
-			"type": 1
-		},
-		{
-			"tile": "player1",
-			"type": 1
-		},
-		{
-			"tile": "player2",
-			"type": 1
-		},
-		{
-			"tile": "objective",
-			"type": 2
-		},
-		{
-			"tile": "springpadRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadTop",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottom",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopLeft",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadTopRight",
-			"type": 1
-		},
-		{
-			"tile": "springpadBottomLeft",
-			"type": 1
-		},
-		{
-			"tile": "bench1",
-			"type": 1
-		},
-		{
-			"tile": "bench2",
-			"type": 1
-		},
-		{
 			"tile": "RopeFence",
 			"type": 17
-		},
-		{
-			"tile": "teleporterBlue",
-			"type": 1
-		},
-		{
-			"tile": "teleporterGreen",
-			"type": 1
-		},
-		{
-			"tile": "teleporterRed",
-			"type": 1
-		},
-		{
-			"tile": "teleporterYellow",
-			"type": 1
 		}
 		]
 	},
@@ -5782,6 +4342,51 @@
 			"type": 87
 		},
 		{
+			"tile": "RopeFence",
+			"type": 17
+		}
+		]
+	}
+	],
+	"defaultBiome": 
+	{
+    	"name": "invalid biome",
+		"color1": "0,0,0",
+		"color2": "255,0,220",
+		"defaults": [
+		{
+			"tile": "blocking1",
+			"type": 1
+		},
+		{
+			"tile": "blocking2",
+			"type": 1
+		},
+		{
+			"tile": "blocking3",
+			"type": 1
+		},
+		{
+			"tile": "blocking4",
+			"type": 1
+		},
+		{
+			"tile": "forest",
+			"type": 1
+		},
+		{
+			"tile": "respawningWall",
+			"type": 1
+		},
+		{
+			"tile": "blockingDestroyableWithWeapon",
+			"type": 1
+		},
+		{
+			"tile": "fence",
+			"type": 1
+		},
+		{
 			"tile": "water",
 			"type": 1
 		},
@@ -5839,7 +4444,7 @@
 		},
 		{
 			"tile": "RopeFence",
-			"type": 17
+			"type": 1
 		},
 		{
 			"tile": "teleporterBlue",
@@ -5858,8 +4463,7 @@
 			"type": 1
 		}
 		]
-	}
-	],
+	},
 	"gamemodes": [
 	{
 		"name": "Gem Grab",

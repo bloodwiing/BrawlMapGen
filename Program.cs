@@ -182,9 +182,11 @@ namespace BMG
                     int xLength = map[0].Length;
                     int yLength = map.Length;
 
+                    Tiledata.Biome mapBiome = tiledata.GetBiome(batchOption.biome - 1);
+
                     voice.Speak("  Map found.", ActionType.setup);
                     voice.Speak(" Status: Map gotten.", ActionType.statusChange);
-                    voice.Speak("\nMap details:\n  Width: " + (sizeMultiplier * 2 + sizeMultiplier * xLength) + "px\n  Height: " + (sizeMultiplier * 2 + sizeMultiplier * yLength) + "px\n  Biome: \"" + tiledata.biomes[batchOption.biome - 1].name.ToUpper() + "\"\n", ActionType.setup);
+                    voice.Speak("\nMap details:\n  Width: " + (sizeMultiplier * 2 + sizeMultiplier * xLength) + "px\n  Height: " + (sizeMultiplier * 2 + sizeMultiplier * yLength) + "px\n  Biome: \"" + mapBiome.name.ToUpper() + "\"\n", ActionType.setup);
 
                     float[] border = emptyBorderAmoutNormalizer(batchOption.emptyBorderAmount);
 
@@ -196,10 +198,10 @@ namespace BMG
                     voice.Speak("Coloring background...", ActionType.setup);
                     voice.Speak(" Status: Fetching tile colors...", ActionType.statusChange);
 
-                    string[] color1s = tiledata.biomes[batchOption.biome - 1].color1.Split(',');
+                    string[] color1s = mapBiome.color1.Split(',');
                     Color color1 = Color.FromArgb(int.Parse(color1s[0].Trim()), int.Parse(color1s[1].Trim()), int.Parse(color1s[2].Trim()));
 
-                    string[] color2s = tiledata.biomes[batchOption.biome - 1].color2.Split(',');
+                    string[] color2s = mapBiome.color2.Split(',');
                     Color color2 = Color.FromArgb(int.Parse(color2s[0].Trim()), int.Parse(color2s[1].Trim()), int.Parse(color2s[2].Trim()));
 
                     voice.Speak(" Status: Colors fetched.", ActionType.statusChange);
@@ -383,7 +385,7 @@ namespace BMG
                                 if (aTile.tileCode == tile) // Loop until tile found matching with data
                                 {
                                     Tiledata.TileDefault setTileDefault = null;
-                                    foreach (Tiledata.TileDefault tileDefault in tiledata.biomes[batchOption.biome - 1].defaults)
+                                    foreach (Tiledata.TileDefault tileDefault in mapBiome.defaults)
                                     {
                                         setTileDefault = tileDefault;
                                         if (batchOption.overrideBiome != null) // Biome overrider

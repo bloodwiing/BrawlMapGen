@@ -1,12 +1,41 @@
-﻿namespace BMG
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Linq;
+
+namespace BMG
 {
     public class Tiledata
     {
+
+        [OnDeserialized]
+        internal void Prepare(StreamingContext context)
+        {
+            foreach (var biome in biomes)
+            {
+                List<TileDefault> update = biome.defaults.ToList();
+
+                foreach (var def in defaultBiome.defaults)
+                {
+                    bool ready = false;
+                    foreach (var setting in biome.defaults)
+                        if (def.tile == setting.tile)
+                        {
+                            ready = true; break;
+                        }
+
+                    if (!ready)
+                        update.Add(def);
+                }
+
+                biome.defaults = update.ToArray();
+            }    
+        }
 
         public PresetOptions presetOptions { get; set; }
         public char[] ignoreTiles { get; set; }
         public Tile[] tiles { get; set; }
         public Biome[] biomes { get; set; }
+        public Biome defaultBiome { get; set; }
         public Gamemode[] gamemodes { get; set; }
 
         public class Tile
@@ -51,6 +80,12 @@
             public string color1 { get; set; }
             public string color2 { get; set; }
             public TileDefault[] defaults { get; set; }
+        }
+
+        public Biome GetBiome(int index)
+        {
+            if (index <= biomes.Length - 1) return biomes[index];
+            return defaultBiome;
         }
 
         public class TileLink
