@@ -229,6 +229,7 @@ namespace BMG
                     }
 
                     if (mapGamemode != null) // Draw Gamemode Tiles (Before every other tile)
+                    {
                         if (mapGamemode.specialTiles != null)
                             foreach (var st in mapGamemode.specialTiles)
                             {
@@ -271,6 +272,46 @@ namespace BMG
                                     }
                                 }
                             }
+
+                        if (mapGamemode.mapModder != null)
+                            foreach (var mod in mapGamemode.mapModder)
+                                foreach (Tiledata.Tile oTile in tiledata.tiles)
+                                    if (oTile.tileName == mod.tile)
+                                    {
+                                        string xsLoc = mod.position.Split(',')[0].Trim().ToLower();
+                                        string ysLoc = mod.position.Split(',')[1].Trim().ToLower();
+                                        if (!int.TryParse(xsLoc, out int xLoc))
+                                        {
+                                            if (xsLoc == "left" || xsLoc == "l") { xLoc = 0; xsLoc = "L"; }
+                                            else if (xsLoc == "mid" || xsLoc == "m") { xLoc = (xLength - 1) / 2; xsLoc = "M"; }
+                                            else if (xsLoc == "right" || xsLoc == "r") { xLoc = xLength - 1; xsLoc = "R"; }
+                                        }
+                                        if (!int.TryParse(ysLoc, out int yLoc))
+                                        {
+                                            if (ysLoc == "top" || ysLoc == "t") { yLoc = 0; ysLoc = "T"; }
+                                            else if (ysLoc == "mid" || ysLoc == "m") { yLoc = (yLength - 1) / 2; ysLoc = "M"; }
+                                            else if (ysLoc == "bottom" || ysLoc == "bot" || ysLoc == "b") { yLoc = yLength - 1; ysLoc = "B"; }
+                                        }
+
+                                        if (xLoc < 0)
+                                        {
+                                            xLoc = xLength - (1 + xLoc / -1);
+                                            xsLoc = xLoc.ToString();
+                                        }
+                                        if (yLoc < 0)
+                                        {
+                                            yLoc = yLength - (1 + yLoc / -1);
+                                            ysLoc = yLoc.ToString();
+                                        }
+
+                                        var row = map[yLoc].ToCharArray();
+                                        row[xLoc] = oTile.tileCode;
+                                        map[yLoc] = string.Join("", row);
+
+                                        voice.Speak(TileActionStringMaker(new TileActionTypes(true, false, true, false, false), oTile, ysLoc, xsLoc, yLength, xLength), ActionType.gamemodeModding);
+                                    }
+
+                    }
 
                     Options.SpecialTileRules[] str = null;
                     if (batchOption.specialTileRules != null)
@@ -1087,7 +1128,12 @@ namespace BMG
             if (tat.d) p = p + "d"; else p = p + " ";
 
             if (tat.g)
-                t = "DRAWN AS \"" + n + "\".";
+            {
+                if (tat.o)
+                    t = "MODIFIED TO \"" + n + "\".";
+                else
+                    t = "DRAWN AS \"" + n + "\".";
+            }
             else if (tat.s)
             {
                 if (tat.o)
@@ -1138,7 +1184,7 @@ namespace BMG
             return p + " [" + tile.tileCode + "] < y: " + LeftSpaceFiller(yLocation, yLocationMax.ToString().ToCharArray().Length, ' ') + " / x: " + LeftSpaceFiller(xLocation, xLocationMax.ToString().ToCharArray().Length, ' ') + " > " + t;
         }
 
-        public enum ActionType { setup, tileDraw, orderedHorTileDraw, orderedTileDraw, saveLocation, aal, statusChange, basic }
+        public enum ActionType { setup, tileDraw, orderedHorTileDraw, orderedTileDraw, saveLocation, aal, statusChange, basic, gamemodeModding }
         public class Voice
         {
             private Options savedOptionsObject;
@@ -1208,6 +1254,13 @@ namespace BMG
                         break;
                     case ActionType.statusChange:
                         if (savedOptionsObject.console.statusChange)
+                        {
+                            Console.WriteLine(text);
+                            loggedLines.Add(text);
+                        }
+                        break;
+                    case ActionType.gamemodeModding:
+                        if (savedOptionsObject.console.gamemodeModding)
                         {
                             Console.WriteLine(text);
                             loggedLines.Add(text);

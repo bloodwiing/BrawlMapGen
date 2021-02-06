@@ -44,6 +44,7 @@ namespace BMG
             public bool saveLocation { get; set; } = true;
             public bool aal { get; set; } = true;
             public bool statusChange { get; set; } = true;
+            public bool gamemodeModding { get; set; } = true;
         }
 
         public class SpecialTileRules

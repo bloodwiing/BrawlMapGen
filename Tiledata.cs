@@ -118,6 +118,7 @@ namespace BMG
             public string name { get; set; }
             public SpecialTile[] specialTiles { get; set; }
             public TileDefault[] overrideBiome { get; set; }
+            public MapMod[] mapModder { get; set; }
         }
 
         public class SpecialTile
@@ -126,6 +127,12 @@ namespace BMG
             public int type { get; set; }
             public string position { get; set; }
             public int drawOrder { get; set; }
+        }
+
+        public class MapMod
+        {
+            public string tile { get; set; }
+            public string position { get; set; }
         }
 
         public enum EdgeCase
