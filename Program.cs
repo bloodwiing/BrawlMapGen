@@ -17,10 +17,10 @@ namespace BMG
         {
             var fArgs = " " + string.Join(" ", args);
 
-            int phase = 1;
-            int version = 8;
-            int build = 2; 
-            string access = " Release";
+            int major = 1;
+            int minor = 8;
+            int patch = 2; 
+            string access = "Release";
             string oLoc = "options.json";
             string oStr = "";
             string oEnd = "";
@@ -83,12 +83,12 @@ namespace BMG
                 else
                     options = JsonConvert.DeserializeObject<Options>(oStr);
 
-                voice.UpdateOptions(options, phase + "." + version + "." + build);
+                voice.UpdateOptions(options, major + "." + minor + "." + patch);
 
                 if (options.setPath != null)
                     Environment.CurrentDirectory = options.setPath;
 
-                voice.Speak("\n  BMG (Brawl Map Gen)\n    Version: v" + phase + "." + version + "." + build + " " + access + "\n    Created by: RedH1ghway (aka BloodWiing)\n    Helped by: 4JR, Henry, tryso\n\n", ActionType.basic);
+                voice.Speak("\n  BMG (Brawl Map Gen)\n    Version: v" + major + "." + minor + "." + patch + " " + access + "\n    Created by: RedH1ghway (aka BloodWiing)\n    Helped by: 4JR, Henry, tryso\n\n", ActionType.basic);
                 voice.Speak(" Status: App is launched!", ActionType.statusChange);
                 voice.Speak("Loading preset: \"" + options.preset.ToUpper() + "\"...", ActionType.setup);
                 voice.Speak("[ AAL ] READ << ./presets/" + options.preset + ".json", ActionType.aal);
@@ -212,7 +212,7 @@ namespace BMG
 
                     List<OrderedTile> orderedTiles = new List<OrderedTile>();
 
-                    voice.Speak("Drawing map tiles...", ActionType.basic);
+                    voice.Speak("Drawing map tiles...", ActionType.setup);
                     if (batchOption.name != "?number?")
                         voice.Speak(" Status: Drawing map (\"" + batchOption.name + "\")...", ActionType.statusChange);
                     else
@@ -921,7 +921,7 @@ namespace BMG
         {
             string prog = "";
             for (int x = 0; x < Math.Floor(lenght * percent); x++)
-                prog = prog + fill;
+                prog += fill;
             if (leftToRight)
                 return RightSpaceFiller(prog, lenght, background);
             else
@@ -1059,10 +1059,10 @@ namespace BMG
             string n = tile.tileName.ToUpper();
 
             if (tat.g) p = "g"; else p = " ";
-            if (tat.s) p = p + "s"; else p = p + " ";
-            if (tat.o) p = p + "o"; else p = p + " ";
-            if (tat.h) p = p + "h"; else p = p + " ";
-            if (tat.d) p = p + "d"; else p = p + " ";
+            if (tat.s) p += "s"; else p += " ";
+            if (tat.o) p += "o"; else p += " ";
+            if (tat.h) p += "h"; else p += " ";
+            if (tat.d) p += "d"; else p += " ";
 
             if (tat.g)
                 t = "DRAWN AS \"" + n + "\".";
@@ -1122,10 +1122,10 @@ namespace BMG
             string n = tile.tileName.ToUpper();
 
             if (tat.g) p = "g"; else p = " ";
-            if (tat.s) p = p + "s"; else p = p + " ";
-            if (tat.o) p = p + "o"; else p = p + " ";
-            if (tat.h) p = p + "h"; else p = p + " ";
-            if (tat.d) p = p + "d"; else p = p + " ";
+            if (tat.s) p += "s"; else p += " ";
+            if (tat.o) p += "o"; else p += " ";
+            if (tat.h) p += "h"; else p += " ";
+            if (tat.d) p += "d"; else p += " ";
 
             if (tat.g)
             {
@@ -1344,7 +1344,7 @@ namespace BMG
 
                 public string GetAppInfo()
                 {
-                    if (optionReference.modules.appInfo.showVersion == true)
+                    if (optionReference.modules.appInfo.showVersion)
                         return "BMG " + version;
                     else
                         return "BMG";
