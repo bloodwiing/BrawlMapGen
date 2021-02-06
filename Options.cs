@@ -113,6 +113,7 @@ namespace BMG
         {
             public Modules modules { get; set; } = new Modules();
             public string layout { get; set; } = "?appInfo? - ?job? - ?status? - ?statusDetails?";
+            public bool disableUpdate { get; set; } = false;
         }
 
     }

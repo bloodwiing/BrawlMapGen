@@ -1202,6 +1202,7 @@ namespace BMG
                 savedOptionsObject = optionsObject;
                 Title.UpdateObjects(optionsObject.title);
                 Title.version = version;
+                Console.Title = Title.GetAppInfo();
             }
 
             List<string> loggedLines = new List<string>();
@@ -1408,7 +1409,7 @@ namespace BMG
 
                 public void RefreshTitle()
                 {
-                    if (!show)
+                    if (!show || optionReference.disableUpdate)
                         return;
                     Console.Title = optionReference.layout
                         .Replace("?job?", Job.titleObject.order
