@@ -3179,6 +3179,105 @@
 			},
 			"asset": "mine_hatch.svg",
 			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 675,
+				"mid": 1000,
+				"bot": 700,
+				"left": 610,
+				"right": 610
+			},
+			"asset": "trophy_gold.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 1546,
+				"mid": 1000,
+				"bot": 1404,
+				"left": 1475,
+				"right": 1475
+			},
+			"asset": "trophy_blue.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 1546,
+				"mid": 1000,
+				"bot": 1404,
+				"left": 1475,
+				"right": 1475
+			},
+			"asset": "trophy_red.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": -100,
+				"mid": 1000,
+				"bot": 650,
+				"left": 175,
+				"right": 175
+			},
+			"asset": "volleyball.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": -100,
+				"mid": 1000,
+				"bot": 650,
+				"left": 175,
+				"right": 175
+			},
+			"asset": "basketball.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 2375,
+				"mid": 1000,
+				"bot": 375,
+				"left": 350,
+				"right": 1200
+			},
+			"asset": "basket_hoop_blue.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 2375,
+				"mid": 1000,
+				"bot": 375,
+				"left": 1200,
+				"right": 350
+			},
+			"asset": "basket_hoop_red.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 4925,
+				"mid": 1000,
+				"bot": 4925,
+				"left": -100,
+				"right": 4900
+			},
+			"asset": "basket_hoop_blue_range.svg",
+			"order": -1
+		},
+		{
+			"tileParts": {
+				"top": 4925,
+				"mid": 1000,
+				"bot": 4925,
+				"left": 4900,
+				"right": -100
+			},
+			"asset": "basket_hoop_red_range.svg",
+			"order": -1
 		}
 		]
 	},
@@ -4778,15 +4877,12 @@
 	"gamemodes": [
 	{
 		"name": "Gem Grab",
-		"overrideBiome": [
+		"specialTiles": [
 		{
 			"tile": "objective",
-			"type": 0
-		}],
-		"mapModder": [
-		{
-			"tile": "objective",
-			"position": "m,m"
+			"type": 0,
+			"position": "m,m",
+			"drawOrder": 2
 		}]
 	},
 	{
@@ -4843,15 +4939,12 @@
 	},
 	{
 		"name": "Snowy Gem Grab",
-		"overrideBiome": [
+		"specialTiles": [
 		{
 			"tile": "objective",
-			"type": 7
-		}],
-		"mapModder": [
-		{
-			"tile": "objective",
-			"position": "m,m"
+			"type": 7,
+			"position": "m,m",
+			"drawOrder": 2
 		}]
 	},
 	{
@@ -4938,28 +5031,22 @@
 	},
 	{
 		"name": "Town Gem Grab",
-		"overrideBiome": [
+		"specialTiles": [
 		{
 			"tile": "objective",
-			"type": 10
-		}],
-		"mapModder": [
-		{
-			"tile": "objective",
-			"position": "m,m"
+			"type": 10,
+			"position": "m,m",
+			"drawOrder": 2
 		}]
 	},
 	{
 		"name": "Retro Gem Grab",
-		"overrideBiome": [
+		"specialTiles": [
 		{
 			"tile": "objective",
-			"type": 11
-		}],
-		"mapModder": [
-		{
-			"tile": "objective",
-			"position": "m,m"
+			"type": 11,
+			"position": "m,m",
+			"drawOrder": 2
 		}]
 	},
 	{
@@ -4985,41 +5072,32 @@
     },
     {
         "name": "Lone Star",
-		"overrideBiome": [
+		"specialTiles": [
 		{
 			"tile": "objective",
-			"type": 2
-		}],
-		"mapModder": [
-		{
-			"tile": "objective",
-			"position": "m,m"
+			"type": 2,
+			"position": "m,m",
+			"drawOrder": 2
 		}]
     },
 	{
 		"name": "Mortuary Gem Grab",
-		"overrideBiome": [
+		"specialTiles": [
 		{
 			"tile": "objective",
-			"type": 12
-		}],
-		"mapModder": [
-		{
-			"tile": "objective",
-			"position": "m,m"
+			"type": 12,
+			"position": "m,m",
+			"drawOrder": 2
 		}]
 	},
 	{
 		"name": "Darryl Gem Grab",
-		"overrideBiome": [
+		"specialTiles": [
 		{
 			"tile": "objective",
-			"type": 13
-		}],
-		"mapModder": [
-		{
-			"tile": "objective",
-			"position": "m,m"
+			"type": 13,
+			"position": "m,m",
+			"drawOrder": 2
 		}]
 	},
 	{
@@ -5068,15 +5146,12 @@
 	},
 	{
 		"name": "Bazaar Gem Grab",
-		"overrideBiome": [
+		"specialTiles": [
 		{
 			"tile": "objective",
-			"type": 20
-		}],
-		"mapModder": [
-		{
-			"tile": "objective",
-			"position": "m,m"
+			"type": 20,
+			"position": "m,m",
+			"drawOrder": 2
 		}]
 	},
 	{
@@ -5099,15 +5174,12 @@
 	},
 	{
 		"name": "Mini Gem Grab",
-		"overrideBiome": [
+		"specialTiles": [
 		{
 			"tile": "objective",
-			"type": 22
-		}],
-		"mapModder": [
-		{
-			"tile": "objective",
-			"position": "m,m"
+			"type": 22,
+			"position": "m,m",
+			"drawOrder": 2
 		}]
 	},
 	{
@@ -5130,54 +5202,104 @@
 	},
 	{
 		"name": "Gift Gem Grab",
-		"overrideBiome": [
+		"specialTiles": [
 		{
 			"tile": "objective",
-			"type": 24
-		}],
-		"mapModder": [
-		{
-			"tile": "objective",
-			"position": "m,m"
+			"type": 24,
+			"position": "m,m",
+			"drawOrder": 2
 		}]
 	},
 	{
 		"name": "Bandstand Gem Grab",
-		"overrideBiome": [
+		"specialTiles": [
 		{
 			"tile": "objective",
-			"type": 20
-		}],
-		"mapModder": [
-		{
-			"tile": "objective",
-			"position": "m,m"
+			"type": 20,
+			"position": "m,m",
+			"drawOrder": 2
 		}]
 	},
 	{
 		"name": "Snowtel Gem Grab",
-		"overrideBiome": [
+		"specialTiles": [
 		{
 			"tile": "objective",
-			"type": 11
-		}],
-		"mapModder": [
-		{
-			"tile": "objective",
-			"position": "m,m"
+			"type": 11,
+			"position": "m,m",
+			"drawOrder": 2
 		}]
 	},
 	{
 		"name": "Space Gem Grab",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 25,
+			"position": "m,m",
+			"drawOrder": 2
+		}]
+	},
+	{
+		"name": "Hold The Trophy",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 26,
+			"position": "m,m",
+			"drawOrder": 2
+		}]
+	},
+	{
+		"name": "Trophy Thieves",
 		"overrideBiome": [
 		{
 			"tile": "objective",
-			"type": 25
-		}],
-		"mapModder": [
+			"type": 28
+		}]
+	},
+	{
+		"name": "Volley Brawl",
+		"specialTiles": [
 		{
 			"tile": "objective",
-			"position": "m,m"
+			"type": 29,
+			"position": "m,m",
+			"drawOrder": 2
+		}]
+	},
+	{
+		"name": "Basket Brawl",
+		"specialTiles": [
+		{
+			"tile": "objective",
+			"type": 30,
+			"position": "m,m",
+			"drawOrder": 2
+		},
+		{
+			"tile": "objective",
+			"type": 31,
+			"position": "l,m",
+			"drawOrder": 2
+		},
+		{
+			"tile": "objective",
+			"type": 32,
+			"position": "r,m",
+			"drawOrder": 2
+		},
+		{
+			"tile": "objective",
+			"type": 33,
+			"position": "l,m",
+			"drawOrder": 1
+		},
+		{
+			"tile": "objective",
+			"type": 34,
+			"position": "r,m",
+			"drawOrder": 1
 		}]
 	}
 	]
