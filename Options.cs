@@ -124,6 +124,12 @@ namespace BMG
             public bool disableUpdate { get; set; } = false;
         }
 
+        public class Render
+        {
+            public int[] include { get; set; } = { };
+            public int[] exclude { get; set; } = { };
+        }
+
     }
 
 }

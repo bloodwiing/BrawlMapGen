@@ -131,6 +131,24 @@ namespace BMG
                     totalImages += Directory.GetFiles(folder).Length;
                 totalImages += Directory.GetFiles("./assets/tiles/" + options.preset + "/").Length;
 
+                voice.Title.Job.UpdateJob(0, totalSizes, "Gathering render data...");
+                voice.Title.RefreshTitle();
+                voice.Speak("\n Status: Checking inclusions and exclusions.", ActionType.setup);
+
+                {
+                    List<Options1.BatchSettings> final = new List<Options1.BatchSettings>();
+                    for (int i = 0; i < options.batch.Length; i++)
+                        if ((options.render.include.Length == 0 || options.render.include.Contains(i)) // Include check
+                            && (options.render.exclude.Length == 0 || !options.render.exclude.Contains(i))) // Exclude check
+                            final.Add(options.batch[i]);
+                    options.batch = final.ToArray();
+                }
+                voice.Speak(" Status: Selective render ready.", ActionType.setup);
+                if (options.render.include.Length > 0)
+                    voice.Speak("Inclusions: " + string.Join(", ", options.render.include) + ".", ActionType.setup);
+                if (options.render.exclude.Length > 0)
+                    voice.Speak("Exclusions: " + string.Join(", ", options.render.exclude) + ".", ActionType.setup);
+
                 voice.Title.Job.UpdateJob(0, totalSizes, "Preloading tiles...");
                 voice.Title.RefreshTitle();
                 voice.Speak("\n Status: Tile Preloading started.", ActionType.setup);
