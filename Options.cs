@@ -18,8 +18,9 @@ namespace BMG
         public string exportFileName { get; set; } = "bmg_?number?.png";
         public string exportFolderName { get; set; } = "output";
         public bool saveLogFile { get; set; } = true;
-        public ConsoleOptions console { get; set; }
-        public Title title { get; set; }
+        public ConsoleOptions console { get; set; } = new ConsoleOptions();
+        public Title title { get; set; } = new Title();
+        public Render render { get; set; } = new Render();
 
         public class Replace
         {
