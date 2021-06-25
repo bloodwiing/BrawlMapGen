@@ -2,7 +2,14 @@
 
 namespace BMG
 {
-    public class Options
+    public class OptionsBase
+    {
+
+        public int format { get; set; }
+
+    }
+
+    public class Options1 : OptionsBase
     {
 
         public string setPath { get; set; }

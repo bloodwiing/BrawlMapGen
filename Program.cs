@@ -31,7 +31,7 @@ namespace BMG
             List<char> tilesFailedChars = new List<char>();
             Dictionary<char, int> tilesFailed = new Dictionary<char, int>();
 
-            Options options = new Options();
+            Options1 options = new Options1();
             Voice voice = new Voice();
 
             Stopwatch stopwatch = new Stopwatch();
@@ -78,11 +78,14 @@ namespace BMG
                     }
 
                     StreamReader r = new StreamReader(oLoc);
-                    string json = r.ReadToEnd();
-                    options = JsonConvert.DeserializeObject<Options>(json);
+                    oStr = r.ReadToEnd();
                 }
+
+                var format = JsonConvert.DeserializeObject<OptionsBase>(oStr);
+                if (format.format == 1)
+                    options = JsonConvert.DeserializeObject<Options1>(oStr);
                 else
-                    options = JsonConvert.DeserializeObject<Options>(oStr);
+                    throw new ArgumentException("Invalid OPTIONS format");
 
                 voice.UpdateOptions(options, major + "." + minor + "." + patch);
 
@@ -118,7 +121,7 @@ namespace BMG
 
                 {  // Local calculations
                     List<int> sizes = new List<int>();
-                    foreach (Options.BatchSettings single in options.batch)
+                    foreach (Options1.BatchSettings single in options.batch)
                         if (!sizes.Contains(single.sizeMultiplier))
                             sizes.Add(single.sizeMultiplier);
                     totalSizes = sizes.Count;
@@ -131,7 +134,7 @@ namespace BMG
                 voice.Title.Job.UpdateJob(0, totalSizes, "Preloading tiles...");
                 voice.Title.RefreshTitle();
                 voice.Speak("\n Status: Tile Preloading started.", ActionType.setup);
-                foreach (Options.BatchSettings single in options.batch) // Tile preloader
+                foreach (Options1.BatchSettings single in options.batch) // Tile preloader
                 {
                     if (savedTileImageList.ContainsKey(single.sizeMultiplier))
                         continue;
@@ -314,11 +317,11 @@ namespace BMG
 
                     }
 
-                    Options.SpecialTileRules[] str = null;
+                    Options1.SpecialTileRules[] str = null;
                     if (batchOption.specialTileRules != null)
                         str = batchOption.specialTileRules;
 
-                    List<Options.RecordedSTR> rstr = new List<Options.RecordedSTR>();
+                    List<Options1.RecordedSTR> rstr = new List<Options1.RecordedSTR>();
 
                     voice.Title.Status.UpdateStatus(0, map.Length * map[0].Length, "Drawing tiles...");
                     // Begin to draw map
@@ -335,7 +338,7 @@ namespace BMG
 
                             var tile = tTile;
 
-                            foreach (Options.Replace repTile in batchOption.replaceTiles) // Specified Tile Code Replacer
+                            foreach (Options1.Replace repTile in batchOption.replaceTiles) // Specified Tile Code Replacer
                             {
                                 if (tile == repTile.from)
                                     tile = repTile.to;
@@ -363,7 +366,7 @@ namespace BMG
                                 foreach (var ostr in str)
                                     if (ostr.tileCode == tile)
                                     {
-                                        Options.RecordRSTR(rstr, tile);
+                                        Options1.RecordRSTR(rstr, tile);
                                         foreach (var orstr in rstr)
                                             if (orstr.tileCode == tile)
                                                 if (ostr.tileTime == orstr.tileTime)
@@ -960,7 +963,6 @@ namespace BMG
                 g = Graphics.FromImage(b);
             }
 
-            public void DrawTile(Tiledata.Tile tile, int type, Options optionsObject, int sizeMultiplier, int currentX, int currentY, int xLength, int yLength, SavedImages imageMemory, float[] borderSize) // Drawing a tile (normal)
             public void DrawTile(Tiledata.Tile tile, int type, Options1 optionsObject, int sizeMultiplier, int currentX, int currentY, int xLength, int yLength, SavedImages imageMemory, float[] borderSize) // Drawing a tile (normal)
             {
                 foreach (SavedImages.TileImage ti in imageMemory.tileImages)
@@ -973,7 +975,7 @@ namespace BMG
                 }
             }
 
-            public void DrawSelectedTile(OrderedTile tile, Options optionsObject, int sizeMultiplier, int xLength, int yLength, SavedImages imageMemory, float[] borderSize) // Drawing a tile (with saved coordinates and a pre-selected type)
+            public void DrawSelectedTile(OrderedTile tile, Options1 optionsObject, int sizeMultiplier, int xLength, int yLength, SavedImages imageMemory, float[] borderSize) // Drawing a tile (with saved coordinates and a pre-selected type)
             {
                 foreach (SavedImages.TileImage ti in imageMemory.tileImages)
                 {
@@ -985,7 +987,7 @@ namespace BMG
                 }
             }
 
-            public void ColorBackground(Color color1, Color color2, string[] map, Options.BatchSettings batchOption, float[] borderSize) // Filling in background colors
+            public void ColorBackground(Color color1, Color color2, string[] map, Options1.BatchSettings batchOption, float[] borderSize) // Filling in background colors
             {
                 int currentY = 0;
                 int currentX = 0;
@@ -1042,7 +1044,7 @@ namespace BMG
                 }
             }
 
-            public void ExportImage(Options optionsObject, string fileName) // Saving the generated image
+            public void ExportImage(Options1 optionsObject, string fileName) // Saving the generated image
             {
                 if (!Directory.Exists(optionsObject.exportFolderName))
                     Directory.CreateDirectory(optionsObject.exportFolderName);
@@ -1191,17 +1193,17 @@ namespace BMG
         public enum ActionType { setup, tileDraw, orderedHorTileDraw, orderedTileDraw, saveLocation, aal, statusChange, basic, gamemodeModding }
         public class Voice
         {
-            private Options savedOptionsObject;
+            private Options1 savedOptionsObject;
             public TitleClass Title;
             public string version;
 
             public Voice()
             {
-                savedOptionsObject = new Options { console = new Options.ConsoleOptions() { aal = true, orderedHorTileDraw = true, orderedTileDraw = true, saveLocation = true, setup = true, tileDraw = true }, saveLogFile = true };
+                savedOptionsObject = new Options1 { console = new Options1.ConsoleOptions() { aal = true, orderedHorTileDraw = true, orderedTileDraw = true, saveLocation = true, setup = true, tileDraw = true }, saveLogFile = true };
                 Title = new TitleClass();
             }
 
-            public void UpdateOptions(Options optionsObject, string version)
+            public void UpdateOptions(Options1 optionsObject, string version)
             {
                 savedOptionsObject = optionsObject;
                 Title.UpdateObjects(optionsObject.title);
@@ -1285,7 +1287,7 @@ namespace BMG
                 public string StatusDetails;
                 public string version;
                 public bool show;
-                public Options.Title optionReference;
+                public Options1.Title optionReference;
 
                 public TitleClass()
                 {
@@ -1294,7 +1296,7 @@ namespace BMG
                     StatusDetails = "";
                 }
 
-                public void UpdateObjects(Options.Title options)
+                public void UpdateObjects(Options1.Title options)
                 {
                     show = options != null;
                     if (!show)
@@ -1312,7 +1314,7 @@ namespace BMG
                     public string progressBar;
                     public string jobsRatio;
                     public string jobName;
-                    public Options.Job titleObject;
+                    public Options1.Job titleObject;
 
                     public JobClass UpdateJob(int currentJobIndex, int maxJobIndex, string job)
                     {
@@ -1383,7 +1385,7 @@ namespace BMG
                     public string progressBar;
                     public string actionRatio;
                     public string statusText;
-                    public Options.Status titleObject;
+                    public Options1.Status titleObject;
 
                     public StatusClass UpdateStatus(int currentActionIndex, int maxActionIndex, string action)
                     {
@@ -1445,7 +1447,7 @@ namespace BMG
             }
         }
 
-        public static string tileLinks(string[] map, int currentX, int currentY, Tiledata.Tile tileObject, Options.Replace[] replaces)
+        public static string tileLinks(string[] map, int currentX, int currentY, Tiledata.Tile tileObject, Options1.Replace[] replaces)
         {
             string binary = "";
             string neighbors;
@@ -1526,7 +1528,7 @@ namespace BMG
             return binary;
         }
 
-        public static char checkNeighboringTile(string[] map, int currentX, int currentY, Tiledata.Tile tile, Options.Replace[] replaces, int neighbor)
+        public static char checkNeighboringTile(string[] map, int currentX, int currentY, Tiledata.Tile tile, Options1.Replace[] replaces, int neighbor)
         {
             switch (neighbor)
             {
@@ -1575,7 +1577,7 @@ namespace BMG
             }
         }
 
-        private static char CNTFilter(char original, Options.Replace[] replaces)
+        private static char CNTFilter(char original, Options1.Replace[] replaces)
         {
             foreach (var r in replaces)
                 if (original == r.from)

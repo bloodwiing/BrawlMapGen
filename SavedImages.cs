@@ -11,7 +11,7 @@ namespace BMG
     {
         public List<TileImage> tileImages = new List<TileImage>();
 
-        public SavedImages(Options optionsObject, Tiledata.Tile[] tiles, int sizeMultiplier, Program.Voice voice)
+        public SavedImages(Options1 optionsObject, Tiledata.Tile[] tiles, int sizeMultiplier, Program.Voice voice)
         {
             foreach (string file in Directory.GetFiles("./assets/tiles/" + optionsObject.preset + "/"))
             {
