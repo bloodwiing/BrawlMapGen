@@ -20,7 +20,7 @@ namespace BMG
             int major = 1;
             int minor = 9;
             int patch = 0;
-            string access = "Development build";
+            string access = "Release";
             string oLoc = "options.json";
             string oStr = "";
             string oEnd = "";
