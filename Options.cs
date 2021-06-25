@@ -72,7 +72,7 @@ namespace BMG
             rstrArray.Add(new RecordedSTR()
             {
                 tileCode = tileCode,
-                tileTime = 1
+                tileTime = 0
             });
         }
 
