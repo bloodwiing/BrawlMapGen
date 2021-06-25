@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="0.26458335mm"
+   height="0.48947731mm"
+   viewBox="0 0 0.26458335 0.48947731"
+   version="1.1"
+   id="svg3893"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="waterpark_barrel.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs3887" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="44.8"
+     inkscape:cx="0.33482143"
+     inkscape:cy="0.32366072"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:pagecheckerboard="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3890">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-56.318446,-197.70045)">
+    <g
+       id="g114722"
+       transform="matrix(0.04999981,0,0,0.04999981,13.826525,202.11897)"
+       style="stroke-width:20.0001">
+      <ellipse
+         style="fill:#000000;fill-opacity:0.18;fill-rule:nonzero;stroke:none;stroke-width:21.1667;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         id="ellipse3144-2-1-6"
+         cx="852.48749"
+         cy="-81.227074"
+         rx="2.6458435"
+         ry="2.6458247" />
+      <path
+         id="path103175"
+         style="color:#000000;fill:#044c3c;fill-opacity:1;stroke-width:80.0001;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none;paint-order:markers fill stroke"
+         d="m 3222,-334 c -5.4992,0 -10,4.50085 -10,10 v 11 c 0,5.49915 4.5008,10 10,10 5.4992,0 10,-4.50085 10,-10 v -11 c 0,-5.49915 -4.5008,-10 -10,-10 z"
+         transform="scale(0.26458333)" />
+      <path
+         id="circle73457"
+         style="opacity:1;fill:#047458;fill-opacity:1;stroke:none;stroke-width:755.909;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+         d="m 3222,-332 a 7.9999996,7.9999996 0 0 0 -8,8 v 11 a 7.9999996,7.9999996 0 0 0 8,8 7.9999996,7.9999996 0 0 0 8,-8 v -11 a 7.9999996,7.9999996 0 0 0 -8,-8 z"
+         transform="scale(0.26458333)" />
+      <path
+         id="circle73461"
+         style="opacity:1;fill:#048864;fill-opacity:1;stroke:none;stroke-width:755.909;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+         d="m 3214,-322 v 2 c 0,4.41828 3.5817,8 8,8 4.4183,0 8,-3.58172 8,-8 v -2 c 0,4.41828 -3.5817,8 -8,8 -4.4183,0 -8,-3.58172 -8,-8 z m 0,5 v 2 c 0,4.41828 3.5817,8 8,8 4.4183,0 8,-3.58172 8,-8 v -2 c 0,4.41828 -3.5817,8 -8,8 -4.4183,0 -8,-3.58172 -8,-8 z"
+         transform="scale(0.26458333)" />
+      <path
+         id="path98650"
+         style="opacity:1;fill:#048060;fill-opacity:1;stroke:none;stroke-width:755.909;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+         d="M 3225.8809,-330.99219 A 7.0000117,14.000003 0 0 0 3219,-317 a 7.0000117,14.000003 0 0 0 3.3887,11.98828 A 7.9999995,7.9999995 0 0 0 3230,-313 v -11 a 7.9999995,7.9999995 0 0 0 -4.1191,-6.99219 z"
+         transform="scale(0.26458333)" />
+      <path
+         id="path98652"
+         style="opacity:1;fill:#08906c;fill-opacity:1;stroke:none;stroke-width:755.909;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+         d="m 3230,-322 c 0,4.41828 -3.5817,8 -8,8 -1.0186,0 -1.9907,-0.19392 -2.8867,-0.54102 a 7.0000117,14.000003 0 0 0 0.2715,2.09961 c 0.82,0.28373 1.6987,0.44141 2.6152,0.44141 4.4183,0 8,-3.58172 8,-8 z m 0,5 c 0,4.41828 -3.5817,8 -8,8 -0.6228,0 -1.2287,-0.0743 -1.8105,-0.20898 a 7.0000117,14.000003 0 0 0 0.8906,2.15429 c 0.3019,0.0346 0.6087,0.0547 0.9199,0.0547 4.4183,0 8,-3.58172 8,-8 z"
+         transform="scale(0.26458333)" />
+      <circle
+         style="opacity:1;fill:#08dce8;fill-opacity:1;stroke:none;stroke-width:200.001;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+         id="circle73469"
+         cx="852.48749"
+         cy="-85.724998"
+         r="2.1166666" />
+      <circle
+         style="opacity:1;fill:#04b4c4;fill-opacity:1;stroke:none;stroke-width:200.001;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+         id="circle73471"
+         cx="852.48749"
+         cy="-85.724998"
+         r="1.4552076" />
+      <path
+         id="circle77685"
+         style="opacity:1;fill:#00909c;fill-opacity:1;stroke:none;stroke-width:755.909;stroke-linecap:round;stroke-linejoin:round;paint-order:markers fill stroke"
+         d="m 3222,-329.5 a 5.4999972,5.4999972 0 0 0 -5.5,5.5 5.4999972,5.4999972 0 0 0 0.2129,1.5 5.4999972,5.4999972 0 0 1 5.2871,-4 5.4999972,5.4999972 0 0 1 5.2891,3.99414 5.4999972,5.4999972 0 0 0 0.2109,-1.49414 5.4999972,5.4999972 0 0 0 -5.5,-5.5 z"
+         transform="scale(0.26458333)" />
+    </g>
+  </g>
+</svg>
