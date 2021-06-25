@@ -147,7 +147,7 @@ namespace BMG
                 foreach (var si in savedTileImageList)
                     voice.Speak("  " + si.Key + "px", ActionType.setup);
 
-                int bNumber = 0;
+                int bNumber = -1;
                 voice.Speak("\n Status: Map image generator starting...", ActionType.statusChange);
                 voice.Title.Job.UpdateJob(0, options.batch.Length, "\"temp_name\"");
                 foreach (var batchOption in options.batch)
@@ -182,7 +182,7 @@ namespace BMG
                     int xLength = map[0].Length;
                     int yLength = map.Length;
 
-                    Tiledata.Biome mapBiome = tiledata.GetBiome(batchOption.biome - 1);
+                    Tiledata.Biome mapBiome = tiledata.GetBiome(batchOption.biome);
 
                     voice.Speak("  Map found.", ActionType.setup);
                     voice.Speak(" Status: Map gotten.", ActionType.statusChange);
@@ -370,12 +370,12 @@ namespace BMG
                                                         if (aTile.tileCode == tile)
                                                         {
                                                             // Save tile for later drawing (Ordering and Horizontal Ordering)
-                                                            if (aTile.tileTypes[ostr.tileType - 1].order != null)
+                                                            if (aTile.tileTypes[ostr.tileType].order != null)
                                                             {
                                                                 voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, false, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedTileDraw);
                                                                 orderedTiles.Add(new OrderedTile()
                                                                 {
-                                                                    tileType = aTile.tileTypes[ostr.tileType - 1],
+                                                                    tileType = aTile.tileTypes[ostr.tileType],
                                                                     xPosition = currentX,
                                                                     yPosition = currentY,
                                                                     tileCode = aTile.tileCode,
@@ -385,12 +385,12 @@ namespace BMG
                                                                 drawn = true;
                                                                 break;
                                                             }
-                                                            if (aTile.tileTypes[ostr.tileType - 1].orderHor != null)
+                                                            if (aTile.tileTypes[ostr.tileType].orderHor != null)
                                                             {
                                                                 voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, true, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedHorTileDraw);
                                                                 orderedHorTiles.Add(new OrderedTile()
                                                                 {
-                                                                    tileType = aTile.tileTypes[ostr.tileType - 1],
+                                                                    tileType = aTile.tileTypes[ostr.tileType],
                                                                     xPosition = currentX,
                                                                     yPosition = currentY,
                                                                     tileCode = aTile.tileCode,
@@ -506,16 +506,16 @@ namespace BMG
                                                 string fols = "";
 
                                                 // Do actions specified in the rule which were correct
-                                                var defaultType = aTile.tileTypes[aTile.tileLinks.defaults.tileType - 1];
+                                                var defaultType = aTile.tileTypes[aTile.tileLinks.defaults.tileType];
                                                 foreach (Tiledata.TileLinkRule aRule in accurateRules)
                                                 {
                                                     if (aRule.changeBinary != null)
                                                         for (int y = 0; y < aRule.changeBinary.Length; y++)
                                                         {
-                                                            nbca[int.Parse(aRule.changeBinary[y].Split('a')[1]) - 1] = aRule.changeBinary[y].Split('a')[0].ToCharArray()[0];
+                                                            nbca[int.Parse(aRule.changeBinary[y].Split('a')[1])] = aRule.changeBinary[y].Split('a')[0].ToCharArray()[0];
                                                         }
                                                     if (aRule.changeTileType != null)
-                                                        defaultType = aTile.tileTypes[aRule.changeTileType.GetValueOrDefault() - 1];
+                                                        defaultType = aTile.tileTypes[aRule.changeTileType.GetValueOrDefault()];
                                                     if (aRule.changeFolder != null && aTile.tileLinks.assetFolder != null)
                                                         fols = aRule.changeFolder + "/";
                                                 }
@@ -582,12 +582,12 @@ namespace BMG
                                             }
 
                                             // Save tile for later drawing (Ordering and Horizontal Ordering)
-                                            if (aTile.tileTypes[setTileDefault.type - 1].order != null)
+                                            if (aTile.tileTypes[setTileDefault.type].order != null)
                                             {
                                                 voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, false, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedTileDraw);
                                                 orderedTiles.Add(new OrderedTile()
                                                 {
-                                                    tileType = aTile.tileTypes[setTileDefault.type - 1],
+                                                    tileType = aTile.tileTypes[setTileDefault.type],
                                                     xPosition = currentX,
                                                     yPosition = currentY,
                                                     tileCode = aTile.tileCode,
@@ -596,12 +596,12 @@ namespace BMG
                                                 tileDrawn = true;
                                                 break;
                                             }
-                                            if (aTile.tileTypes[setTileDefault.type - 1].orderHor != null)
+                                            if (aTile.tileTypes[setTileDefault.type].orderHor != null)
                                             {
                                                 voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, true, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedHorTileDraw);
                                                 orderedHorTiles.Add(new OrderedTile()
                                                 {
-                                                    tileType = aTile.tileTypes[setTileDefault.type - 1],
+                                                    tileType = aTile.tileTypes[setTileDefault.type],
                                                     xPosition = currentX,
                                                     yPosition = currentY,
                                                     tileCode = aTile.tileCode,
@@ -818,6 +818,8 @@ namespace BMG
                         else
                             voice.Speak("\nImage saved!\n  Location: " + Path.GetFullPath("./" + exportName), ActionType.basic);
                     }
+
+                    mapsDrawn++;
                 }
             }
             catch (Exception e)
@@ -958,10 +960,11 @@ namespace BMG
             }
 
             public void DrawTile(Tiledata.Tile tile, int type, Options optionsObject, int sizeMultiplier, int currentX, int currentY, int xLength, int yLength, SavedImages imageMemory, float[] borderSize) // Drawing a tile (normal)
+            public void DrawTile(Tiledata.Tile tile, int type, Options1 optionsObject, int sizeMultiplier, int currentX, int currentY, int xLength, int yLength, SavedImages imageMemory, float[] borderSize) // Drawing a tile (normal)
             {
                 foreach (SavedImages.TileImage ti in imageMemory.tileImages)
                 {
-                    if (ti.imageName == tile.tileTypes[type - 1].asset)
+                    if (ti.imageName == tile.tileTypes[type].asset)
                     {
                         g.DrawImage(ti.renderedImage, (int)Math.Round(sizeMultiplier * (currentX + borderSize[2])) - ti.imageOffsetLeft, (int)Math.Round(sizeMultiplier * (currentY + borderSize[0])) - ti.imageOffsetTop);
                         return;
