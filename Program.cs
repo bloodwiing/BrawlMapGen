@@ -18,9 +18,9 @@ namespace BMG
             var fArgs = " " + string.Join(" ", args);
 
             int major = 1;
-            int minor = 8;
-            int patch = 3;
-            string access = "Release";
+            int minor = 9;
+            int patch = 0;
+            string access = "Development build";
             string oLoc = "options.json";
             string oStr = "";
             string oEnd = "";
