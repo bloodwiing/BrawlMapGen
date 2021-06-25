@@ -27,6 +27,7 @@ namespace BMG
 
             // Fun statistical ending numbers
             int tilesDrawn = 0;
+            int mapsDrawn = 0;
             List<char> tilesFailedChars = new List<char>();
             Dictionary<char, int> tilesFailed = new Dictionary<char, int>();
 
@@ -842,7 +843,7 @@ namespace BMG
             else
                 stTime = stopwatch.ElapsedMilliseconds + "ms";
 
-            voice.Speak("\nResults:\n  Total Maps Drawn: " + options.batch.Length + "\n  Total Tiles Drawn: " + tilesDrawn + "\n  Completed in: " + stTime, ActionType.basic);
+            voice.Speak("\nResults:\n  Total Maps Drawn: " + mapsDrawn + "\n  Total Tiles Drawn: " + tilesDrawn + "\n  Completed in: " + stTime, ActionType.basic);
 
             if (tilesFailed.Count == 0)
                 voice.Speak("  No unrecognized tiles encountered.", ActionType.basic);
