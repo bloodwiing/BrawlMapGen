@@ -169,6 +169,16 @@
 				"right": 0
 			},
 			"asset": "metal_crate.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 50,
+				"right": 50
+			},
+			"asset": "haybale.svg"
 		}
 		]
 	},
@@ -325,6 +335,16 @@
 				"right": 0
 			},
 			"asset": "metal_crate_2.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 300,
+				"left": 50,
+				"right": 50
+			},
+			"asset": "haybale.svg"
 		}
 		]
 	},
@@ -654,11 +674,11 @@
 		"tileTypes": [
 		{
 			"tileParts": {
-				"top": 597,
+				"top": 527,
 				"mid": 1000,
-				"bot": 243,
-				"left": 65,
-				"right": 112
+				"bot": 300,
+				"left": 28,
+				"right": 63
 			},
 			"asset": "cactus.svg",
 			"orderHor": 1
@@ -888,6 +908,16 @@
 				"right": 50
 			},
 			"asset": "alien_plant.svg"
+		},
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 975,
+				"bot": 300,
+				"left": 46,
+				"right": 46
+			},
+			"asset": "cactus_ball.svg"
 		}
 		]
 	},
