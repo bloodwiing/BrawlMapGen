@@ -19,7 +19,7 @@ namespace BMG
 
             int major = 1;
             int minor = 9;
-            int patch = 0;
+            int patch = 1;
             string access = "Release";
             string oLoc = "options.json";
             string oStr = "";
@@ -149,6 +149,18 @@ namespace BMG
                 if (options.render.exclude.Length > 0)
                     voice.Speak("Exclusions: " + string.Join(", ", options.render.exclude) + ".", ActionType.setup);
 
+                if (options.batch.Length == 0)
+                    throw new ArgumentException("Missing batch data");
+
+                if (options.autoCrop.enabled && options.autoCrop.tiles.Length == 0)
+                {
+                    options.autoCrop.tiles = options.batch[0].skipTiles;
+                    voice.Speak("\n WARNING: AutoCrop is enabled, but empty. Defaulting to OPTIONS' first map's skipTiles.", ActionType.setup);
+                    voice.Speak(" Please make sure to update this setting.", ActionType.setup);
+                    voice.Speak(" Resuming in 10 seconds...", ActionType.setup);
+                    Thread.Sleep(10000);
+                }
+
                 voice.Title.Job.UpdateJob(0, totalSizes, "Preloading tiles...");
                 voice.Title.RefreshTitle();
                 voice.Speak("\n Status: Tile Preloading started.", ActionType.setup);
@@ -193,7 +205,61 @@ namespace BMG
                         Thread.Sleep(3000);
                         continue;
                     }
-                    else if (map.Length == 0)
+
+                    voice.Speak("  Map found.", ActionType.setup);
+                    voice.Speak(" Status: Map gotten.", ActionType.statusChange);
+
+                    if (options.autoCrop.enabled)
+                    {
+                        int t, b, l = map[0].Length, r = 0;
+                        string line;
+
+                        for (t = 0; t < map.Length; t++)
+                        {
+                            line = map[t];
+                            foreach (char c in options.autoCrop.tiles)
+                                line = line.Replace(c.ToString(), string.Empty);
+                            if (line != string.Empty)
+                                break;
+                        }
+
+                        for (b = map.Length - 1; b >= 0; b--)
+                        {
+                            line = map[b];
+                            foreach (char c in options.autoCrop.tiles)
+                                line = line.Replace(c.ToString(), string.Empty);
+                            if (line != string.Empty)
+                                break;
+                        }
+
+                        for (int e = t; e <= b; e++)
+                        {
+                            line = map[e];
+                            if (line.Length - line.TrimStart(options.autoCrop.tiles).Length < l)
+                                l = line.Length - line.TrimStart(options.autoCrop.tiles).Length;
+                            if (line.Length - line.TrimEnd(options.autoCrop.tiles).Length < r)
+                                r = line.Length - line.TrimEnd(options.autoCrop.tiles).Length;
+                        }
+
+                        if (t != 0 || b != map.Length - 1 || l != 0 || r != 0)
+                        {
+                            map = map
+                                .Skip(t)
+                                .Take(b - t + 1)
+                                .Select(item => item.Substring(l, item.Length - l - r))
+                                .ToArray();
+
+                            voice.Speak(
+                                string.Format(
+                                    "\nAuto-Cropped map:\n  {0} Top\n  {1} Bottom\n  {2} Left\n  {3} Right",
+                                    t, batchOption.map.Length - b - 1, l, r
+                                ),
+                                ActionType.setup
+                            );
+                        }
+                    }
+
+                    if (map.Length == 0 || map[0].Length == 0)
                     {
                         voice.Speak("\n [Forced] Status: Warning!\n  Warning details:\n  Map is empty!\n  [Object] Map in the index number " + bNumber + " has no string arrays.", ActionType.basic);
                         Thread.Sleep(3000);
@@ -205,14 +271,11 @@ namespace BMG
                     int yLength = map.Length;
 
                     Tiledata.Biome mapBiome = tiledata.GetBiome(batchOption.biome);
-
-                    voice.Speak("  Map found.", ActionType.setup);
-                    voice.Speak(" Status: Map gotten.", ActionType.statusChange);
                     voice.Speak("\nMap details:\n  Width: " + (sizeMultiplier * 2 + sizeMultiplier * xLength) + "px\n  Height: " + (sizeMultiplier * 2 + sizeMultiplier * yLength) + "px\n  Biome: \"" + mapBiome.name.ToUpper() + "\"\n", ActionType.setup);
 
                     float[] border = emptyBorderAmoutNormalizer(batchOption.emptyBorderAmount);
 
-                    TileDrawer tileDrawer = new TileDrawer(batchOption.sizeMultiplier, batchOption.map[0].Length, batchOption.map.Length, border);
+                    TileDrawer tileDrawer = new TileDrawer(batchOption.sizeMultiplier, map[0].Length, map.Length, border);
 
                     int currentY = 0;
                     int currentX = 0;

@@ -21,6 +21,7 @@ namespace BMG
         public ConsoleOptions console { get; set; } = new ConsoleOptions();
         public Title title { get; set; } = new Title();
         public Render render { get; set; } = new Render();
+        public AutoCrop autoCrop { get; set; } = new AutoCrop();
 
         public class Replace
         {
@@ -128,6 +129,12 @@ namespace BMG
         {
             public int[] include { get; set; } = { };
             public int[] exclude { get; set; } = { };
+        }
+
+        public class AutoCrop
+        {
+            public bool enabled { get; set; } = false;
+            public char[] tiles { get; set; } = { };
         }
 
     }
