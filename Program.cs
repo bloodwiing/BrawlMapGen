@@ -32,7 +32,7 @@ namespace BMG
             Dictionary<char, int> tilesFailed = new Dictionary<char, int>();
 
             Options1 options = new Options1();
-            Voice voice = new Voice();
+            Logger logger = new Logger();
 
             Stopwatch stopwatch = new Stopwatch();
 
@@ -71,8 +71,8 @@ namespace BMG
                 {
                     if (!File.Exists(oLoc)) // Check if file exists
                     {
-                        voice.Speak("\n[Forced] Status: ERROR!\n  Error reason:\n  Option file doesn't exist\n  [FileReader] Unable to find file in location \"" + oLoc + "\"", ActionType.basic);
-                        voice.Write("log.txt");
+                        logger.LogError("Option file doesn't exist\n  [FileReader] Unable to find file in location \"" + oLoc + "\"");
+                        logger.Save("log.txt");
                         Thread.Sleep(3000);
                         Environment.Exit(1);
                     }
@@ -87,33 +87,42 @@ namespace BMG
                 else
                     throw new ArgumentException("Invalid OPTIONS format");
 
-                voice.UpdateOptions(options, major + "." + minor + "." + patch);
+                logger.UpdateOptions(options, major + "." + minor + "." + patch);
 
                 if (options.setPath != null)
                     Environment.CurrentDirectory = options.setPath;
 
-                voice.Speak("\n  BMG (Brawl Map Gen)\n    Version: v" + major + "." + minor + "." + patch + " " + access + "\n    Created by: RedH1ghway (aka BloodWiing)\n    Helped by: 4JR, Henry, tryso\n\n", ActionType.basic);
-                voice.Speak(" Status: App is launched!", ActionType.statusChange);
-                voice.Speak("Loading preset: \"" + options.preset.ToUpper() + "\"...", ActionType.setup);
-                voice.Speak("[ AAL ] READ << ./presets/" + options.preset + ".json", ActionType.aal);
+                logger.LogSpacer();
+                
+                logger.Log("  BMG (Brawl Map Gen)");
+                logger.Log(string.Format("    Version: v{0}.{1}.{2} {3}", major, major, patch, access));
+                logger.Log("    Created by: RedH1ghway (aka BloodWiing)");
+                logger.Log("    Helped by: 4JR, Henry, tryso");
 
-                voice.Title.Job.UpdateJob(0, 1, "Preparing...");
-                voice.Title.Status.UpdateStatus(0, 1, "Loading preset...");
-                voice.Title.UpdateStatusDetails(options.preset.ToUpper(), Voice.TitleClass.StatusDetailsType.basic);
-                voice.Title.RefreshTitle();
+                logger.LogSpacer();
+                logger.LogSpacer();
+
+                logger.LogStatus("App is launched!");
+                logger.LogSetup("Loading preset: \"" + options.preset.ToUpper() + "\"...");
+                logger.LogAAL(Logger.AALDirection.In, "./presets/" + options.preset + ".json");
+
+                logger.Title.Job.UpdateJob(0, 1, "Preparing...");
+                logger.Title.Status.UpdateStatus(0, 1, "Loading preset...");
+                logger.Title.UpdateStatusDetails(options.preset.ToUpper(), Logger.TitleClass.StatusDetailsType.basic);
+                logger.Title.RefreshTitle();
 
                 if (!File.Exists("./presets/" + options.preset + ".json"))
                 {
-                    voice.Speak("\n [Forced] Status: ERROR!\n  Error reason:\n  Preset doesn't exist\n  [FileReader] Unable to find file in location \"presets/" + options.preset + ".json\"", ActionType.basic);
-                    voice.Write("log.txt");
+                    logger.LogError("Preset doesn't exist\n  [FileReader] Unable to find file in location \"presets/" + options.preset + ".json\"");
+                    logger.Save("log.txt");
                     Thread.Sleep(3000);
                     Environment.Exit(1);
                 }
 
                 StreamReader r2 = new StreamReader("./presets/" + options.preset + ".json");
                 string json2 = r2.ReadToEnd();
-                voice.Speak("Preset loaded: \"" + options.preset.ToUpper() + "\"!", ActionType.setup);
-                voice.Speak(" Status: Tiles will be drawn from preset \"" + options.preset.ToUpper() + "\".", ActionType.statusChange);
+                logger.LogSetup("Preset loaded: \"" + options.preset.ToUpper() + "\"!", false);
+                logger.LogStatus("Tiles will be drawn from preset \"" + options.preset.ToUpper() + "\".");
                 var tiledata = JsonConvert.DeserializeObject<Tiledata>(json2);
                 Dictionary<int, SavedImages> savedTileImageList = new Dictionary<int, SavedImages>();
 
@@ -131,9 +140,11 @@ namespace BMG
                     totalImages += Directory.GetFiles(folder).Length;
                 totalImages += Directory.GetFiles("./assets/tiles/" + options.preset + "/").Length;
 
-                voice.Title.Job.UpdateJob(0, totalSizes, "Gathering render data...");
-                voice.Title.RefreshTitle();
-                voice.Speak("\n Status: Checking inclusions and exclusions.", ActionType.setup);
+                logger.LogSpacer();
+
+                logger.Title.Job.UpdateJob(0, totalSizes, "Gathering render data...");
+                logger.Title.RefreshTitle();
+                logger.LogStatus("Checking inclusions and exclusions.");
 
                 {
                     List<Options1.BatchSettings> final = new List<Options1.BatchSettings>();
@@ -143,11 +154,13 @@ namespace BMG
                             final.Add(options.batch[i]);
                     options.batch = final.ToArray();
                 }
-                voice.Speak(" Status: Selective render ready.", ActionType.setup);
+                logger.LogStatus("Selective render ready.");
                 if (options.render.include.Length > 0)
-                    voice.Speak("Inclusions: " + string.Join(", ", options.render.include) + ".", ActionType.setup);
+                    logger.LogSetup("Inclusions: " + string.Join(", ", options.render.include) + ".", false);
                 if (options.render.exclude.Length > 0)
-                    voice.Speak("Exclusions: " + string.Join(", ", options.render.exclude) + ".", ActionType.setup);
+                    logger.LogSetup("Exclusions: " + string.Join(", ", options.render.exclude) + ".", false);
+
+                logger.LogSpacer();
 
                 if (options.batch.Length == 0)
                     throw new ArgumentException("Missing batch data");
@@ -155,59 +168,60 @@ namespace BMG
                 if (options.autoCrop.enabled && options.autoCrop.tiles.Length == 0)
                 {
                     options.autoCrop.tiles = options.batch[0].skipTiles;
-                    voice.Speak("\n WARNING: AutoCrop is enabled, but empty. Defaulting to OPTIONS' first map's skipTiles.", ActionType.setup);
-                    voice.Speak(" Please make sure to update this setting.", ActionType.setup);
-                    voice.Speak(" Resuming in 10 seconds...", ActionType.setup);
+                    logger.LogWarning("AutoCrop is enabled, but empty. Defaulting to OPTIONS' first map's skipTiles.\n Please make sure to update this setting", 15);
                     Thread.Sleep(10000);
                 }
 
-                voice.Title.Job.UpdateJob(0, totalSizes, "Preloading tiles...");
-                voice.Title.RefreshTitle();
-                voice.Speak("\n Status: Tile Preloading started.", ActionType.setup);
+                logger.Title.Job.UpdateJob(0, totalSizes, "Preloading tiles...");
+                logger.Title.RefreshTitle();
+                logger.LogStatus("Tile Preloading started.");
                 foreach (Options1.BatchSettings single in options.batch) // Tile preloader
                 {
                     if (savedTileImageList.ContainsKey(single.sizeMultiplier))
                         continue;
 
-                    voice.Title.Job.IncreaseJob();
-                    voice.Title.Status.UpdateStatus(0, totalImages, "Reading...");
-                    voice.Title.RefreshTitle();
+                    logger.Title.Job.IncreaseJob();
+                    logger.Title.Status.UpdateStatus(0, totalImages, "Reading...");
+                    logger.Title.RefreshTitle();
 
-                    voice.Speak("Found new tilesize.", ActionType.setup);
-                    savedTileImageList.Add(single.sizeMultiplier, new SavedImages(options, tiledata.tiles, single.sizeMultiplier, voice)); // Preload tiles for a specific tiles
+                    logger.LogSpacer();
+                    logger.LogSetup(string.Format("Found new tilesize. ({0})", single.sizeMultiplier), false);
+                    savedTileImageList.Add(single.sizeMultiplier, new SavedImages(options, tiledata.tiles, single.sizeMultiplier, logger)); // Preload tiles for a specific tiles
                 }
-                voice.Speak("\n Status: Tile Preload complete.", ActionType.statusChange);
-                voice.Speak("Preloaded tiles with tilesizes:", ActionType.setup);
+                logger.LogSpacer();
+                logger.LogStatus("Tile Preload complete.");
+                logger.LogSetup("Preloaded tiles with tilesizes:", false);
                 foreach (var si in savedTileImageList)
-                    voice.Speak("  " + si.Key + "px", ActionType.setup);
+                    logger.LogSetup("  " + si.Key + "px", false);
 
                 int bNumber = -1;
-                voice.Speak("\n Status: Map image generator starting...", ActionType.statusChange);
-                voice.Title.Job.UpdateJob(0, options.batch.Length, "\"temp_name\"");
+                logger.LogSpacer();
+                logger.LogStatus("Map image generator starting...");
+                logger.Title.Job.UpdateJob(0, options.batch.Length, "\"temp_name\"");
                 foreach (var batchOption in options.batch)
                 {
-                    voice.Title.Job.UpdateJobName(("\"" + batchOption.name + "\"").Replace("\"?number?\"", "Number " + bNumber));
-                    voice.Title.Job.IncreaseJob();
+                    logger.Title.Job.UpdateJobName(("\"" + batchOption.name + "\"").Replace("\"?number?\"", "Number " + bNumber));
+                    logger.Title.Job.IncreaseJob();
 
                     SavedImages selectedTileImageList = savedTileImageList[batchOption.sizeMultiplier];
 
                     bNumber++;
 
-                    voice.Speak("\n Status: Getting map...", ActionType.statusChange);
-                    voice.Speak("Looking for map number " + bNumber + "...", ActionType.setup);
+                    logger.LogSpacer();
+                    logger.LogStatus("Getting map...");
+                    logger.LogSetup("Looking for map number " + bNumber + "...");
 
                     var map = batchOption.map;
                     var sizeMultiplier = batchOption.sizeMultiplier;
 
                     if (map == null)
                     {
-                        voice.Speak("\n [Forced] Status: Warning!\n  Warning details:\n  Map is empty!\n  [Object] Map in the index number " + bNumber + " is not defined.", ActionType.basic);
-                        Thread.Sleep(3000);
+                        logger.LogWarning("  Map is empty!\n  [Object] Map in the index number " + bNumber + " is not defined.", 4);
                         continue;
                     }
 
-                    voice.Speak("  Map found.", ActionType.setup);
-                    voice.Speak(" Status: Map gotten.", ActionType.statusChange);
+                    logger.LogSetup("  Map found.", false);
+                    logger.LogStatus("Map gotten.");
 
                     if (options.autoCrop.enabled)
                     {
@@ -249,20 +263,18 @@ namespace BMG
                                 .Select(item => item.Substring(l, item.Length - l - r))
                                 .ToArray();
 
-                            voice.Speak(
-                                string.Format(
-                                    "\nAuto-Cropped map:\n  {0} Top\n  {1} Bottom\n  {2} Left\n  {3} Right",
-                                    t, batchOption.map.Length - b - 1, l, r
-                                ),
-                                ActionType.setup
-                            );
+                            logger.LogSpacer();
+                            logger.LogSetup("Auto-Cropped map:", false);
+                            logger.LogSetup(string.Format(
+                                "  {0} Top\n  {1} Bottom\n  {2} Left\n  {3} Right",
+                                t, batchOption.map.Length - b - 1, l, r
+                            ), false);
                         }
                     }
 
                     if (map.Length == 0 || map[0].Length == 0)
                     {
-                        voice.Speak("\n [Forced] Status: Warning!\n  Warning details:\n  Map is empty!\n  [Object] Map in the index number " + bNumber + " has no string arrays.", ActionType.basic);
-                        Thread.Sleep(3000);
+                        logger.LogWarning("Map is empty!\n  [Object] Map in the index number " + bNumber + " has no string arrays.", 4);
                         continue;
                     }
 
@@ -271,7 +283,8 @@ namespace BMG
                     int yLength = map.Length;
 
                     Tiledata.Biome mapBiome = tiledata.GetBiome(batchOption.biome);
-                    voice.Speak("\nMap details:\n  Width: " + (sizeMultiplier * 2 + sizeMultiplier * xLength) + "px\n  Height: " + (sizeMultiplier * 2 + sizeMultiplier * yLength) + "px\n  Biome: \"" + mapBiome.name.ToUpper() + "\"\n", ActionType.setup);
+                    logger.LogSpacer();
+                    logger.Log("Map details:\n  Width: " + (sizeMultiplier * 2 + sizeMultiplier * xLength) + "px\n  Height: " + (sizeMultiplier * 2 + sizeMultiplier * yLength) + "px\n  Biome: \"" + mapBiome.name.ToUpper() + "\"\n");
 
                     float[] border = emptyBorderAmoutNormalizer(batchOption.emptyBorderAmount);
 
@@ -280,8 +293,8 @@ namespace BMG
                     int currentY = 0;
                     int currentX = 0;
 
-                    voice.Speak("Coloring background...", ActionType.setup);
-                    voice.Speak(" Status: Fetching tile colors...", ActionType.statusChange);
+                    logger.LogSetup("Coloring background...");
+                    logger.LogStatus("Fetching tile colors...");
 
                     string[] color1s = mapBiome.color1.Split(',');
                     Color color1 = Color.FromArgb(int.Parse(color1s[0].Trim()), int.Parse(color1s[1].Trim()), int.Parse(color1s[2].Trim()));
@@ -289,19 +302,19 @@ namespace BMG
                     string[] color2s = mapBiome.color2.Split(',');
                     Color color2 = Color.FromArgb(int.Parse(color2s[0].Trim()), int.Parse(color2s[1].Trim()), int.Parse(color2s[2].Trim()));
 
-                    voice.Speak(" Status: Colors fetched.", ActionType.statusChange);
-                    voice.Speak(" Status: Coloring background...", ActionType.statusChange);
+                    logger.LogStatus("Colors fetched.");
+                    logger.LogStatus("Coloring background...");
 
                     tileDrawer.ColorBackground(color1, color2, map, batchOption, border);
-                    voice.Speak(" Status: Background colored.", ActionType.statusChange);
+                    logger.LogStatus("Background colored.");
 
                     List<OrderedTile> orderedTiles = new List<OrderedTile>();
 
-                    voice.Speak("Drawing map tiles...", ActionType.setup);
+                    logger.LogSetup("Drawing map tiles...");
                     if (batchOption.name != "?number?")
-                        voice.Speak(" Status: Drawing map (\"" + batchOption.name + "\")...", ActionType.statusChange);
+                        logger.LogStatus("Drawing map (\"" + batchOption.name + "\")...");
                     else
-                        voice.Speak(" Status: Drawing map (#" + bNumber + ")...", ActionType.statusChange);
+                        logger.LogStatus("Drawing map (#" + bNumber + ")...");
 
                     Tiledata.Gamemode mapGamemode = null;
                     foreach (var gm in tiledata.gamemodes)
@@ -352,7 +365,7 @@ namespace BMG
 
                                             tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList, border);
                                             tilesDrawn++;
-                                            voice.Speak(TileActionStringMaker(new TileActionTypes(true, false, false, false, true), oTile, ysLoc, xsLoc, yLength, xLength), ActionType.tileDraw);
+                                            logger.LogTile(new TileActionTypes(1, 0, 0, 0, 1), oTile, ysLoc, xsLoc, yLength, xLength, Logger.TileEvent.tileDraw);
                                         }
                                     }
                                 }
@@ -393,7 +406,7 @@ namespace BMG
                                         row[xLoc] = oTile.tileCode;
                                         map[yLoc] = string.Join("", row);
 
-                                        voice.Speak(TileActionStringMaker(new TileActionTypes(true, false, true, false, false), oTile, ysLoc, xsLoc, yLength, xLength), ActionType.gamemodeModding);
+                                        logger.LogTile(new TileActionTypes(1, 0, 1, 0, 0), oTile, ysLoc, xsLoc, yLength, xLength, Logger.TileEvent.gamemodeModding);
                                     }
 
                     }
@@ -404,7 +417,7 @@ namespace BMG
 
                     List<Options1.RecordedSTR> rstr = new List<Options1.RecordedSTR>();
 
-                    voice.Title.Status.UpdateStatus(0, map.Length * map[0].Length, "Drawing tiles...");
+                    logger.Title.Status.UpdateStatus(0, map.Length * map[0].Length, "Drawing tiles...");
                     // Begin to draw map
                     foreach (string row in map)
                     {
@@ -412,8 +425,8 @@ namespace BMG
 
                         foreach (char tTile in row.ToCharArray())
                         {
-                            voice.Title.Status.IncreaseStatus();
-                            voice.Title.RefreshTitle();
+                            logger.Title.Status.IncreaseStatus();
+                            logger.Title.RefreshTitle();
 
                             bool tileDrawn = false;
 
@@ -427,7 +440,7 @@ namespace BMG
 
                             if (batchOption.skipTiles.Contains(tile)) // Specified Tile Skipper
                             {
-                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, false, false, false), new Tiledata.Tile() { tileName = "", tileCode = tile }, currentY, currentX, yLength, xLength), ActionType.tileDraw);
+                                logger.LogTile(new TileActionTypes(0, 1, 0, 0, 0), new Tiledata.Tile() { tileName = "", tileCode = tile }, currentY, currentX, yLength, xLength, Logger.TileEvent.tileDraw);
                                 currentX++;
                                 tileDrawn = true;
                                 continue;
@@ -457,7 +470,7 @@ namespace BMG
                                                             // Save tile for later drawing (Ordering and Horizontal Ordering)
                                                             if (aTile.tileTypes[ostr.tileType].order != null)
                                                             {
-                                                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, false, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedTileDraw);
+                                                                logger.LogTile(new TileActionTypes(0, 1, 1, 0, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedTileDraw);
                                                                 orderedTiles.Add(new OrderedTile()
                                                                 {
                                                                     tileType = aTile.tileTypes[ostr.tileType],
@@ -472,7 +485,7 @@ namespace BMG
                                                             }
                                                             if (aTile.tileTypes[ostr.tileType].orderHor != null)
                                                             {
-                                                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, true, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedHorTileDraw);
+                                                                logger.LogTile(new TileActionTypes(0, 1, 1, 1, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
                                                                 orderedHorTiles.Add(new OrderedTile()
                                                                 {
                                                                     tileType = aTile.tileTypes[ostr.tileType],
@@ -489,7 +502,7 @@ namespace BMG
                                                             // Draw STR Tile
                                                             tileDrawer.DrawTile(aTile, ostr.tileType, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList, border);
                                                             tilesDrawn++;
-                                                            voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, false, false, true), aTile, currentY, currentX, yLength, xLength), ActionType.tileDraw);
+                                                            logger.LogTile(new TileActionTypes(0, 1, 0, 0, 1), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.tileDraw);
 
                                                             drawn = true;
 
@@ -632,7 +645,7 @@ namespace BMG
                                                 // Save tile for later drawing (Ordering and Horizontal Ordering)
                                                 if (defaultType.order != null)
                                                 {
-                                                    voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, false, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedTileDraw);
+                                                    logger.LogTile(new TileActionTypes(0, 0, 1, 0, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedTileDraw);
                                                     orderedTiles.Add(new OrderedTile()
                                                     {
                                                         tileType = breakerTile,
@@ -646,7 +659,7 @@ namespace BMG
                                                 }
                                                 if (defaultType.orderHor != null)
                                                 {
-                                                    voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, true, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedHorTileDraw);
+                                                    logger.LogTile(new TileActionTypes(0, 0, 1, 1, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
                                                     orderedHorTiles.Add(new OrderedTile()
                                                     {
                                                         tileType = breakerTile,
@@ -661,7 +674,7 @@ namespace BMG
 
                                                 // Draw Tile
                                                 tileDrawer.DrawSelectedTile(new OrderedTile() { tileType = breakerTile, xPosition = currentX, yPosition = currentY, tileCode = aTile.tileCode, tileName = aTile.tileName }, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
-                                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, false, false, true), aTile, currentY, currentX, yLength, xLength), ActionType.tileDraw);
+                                                logger.LogTile(new TileActionTypes(0, 0, 0, 0, 1), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.tileDraw);
                                                 tileDrawn = true;
                                                 break;
                                             }
@@ -669,7 +682,7 @@ namespace BMG
                                             // Save tile for later drawing (Ordering and Horizontal Ordering)
                                             if (aTile.tileTypes[setTileDefault.type].order != null)
                                             {
-                                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, false, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedTileDraw);
+                                                logger.LogTile(new TileActionTypes(0, 0, 1, 0, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedTileDraw);
                                                 orderedTiles.Add(new OrderedTile()
                                                 {
                                                     tileType = aTile.tileTypes[setTileDefault.type],
@@ -683,7 +696,7 @@ namespace BMG
                                             }
                                             if (aTile.tileTypes[setTileDefault.type].orderHor != null)
                                             {
-                                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, true, false), aTile, currentY, currentX, yLength, xLength), ActionType.orderedHorTileDraw);
+                                                logger.LogTile(new TileActionTypes(0, 0, 1, 1, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
                                                 orderedHorTiles.Add(new OrderedTile()
                                                 {
                                                     tileType = aTile.tileTypes[setTileDefault.type],
@@ -699,7 +712,7 @@ namespace BMG
                                             // Draw Tile
                                             tileDrawer.DrawTile(aTile, setTileDefault.type, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList, border);
                                             tilesDrawn++;
-                                            voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, false, false, true), aTile, currentY, currentX, yLength, xLength), ActionType.tileDraw);
+                                            logger.LogTile(new TileActionTypes(0, 0, 0, 0, 1), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.tileDraw);
                                             tileDrawn = true;
                                             break;
                                         }
@@ -735,9 +748,9 @@ namespace BMG
 
                             tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
                             if (pTile.str)
-                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, true, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedHorTileDraw);
+                                logger.LogTile(new TileActionTypes(0, 1, 1, 1, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
                             else
-                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, true, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedHorTileDraw);
+                                logger.LogTile(new TileActionTypes(0, 0, 1, 1, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
                         }
 
                         for (int currentHorOrdered = 2; currentHorOrdered <= highestHorOrder; currentHorOrdered++)
@@ -750,9 +763,9 @@ namespace BMG
 
                                 tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
                                 if (pTile.str)
-                                    voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, true, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedHorTileDraw);
+                                    logger.LogTile(new TileActionTypes(0, 1, 1, 1, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
                                 else
-                                    voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, true, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedHorTileDraw);
+                                    logger.LogTile(new TileActionTypes(0, 0, 1, 1, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
                             }
 
                         currentX = 0;
@@ -773,9 +786,9 @@ namespace BMG
 
                         tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
                         if (pTile.str)
-                            voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
+                            logger.LogTile(new TileActionTypes(0, 1, 1, 0, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedTileDraw);
                         else
-                            voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
+                            logger.LogTile(new TileActionTypes(0, 0, 1, 0, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedTileDraw);
                     }
 
                     for (int currentOrdered = 2; currentOrdered <= highestOrder; currentOrdered++)
@@ -788,9 +801,9 @@ namespace BMG
 
                             tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
                             if (pTile.str)
-                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, true, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
+                                logger.LogTile(new TileActionTypes(0, 1, 1, 0, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedTileDraw);
                             else
-                                voice.Speak(TileActionStringMaker(new TileActionTypes(false, false, true, false, true), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength), ActionType.orderedTileDraw);
+                                logger.LogTile(new TileActionTypes(0, 0, 1, 0, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedTileDraw);
                         }
 
                     if (mapGamemode != null) // Draw Gamemode tiles (after everything else)
@@ -831,7 +844,7 @@ namespace BMG
 
                                             tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList, border);
                                             tilesDrawn++;
-                                            voice.Speak(TileActionStringMaker(new TileActionTypes(true, false, false, false, true), oTile, ysLoc, xsLoc, yLength, xLength), ActionType.tileDraw);
+                                            logger.LogTile(new TileActionTypes(1, 0, 0, 0, 1), oTile, ysLoc, xsLoc, yLength, xLength, Logger.TileEvent.tileDraw);
                                         }
                                     }
                                 }
@@ -847,7 +860,7 @@ namespace BMG
                     }
 
                     // Save map image
-                    voice.Speak(" Status: Map drawn.", ActionType.statusChange);
+                    logger.LogStatus("Map drawn.");
                     if (options.exportFolderName != null)
                     {
                         if (options.exportFolderName.Trim() != "")
@@ -862,20 +875,14 @@ namespace BMG
                                 }
 
                                 tileDrawer.ExportImage(options, exportName);
-                                voice.Speak("[ AAL ] WRITE >> " + options.exportFolderName + "/" + exportName, ActionType.aal);
-                                if (Regex.IsMatch(options.exportFolderName, "\\S:"))
-                                    voice.Speak("\nImage saved!\n  Location: " + options.exportFolderName + "/" + exportName, ActionType.basic);
-                                else
-                                    voice.Speak("\nImage saved!\n  Location: " + Path.GetFullPath("./" + options.exportFolderName + "/" + exportName), ActionType.saveLocation);
+                                logger.LogAAL(Logger.AALDirection.Out, options.exportFolderName + "/" + exportName);
+                                logger.LogExport(exportName);
                             }
                             else
                             {
                                 tileDrawer.ExportImage(options, exportName);
-                                voice.Speak("[ AAL ] WRITE >> " + options.exportFolderName + "/" + exportName, ActionType.aal);
-                                if (Regex.IsMatch(options.exportFolderName, "\\S:"))
-                                    voice.Speak("\nImage saved!\n  Location: " + options.exportFolderName + "/" + exportName, ActionType.basic);
-                                else
-                                    voice.Speak("\nImage saved!\n  Location: " + Path.GetFullPath("./" + options.exportFolderName + "/" + exportName), ActionType.saveLocation);
+                                logger.LogAAL(Logger.AALDirection.Out, options.exportFolderName + "/" + exportName);
+                                logger.LogExport(exportName);
                             }
                         }
                         else
@@ -884,11 +891,8 @@ namespace BMG
                                 tileDrawer.ExportImage(options, batchOption.exportFileName);
                             else
                                 tileDrawer.ExportImage(options, exportName);
-                            voice.Speak("[ AAL ] WRITE >> " + exportName, ActionType.aal);
-                            if (Regex.IsMatch(exportName, "\\S:"))
-                                voice.Speak("\nImage saved!\n  Location: " + exportName, ActionType.basic);
-                            else
-                                voice.Speak("\nImage saved!\n  Location: " + Path.GetFullPath("./" + exportName), ActionType.basic);
+                            logger.LogAAL(Logger.AALDirection.Out, exportName);
+                            logger.LogExport(exportName);
                         }
                     }
                     else
@@ -897,11 +901,8 @@ namespace BMG
                             tileDrawer.ExportImage(options, batchOption.exportFileName);
                         else
                             tileDrawer.ExportImage(options, exportName);
-                        voice.Speak("[ AAL ] WRITE >> " + exportName, ActionType.aal);
-                        if (Regex.IsMatch(exportName, "\\S:"))
-                            voice.Speak("\nImage saved!\n  Location: " + exportName, ActionType.basic);
-                        else
-                            voice.Speak("\nImage saved!\n  Location: " + Path.GetFullPath("./" + exportName), ActionType.basic);
+                        logger.LogAAL(Logger.AALDirection.Out, exportName);
+                        logger.LogExport(exportName);
                     }
 
                     mapsDrawn++;
@@ -909,11 +910,12 @@ namespace BMG
             }
             catch (Exception e)
             {
-                voice.Speak("\n [Forced] Status: ERROR!\n  Error reason:\n  " + e, ActionType.basic);
+                logger.LogError(e);
             }
 
             stopwatch.Stop();
-            voice.Speak("\nFinished.", ActionType.basic);
+            logger.LogSpacer();
+            logger.Log("Finished.");
 
             string stTime = "";
             if (stopwatch.ElapsedMilliseconds / 86400000 != 0)
@@ -927,19 +929,21 @@ namespace BMG
             else
                 stTime = stopwatch.ElapsedMilliseconds + "ms";
 
-            voice.Speak("\nResults:\n  Total Maps Drawn: " + mapsDrawn + "\n  Total Tiles Drawn: " + tilesDrawn + "\n  Completed in: " + stTime, ActionType.basic);
+            logger.LogSpacer();
+            logger.Log("Results:\n  Total Maps Drawn: " + mapsDrawn + "\n  Total Tiles Drawn: " + tilesDrawn + "\n  Completed in: " + stTime);
 
             if (tilesFailed.Count == 0)
-                voice.Speak("  No unrecognized tiles encountered.", ActionType.basic);
+                logger.Log("  No unrecognized tiles encountered.");
             else
             {
-                voice.Speak("  Unrecognized tiles encountered:", ActionType.basic);
+                logger.Log("  Unrecognized tiles encountered:");
                 foreach (var t in tilesFailedChars)
-                    voice.Speak("    \"" + t + "\": " + tilesFailed[t], ActionType.basic);
+                    logger.Log("    \"" + t + "\": " + tilesFailed[t]);
             }
-            voice.Speak("", ActionType.basic);
 
-            voice.Write("log.txt");
+            logger.LogSpacer();
+
+            logger.Save("log.txt");
 
             Console.ReadKey();
 
@@ -1024,6 +1028,15 @@ namespace BMG
                 o = _o;
                 h = _h;
                 d = _d;
+            }
+
+            public TileActionTypes(byte _g, byte _s, byte _o, byte _h, byte _d)
+            {
+                g = _g == 1;
+                s = _s == 1;
+                o = _o == 1;
+                h = _h == 1;
+                d = _d == 1;
             }
 
             public bool g;
@@ -1141,67 +1154,9 @@ namespace BMG
         
         public static string TileActionStringMaker(TileActionTypes tat, Tiledata.Tile tile, int yLocation, int xLocation, int yLocationMax, int xLocationMax) // Text maker for a voice when the generator is doing actions related to tiles
         {
-            string p;
-            string t;
-            string n = tile.tileName.ToUpper();
-
-            if (tat.g) p = "g"; else p = " ";
-            if (tat.s) p += "s"; else p += " ";
-            if (tat.o) p += "o"; else p += " ";
-            if (tat.h) p += "h"; else p += " ";
-            if (tat.d) p += "d"; else p += " ";
-
-            if (tat.g)
-                t = "DRAWN AS \"" + n + "\".";
-            else if (tat.s)
-            {
-                if (tat.o)
-                {
-                    if (tat.h)
-                    {
-                        if (tat.d)
-                            t = "DRAWN HORIZONTALLY ORDERED TILE AS \"" + n + "\" (SPECIAL TILE RULES).";
-                        else
-                            t = "\"" + n + "\" DELAYED FOR HORIZONTAL ORDERING (SPECIAL TILE RULES).";
-                    }
-                    else
-                    {
-                        if (tat.d)
-                            t = "DRAWN ORDERED TILE AS \"" + n + "\" (SPECIAL TILE RULES).";
-                        else
-                            t = "\"" + n + "\" DELAYED FOR ORDERING (SPECIAL TILE RULES).";
-                    }
-                }
-                else
-                {
-                    if (tat.d)
-                        t = "DRAWN AS \"" + n + "\" (SPECIAL TILE RULES).";
-                    else
-                        t = "SKIPPED.";
-                }
-            }
-            else if (tat.o)
-            {
-                if (tat.h)
-                {
-                    if (tat.d)
-                        t = "DRAWN HORIZONTALLY ORDERED TILE AS \"" + n + "\".";
-                    else
-                        t = "\"" + n + "\" DELAYED FOR HORIZONTAL ORDERING.";
-                }
-                else
-                {
-                    if (tat.d)
-                        t = "DRAWN ORDERED TILE AS \"" + n + "\".";
-                    else
-                        t = "\"" + n + "\" DELAYED FOR ORDERING.";
-                }
-            }
-            else
-                t = "DRAWN AS \"" + n + "\"";
-
-            return p + " [" + tile.tileCode + "] < y: " + LeftSpaceFiller(yLocation, yLocationMax.ToString().ToCharArray().Length, ' ') + " / x: " + LeftSpaceFiller(xLocation, xLocationMax.ToString().ToCharArray().Length, ' ') + " > " + t;
+            return TileActionStringMaker(tat, tile, yLocation.ToString(), xLocation.ToString(), yLocationMax, xLocationMax);
         }
+
         public static string TileActionStringMaker(TileActionTypes tat, Tiledata.Tile tile, string yLocation, string xLocation, int yLocationMax, int xLocationMax) // Text maker for a voice when the generator is doing actions related to tiles
         {
             string p;
@@ -1271,14 +1226,13 @@ namespace BMG
             return p + " [" + tile.tileCode + "] < y: " + LeftSpaceFiller(yLocation, yLocationMax.ToString().ToCharArray().Length, ' ') + " / x: " + LeftSpaceFiller(xLocation, xLocationMax.ToString().ToCharArray().Length, ' ') + " > " + t;
         }
 
-        public enum ActionType { setup, tileDraw, orderedHorTileDraw, orderedTileDraw, saveLocation, aal, statusChange, basic, gamemodeModding }
-        public class Voice
+        public class Logger
         {
             private Options1 savedOptionsObject;
             public TitleClass Title;
             public string version;
 
-            public Voice()
+            public Logger()
             {
                 savedOptionsObject = new Options1 { console = new Options1.ConsoleOptions() { aal = true, orderedHorTileDraw = true, orderedTileDraw = true, saveLocation = true, setup = true, tileDraw = true }, saveLogFile = true };
                 Title = new TitleClass();
@@ -1294,71 +1248,87 @@ namespace BMG
 
             List<string> loggedLines = new List<string>();
 
-            public void Speak(string text, ActionType actionType) // Send a line to console + add to log
+            public void Log(string text) // Send a line to console + add to log
             {
-                switch (actionType)
-                {
-                    case ActionType.setup:
-                        if (savedOptionsObject.console.setup)
-                        {
-                            Console.WriteLine(text);
-                            loggedLines.Add(text);
-                        }
-                        break;
-                    case ActionType.tileDraw:
-                        if (savedOptionsObject.console.tileDraw)
-                        {
-                            Console.WriteLine(text);
-                            loggedLines.Add(text);
-                        }
-                        break;
-                    case ActionType.orderedHorTileDraw:
-                        if (savedOptionsObject.console.orderedHorTileDraw)
-                        {
-                            Console.WriteLine(text);
-                            loggedLines.Add(text);
-                        }
-                        break;
-                    case ActionType.orderedTileDraw:
-                        if (savedOptionsObject.console.orderedTileDraw)
-                        {
-                            Console.WriteLine(text);
-                            loggedLines.Add(text);
-                        }
-                        break;
-                    case ActionType.saveLocation:
-                        if (savedOptionsObject.console.saveLocation)
-                        {
-                            Console.WriteLine(text);
-                            loggedLines.Add(text);
-                        }
-                        break;
-                    case ActionType.aal:
-                        if (savedOptionsObject.console.aal)
-                        {
-                            Console.WriteLine(" " + text);
-                            loggedLines.Add(" " + text);
-                        }
-                        break;
-                    case ActionType.statusChange:
-                        if (savedOptionsObject.console.statusChange)
-                        {
-                            Console.WriteLine(text);
-                            loggedLines.Add(text);
-                        }
-                        break;
-                    case ActionType.gamemodeModding:
-                        if (savedOptionsObject.console.gamemodeModding)
-                        {
-                            Console.WriteLine(text);
-                            loggedLines.Add(text);
-                        }
-                        break;
-                    case ActionType.basic:
-                        Console.WriteLine(text);
-                        loggedLines.Add(text);
-                        break;
-                }
+                Console.WriteLine(text);
+                loggedLines.Add(text);
+            }
+
+            public void LogSpacer() // Empty line
+            {
+                Console.WriteLine();
+                loggedLines.Add("");
+            }
+
+            public enum AALDirection { In, Out }
+            public void LogAAL(AALDirection direction, string file) // Log AAL events
+            {
+                if (!savedOptionsObject.console.aal) return;
+                if (direction == AALDirection.In)
+                    Log(" [ AAL ] READ << " + file);
+                else
+                    Log(" [ AAL ] WRITE >> " + file);
+            }
+
+            public void LogStatus(string text) // Log status changes
+            {
+                if (!savedOptionsObject.console.statusChange) return;
+                Log(" Status: " + text);
+            }
+
+            public void LogSetup(string text, bool prefix = true) // Log setup jobs
+            {
+                if (!savedOptionsObject.console.setup) return;
+                if (prefix)
+                    Log("New job: " + text);
+                else
+                    Log(text);
+            }
+
+            public void LogExport(string file) // Log setup jobs
+            {
+                if (!savedOptionsObject.console.saveLocation) return;
+                LogSpacer();
+                if (Regex.IsMatch(file, "\\S:"))
+                    Log("Image saved!\n  Location: " + file);
+                else
+                    Log("Image saved!\n  Location: " + Path.GetFullPath("./" + file));
+            }
+
+            public enum TileEvent { tileDraw, orderedHorTileDraw, orderedTileDraw, gamemodeModding }
+
+            public void LogTile(TileActionTypes tat, Tiledata.Tile tile, int y, int x, int yMax, int xMax, TileEvent tileEvent) // Log tile events
+            {
+                LogTile(tat, tile, y.ToString(), x.ToString(), yMax, xMax, tileEvent);
+            }
+
+            public void LogTile(TileActionTypes tat, Tiledata.Tile tile, string y, string x, int yMax, int xMax, TileEvent tileEvent) // Log tile events
+            {
+                if (tileEvent == TileEvent.tileDraw && !savedOptionsObject.console.tileDraw) return;
+                if (tileEvent == TileEvent.orderedHorTileDraw && !savedOptionsObject.console.orderedHorTileDraw) return;
+                if (tileEvent == TileEvent.orderedTileDraw && !savedOptionsObject.console.orderedTileDraw) return;
+                if (tileEvent == TileEvent.gamemodeModding && !savedOptionsObject.console.gamemodeModding) return;
+
+                Log(TileActionStringMaker(tat, tile, y, x, yMax, xMax));
+            }
+
+            public void LogWarning(string text, int timeout = 10) // Log a warning and pause
+            {
+                LogSpacer();
+                Log(" WARNING: " + text);
+                Log(string.Format(" Resuming in {0} seconds...", timeout));
+                Thread.Sleep(timeout * 1000);
+            }
+
+            public void LogError(Exception error) // Log an error
+            {
+                LogError(error.ToString());
+            }
+
+            public void LogError(string error) // Log an error
+            {
+                LogSpacer();
+                Log(" !! FATAL ERROR:\n" + error);
             }
 
             public class TitleClass
@@ -1514,7 +1484,7 @@ namespace BMG
                 }
             }
 
-            public void Write(string fileName) // Save log file
+            public void Save(string fileName) // Save log file
             {
                 if (savedOptionsObject.saveLogFile)
                 {

@@ -11,7 +11,7 @@ namespace BMG
     {
         public List<TileImage> tileImages = new List<TileImage>();
 
-        public SavedImages(Options1 optionsObject, Tiledata.Tile[] tiles, int sizeMultiplier, Program.Voice voice)
+        public SavedImages(Options1 optionsObject, Tiledata.Tile[] tiles, int sizeMultiplier, Program.Logger logger)
         {
             foreach (string file in Directory.GetFiles("./assets/tiles/" + optionsObject.preset + "/"))
             {
@@ -21,8 +21,8 @@ namespace BMG
                     {
                         if (file.Split('/').Last() == tile.tileTypes[type].asset)
                         {
-                            voice.Title.Status.IncreaseStatus();
-                            voice.Title.RefreshTitle();
+                            logger.Title.Status.IncreaseStatus();
+                            logger.Title.RefreshTitle();
 
                             tileImages.Add(new TileImage()
                             {
@@ -32,7 +32,7 @@ namespace BMG
                             });
                             tileImages.Last().imageWidth = (int)Math.Round((double)SvgDocument.Open(file).Width * sizeMultiplier);
                             tileImages.Last().imageHeight = (int)Math.Round((double)SvgDocument.Open(file).Height * sizeMultiplier);
-                            voice.Speak("[ AAL ] READ << ./assets/tiles/" + optionsObject.preset + "/" + tileImages.Last().imageName, Program.ActionType.aal);
+                            logger.LogAAL(Program.Logger.AALDirection.In, "./assets/tiles/" + optionsObject.preset + "/" + tileImages.Last().imageName);
                             tileImages.Last().renderedImage = SvgDocument.Open(file).Draw(tileImages.Last().imageWidth, tileImages.Last().imageHeight);
                             break;
                         }
@@ -58,8 +58,8 @@ namespace BMG
 
                                 if (folders.Contains(folder.Split('/').Last()))
                                 {
-                                    voice.Title.Status.IncreaseStatus();
-                                    voice.Title.RefreshTitle();
+                                    logger.Title.Status.IncreaseStatus();
+                                    logger.Title.RefreshTitle();
 
                                     tileImages.Add(new TileImage()
                                     {
@@ -70,8 +70,8 @@ namespace BMG
 
                                     tileImages.Last().imageWidth = (int)Math.Round((double)SvgDocument.Open(file).Width * sizeMultiplier);
                                     tileImages.Last().imageHeight = (int)Math.Round((double)SvgDocument.Open(file).Height * sizeMultiplier);
-                                    
-                                    voice.Speak("[ AAL ] READ << ./assets/tiles/" + optionsObject.preset + "/" + tileImages.Last().imageName, Program.ActionType.aal);
+
+                                    logger.LogAAL(Program.Logger.AALDirection.In, "./assets/tiles/" + optionsObject.preset + "/" + tileImages.Last().imageName);
 
                                     tileImages.Last().renderedImage = SvgDocument.Open(file).Draw(tileImages.Last().imageWidth, tileImages.Last().imageHeight);
                                     break;
