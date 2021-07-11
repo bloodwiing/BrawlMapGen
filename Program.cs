@@ -290,9 +290,6 @@ namespace BMG
 
                     TileDrawer tileDrawer = new TileDrawer(batchOption.sizeMultiplier, map[0].Length, map.Length, border);
 
-                    int currentY = 0;
-                    int currentX = 0;
-
                     logger.LogSetup("Coloring background...");
                     logger.LogStatus("Fetching tile colors...");
 
@@ -308,8 +305,6 @@ namespace BMG
                     tileDrawer.ColorBackground(color1, color2, map, batchOption, border);
                     logger.LogStatus("Background colored.");
 
-                    List<OrderedTile> orderedTiles = new List<OrderedTile>();
-
                     logger.LogSetup("Drawing map tiles...");
                     if (batchOption.name != "?number?")
                         logger.LogStatus("Drawing map (\"" + batchOption.name + "\")...");
@@ -318,7 +313,6 @@ namespace BMG
 
                     Tiledata.Gamemode mapGamemode = null;
                     foreach (var gm in tiledata.gamemodes)
-
                     {
                         if (gm == null || batchOption.gamemode == null)
                             break;
@@ -415,440 +409,478 @@ namespace BMG
                     if (batchOption.specialTileRules != null)
                         str = batchOption.specialTileRules;
 
-                    List<Options1.RecordedSTR> rstr = new List<Options1.RecordedSTR>();
-
-                    logger.Title.Status.UpdateStatus(0, map.Length * map[0].Length, "Drawing tiles...");
-                    // Begin to draw map
-                    foreach (string row in map)
+                    for (int drawPass = 0; drawPass < 2; drawPass++)
                     {
-                        List<OrderedTile> orderedHorTiles = new List<OrderedTile>();
+                        int currentY = 0;
+                        int currentX = 0;
 
-                        foreach (char tTile in row.ToCharArray())
+                        List<OrderedTile> orderedTiles = new List<OrderedTile>();
+                        List<Options1.RecordedSTR> rstr = new List<Options1.RecordedSTR>();
+
+                        logger.Title.Status.UpdateStatus(0, map.Length * map[0].Length, string.Format("Drawing tiles... PASS {0}", drawPass));
+                        // Begin to draw map
+                        foreach (string row in map)
                         {
-                            logger.Title.Status.IncreaseStatus();
-                            logger.Title.RefreshTitle();
+                            List<OrderedTile> orderedHorTiles = new List<OrderedTile>();
 
-                            bool tileDrawn = false;
-
-                            var tile = tTile;
-
-                            foreach (Options1.Replace repTile in batchOption.replaceTiles) // Specified Tile Code Replacer
+                            foreach (char tTile in row.ToCharArray())
                             {
-                                if (tile == repTile.from)
-                                    tile = repTile.to;
-                            }
+                                logger.Title.Status.IncreaseStatus();
+                                logger.Title.RefreshTitle();
 
-                            if (batchOption.skipTiles.Contains(tile)) // Specified Tile Skipper
-                            {
-                                logger.LogTile(new TileActionTypes(0, 1, 0, 0, 0), new Tiledata.Tile() { tileName = "", tileCode = tile }, currentY, currentX, yLength, xLength, Logger.TileEvent.tileDraw);
-                                currentX++;
-                                tileDrawn = true;
-                                continue;
-                            }
+                                bool tileDrawn = false;
 
-                            if (tiledata.ignoreTiles.Contains(tile)) // Specified Tile Ignorer
-                            {
-                                currentX++;
-                                tileDrawn = true;
-                                continue;
-                            }
+                                var tile = tTile;
 
-                            // Checking STR (Special Tile Rules) Tiles' occurance number and acting if conditions are met
-                            if (str != null)
-                            {
-                                bool drawn = false;
-                                foreach (var ostr in str)
-                                    if (ostr.tileCode == tile)
-                                    {
-                                        Options1.RecordRSTR(rstr, tile);
-                                        foreach (var orstr in rstr)
-                                            if (orstr.tileCode == tile)
-                                                if (ostr.tileTime == orstr.tileTime)
-                                                    foreach (var aTile in tiledata.tiles)
-                                                        if (aTile.tileCode == tile)
-                                                        {
-                                                            // Save tile for later drawing (Ordering and Horizontal Ordering)
-                                                            if (aTile.tileTypes[ostr.tileType].order != null)
-                                                            {
-                                                                logger.LogTile(new TileActionTypes(0, 1, 1, 0, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedTileDraw);
-                                                                orderedTiles.Add(new OrderedTile()
-                                                                {
-                                                                    tileType = aTile.tileTypes[ostr.tileType],
-                                                                    xPosition = currentX,
-                                                                    yPosition = currentY,
-                                                                    tileCode = aTile.tileCode,
-                                                                    tileName = aTile.tileName,
-                                                                    str = true
-                                                                });
-                                                                drawn = true;
-                                                                break;
-                                                            }
-                                                            if (aTile.tileTypes[ostr.tileType].orderHor != null)
-                                                            {
-                                                                logger.LogTile(new TileActionTypes(0, 1, 1, 1, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
-                                                                orderedHorTiles.Add(new OrderedTile()
-                                                                {
-                                                                    tileType = aTile.tileTypes[ostr.tileType],
-                                                                    xPosition = currentX,
-                                                                    yPosition = currentY,
-                                                                    tileCode = aTile.tileCode,
-                                                                    tileName = aTile.tileName,
-                                                                    str = true
-                                                                });
-                                                                drawn = true;
-                                                                break;
-                                                            }
+                                foreach (Options1.Replace repTile in batchOption.replaceTiles) // Specified Tile Code Replacer
+                                {
+                                    if (tile == repTile.from)
+                                        tile = repTile.to;
+                                }
 
-                                                            // Draw STR Tile
-                                                            tileDrawer.DrawTile(aTile, ostr.tileType, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList, border);
-                                                            tilesDrawn++;
-                                                            logger.LogTile(new TileActionTypes(0, 1, 0, 0, 1), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.tileDraw);
+                                if (batchOption.skipTiles.Contains(tile)) // Specified Tile Skipper
+                                {
+                                    logger.LogTile(new TileActionTypes(0, 1, 0, 0, 0), new Tiledata.Tile() { tileName = "", tileCode = tile }, currentY, currentX, yLength, xLength, Logger.TileEvent.tileDraw);
+                                    currentX++;
+                                    tileDrawn = true;
+                                    continue;
+                                }
 
-                                                            drawn = true;
-
-                                                            break;
-                                                        }
-                                    }
-                                if (drawn)
+                                if (tiledata.ignoreTiles.Contains(tile)) // Specified Tile Ignorer
                                 {
                                     currentX++;
                                     tileDrawn = true;
                                     continue;
                                 }
-                            }
 
-                            string NeighborBinary = "";
-
-                            foreach (Tiledata.Tile aTile in tiledata.tiles)
-                            {
-                                if (aTile.tileCode == tile) // Loop until tile found matching with data
+                                // Checking STR (Special Tile Rules) Tiles' occurance number and acting if conditions are met
+                                if (str != null)
                                 {
-                                    Tiledata.TileDefault setTileDefault = null;
-                                    foreach (Tiledata.TileDefault tileDefault in mapBiome.defaults)
-                                    {
-                                        setTileDefault = tileDefault;
-                                        if (batchOption.overrideBiome != null) // Biome overrider
-                                            foreach (var overrideTile in batchOption.overrideBiome)
-                                                if (overrideTile.tile == tileDefault.tile)
-                                                {
-                                                    setTileDefault = overrideTile;
-                                                    break;
-                                                }
-
-                                        if (batchOption.gamemode != null) // Biome overrider (from Gamemode options)
-                                            if (mapGamemode != null)
-                                                if (mapGamemode.overrideBiome != null)
-                                                    if (mapGamemode.name == batchOption.gamemode)
-                                                        foreach (var overrideTile in mapGamemode.overrideBiome)
-                                                            if (overrideTile.tile == tileDefault.tile)
+                                    bool drawn = false;
+                                    foreach (var ostr in str)
+                                        if (ostr.tileCode == tile)
+                                        {
+                                            Options1.RecordRSTR(rstr, tile);
+                                            foreach (var orstr in rstr)
+                                                if (orstr.tileCode == tile)
+                                                    if (ostr.tileTime == orstr.tileTime)
+                                                        foreach (var aTile in tiledata.tiles)
+                                                            if (aTile.tileCode == tile)
                                                             {
-                                                                setTileDefault = overrideTile;
+                                                                // Save tile for later drawing (Ordering and Horizontal Ordering)
+                                                                if (aTile.tileTypes[ostr.tileType].order != null)
+                                                                {
+                                                                    if ((drawPass == 0 && aTile.tileTypes[ostr.tileType].order < 0) ||
+                                                                        (drawPass == 1 && aTile.tileTypes[ostr.tileType].order >= 0))
+                                                                    {
+                                                                        logger.LogTile(new TileActionTypes(0, 1, 1, 0, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedTileDraw);
+                                                                        orderedTiles.Add(new OrderedTile()
+                                                                        {
+                                                                            tileType = aTile.tileTypes[ostr.tileType],
+                                                                            xPosition = currentX,
+                                                                            yPosition = currentY,
+                                                                            tileCode = aTile.tileCode,
+                                                                            tileName = aTile.tileName,
+                                                                            str = true
+                                                                        });
+                                                                    }
+                                                                    drawn = true;
+                                                                    break;
+                                                                }
+                                                                if (aTile.tileTypes[ostr.tileType].orderHor != null)
+                                                                {
+                                                                    if ((drawPass == 0 && aTile.tileTypes[ostr.tileType].orderHor < 0) ||
+                                                                        (drawPass == 1 && aTile.tileTypes[ostr.tileType].orderHor >= 0))
+                                                                    {
+                                                                        logger.LogTile(new TileActionTypes(0, 1, 1, 1, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
+                                                                        orderedHorTiles.Add(new OrderedTile()
+                                                                        {
+                                                                            tileType = aTile.tileTypes[ostr.tileType],
+                                                                            xPosition = currentX,
+                                                                            yPosition = currentY,
+                                                                            tileCode = aTile.tileCode,
+                                                                            tileName = aTile.tileName,
+                                                                            str = true
+                                                                        });
+                                                                    }
+                                                                    drawn = true;
+                                                                    break;
+                                                                }
+
+                                                                // Draw STR Tile
+                                                                if (drawPass == 1)
+                                                                {
+                                                                    tileDrawer.DrawTile(aTile, ostr.tileType, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList, border);
+                                                                    tilesDrawn++;
+                                                                    logger.LogTile(new TileActionTypes(0, 1, 0, 0, 1), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.tileDraw);
+                                                                }
+
+                                                                drawn = true;
+
                                                                 break;
                                                             }
+                                        }
+                                    if (drawn)
+                                    {
+                                        currentX++;
+                                        tileDrawn = true;
+                                        continue;
+                                    }
+                                }
 
-                                        if (setTileDefault.tile == aTile.tileName)
+                                string NeighborBinary = "";
+
+                                foreach (Tiledata.Tile aTile in tiledata.tiles)
+                                {
+                                    if (aTile.tileCode == tile) // Loop until tile found matching with data
+                                    {
+                                        Tiledata.TileDefault setTileDefault = null;
+                                        foreach (Tiledata.TileDefault tileDefault in mapBiome.defaults)
                                         {
-                                            if (aTile.tileLinks != null) // Check if Tile Links are set
-                                            {
-                                                NeighborBinary = tileLinks(map, currentX, currentY, aTile, batchOption.replaceTiles);
-
-                                                List<Tiledata.TileLinkRule> accurateRules = new List<Tiledata.TileLinkRule>();
-
-                                                var nbca = NeighborBinary.ToCharArray(); // Get neighboring tiles in binary
-                                                if (aTile.tileLinks.rules.Length != 0)
-                                                {
-                                                    // Check if tile rule is matching and act
-                                                    foreach (var rule in aTile.tileLinks.rules)
+                                            setTileDefault = tileDefault;
+                                            if (batchOption.overrideBiome != null) // Biome overrider
+                                                foreach (var overrideTile in batchOption.overrideBiome)
+                                                    if (overrideTile.tile == tileDefault.tile)
                                                     {
-                                                        int accuracy = 0;
-                                                        for (int x = 0; x < 8; x++)
-                                                        {
-                                                            if (rule.condition.Contains('!'))
-                                                            {
-                                                                if (rule.condition.Replace("!", "").ToCharArray()[x] == '*')
-                                                                    accuracy++;
-                                                                else if (rule.condition.Replace("!", "").ToCharArray()[x] != nbca[x])
-                                                                    accuracy++;
-                                                            }
-                                                            else
-                                                            {
-                                                                if (rule.condition.ToCharArray()[x] == '*')
-                                                                    accuracy++;
-                                                                else if (rule.condition.ToCharArray()[x] == nbca[x])
-                                                                    accuracy++;
-                                                            }
-                                                        }
+                                                        setTileDefault = overrideTile;
+                                                        break;
+                                                    }
 
-                                                        if (accuracy == 8)
-                                                        {
-                                                            if (rule.requiredBiome != null)
-                                                            {
+                                            if (batchOption.gamemode != null) // Biome overrider (from Gamemode options)
+                                                if (mapGamemode != null)
+                                                    if (mapGamemode.overrideBiome != null)
+                                                        if (mapGamemode.name == batchOption.gamemode)
+                                                            foreach (var overrideTile in mapGamemode.overrideBiome)
+                                                                if (overrideTile.tile == tileDefault.tile)
+                                                                {
+                                                                    setTileDefault = overrideTile;
+                                                                    break;
+                                                                }
 
-                                                                if (rule.requiredBiome.GetValueOrDefault() == batchOption.biome)
+                                            if (setTileDefault.tile == aTile.tileName)
+                                            {
+                                                if (aTile.tileLinks != null) // Check if Tile Links are set
+                                                {
+                                                    NeighborBinary = tileLinks(map, currentX, currentY, aTile, batchOption.replaceTiles);
+
+                                                    List<Tiledata.TileLinkRule> accurateRules = new List<Tiledata.TileLinkRule>();
+
+                                                    var nbca = NeighborBinary.ToCharArray(); // Get neighboring tiles in binary
+                                                    if (aTile.tileLinks.rules.Length != 0)
+                                                    {
+                                                        // Check if tile rule is matching and act
+                                                        foreach (var rule in aTile.tileLinks.rules)
+                                                        {
+                                                            int accuracy = 0;
+                                                            for (int x = 0; x < 8; x++)
+                                                            {
+                                                                if (rule.condition.Contains('!'))
+                                                                {
+                                                                    if (rule.condition.Replace("!", "").ToCharArray()[x] == '*')
+                                                                        accuracy++;
+                                                                    else if (rule.condition.Replace("!", "").ToCharArray()[x] != nbca[x])
+                                                                        accuracy++;
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (rule.condition.ToCharArray()[x] == '*')
+                                                                        accuracy++;
+                                                                    else if (rule.condition.ToCharArray()[x] == nbca[x])
+                                                                        accuracy++;
+                                                                }
+                                                            }
+
+                                                            if (accuracy == 8)
+                                                            {
+                                                                if (rule.requiredBiome != null)
+                                                                {
+
+                                                                    if (rule.requiredBiome.GetValueOrDefault() == batchOption.biome)
+                                                                    {
+                                                                        accurateRules.Add(rule);
+                                                                        if (!aTile.tileLinks.multipleConditionsCouldApply)
+                                                                            break;
+                                                                    }
+                                                                }
+                                                                else
                                                                 {
                                                                     accurateRules.Add(rule);
                                                                     if (!aTile.tileLinks.multipleConditionsCouldApply)
                                                                         break;
                                                                 }
                                                             }
-                                                            else
-                                                            {
-                                                                accurateRules.Add(rule);
-                                                                if (!aTile.tileLinks.multipleConditionsCouldApply)
-                                                                    break;
-                                                            }
                                                         }
                                                     }
-                                                }
 
-                                                string fols = "";
+                                                    string fols = "";
 
-                                                // Do actions specified in the rule which were correct
-                                                var defaultType = aTile.tileTypes[aTile.tileLinks.defaults.tileType];
-                                                foreach (Tiledata.TileLinkRule aRule in accurateRules)
-                                                {
-                                                    if (aRule.changeBinary != null)
-                                                        for (int y = 0; y < aRule.changeBinary.Length; y++)
-                                                        {
-                                                            nbca[int.Parse(aRule.changeBinary[y].Split('a')[1])] = aRule.changeBinary[y].Split('a')[0].ToCharArray()[0];
-                                                        }
-                                                    if (aRule.changeTileType != null)
-                                                        defaultType = aTile.tileTypes[aRule.changeTileType.GetValueOrDefault()];
-                                                    if (aRule.changeFolder != null && aTile.tileLinks.assetFolder != null)
-                                                        fols = aRule.changeFolder + "/";
-                                                }
-
-                                                var defaultAsset = defaultType.asset;
-
-                                                var fullBinaryFinal = string.Join("", nbca);
-
-                                                if (defaultAsset.Contains("?binary?"))
-                                                    defaultAsset = defaultAsset.Replace("?binary?", fullBinaryFinal);
-
-                                                if (aTile.tileLinks.assetFolder != null && fols == "")
-                                                    fols = aTile.tileLinks.assetFolder + "/";
-                                                var assetst = fullBinaryFinal + ".svg";
-
-                                                // Make a copy of the tile (not reference)
-                                                Tiledata.TileType breakerTile = new Tiledata.TileType()
-                                                {
-                                                    asset = fols + defaultAsset,
-                                                    color = defaultType.color,
-                                                    detailed = defaultType.detailed,
-                                                    order = defaultType.order,
-                                                    orderHor = defaultType.orderHor,
-                                                    other = defaultType.other,
-                                                    tileParts = defaultType.tileParts,
-                                                    visible = defaultType.visible,
-                                                };
-
-                                                // Save tile for later drawing (Ordering and Horizontal Ordering)
-                                                if (defaultType.order != null)
-                                                {
-                                                    logger.LogTile(new TileActionTypes(0, 0, 1, 0, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedTileDraw);
-                                                    orderedTiles.Add(new OrderedTile()
+                                                    // Do actions specified in the rule which were correct
+                                                    var defaultType = aTile.tileTypes[aTile.tileLinks.defaults.tileType];
+                                                    foreach (Tiledata.TileLinkRule aRule in accurateRules)
                                                     {
-                                                        tileType = breakerTile,
-                                                        xPosition = currentX,
-                                                        yPosition = currentY,
-                                                        tileCode = aTile.tileCode,
-                                                        tileName = aTile.tileName
-                                                    });
+                                                        if (aRule.changeBinary != null)
+                                                            for (int y = 0; y < aRule.changeBinary.Length; y++)
+                                                            {
+                                                                nbca[int.Parse(aRule.changeBinary[y].Split('a')[1])] = aRule.changeBinary[y].Split('a')[0].ToCharArray()[0];
+                                                            }
+                                                        if (aRule.changeTileType != null)
+                                                            defaultType = aTile.tileTypes[aRule.changeTileType.GetValueOrDefault()];
+                                                        if (aRule.changeFolder != null && aTile.tileLinks.assetFolder != null)
+                                                            fols = aRule.changeFolder + "/";
+                                                    }
+
+                                                    var defaultAsset = defaultType.asset;
+
+                                                    var fullBinaryFinal = string.Join("", nbca);
+
+                                                    if (defaultAsset.Contains("?binary?"))
+                                                        defaultAsset = defaultAsset.Replace("?binary?", fullBinaryFinal);
+
+                                                    if (aTile.tileLinks.assetFolder != null && fols == "")
+                                                        fols = aTile.tileLinks.assetFolder + "/";
+                                                    var assetst = fullBinaryFinal + ".svg";
+
+                                                    // Make a copy of the tile (not reference)
+                                                    Tiledata.TileType breakerTile = new Tiledata.TileType()
+                                                    {
+                                                        asset = fols + defaultAsset,
+                                                        color = defaultType.color,
+                                                        detailed = defaultType.detailed,
+                                                        order = defaultType.order,
+                                                        orderHor = defaultType.orderHor,
+                                                        other = defaultType.other,
+                                                        tileParts = defaultType.tileParts,
+                                                        visible = defaultType.visible,
+                                                    };
+
+                                                    // Save tile for later drawing (Ordering and Horizontal Ordering)
+                                                    if (defaultType.order != null)
+                                                    {
+                                                        if ((drawPass == 0 && defaultType.order < 0) ||
+                                                            (drawPass == 1 && defaultType.order >= 0))
+                                                        {
+                                                            logger.LogTile(new TileActionTypes(0, 0, 1, 0, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedTileDraw);
+                                                            orderedTiles.Add(new OrderedTile()
+                                                            {
+                                                                tileType = breakerTile,
+                                                                xPosition = currentX,
+                                                                yPosition = currentY,
+                                                                tileCode = aTile.tileCode,
+                                                                tileName = aTile.tileName
+                                                            });
+                                                        }
+                                                        tileDrawn = true;
+                                                        break;
+                                                    }
+                                                    if (defaultType.orderHor != null)
+                                                    {
+                                                        if ((drawPass == 0 && defaultType.orderHor < 0) ||
+                                                            (drawPass == 1 && defaultType.orderHor >= 0))
+                                                        {
+                                                            logger.LogTile(new TileActionTypes(0, 0, 1, 1, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
+                                                            orderedHorTiles.Add(new OrderedTile()
+                                                            {
+                                                                tileType = breakerTile,
+                                                                xPosition = currentX,
+                                                                yPosition = currentY,
+                                                                tileCode = aTile.tileCode,
+                                                                tileName = aTile.tileName
+                                                            });
+                                                        }
+                                                        tileDrawn = true;
+                                                        break;
+                                                    }
+
+                                                    // Draw Tile
+                                                    if (drawPass == 1)
+                                                    {
+                                                        tileDrawer.DrawSelectedTile(new OrderedTile() { tileType = breakerTile, xPosition = currentX, yPosition = currentY, tileCode = aTile.tileCode, tileName = aTile.tileName }, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
+                                                        logger.LogTile(new TileActionTypes(0, 0, 0, 0, 1), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.tileDraw);
+                                                        tilesDrawn++;
+                                                    }
                                                     tileDrawn = true;
                                                     break;
                                                 }
-                                                if (defaultType.orderHor != null)
+
+                                                // Save tile for later drawing (Ordering and Horizontal Ordering)
+                                                if (aTile.tileTypes[setTileDefault.type].order != null)
                                                 {
-                                                    logger.LogTile(new TileActionTypes(0, 0, 1, 1, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
-                                                    orderedHorTiles.Add(new OrderedTile()
+                                                    if ((drawPass == 0 && aTile.tileTypes[setTileDefault.type].order < 0) ||
+                                                        (drawPass == 1 && aTile.tileTypes[setTileDefault.type].order >= 0))
                                                     {
-                                                        tileType = breakerTile,
-                                                        xPosition = currentX,
-                                                        yPosition = currentY,
-                                                        tileCode = aTile.tileCode,
-                                                        tileName = aTile.tileName
-                                                    });
+                                                        logger.LogTile(new TileActionTypes(0, 0, 1, 0, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedTileDraw);
+                                                        orderedTiles.Add(new OrderedTile()
+                                                        {
+                                                            tileType = aTile.tileTypes[setTileDefault.type],
+                                                            xPosition = currentX,
+                                                            yPosition = currentY,
+                                                            tileCode = aTile.tileCode,
+                                                            tileName = aTile.tileName
+                                                        });
+                                                    }
+                                                    tileDrawn = true;
+                                                    break;
+                                                }
+                                                if (aTile.tileTypes[setTileDefault.type].orderHor != null)
+                                                {
+                                                    if ((drawPass == 0 && aTile.tileTypes[setTileDefault.type].orderHor < 0) ||
+                                                        (drawPass == 1 && aTile.tileTypes[setTileDefault.type].orderHor >= 0))
+                                                    {
+                                                        logger.LogTile(new TileActionTypes(0, 0, 1, 1, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
+                                                        orderedHorTiles.Add(new OrderedTile()
+                                                        {
+                                                            tileType = aTile.tileTypes[setTileDefault.type],
+                                                            xPosition = currentX,
+                                                            yPosition = currentY,
+                                                            tileCode = aTile.tileCode,
+                                                            tileName = aTile.tileName
+                                                        });
+                                                    }
                                                     tileDrawn = true;
                                                     break;
                                                 }
 
                                                 // Draw Tile
-                                                tileDrawer.DrawSelectedTile(new OrderedTile() { tileType = breakerTile, xPosition = currentX, yPosition = currentY, tileCode = aTile.tileCode, tileName = aTile.tileName }, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
-                                                logger.LogTile(new TileActionTypes(0, 0, 0, 0, 1), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.tileDraw);
-                                                tileDrawn = true;
-                                                break;
-                                            }
-
-                                            // Save tile for later drawing (Ordering and Horizontal Ordering)
-                                            if (aTile.tileTypes[setTileDefault.type].order != null)
-                                            {
-                                                logger.LogTile(new TileActionTypes(0, 0, 1, 0, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedTileDraw);
-                                                orderedTiles.Add(new OrderedTile()
+                                                if (drawPass == 1)
                                                 {
-                                                    tileType = aTile.tileTypes[setTileDefault.type],
-                                                    xPosition = currentX,
-                                                    yPosition = currentY,
-                                                    tileCode = aTile.tileCode,
-                                                    tileName = aTile.tileName
-                                                });
+                                                    tileDrawer.DrawTile(aTile, setTileDefault.type, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList, border);
+                                                    tilesDrawn++;
+                                                    logger.LogTile(new TileActionTypes(0, 0, 0, 0, 1), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.tileDraw);
+                                                }
                                                 tileDrawn = true;
                                                 break;
                                             }
-                                            if (aTile.tileTypes[setTileDefault.type].orderHor != null)
-                                            {
-                                                logger.LogTile(new TileActionTypes(0, 0, 1, 1, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
-                                                orderedHorTiles.Add(new OrderedTile()
-                                                {
-                                                    tileType = aTile.tileTypes[setTileDefault.type],
-                                                    xPosition = currentX,
-                                                    yPosition = currentY,
-                                                    tileCode = aTile.tileCode,
-                                                    tileName = aTile.tileName
-                                                });
-                                                tileDrawn = true;
-                                                break;
-                                            }
-
-                                            // Draw Tile
-                                            tileDrawer.DrawTile(aTile, setTileDefault.type, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList, border);
-                                            tilesDrawn++;
-                                            logger.LogTile(new TileActionTypes(0, 0, 0, 0, 1), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.tileDraw);
-                                            tileDrawn = true;
-                                            break;
                                         }
                                     }
                                 }
-                            }
 
-                            if (!tileDrawn)
-                            {
-                                if (!tilesFailedChars.Contains(tTile))
+                                if (!tileDrawn)
                                 {
-                                    tilesFailed.Add(tTile, 1);
-                                    tilesFailedChars.Add(tTile);
+                                    if (!tilesFailedChars.Contains(tTile))
+                                    {
+                                        tilesFailed.Add(tTile, 1);
+                                        tilesFailedChars.Add(tTile);
+                                    }
+                                    else
+                                        tilesFailed[tTile]++;
                                 }
-                                else
-                                    tilesFailed[tTile]++;
+
+                                currentX++;
+
                             }
 
-                            currentX++;
-
-                        }
-
-                        // Draw Horizontally Ordered Tiles
-                        int highestHorOrder = 1;
-                        foreach (var pTile in orderedHorTiles)
-                        {
-                            if (pTile == null)
-                                continue;
-                            if (pTile.tileType.orderHor.GetValueOrDefault() > highestHorOrder)
-                                highestHorOrder = pTile.tileType.orderHor.GetValueOrDefault();
-                            if (pTile.tileType.orderHor.GetValueOrDefault() != 1)
-                                continue;
-
-                            tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
-                            if (pTile.str)
-                                logger.LogTile(new TileActionTypes(0, 1, 1, 1, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
-                            else
-                                logger.LogTile(new TileActionTypes(0, 0, 1, 1, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
-                        }
-
-                        for (int currentHorOrdered = 2; currentHorOrdered <= highestHorOrder; currentHorOrdered++)
+                            // Draw Horizontally Ordered Tiles
+                            int lowestHorOrder = 0, highestHorOrder = 0;
                             foreach (var pTile in orderedHorTiles)
                             {
                                 if (pTile == null)
                                     continue;
-                                if (pTile.tileType.orderHor.GetValueOrDefault() != currentHorOrdered)
-                                    continue;
 
-                                tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
-                                if (pTile.str)
-                                    logger.LogTile(new TileActionTypes(0, 1, 1, 1, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
-                                else
-                                    logger.LogTile(new TileActionTypes(0, 0, 1, 1, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
+                                var value = pTile.tileType.orderHor.GetValueOrDefault();
+
+                                if (value > highestHorOrder)
+                                    highestHorOrder = value;
+                                if (value < lowestHorOrder)
+                                    lowestHorOrder = value;
                             }
 
-                        currentX = 0;
-                        currentY++;
+                            for (int currentHorOrdered = lowestHorOrder; currentHorOrdered <= highestHorOrder; currentHorOrdered++)
+                                foreach (var pTile in orderedHorTiles)
+                                {
+                                    if (pTile == null)
+                                        continue;
+                                    if (pTile.tileType.orderHor.GetValueOrDefault() != currentHorOrdered)
+                                        continue;
 
-                    }
+                                    tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
+                                    if (pTile.str)
+                                        logger.LogTile(new TileActionTypes(0, 1, 1, 1, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
+                                    else
+                                        logger.LogTile(new TileActionTypes(0, 0, 1, 1, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
+                                    tilesDrawn++;
+                                }
 
-                    // Draw Ordered Tiles
-                    int highestOrder = 1;
-                    foreach (var pTile in orderedTiles)
-                    {
-                        if (pTile == null)
-                            continue;
-                        if (pTile.tileType.order.GetValueOrDefault() > highestOrder)
-                            highestOrder = pTile.tileType.order.GetValueOrDefault();
-                        if (pTile.tileType.order.GetValueOrDefault() != 1)
-                            continue;
+                            currentX = 0;
+                            currentY++;
 
-                        tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
-                        if (pTile.str)
-                            logger.LogTile(new TileActionTypes(0, 1, 1, 0, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedTileDraw);
-                        else
-                            logger.LogTile(new TileActionTypes(0, 0, 1, 0, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedTileDraw);
-                    }
+                        }
 
-                    for (int currentOrdered = 2; currentOrdered <= highestOrder; currentOrdered++)
+                        // Draw Ordered Tiles
+                        int lowestOrder = 0, highestOrder = 0;
                         foreach (var pTile in orderedTiles)
                         {
                             if (pTile == null)
                                 continue;
-                            if (pTile.tileType.order.GetValueOrDefault() != currentOrdered)
-                                continue;
 
-                            tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
-                            if (pTile.str)
-                                logger.LogTile(new TileActionTypes(0, 1, 1, 0, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedTileDraw);
-                            else
-                                logger.LogTile(new TileActionTypes(0, 0, 1, 0, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedTileDraw);
+                            var value = pTile.tileType.order.GetValueOrDefault();
+
+                            if (value > highestOrder)
+                                highestOrder = value;
+                            if (value < lowestOrder)
+                                lowestOrder = value;
                         }
 
-                    if (mapGamemode != null) // Draw Gamemode tiles (after everything else)
-                        if (mapGamemode.specialTiles != null)
-                            foreach (var st in mapGamemode.specialTiles)
+                        for (int currentOrdered = lowestOrder; currentOrdered <= highestOrder; currentOrdered++)
+                            foreach (var pTile in orderedTiles)
                             {
-                                if (st.drawOrder == 2)
+                                if (pTile == null)
+                                    continue;
+                                if (pTile.tileType.order.GetValueOrDefault() != currentOrdered)
+                                    continue;
+
+                                tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
+                                if (pTile.str)
+                                    logger.LogTile(new TileActionTypes(0, 1, 1, 0, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedTileDraw);
+                                else
+                                    logger.LogTile(new TileActionTypes(0, 0, 1, 0, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedTileDraw);
+                                tilesDrawn++;
+                            }
+
+                        if (mapGamemode != null && drawPass == 1) // Draw Gamemode tiles (after everything else)
+                            if (mapGamemode.specialTiles != null)
+                                foreach (var st in mapGamemode.specialTiles)
                                 {
-                                    foreach (Tiledata.Tile oTile in tiledata.tiles)
+                                    if (st.drawOrder == 2)
                                     {
-                                        if (oTile.tileName == st.tile)
+                                        foreach (Tiledata.Tile oTile in tiledata.tiles)
                                         {
-                                            string xsLoc = st.position.Split(',')[0].Trim().ToLower();
-                                            string ysLoc = st.position.Split(',')[1].Trim().ToLower();
-                                            if (!int.TryParse(xsLoc, out int xLoc))
+                                            if (oTile.tileName == st.tile)
                                             {
-                                                if (xsLoc == "left" || xsLoc == "l") { xLoc = 0; xsLoc = "L"; }
-                                                else if (xsLoc == "mid" || xsLoc == "m") { xLoc = (xLength - 1) / 2; xsLoc = "M"; }
-                                                else if (xsLoc == "right" || xsLoc == "r") { xLoc = xLength - 1; xsLoc = "R"; }
-                                            }
-                                            if (!int.TryParse(ysLoc, out int yLoc))
-                                            {
-                                                if (ysLoc == "top" || ysLoc == "t") { yLoc = 0; ysLoc = "T"; }
-                                                else if (ysLoc == "mid" || ysLoc == "m") { yLoc = (yLength - 1) / 2; ysLoc = "M"; }
-                                                else if (ysLoc == "bottom" || ysLoc == "bot" || ysLoc == "b") { yLoc = yLength - 1; ysLoc = "B"; }
-                                            }
+                                                string xsLoc = st.position.Split(',')[0].Trim().ToLower();
+                                                string ysLoc = st.position.Split(',')[1].Trim().ToLower();
+                                                if (!int.TryParse(xsLoc, out int xLoc))
+                                                {
+                                                    if (xsLoc == "left" || xsLoc == "l") { xLoc = 0; xsLoc = "L"; }
+                                                    else if (xsLoc == "mid" || xsLoc == "m") { xLoc = (xLength - 1) / 2; xsLoc = "M"; }
+                                                    else if (xsLoc == "right" || xsLoc == "r") { xLoc = xLength - 1; xsLoc = "R"; }
+                                                }
+                                                if (!int.TryParse(ysLoc, out int yLoc))
+                                                {
+                                                    if (ysLoc == "top" || ysLoc == "t") { yLoc = 0; ysLoc = "T"; }
+                                                    else if (ysLoc == "mid" || ysLoc == "m") { yLoc = (yLength - 1) / 2; ysLoc = "M"; }
+                                                    else if (ysLoc == "bottom" || ysLoc == "bot" || ysLoc == "b") { yLoc = yLength - 1; ysLoc = "B"; }
+                                                }
 
-                                            if (xLoc < 0)
-                                            {
-                                                xLoc = xLength - (1 + xLoc / -1);
-                                                xsLoc = xLoc.ToString();
-                                            }
-                                            if (yLoc < 0)
-                                            {
-                                                yLoc = yLength - (1 + yLoc / -1);
-                                                ysLoc = yLoc.ToString();
-                                            }
+                                                if (xLoc < 0)
+                                                {
+                                                    xLoc = xLength - (1 + xLoc / -1);
+                                                    xsLoc = xLoc.ToString();
+                                                }
+                                                if (yLoc < 0)
+                                                {
+                                                    yLoc = yLength - (1 + yLoc / -1);
+                                                    ysLoc = yLoc.ToString();
+                                                }
 
-                                            tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList, border);
-                                            tilesDrawn++;
-                                            logger.LogTile(new TileActionTypes(1, 0, 0, 0, 1), oTile, ysLoc, xsLoc, yLength, xLength, Logger.TileEvent.tileDraw);
+                                                tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList, border);
+                                                tilesDrawn++;
+                                                logger.LogTile(new TileActionTypes(1, 0, 0, 0, 1), oTile, ysLoc, xsLoc, yLength, xLength, Logger.TileEvent.tileDraw);
+                                            }
                                         }
                                     }
                                 }
-                            }
+
+                    }
 
                     string exportName = options.exportFileName;
 
