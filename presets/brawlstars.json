@@ -4073,6 +4073,16 @@
 				"right": 329
 			},
 			"asset": "poison.svg"
+		},
+		{
+			"tileParts": {
+				"top": 829,
+				"mid": 1000,
+				"bot": 0,
+				"left": 329,
+				"right": 329
+			},
+			"asset": "poison_pink.svg"
 		}
 		]
 	},
