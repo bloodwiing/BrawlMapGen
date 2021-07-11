@@ -22,6 +22,7 @@ namespace BMG
         public Title title { get; set; } = new Title();
         public Render render { get; set; } = new Render();
         public AutoCrop autoCrop { get; set; } = new AutoCrop();
+        public AssetSwitcher[] assetSwitchers { get; set; }
 
         public class Replace
         {
@@ -135,6 +136,18 @@ namespace BMG
         {
             public bool enabled { get; set; } = false;
             public char[] tiles { get; set; } = { };
+        }
+
+        public class AssetSwitcher
+        {
+            public TileAsset find { get; set; }
+            public TileAsset replace { get; set; }
+        }
+
+        public class TileAsset
+        {
+            public string tile { get; set; }
+            public int type { get; set; }
         }
 
     }

@@ -19,7 +19,7 @@ namespace BMG
 
             int major = 1;
             int minor = 9;
-            int patch = 1;
+            int patch = 2;
             string access = "Release";
             string oLoc = "options.json";
             string oStr = "";
@@ -95,7 +95,7 @@ namespace BMG
                 logger.LogSpacer();
                 
                 logger.Log("  BMG (Brawl Map Gen)");
-                logger.Log(string.Format("    Version: v{0}.{1}.{2} {3}", major, major, patch, access));
+                logger.Log(string.Format("    Version: v{0}.{1}.{2} {3}", major, minor, patch, access));
                 logger.Log("    Created by: RedH1ghway (aka BloodWiing)");
                 logger.Log("    Helped by: 4JR, Henry, tryso");
 
@@ -288,7 +288,7 @@ namespace BMG
 
                     float[] border = emptyBorderAmoutNormalizer(batchOption.emptyBorderAmount);
 
-                    TileDrawer tileDrawer = new TileDrawer(batchOption.sizeMultiplier, map[0].Length, map.Length, border);
+                    TileDrawer tileDrawer = new TileDrawer(batchOption.sizeMultiplier, map[0].Length, map.Length, border, tiledata);
 
                     logger.LogSetup("Coloring background...");
                     logger.LogStatus("Fetching tile colors...");
@@ -357,7 +357,7 @@ namespace BMG
                                                 ysLoc = yLoc.ToString();
                                             }
 
-                                            tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList, border);
+                                            tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, selectedTileImageList, border);
                                             tilesDrawn++;
                                             logger.LogTile(new TileActionTypes(1, 0, 0, 0, 1), oTile, ysLoc, xsLoc, yLength, xLength, Logger.TileEvent.tileDraw);
                                         }
@@ -476,7 +476,8 @@ namespace BMG
                                                                         logger.LogTile(new TileActionTypes(0, 1, 1, 0, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedTileDraw);
                                                                         orderedTiles.Add(new OrderedTile()
                                                                         {
-                                                                            tileType = aTile.tileTypes[ostr.tileType],
+                                                                            tileTypeData = aTile.tileTypes[ostr.tileType],
+                                                                            tileType = ostr.tileType,
                                                                             xPosition = currentX,
                                                                             yPosition = currentY,
                                                                             tileCode = aTile.tileCode,
@@ -495,7 +496,8 @@ namespace BMG
                                                                         logger.LogTile(new TileActionTypes(0, 1, 1, 1, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
                                                                         orderedHorTiles.Add(new OrderedTile()
                                                                         {
-                                                                            tileType = aTile.tileTypes[ostr.tileType],
+                                                                            tileTypeData = aTile.tileTypes[ostr.tileType],
+                                                                            tileType = ostr.tileType,
                                                                             xPosition = currentX,
                                                                             yPosition = currentY,
                                                                             tileCode = aTile.tileCode,
@@ -510,7 +512,7 @@ namespace BMG
                                                                 // Draw STR Tile
                                                                 if (drawPass == 1)
                                                                 {
-                                                                    tileDrawer.DrawTile(aTile, ostr.tileType, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList, border);
+                                                                    tileDrawer.DrawTile(aTile, ostr.tileType, options, sizeMultiplier, currentX, currentY, selectedTileImageList, border);
                                                                     tilesDrawn++;
                                                                     logger.LogTile(new TileActionTypes(0, 1, 0, 0, 1), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.tileDraw);
                                                                 }
@@ -616,6 +618,7 @@ namespace BMG
 
                                                     // Do actions specified in the rule which were correct
                                                     var defaultType = aTile.tileTypes[aTile.tileLinks.defaults.tileType];
+                                                    int type = aTile.tileLinks.defaults.tileType;
                                                     foreach (Tiledata.TileLinkRule aRule in accurateRules)
                                                     {
                                                         if (aRule.changeBinary != null)
@@ -624,7 +627,10 @@ namespace BMG
                                                                 nbca[int.Parse(aRule.changeBinary[y].Split('a')[1])] = aRule.changeBinary[y].Split('a')[0].ToCharArray()[0];
                                                             }
                                                         if (aRule.changeTileType != null)
+                                                        {
                                                             defaultType = aTile.tileTypes[aRule.changeTileType.GetValueOrDefault()];
+                                                            type = aRule.changeTileType.GetValueOrDefault();
+                                                        }
                                                         if (aRule.changeFolder != null && aTile.tileLinks.assetFolder != null)
                                                             fols = aRule.changeFolder + "/";
                                                     }
@@ -662,7 +668,8 @@ namespace BMG
                                                             logger.LogTile(new TileActionTypes(0, 0, 1, 0, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedTileDraw);
                                                             orderedTiles.Add(new OrderedTile()
                                                             {
-                                                                tileType = breakerTile,
+                                                                tileTypeData = breakerTile,
+                                                                tileType = type,
                                                                 xPosition = currentX,
                                                                 yPosition = currentY,
                                                                 tileCode = aTile.tileCode,
@@ -680,7 +687,8 @@ namespace BMG
                                                             logger.LogTile(new TileActionTypes(0, 0, 1, 1, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
                                                             orderedHorTiles.Add(new OrderedTile()
                                                             {
-                                                                tileType = breakerTile,
+                                                                tileTypeData = breakerTile,
+                                                                tileType = type,
                                                                 xPosition = currentX,
                                                                 yPosition = currentY,
                                                                 tileCode = aTile.tileCode,
@@ -694,7 +702,15 @@ namespace BMG
                                                     // Draw Tile
                                                     if (drawPass == 1)
                                                     {
-                                                        tileDrawer.DrawSelectedTile(new OrderedTile() { tileType = breakerTile, xPosition = currentX, yPosition = currentY, tileCode = aTile.tileCode, tileName = aTile.tileName }, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
+                                                        tileDrawer.DrawSelectedTile(
+                                                            new OrderedTile() {
+                                                                tileTypeData = breakerTile, 
+                                                                tileType = type,
+                                                                xPosition = currentX,
+                                                                yPosition = currentY,
+                                                                tileCode = aTile.tileCode,
+                                                                tileName = aTile.tileName
+                                                            }, options, sizeMultiplier, selectedTileImageList, border);
                                                         logger.LogTile(new TileActionTypes(0, 0, 0, 0, 1), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.tileDraw);
                                                         tilesDrawn++;
                                                     }
@@ -711,7 +727,8 @@ namespace BMG
                                                         logger.LogTile(new TileActionTypes(0, 0, 1, 0, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedTileDraw);
                                                         orderedTiles.Add(new OrderedTile()
                                                         {
-                                                            tileType = aTile.tileTypes[setTileDefault.type],
+                                                            tileTypeData = aTile.tileTypes[setTileDefault.type],
+                                                            tileType = setTileDefault.type,
                                                             xPosition = currentX,
                                                             yPosition = currentY,
                                                             tileCode = aTile.tileCode,
@@ -729,7 +746,8 @@ namespace BMG
                                                         logger.LogTile(new TileActionTypes(0, 0, 1, 1, 0), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
                                                         orderedHorTiles.Add(new OrderedTile()
                                                         {
-                                                            tileType = aTile.tileTypes[setTileDefault.type],
+                                                            tileTypeData = aTile.tileTypes[setTileDefault.type],
+                                                            tileType = setTileDefault.type,
                                                             xPosition = currentX,
                                                             yPosition = currentY,
                                                             tileCode = aTile.tileCode,
@@ -743,7 +761,7 @@ namespace BMG
                                                 // Draw Tile
                                                 if (drawPass == 1)
                                                 {
-                                                    tileDrawer.DrawTile(aTile, setTileDefault.type, options, sizeMultiplier, currentX, currentY, xLength, yLength, selectedTileImageList, border);
+                                                    tileDrawer.DrawTile(aTile, setTileDefault.type, options, sizeMultiplier, currentX, currentY, selectedTileImageList, border);
                                                     tilesDrawn++;
                                                     logger.LogTile(new TileActionTypes(0, 0, 0, 0, 1), aTile, currentY, currentX, yLength, xLength, Logger.TileEvent.tileDraw);
                                                 }
@@ -776,7 +794,7 @@ namespace BMG
                                 if (pTile == null)
                                     continue;
 
-                                var value = pTile.tileType.orderHor.GetValueOrDefault();
+                                var value = pTile.tileTypeData.orderHor.GetValueOrDefault();
 
                                 if (value > highestHorOrder)
                                     highestHorOrder = value;
@@ -789,10 +807,10 @@ namespace BMG
                                 {
                                     if (pTile == null)
                                         continue;
-                                    if (pTile.tileType.orderHor.GetValueOrDefault() != currentHorOrdered)
+                                    if (pTile.tileTypeData.orderHor.GetValueOrDefault() != currentHorOrdered)
                                         continue;
 
-                                    tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
+                                    tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, selectedTileImageList, border);
                                     if (pTile.str)
                                         logger.LogTile(new TileActionTypes(0, 1, 1, 1, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedHorTileDraw);
                                     else
@@ -812,7 +830,7 @@ namespace BMG
                             if (pTile == null)
                                 continue;
 
-                            var value = pTile.tileType.order.GetValueOrDefault();
+                            var value = pTile.tileTypeData.order.GetValueOrDefault();
 
                             if (value > highestOrder)
                                 highestOrder = value;
@@ -825,10 +843,10 @@ namespace BMG
                             {
                                 if (pTile == null)
                                     continue;
-                                if (pTile.tileType.order.GetValueOrDefault() != currentOrdered)
+                                if (pTile.tileTypeData.order.GetValueOrDefault() != currentOrdered)
                                     continue;
 
-                                tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, xLength, yLength, selectedTileImageList, border);
+                                tileDrawer.DrawSelectedTile(pTile, options, sizeMultiplier, selectedTileImageList, border);
                                 if (pTile.str)
                                     logger.LogTile(new TileActionTypes(0, 1, 1, 0, 1), new Tiledata.Tile() { tileCode = pTile.tileCode, tileName = pTile.tileName }, pTile.yPosition, pTile.xPosition, yLength, xLength, Logger.TileEvent.orderedTileDraw);
                                 else
@@ -872,7 +890,7 @@ namespace BMG
                                                     ysLoc = yLoc.ToString();
                                                 }
 
-                                                tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, xLength, yLength, selectedTileImageList, border);
+                                                tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, selectedTileImageList, border);
                                                 tilesDrawn++;
                                                 logger.LogTile(new TileActionTypes(1, 0, 0, 0, 1), oTile, ysLoc, xsLoc, yLength, xLength, Logger.TileEvent.tileDraw);
                                             }
@@ -1082,18 +1100,41 @@ namespace BMG
         {
             Graphics g;
             Bitmap b;
+            Tiledata t;
 
-            public TileDrawer(int sizeMultiplier, int horizontalLengthInTiles, int verticalLengthInTiles, float[] borderSize)
+            public TileDrawer(int sizeMultiplier, int horizontalLengthInTiles, int verticalLengthInTiles, float[] borderSize, Tiledata tiledata)
             {
                 b = new Bitmap((int)Math.Round(sizeMultiplier * (borderSize[2] + borderSize[3] + horizontalLengthInTiles)), (int)Math.Round(sizeMultiplier * (borderSize[0] + borderSize[1] + verticalLengthInTiles)));
                 g = Graphics.FromImage(b);
+                t = tiledata;
             }
 
-            public void DrawTile(Tiledata.Tile tile, int type, Options1 optionsObject, int sizeMultiplier, int currentX, int currentY, int xLength, int yLength, SavedImages imageMemory, float[] borderSize) // Drawing a tile (normal)
+            private string GetRealAsset(Tiledata.Tile tile, int type, Options1 optionsObject, string defaultAsset)
+            {
+                string asset = defaultAsset;
+                if (optionsObject.assetSwitchers != null)
+                    foreach (Options1.AssetSwitcher switcher in optionsObject.assetSwitchers)
+                    {
+                        if (tile.tileName == switcher.find.tile && type == switcher.find.type)
+                            foreach (Tiledata.Tile dTile in t.tiles)
+                                if (dTile.tileName == switcher.replace.tile)
+                                    asset = dTile.tileTypes[switcher.replace.type].asset;
+
+                    }
+
+                return asset;
+            }
+
+            private string GetRealAsset(OrderedTile tile, int type, Options1 optionsObject, string defaultAsset)
+            {
+                return GetRealAsset(new Tiledata.Tile() { tileName = tile.tileName }, type, optionsObject, defaultAsset);
+            }
+
+            public void DrawTile(Tiledata.Tile tile, int type, Options1 optionsObject, int sizeMultiplier, int currentX, int currentY, SavedImages imageMemory, float[] borderSize) // Drawing a tile (normal)
             {
                 foreach (SavedImages.TileImage ti in imageMemory.tileImages)
                 {
-                    if (ti.imageName == tile.tileTypes[type].asset)
+                    if (ti.imageName == GetRealAsset(tile, type, optionsObject, tile.tileTypes[type].asset))
                     {
                         g.DrawImage(ti.renderedImage, (int)Math.Round(sizeMultiplier * (currentX + borderSize[2])) - ti.imageOffsetLeft, (int)Math.Round(sizeMultiplier * (currentY + borderSize[0])) - ti.imageOffsetTop);
                         return;
@@ -1101,11 +1142,11 @@ namespace BMG
                 }
             }
 
-            public void DrawSelectedTile(OrderedTile tile, Options1 optionsObject, int sizeMultiplier, int xLength, int yLength, SavedImages imageMemory, float[] borderSize) // Drawing a tile (with saved coordinates and a pre-selected type)
+            public void DrawSelectedTile(OrderedTile tile, Options1 optionsObject, int sizeMultiplier, SavedImages imageMemory, float[] borderSize) // Drawing a tile (with saved coordinates and a pre-selected type)
             {
                 foreach (SavedImages.TileImage ti in imageMemory.tileImages)
                 {
-                    if (ti.imageName == tile.tileType.asset)
+                    if (ti.imageName == GetRealAsset(tile, tile.tileType, optionsObject, tile.tileTypeData.asset))
                     {
                         g.DrawImage(ti.renderedImage, (int)Math.Round(sizeMultiplier * (tile.xPosition + borderSize[2])) - ti.imageOffsetLeft, (int)Math.Round(sizeMultiplier * (tile.yPosition + borderSize[0])) - ti.imageOffsetTop);
                         return;

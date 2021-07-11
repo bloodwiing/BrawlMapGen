@@ -8,7 +8,8 @@
             str = false;
         }
 
-        public Tiledata.TileType tileType { get; set; }
+        public Tiledata.TileType tileTypeData { get; set; }
+        public int tileType { get; set; }
         public int xPosition { get; set; }
         public int yPosition { get; set; }
         public char tileCode { get; set; }
