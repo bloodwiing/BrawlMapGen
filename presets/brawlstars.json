@@ -4043,6 +4043,88 @@
 				"tileType": 0
 			}
 		}
+	},
+	{
+		"tileName": "intervalDamage",
+		"tileCode": "v",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 225,
+				"mid": 1000,
+				"bot": 150,
+				"left": -30,
+				"right": -30
+			},
+			"asset": "spikes.svg"
+		}
+		]
+	},
+	{
+		"tileName": "damage",
+		"tileCode": "x",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 829,
+				"mid": 1000,
+				"bot": 0,
+				"left": 329,
+				"right": 329
+			},
+			"asset": "poison.svg"
+		}
+		]
+	},
+	{
+		"tileName": "healing",
+		"tileCode": "y",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 100,
+				"mid": 1000,
+				"bot": 1250,
+				"left": 0,
+				"right": 1000
+			},
+			"asset": "healpad.svg"
+		}
+		]
+	},
+	{
+		"tileName": "slow",
+		"tileCode": "z",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 100,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "slowpad.svg",
+			"order": -2
+		}
+		]
+	},
+	{
+		"tileName": "fast",
+		"tileCode": "w",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 100,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "speedpad.svg",
+			"order": -2
+		}
+		]
 	}
 	],
 	"biomes": [
@@ -4870,6 +4952,26 @@
 		},
 		{
 			"tile": "teleporterYellow",
+			"type": 0
+		},
+		{
+			"tile": "intervalDamage",
+			"type": 0
+		},
+		{
+			"tile": "damage",
+			"type": 0
+		},
+		{
+			"tile": "healing",
+			"type": 0
+		},
+		{
+			"tile": "slow",
+			"type": 0
+		},
+		{
+			"tile": "fast",
 			"type": 0
 		}
 		]
