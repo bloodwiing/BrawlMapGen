@@ -1575,9 +1575,22 @@ namespace BMG
         {
             string binary = "";
             string neighbors;
-            if (currentY == 0) // Top
+            if (currentY == 0 && currentY == map.Length - 1) // One line
             {
-                if (currentX == 0)
+                if (currentX == 0 && currentX == map[0].Length - 1)
+                    neighbors = "%%%%%%%%"; // One column
+                else if (currentX == 0)
+                    neighbors = "%%%% %%%"; // Left
+                else if (currentX == map[0].Length - 1)
+                    neighbors = "%%% %%%%"; // Right
+                else
+                    neighbors = "%%%  %%%"; // Middle
+            }
+            else if (currentY == 0) // Top
+            {
+                if (currentX == 0 && currentX == map[0].Length - 1)
+                    neighbors = "%%%%%% %"; // One column
+                else if (currentX == 0)
                     neighbors = "%%%% %  "; // Left
                 else if (currentX == map[0].Length - 1)
                     neighbors = "%%% %  %"; // Right
@@ -1586,7 +1599,9 @@ namespace BMG
             }
             else if (currentY == map.Length - 1) // Bottom
             {
-                if (currentX == 0)
+                if (currentX == 0 && currentX == map[0].Length - 1)
+                    neighbors = "% %%%%%%"; // One column
+                else if (currentX == 0)
                     neighbors = "%  % %%%"; // Left
                 else if (currentX == map[0].Length - 1)
                     neighbors = "  % %%%%"; // Right
@@ -1595,7 +1610,9 @@ namespace BMG
             }
             else // Middle
             {
-                if (currentX == 0)
+                if (currentX == 0 && currentX == map[0].Length - 1)
+                    neighbors = "% %%%% %"; // One column
+                else if (currentX == 0)
                     neighbors = "%  % %  "; // Left
                 else if (currentX == map[0].Length - 1)
                     neighbors = "  % %  %"; // Right
@@ -1609,18 +1626,18 @@ namespace BMG
                     for (int x = 0; x < neighbors.Length; x++)
                     {
                         if (neighbors[x] == '%')
-                            binary = binary + '0'; // edgeCase
+                            binary += '0'; // edgeCase
                         else
-                            binary = binary + checkNeighboringTile(map, currentX, currentY, tileObject, replaces, x); // check tile in map
+                            binary += checkNeighboringTile(map, currentX, currentY, tileObject, replaces, x); // check tile in map
                     }
                     break;
                 case Tiledata.EdgeCase.copies: // edges are filled with equal tiles
                     for (int x = 0; x < neighbors.Length; x++)
                     {
                         if (neighbors[x] == '%')
-                            binary = binary + '1'; // edgeCase
+                            binary += '1'; // edgeCase
                         else
-                            binary = binary + checkNeighboringTile(map, currentX, currentY, tileObject, replaces, x); // check tile in map
+                            binary += checkNeighboringTile(map, currentX, currentY, tileObject, replaces, x); // check tile in map
                     }
                     break;
                 case Tiledata.EdgeCase.mirror: // edges are extended
@@ -1628,23 +1645,23 @@ namespace BMG
                     {
                         if (neighbors[x] == '%')
                             if (x % 2 == 1)
-                                binary = binary + '1'; // edgeCase (Edge adjacent edge tiles will always be equal when extending)
+                                binary += '1'; // edgeCase (Edge adjacent edge tiles will always be equal when extending)
                             else
                             {
                                 if (hasAdjacentEqualTiles(map, currentX - 1, currentY - 1, tileObject))
-                                    binary = binary + '1';
+                                    binary += '1';
                                 else if (hasAdjacentEqualTiles(map, currentX - 1, currentY + 1, tileObject))
-                                    binary = binary + '1';
+                                    binary += '1';
                                 else if (hasAdjacentEqualTiles(map, currentX + 1, currentY - 1, tileObject))
-                                    binary = binary + '1';
+                                    binary += '1';
                                 else if (hasAdjacentEqualTiles(map, currentX + 1, currentY + 1, tileObject))
-                                    binary = binary + '1';
+                                    binary += '1';
                                 else
-                                    binary = binary + '0';
+                                    binary += '0';
                             }
                         // binary = binary + checkNeighboringTile(map, currentX, currentY, tileObject, 7 - x); // edgeCase (check opposite tile to extend)
                         else
-                            binary = binary + checkNeighboringTile(map, currentX, currentY, tileObject, replaces, x); // check tile in map
+                            binary += checkNeighboringTile(map, currentX, currentY, tileObject, replaces, x); // check tile in map
                     }
                     break;
             }
