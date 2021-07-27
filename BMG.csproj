@@ -90,4 +90,5 @@
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
     <PackageReference Include="System.Security.Permissions" Version="4.7.0" />
   </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties presets_4brawlstars_1json__JsonSchema="..\schemas\preset.schema.json" /></VisualStudio></ProjectExtensions>
 </Project>

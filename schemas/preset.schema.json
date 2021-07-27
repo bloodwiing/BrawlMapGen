@@ -1,0 +1,345 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Preset",
+  "description": "The root of the type 1 BMG preset json files",
+  "type": "object",
+  "properties": {
+    "presetOptions": {
+      "description": "The series of options that enhance the map generation design [DEPRECATED]",
+      "type": "object",
+      "properties": {
+        "tileTransitionSize": {
+          "description": "Width size in pixels that would be used to connect tiles that should not have any gap [DEPRECATED]",
+          "type": "integer"
+        }
+      }
+    },
+    "ignoreTiles": {
+      "description": "Tiles that are not implemented and that should not be marked as \"unrecognized\"",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 1
+      },
+      "uniqueItems": true
+    },
+    "tiles": {
+      "description": "All the tiles that exist within the preset",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "display": {
+            "description": "The display name of the tile [DEPRECATED]",
+            "type": "string"
+          },
+          "tileName": {
+            "description": "The ID of the tile",
+            "type": "string"
+          },
+          "tileCode": {
+            "description": "The character representing the tile",
+            "type": "string",
+            "maxLength": 1
+          },
+          "tileTypes": {
+            "description": "All the different shapes the same tile can take",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "tileParts": {
+                  "description": "The offsets of the asset",
+                  "type": "object",
+                  "properties": {
+                    "top": {
+                      "type": "integer"
+                    },
+                    "mid": {
+                      "type": "integer"
+                    },
+                    "bot": {
+                      "type": "integer"
+                    },
+                    "left": {
+                      "type": "integer"
+                    },
+                    "right": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [ "top", "mid", "bot", "left", "right" ]
+                },
+                "asset": {
+                  "description": "The location of the SVG file",
+                  "type": "string"
+                },
+                "sound": {
+                  "description": "The sound file it plays when it is placed [DEPRECATED]",
+                  "type": "string"
+                },
+                "color": {
+                  "description": "The color of the asset, merely categorical [DEPRECATED]",
+                  "type": "string"
+                },
+                "detailed": {
+                  "description": "A state of tile detail, used to different resolutions [DEPRECATED]",
+                  "type": "boolean"
+                },
+                "other": {
+                  "description": "Extra information about the type [DEPRECATED]",
+                  "type": "string"
+                },
+                "orderHor": {
+                  "description": "Horizontal ordering (supports negative values)",
+                  "type": "integer"
+                },
+                "order": {
+                  "description": "Global ordering (supports negative values)",
+                  "type": "integer"
+                },
+                "tileTransitions": {
+                  "description": "A toggle for tile gap connectors [DEPRECATED]",
+                  "type": "boolean"
+                }
+              },
+              "required": [ "tileParts", "asset" ]
+            }
+          },
+          "tileLinks": {
+            "description": "Tile interactivity with similar neighbours",
+            "type": "object",
+            "properties": {
+              "rules": {
+                "description": "List of conditions and results",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "condition": {
+                      "description": "The condition in neighboring binary. Possible conditions: 0, 1, *",
+                      "type": "string"
+                    },
+                    "requiredBiome": {
+                      "description": "A biome-only condition",
+                      "type": "integer"
+                    },
+                    "changeBinary": {
+                      "description": "Change the resulting neighboring binary at certain bytes",
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "pattern": "^[01]a[0-7]$"
+                      }
+                    },
+                    "changeTileType": {
+                      "description": "Changes the tile type to a new one",
+                      "type": "integer"
+                    },
+                    "changeAsset": {
+                      "description": "Changes the asset used to a new one [DEPRECATED]",
+                      "type": "string"
+                    },
+                    "changeFolder": {
+                      "description": "Changes the folder where to look for the SVG file",
+                      "type": "string"
+                    }
+                  },
+                  "required": [ "condition" ]
+                }
+              },
+              "multipleConditionsCouldApply": {
+                "description": "Allows BMG to apply multiple rules if they meet conditions",
+                "type": "boolean"
+              },
+              "defaults": {
+                "description": "The defaults if none of the rules fit",
+                "type": "object",
+                "properties": {
+                  "tileType": {
+                    "description": "The default tile type",
+                    "type": "integer"
+                  },
+                  "tileAsset": {
+                    "description": "The default asset [DEPRECATED]",
+                    "type": "string"
+                  }
+                }
+              },
+              "edgeCase": {
+                "description": "An option how to handle the edge scenarios",
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 2
+              },
+              "assetFolder": {
+                "description": "Changes the default folder where BMG looks for SVG files",
+                "type": "string"
+              }
+            },
+            "required": [ "rules", "multipleConditionsCouldApply", "edgeCase", "defaults" ]
+          }
+        },
+        "required": [ "tileName", "tileCode", "tileTypes" ]
+      }
+    },
+    "biomes": {
+      "description": "The list of all biomes supported",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name of the biome",
+            "type": "string"
+          },
+          "color1": {
+            "description": "The first color of the chequerboard tiles",
+            "type": "string",
+            "pattern": "^(,?(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])){3}$"
+          },
+          "color2": {
+            "description": "The second color of the chequerboard tiles",
+            "type": "string",
+            "pattern": "^(,?(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])){3}$"
+          },
+          "defaults": {
+            "description": "The tile types used for the biome",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "tile": {
+                  "description": "The ID of the tile",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "The type to be used of the tile",
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "required": [ "name", "color1", "color2", "defaults" ]
+      }
+    },
+    "defaultBiome": {
+      "description": "The default biome if the user passed an invalid biome number",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The name of the biome",
+          "type": "string"
+        },
+        "color1": {
+          "description": "The first color of the chequerboard tiles",
+          "type": "string",
+          "pattern": "^(,?(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])){3}$"
+        },
+        "color2": {
+          "description": "The second color of the chequerboard tiles",
+          "type": "string",
+          "pattern": "^(,?(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])){3}$"
+        },
+        "defaults": {
+          "description": "The tile types used for the biome",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tile": {
+                "description": "The ID of the tile",
+                "type": "string"
+              },
+              "type": {
+                "description": "The type to be used of the tile",
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "required": [ "name", "color1", "color2", "defaults" ]
+    },
+    "gamemodes": {
+      "description": "The game modes supported by this preset",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name/ID of the game mode",
+            "type": "string"
+          },
+          "specialTiles": {
+            "description": "Tiles that are added after drawing the map at specific locations",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "tile": {
+                  "description": "The ID of the tile",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "The type of the tile",
+                  "type": "integer"
+                },
+                "position": {
+                  "description": "The position of the tile. Horizontal,vertical",
+                  "type": "string",
+                  "pattern": "^([lmr]|-?\\d+),([tmb]|-?\\d+)$"
+                },
+                "drawOrder": {
+                  "description": "Tile-ordering similar system when to draw the tile (supports negative numbers)",
+                  "type": "integer"
+                }
+              },
+              "required": [ "tile", "type", "position", "drawOrder" ]
+            }
+          },
+          "overrideBiome": {
+            "description": "Biome modifications",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "tile": {
+                  "description": "The tile ID of the biome",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "The new type of the tile",
+                  "type": "integer"
+                }
+              },
+              "required": [ "tile", "type" ]
+            }
+          },
+          "mapModder": {
+            "description": "Map modifications, overwriting the map data to have different tiles",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "tile": {
+                  "description": "The ID of the tile that will be placed in the map data",
+                  "type": "string"
+                },
+                "position": {
+                  "description": "The location where the tile will be placed. Horizontal,vertical",
+                  "type": "string",
+                  "pattern": "^([lmr]|-?\\d+),([tmb]|-?\\d+)$"
+                }
+              },
+              "required": [ "tile", "position" ]
+            }
+          }
+        },
+        "required": [ "name" ]
+      }
+    }
+  },
+  "required": [ "tiles", "biomes", "defaultBiome", "gamemodes" ]
+}
