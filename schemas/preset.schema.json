@@ -22,7 +22,8 @@
         "minLength": 1,
         "maxLength": 1
       },
-      "uniqueItems": true
+      "uniqueItems": true,
+      "default": [ "" ]
     },
     "tiles": {
       "description": "All the tiles that exist within the preset",
@@ -123,7 +124,8 @@
                 "asset": ""
               },
               "required": [ "tileParts", "asset" ]
-            }
+            },
+            "minItems": 1
           },
           "tileLinks": {
             "description": "Tile interactivity with similar neighbours",
@@ -220,7 +222,8 @@
           "tileTypes": []
         },
         "required": [ "tileName", "tileCode", "tileTypes" ]
-      }
+      },
+      "minItems": 1
     },
     "biomes": {
       "description": "The list of all biomes supported",
@@ -312,7 +315,8 @@
               "type": 0
             },
             "required": [ "tile", "type" ]
-          }
+          },
+          "minItems": 1
         }
       },
       "default": {

@@ -1,0 +1,439 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BMG Options",
+  "description": "The root of BMG Options JSON Format 1",
+  "type": "object",
+  "properties": {
+    "format": {
+      "description": "BMG Options JSON format specifier (value 1 for this schema)",
+      "type": "integer",
+      "default": 1,
+      "minValue": 1,
+      "maxValue": 1
+    },
+    "preset": {
+      "description": "The preset to use for BMG",
+      "type": "string",
+      "minLength": 1
+    },
+    "batch": {
+      "description": "A bunch of map data that will be rendered",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name of the map (visual)",
+            "type": "string",
+            "default": "Your new map"
+          },
+          "map": {
+            "description": "The map data",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "biome": {
+            "description": "The environment of the map",
+            "type": "integer",
+            "default": 0
+          },
+          "sizeMultiplier": {
+            "description": "The size of a single tile / upscale",
+            "type": "integer",
+            "minimum": 1,
+            "default": 30
+          },
+          "skipTiles": {
+            "description": "Set tiles that will leave a gap in the background",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1
+            },
+            "uniqueItems": true,
+            "default": [ "" ]
+          },
+          "exportFileName": {
+            "description": "The file name (and location) of the rendered image (include PNG extension)",
+            "type": "string",
+            "pattern": "^.+\\.[Pp][Nn][Gg]$",
+            "default": "Your_file.png"
+          },
+          "overrideBiome": {
+            "description": "A few overrides for the selected biome",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "tile": {
+                  "description": "The tile to be overriden",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "The new tile type for it",
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "default": {
+                "tile": "",
+                "type": 0
+              },
+              "uniqueItems": true,
+              "required": [ "tile", "type" ]
+            }
+          },
+          "replaceTiles": {
+            "description": "Tiles that will be replaced in the map data before rendering",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "description": "Character to find",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1
+                },
+                "to": {
+                  "description": "Character to replace with",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1
+                }
+              },
+              "default": {
+                "from": "",
+                "to": ""
+              },
+              "uniqueItems": true,
+              "required": [ "from", "to" ]
+            }
+          },
+          "specialTileRules": {
+            "description": "Makes tiles, that should always look the same, have a few unique ones",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "tileCode": {
+                  "description": "Tile to look for",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1
+                },
+                "tileTime": {
+                  "description": "The occurance of the tile",
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "tileType": {
+                  "description": "The new type of the tile",
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "default": {
+                "tileCode": "",
+                "tileTime": 0,
+                "tileType": 0
+              },
+              "uniqueItems": true,
+              "required": [ "tileCode", "tileTime", "tileType" ]
+            }
+          },
+          "emptyBorderAmount": {
+            "description": "An optional margin that can be set for rendering so tiles don't get cut off",
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "maxItems": 4,
+            "default": [ 1, 1, 1, 1 ]
+          },
+          "gamemode": {
+            "description": "The game mode of the map",
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "default": {
+          "name": "Your new map",
+          "map": [],
+          "biome": 0,
+          "sizeMultiplier": 30
+        },
+        "required": [ "name", "map", "biome", "sizeMultiplier" ]
+      }
+    },
+    "exportFileName": {
+      "description": "The default file export name. Use the ?number? macro to get the map number",
+      "type": "string",
+      "pattern": "^.+\\.[Pp][Nn][Gg]$",
+      "default": "Map_number_?number?.png"
+    },
+    "exportFolderName": {
+      "description": "The main folder where to export everything",
+      "type": "string"
+    },
+    "saveLogFile": {
+      "description": "The option to save the console output to a file",
+      "type": "boolean",
+      "default": true
+    },
+    "console": {
+      "description": "Console message filters",
+      "type": "object",
+      "properties": {
+        "setup": {
+          "description": "Setup messages",
+          "type": "boolean",
+          "default": true
+        },
+        "tileDraw": {
+          "description": "Tile drawing messages",
+          "type": "boolean",
+          "default": true
+        },
+        "orderedHorTileDraw": {
+          "description": "Horizontally ordered tile drawing messages",
+          "type": "boolean",
+          "default": true
+        },
+        "orderedTileDraw": {
+          "description": "Ordered tile drawing messages",
+          "type": "boolean",
+          "default": true
+        },
+        "saveLocation": {
+          "description": "Exporting messages",
+          "type": "boolean",
+          "default": true
+        },
+        "aal": {
+          "description": "File reading/writing messages",
+          "type": "boolean",
+          "default": true
+        },
+        "statusChange": {
+          "description": "Status changing messages",
+          "type": "boolean",
+          "default": true
+        },
+        "gamemodeModding": {
+          "description": "Game mode modding messages",
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "title": {
+      "description": "App title options",
+      "type": "object",
+      "properties": {
+        "modules": {
+          "description": "Different parts of the title bar",
+          "type": "object",
+          "properties": {
+            "appInfo": {
+              "description": "App information",
+              "type": "object",
+              "properties": {
+                "showVersion": {
+                  "description": "Shows app verison",
+                  "type": "boolean",
+                  "default": true
+                }
+              },
+              "default": {
+                "showVersion": true
+              }
+            },
+            "job": {
+              "description": "Shows the current job of the app",
+              "type": "object",
+              "properties": {
+                "percentageBarFillCharacter": {
+                  "description": "The \"Filled\" part of the bar",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1,
+                  "default": "#"
+                },
+                "percentageBarBackgroundCharacter": {
+                  "description": "The \"Empty\" part of the bar",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1,
+                  "default": "-"
+                },
+                "order": {
+                  "description": "The layout of the module. Macros: percentage, progressBar, jobName, jobsRatio",
+                  "type": "string",
+                  "default": "?percentage? [?progressBar?] ?jobName? ?jobsRatio?"
+                }
+              },
+              "default": {
+                "percentageBarFillCharacter": "#",
+                "percentageBarBackgroundCharacter": "-",
+                "order": "?percentage? [?progressBar?] ?jobName? ?jobsRatio?"
+              }
+            },
+            "status": {
+              "description": "Shows the current status of the app",
+              "type": "object",
+              "properties": {
+                "percentageBarFillCharacter": {
+                  "description": "The \"Filled\" part of the bar",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1,
+                  "default": "#"
+                },
+                "percentageBarBackgroundCharacter": {
+                  "description": "The \"Empty\" part of the bar",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1,
+                  "default": "-"
+                },
+                "order": {
+                  "description": "The layout of the module. Macros: percentage, progressBar, statusText, actionRatio",
+                  "type": "string",
+                  "default": "?percentage? [?progressBar?] ?statusText? ?actionRatio?"
+                }
+              },
+              "default": {
+                "percentageBarFillCharacter": "#",
+                "percentageBarBackgroundCharacter": "-",
+                "order": "?percentage? [?progressBar?] ?statusText? ?actionRatio?"
+              }
+            },
+            "statusDetails": {
+              "description": "Extra display options for the status",
+              "type": "object",
+              "properties": {
+                "showBiome": {
+                  "description": "Shows the biome of the map",
+                  "type": "boolean",
+                  "default": false
+                },
+                "showTile": {
+                  "description": "Shows the curent tile",
+                  "type": "boolean",
+                  "default": false
+                }
+              },
+              "default": {
+                "showBiome": false,
+                "showTile": false
+              }
+            }
+          }
+        },
+        "layout": {
+          "description": "The layout of all the modules. Macros match field names",
+          "type": "string",
+          "default": "?appInfo? - ?job? - ?status? - ?statusDetails?"
+        },
+        "disableUpdate": {
+          "description": "Makes the title bar static and doesn't update it. Good for faster performance",
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "autoCrop": {
+      "description": "Crops the map data if it's surrounded by nothing but the tiles specified",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "description": "Toggles the feature",
+          "type": "boolean",
+          "default": true
+        },
+        "tiles": {
+          "description": "The tiles that it will try to crop out",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1
+          },
+          "uniqueItems": true,
+          "default": [ "" ]
+        }
+      }
+    },
+    "assetSwitchers": {
+      "description": "The switching of assets right before rendering and adding them to the map",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "find": {
+            "description": "The asset to find",
+            "type": "object",
+            "properties": {
+              "tile": {
+                "description": "The name of the tile",
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "description": "The type of the tile (the asset)",
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "default": {
+              "tile": "",
+              "type": 0
+            },
+            "required": [ "tile", "type" ]
+          },
+          "replace": {
+            "description": "The asset to replace with",
+            "type": "object",
+            "properties": {
+              "tile": {
+                "description": "The name of the tile",
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "description": "The type of the tile (the asset)",
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "default": {
+              "tile": "",
+              "type": 0
+            },
+            "required": [ "tile", "type" ]
+          }
+        },
+        "default": {
+          "find": {
+            "tile": "",
+            "type": 0
+          },
+          "replace": {
+            "tile": "",
+            "type": 0
+          }
+        },
+        "uniqueItems": true,
+        "required": [ "find", "replace" ]
+      }
+    }
+  },
+  "required": [ "format", "preset", "batch" ]
+}
