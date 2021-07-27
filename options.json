@@ -1,10 +1,23 @@
 {
+  "$schema": "https://raw.githubusercontent.com/thedonciuxx/BrawlMapGen/master/schemas/options-1.schema.json",
+  "format": 1,
   "generator": {
-    "info": "Example options.json for BMG. For documentation check https://github.com/thedonciuxx/BrawlMapGen/wiki/Options.json-explained",
+    "info": "Example options.json for BMG. For documentation check https://github.com/thedonciuxx/BrawlMapGen/wiki/OPTIONS-Format-1",
+
     "madeBy": "BloodWiing (theDonciuxX / RedH1ghway)",
     "withTheHelpOf": "4JR",
     "gitHub": "https://github.com/thedonciuxx/BrawlMapGen",
-    "version": "1.8"
+
+    "madeForVersion": "1.9.2",
+
+    "notes": [
+      "You can use this freely as a template for any map you want to generate.",
+      "To aid you on writing this JSON file I have made a JSON schema that's attached at the top of the tile.",
+      "To use it, just press Ctrl+Space when adding a new field or object in an array and your IDE/Code editor should suggest what to write.",
+      "Here's a demo of that: https://www.youtube.com/watch?v=KEc6m_o_VAk",
+      "You can also hover over fields to see their descriptions.",
+      "This 'generator' field can be deleted at any time."
+    ]
   },
   "preset": "brawlstars",
   "batch": [
@@ -86,36 +99,5 @@
   ],
   "exportFileName": "batch_?number?.png",
   "exportFolderName": "output",
-  "saveLogFile": true,
-  "console": {
-    "setup": true,
-    "tileDraw": true,
-    "orderedHorTileDraw": true,
-    "orderedTileDraw": true,
-    "saveLocation": true,
-    "aal": true,
-    "statusChange": true
-  },
-  "title": {
-    "modules": {
-      "appInfo": {
-        "showVersion": true
-      },
-      "job": {
-        "percentageBarFillCharacter": "#",
-        "percentageBarBackgroundCharacter": "-",
-        "order": "?percentage? [?progressBar?] ?jobName? ?jobsRatio?"
-      },
-      "status": {
-        "percentageBarFillCharacter": "#",
-        "percentageBarBackgroundCharacter": "-",
-        "order": "?percentage? [?progressBar?] ?statusText? ?actionRatio?"
-      },
-      "statusDetails": {
-        "showBiome": true,
-        "showTile": true
-      }
-    },
-    "layout": "?appInfo? - ?job? - ?status? - ?statusDetails?"
-  }
+  "saveLogFile": true
 }
