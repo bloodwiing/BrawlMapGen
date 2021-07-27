@@ -306,13 +306,13 @@
                 "description": "The type to be used of the tile",
                 "type": "integer"
               }
-            }
-          },
-          "default": {
-            "tile": "",
-            "type": 0
-          },
-          "required": [ "tile", "type" ]
+            },
+            "default": {
+              "tile": "",
+              "type": 0
+            },
+            "required": [ "tile", "type" ]
+          }
         }
       },
       "default": {
