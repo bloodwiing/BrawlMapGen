@@ -19,6 +19,7 @@
       "type": "array",
       "items": {
         "type": "string",
+        "minLength": 1,
         "maxLength": 1
       },
       "uniqueItems": true
@@ -40,6 +41,7 @@
           "tileCode": {
             "description": "The character representing the tile",
             "type": "string",
+            "minLength": 1,
             "maxLength": 1
           },
           "tileTypes": {
@@ -67,6 +69,13 @@
                     "right": {
                       "type": "integer"
                     }
+                  },
+                  "default": {
+                    "top": 0,
+                    "mid": 1000,
+                    "bot": 0,
+                    "left": 0,
+                    "right": 0
                   },
                   "required": [ "top", "mid", "bot", "left", "right" ]
                 },
@@ -102,6 +111,16 @@
                   "description": "A toggle for tile gap connectors [DEPRECATED]",
                   "type": "boolean"
                 }
+              },
+              "default": {
+                "tileParts": {
+                  "top": 0,
+                  "mid": 1000,
+                  "bot": 0,
+                  "left": 0,
+                  "right": 0
+                },
+                "asset": ""
               },
               "required": [ "tileParts", "asset" ]
             }
@@ -145,6 +164,9 @@
                       "type": "string"
                     }
                   },
+                  "default": {
+                    "condition": "********"
+                  },
                   "required": [ "condition" ]
                 }
               },
@@ -164,7 +186,11 @@
                     "description": "The default asset [DEPRECATED]",
                     "type": "string"
                   }
-                }
+                },
+                "default": {
+                  "tileType": 0
+                },
+                "required": [ "tileType" ]
               },
               "edgeCase": {
                 "description": "An option how to handle the edge scenarios",
@@ -177,8 +203,21 @@
                 "type": "string"
               }
             },
+            "default": {
+              "rules": [ ],
+              "multipleConditionsCouldApply": false,
+              "edgeCase": 0,
+              "defaults": {
+                "tileType": 0
+              }
+            },
             "required": [ "rules", "multipleConditionsCouldApply", "edgeCase", "defaults" ]
           }
+        },
+        "default": {
+          "tileName": "Your New Tile",
+          "tileCode": "",
+          "tileTypes": []
         },
         "required": [ "tileName", "tileCode", "tileTypes" ]
       }
@@ -217,9 +256,20 @@
                   "description": "The type to be used of the tile",
                   "type": "integer"
                 }
-              }
+              },
+              "default": {
+                "tile": "",
+                "type": 0
+              },
+              "required": [ "tile", "type" ]
             }
           }
+        },
+        "default": {
+          "name": "Your new biome",
+          "color1": "255,255,255",
+          "color2": "244,244,244",
+          "defaults": []
         },
         "required": [ "name", "color1", "color2", "defaults" ]
       }
@@ -257,8 +307,19 @@
                 "type": "integer"
               }
             }
-          }
+          },
+          "default": {
+            "tile": "",
+            "type": 0
+          },
+          "required": [ "tile", "type" ]
         }
+      },
+      "default": {
+        "name": "Your new default biome",
+        "color1": "255,255,255",
+        "color2": "244,244,244",
+        "defaults": []
       },
       "required": [ "name", "color1", "color2", "defaults" ]
     },
@@ -296,6 +357,12 @@
                   "type": "integer"
                 }
               },
+              "default": {
+                "tile": "",
+                "type": 0,
+                "position": "m,m",
+                "drawOrder": 1
+              },
               "required": [ "tile", "type", "position", "drawOrder" ]
             }
           },
@@ -313,6 +380,10 @@
                   "description": "The new type of the tile",
                   "type": "integer"
                 }
+              },
+              "default": {
+                "tile": "",
+                "type": 0
               },
               "required": [ "tile", "type" ]
             }
@@ -333,9 +404,16 @@
                   "pattern": "^([lmr]|-?\\d+),([tmb]|-?\\d+)$"
                 }
               },
+              "default": {
+                "tile": "",
+                "position": "m,m"
+              },
               "required": [ "tile", "position" ]
             }
           }
+        },
+        "default": {
+          "name": "Your new game mode"
         },
         "required": [ "name" ]
       }
