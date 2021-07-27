@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/preset.schema.json",
 	"presetOptions": {
 		"tileTransitionSize": 2
 	},
@@ -4989,12 +4990,15 @@
 	"gamemodes": [
 	{
 		"name": "Gem Grab",
-		"specialTiles": [
+    "mapModder": [
+    {
+      "tile": "objective",
+      "position": "m,m"
+    }],
+		"overrideBiome": [
 		{
 			"tile": "objective",
-			"type": 0,
-			"position": "m,m",
-			"drawOrder": 2
+			"type": 0
 		}]
 	},
 	{
@@ -5051,12 +5055,15 @@
 	},
 	{
 		"name": "Snowy Gem Grab",
-		"specialTiles": [
+    "mapModder": [
+    {
+      "tile": "objective",
+      "position": "m,m"
+    }],
+		"overrideBiome": [
 		{
 			"tile": "objective",
-			"type": 7,
-			"position": "m,m",
-			"drawOrder": 2
+			"type": 7
 		}]
 	},
 	{
@@ -5143,47 +5150,53 @@
 	},
 	{
 		"name": "Town Gem Grab",
-		"specialTiles": [
+    "mapModder": [
+    {
+      "tile": "objective",
+      "position": "m,m"
+    }],
+		"overrideBiome": [
 		{
 			"tile": "objective",
-			"type": 10,
-			"position": "m,m",
-			"drawOrder": 2
+			"type": 10
 		}]
 	},
 	{
 		"name": "Retro Gem Grab",
-		"specialTiles": [
+    "mapModder": [
+    {
+      "tile": "objective",
+      "position": "m,m"
+    }],
+		"overrideBiome": [
 		{
 			"tile": "objective",
-			"type": 11,
-			"position": "m,m",
-			"drawOrder": 2
+			"type": 11
 		}]
 	},
 	{
-        "name": "Takedown",
-        "overrideBiome": [
-            {
-                "tile": "player1",
-                "type": 1
-            },
-            {
-                "tile": "player2",
-                "type": 4
-			}
-        ],
-		"specialTiles": [
-        {
-            "tile": "player2",
-            "type": 3,
-            "position": "m,m",
-            "drawOrder": 2
-        }
-		]
+    "name": "Takedown",
+    "overrideBiome": [
+    {
+      "tile": "player1",
+      "type": 1
     },
     {
-        "name": "Lone Star",
+      "tile": "player2",
+      "type": 4
+    }
+    ],
+		"specialTiles": [
+    {
+      "tile": "player2",
+      "type": 3,
+      "position": "m,m",
+      "drawOrder": 2
+    }
+		]
+  },
+  {
+    "name": "Lone Star",
 		"specialTiles": [
 		{
 			"tile": "objective",
@@ -5191,44 +5204,50 @@
 			"position": "m,m",
 			"drawOrder": 2
 		}]
-    },
+  },
 	{
 		"name": "Mortuary Gem Grab",
-		"specialTiles": [
+    "mapModder": [
+    {
+      "tile": "objective",
+      "position": "m,m"
+    }],
+		"overrideBiome": [
 		{
 			"tile": "objective",
-			"type": 12,
-			"position": "m,m",
-			"drawOrder": 2
+			"type": 12
 		}]
 	},
 	{
 		"name": "Darryl Gem Grab",
-		"specialTiles": [
+    "mapModder": [
+    {
+      "tile": "objective",
+      "position": "m,m"
+    }],
+		"overrideBiome": [
 		{
 			"tile": "objective",
-			"type": 13,
-			"position": "m,m",
-			"drawOrder": 2
+			"type": 13
 		}]
 	},
 	{
 		"name": "Present Plunder",
 		"overrideBiome": [
-            {
-                "tile": "objective",
-                "type": 14
-            }
-        ]
+      {
+        "tile": "objective",
+        "type": 14
+      }
+    ]
 	},
 	{
 		"name": "Hot Zone",
 		"overrideBiome": [
-            {
-                "tile": "objective",
-                "type": 16
-            }
-        ]
+    {
+      "tile": "objective",
+      "type": 16
+    }
+    ]
 	},
 	{
 		"name": "PSG Brawl Ball",
@@ -5258,22 +5277,25 @@
 	},
 	{
 		"name": "Bazaar Gem Grab",
-		"specialTiles": [
+    "mapModder": [
+    {
+      "tile": "objective",
+      "position": "m,m"
+    }],
+		"overrideBiome": [
 		{
 			"tile": "objective",
-			"type": 20,
-			"position": "m,m",
-			"drawOrder": 2
+			"type": 20
 		}]
 	},
 	{
 		"name": "Hot Zone (mod)",
 		"overrideBiome": [
-            {
-                "tile": "objective",
-                "type": 21
-            }
-        ]
+    {
+      "tile": "objective",
+      "type": 21
+    }
+    ]
 	},
 	{
 		"name": "Super City Rampage",
@@ -5286,12 +5308,15 @@
 	},
 	{
 		"name": "Mini Gem Grab",
-		"specialTiles": [
+    "mapModder": [
+    {
+      "tile": "objective",
+      "position": "m,m"
+    }],
+		"overrideBiome": [
 		{
 			"tile": "objective",
-			"type": 22,
-			"position": "m,m",
-			"drawOrder": 2
+			"type": 22
 		}]
 	},
 	{
@@ -5314,42 +5339,54 @@
 	},
 	{
 		"name": "Gift Gem Grab",
-		"specialTiles": [
+    "mapModder": [
+    {
+      "tile": "objective",
+      "position": "m,m"
+    }],
+		"overrideBiome": [
 		{
 			"tile": "objective",
-			"type": 24,
-			"position": "m,m",
-			"drawOrder": 2
+			"type": 24
 		}]
 	},
 	{
 		"name": "Bandstand Gem Grab",
-		"specialTiles": [
+    "mapModder": [
+    {
+      "tile": "objective",
+      "position": "m,m"
+    }],
+		"overrideBiome": [
 		{
 			"tile": "objective",
-			"type": 20,
-			"position": "m,m",
-			"drawOrder": 2
+			"type": 20
 		}]
 	},
 	{
 		"name": "Snowtel Gem Grab",
-		"specialTiles": [
+    "mapModder": [
+    {
+      "tile": "objective",
+      "position": "m,m"
+    }],
+		"overrideBiome": [
 		{
 			"tile": "objective",
-			"type": 11,
-			"position": "m,m",
-			"drawOrder": 2
+			"type": 11
 		}]
 	},
 	{
 		"name": "Space Gem Grab",
-		"specialTiles": [
+    "mapModder": [
+    {
+      "tile": "objective",
+      "position": "m,m"
+    }],
+		"overrideBiome": [
 		{
 			"tile": "objective",
-			"type": 25,
-			"position": "m,m",
-			"drawOrder": 2
+			"type": 25
 		}]
 	},
 	{
