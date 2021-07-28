@@ -6,13 +6,12 @@
 	"ignoreTiles": [
 		".",
 		"D",
-		"4",
+		"0",
 		"7",
 		"6",
 		"Q",
 		"b",
-		"r",
-		"g"
+		"r"
 	],
 	"tiles": [
 	{
@@ -22,9 +21,9 @@
 		"tileTypes": [
 		{
 			"tileParts": {
-				"top": 528,
+				"top": 500,
 				"mid": 1000,
-				"bot": 237,
+				"bot": 250,
 				"left": 0,
 				"right": 0
 			},
@@ -4196,6 +4195,89 @@
 			"order": -2
 		}
 		]
+	},
+	{
+		"tileName": "indestructible",
+		"tileCode": "I",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 250,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "indestructible.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 250,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "indestructible_bricks.svg"
+		}
+		]
+	},
+	{
+		"tileName": "powerupCrate",
+		"tileCode": "4",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 250,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "power_crate.svg"
+		}
+		]
+	},
+	{
+		"tileName": "explosive",
+		"tileCode": "q",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 250,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "tnt.svg"
+		}
+		]
+	},
+	{
+		"tileName": "siegeBolt",
+		"tileCode": "g",
+		"tileTypes": [
+		{
+			"tileParts": {
+				"top": 350,
+				"mid": 1000,
+				"bot": 0,
+				"left": 50,
+				"right": 50
+			},
+			"asset": "bolt_0.svg",
+			"randomizer": [
+				{
+					"asset": "bolt_0.svg"
+				},
+				{
+					"asset": "bolt_1.svg"
+				}
+			],
+			"orderHor": 3
+		}
+		]
 	}
 	],
 	"biomes": [
@@ -4279,6 +4361,10 @@
 		{
 			"tile": "blocking2",
 			"type": 2
+		},
+		{
+			"tile": "indestructible",
+			"type": 1
 		}
 		]
 	},
@@ -4552,6 +4638,10 @@
 		{
 			"tile": "fence",
 			"type": 3
+		},
+		{
+			"tile": "indestructible",
+			"type": 1
 		}
 		]
 	},
@@ -5043,6 +5133,22 @@
 		},
 		{
 			"tile": "fast",
+			"type": 0
+		},
+		{
+			"tile": "indestructible",
+			"type": 0
+		},
+		{
+			"tile": "powerupCrate",
+			"type": 0
+		},
+		{
+			"tile": "explosive",
+			"type": 0
+		},
+		{
+			"tile": "siegeBolt",
 			"type": 0
 		}
 		]
