@@ -349,6 +349,30 @@
         }
       }
     },
+    "render": {
+      "description": "Selective rendering",
+      "type": "object",
+      "properties": {
+        "include": {
+          "description": "Map whitelisting",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "default": [ 0 ]
+        },
+        "exclude": {
+          "description": "Map blacklisting",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "default": [ 0 ]
+        }
+      }
+    },
     "autoCrop": {
       "description": "Crops the map data if it's surrounded by nothing but the tiles specified",
       "type": "object",
