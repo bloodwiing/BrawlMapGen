@@ -3659,7 +3659,7 @@
 		]
 	},
 	{
-		"tileName": "RopeFence",
+		"tileName": "ropeFence",
 		"tileCode": "a",
 		"tileTypes": [
 		{
@@ -4183,7 +4183,7 @@
 			"type": 1
 		},
 		{
-			"tile": "RopeFence",
+			"tile": "ropeFence",
 			"type": 4
 		}
 		]
@@ -4373,7 +4373,7 @@
 			"type": 3
 		},
 		{
-			"tile": "RopeFence",
+			"tile": "ropeFence",
 			"type": 8
 		}
 		]
@@ -4572,7 +4572,7 @@
 			"type": 43
 		},
 		{
-			"tile": "RopeFence",
+			"tile": "ropeFence",
 			"type": 1
 		}
 		]
@@ -4615,7 +4615,7 @@
 			"type": 53
 		},
 		{
-			"tile": "RopeFence",
+			"tile": "ropeFence",
 			"type": 12
 		}
 		]
@@ -4658,7 +4658,7 @@
 			"type": 53
 		},
 		{
-			"tile": "RopeFence",
+			"tile": "ropeFence",
 			"type": 12
 		}
 		]
@@ -4701,7 +4701,7 @@
 			"type": 73
 		},
 		{
-			"tile": "RopeFence",
+			"tile": "ropeFence",
 			"type": 12
 		}
 		]
@@ -4744,7 +4744,7 @@
 			"type": 76
 		},
 		{
-			"tile": "RopeFence",
+			"tile": "ropeFence",
 			"type": 16
 		}
 		]
@@ -4787,7 +4787,7 @@
 			"type": 86
 		},
 		{
-			"tile": "RopeFence",
+			"tile": "ropeFence",
 			"type": 16
 		}
 		]
@@ -4946,7 +4946,7 @@
 			"type": 0
 		},
 		{
-			"tile": "RopeFence",
+			"tile": "ropeFence",
 			"type": 0
 		},
 		{
