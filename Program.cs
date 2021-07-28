@@ -19,7 +19,7 @@ namespace BMG
 
             int major = 1;
             int minor = 9;
-            int patch = 2;
+            int patch = 3;
             string access = "Release";
             string oLoc = "options.json";
             string oStr = "";
@@ -172,30 +172,19 @@ namespace BMG
                     Thread.Sleep(10000);
                 }
 
-                logger.Title.Job.UpdateJob(0, totalSizes, "Preloading tiles...");
-                logger.Title.RefreshTitle();
-                logger.LogStatus("Tile Preloading started.");
-                foreach (Options1.BatchSettings single in options.batch) // Tile preloader
+                foreach (Options1.BatchSettings single in options.batch) // Tile size register
                 {
                     if (savedTileImageList.ContainsKey(single.sizeMultiplier))
                         continue;
 
-                    logger.Title.Job.IncreaseJob();
-                    logger.Title.Status.UpdateStatus(0, totalImages, "Reading...");
-                    logger.Title.RefreshTitle();
-
-                    logger.LogSpacer();
-                    logger.LogSetup(string.Format("Found new tilesize. ({0})", single.sizeMultiplier), false);
-                    savedTileImageList.Add(single.sizeMultiplier, new SavedImages(options, tiledata.tiles, single.sizeMultiplier, logger)); // Preload tiles for a specific tiles
+                    savedTileImageList.Add(single.sizeMultiplier, new SavedImages(options, single.sizeMultiplier, logger)); // Register tile size
                 }
-                logger.LogSpacer();
-                logger.LogStatus("Tile Preload complete.");
-                logger.LogSetup("Preloaded tiles with tilesizes:", false);
+                logger.LogSetup("Registered tilesizes:", false);
                 foreach (var si in savedTileImageList)
                     logger.LogSetup("  " + si.Key + "px", false);
+                logger.LogSpacer();
 
                 int bNumber = -1;
-                logger.LogSpacer();
                 logger.LogStatus("Map image generator starting...");
                 logger.Title.Job.UpdateJob(0, options.batch.Length, "\"temp_name\"");
                 foreach (var batchOption in options.batch)
@@ -1108,49 +1097,41 @@ namespace BMG
                 t = tiledata;
             }
 
-            private string GetRealAsset(Tiledata.Tile tile, int type, Options1 optionsObject, string defaultAsset)
+            private Tiledata.TileType GetRealAsset(Tiledata.Tile tile, int type, Options1 optionsObject, string defaultAsset, int? overrideType = null)
             {
-                string asset = defaultAsset;
+                Tiledata.TileType asset = tile.tileTypes[overrideType.GetValueOrDefault(type)];
+                asset.asset = defaultAsset;
+
                 if (optionsObject.assetSwitchers != null)
                     foreach (Options1.AssetSwitcher switcher in optionsObject.assetSwitchers)
                     {
                         if (tile.tileName == switcher.find.tile && type == switcher.find.type)
                             foreach (Tiledata.Tile dTile in t.tiles)
                                 if (dTile.tileName == switcher.replace.tile)
-                                    asset = dTile.tileTypes[switcher.replace.type].asset;
+                                    asset = dTile.tileTypes[switcher.replace.type];
 
                     }
 
                 return asset;
             }
 
-            private string GetRealAsset(OrderedTile tile, int type, Options1 optionsObject, string defaultAsset)
+            private Tiledata.TileType GetRealAsset(OrderedTile tile, int type, Options1 optionsObject, string defaultAsset)
             {
-                return GetRealAsset(new Tiledata.Tile() { tileName = tile.tileName }, type, optionsObject, defaultAsset);
+                return GetRealAsset(new Tiledata.Tile() { tileName = tile.tileName, tileTypes = new Tiledata.TileType[] { tile.tileTypeData } }, type, optionsObject, defaultAsset, 0);
             }
 
             public void DrawTile(Tiledata.Tile tile, int type, Options1 optionsObject, int sizeMultiplier, int currentX, int currentY, SavedImages imageMemory, float[] borderSize) // Drawing a tile (normal)
             {
-                foreach (SavedImages.TileImage ti in imageMemory.tileImages)
-                {
-                    if (ti.imageName == GetRealAsset(tile, type, optionsObject, tile.tileTypes[type].asset))
-                    {
-                        g.DrawImage(ti.renderedImage, (int)Math.Round(sizeMultiplier * (currentX + borderSize[2])) - ti.imageOffsetLeft, (int)Math.Round(sizeMultiplier * (currentY + borderSize[0])) - ti.imageOffsetTop);
-                        return;
-                    }
-                }
+                var ti = imageMemory.GetTileImage(GetRealAsset(tile, type, optionsObject, tile.tileTypes[type].asset));
+                g.DrawImage(ti.renderedImage, (int)Math.Round(sizeMultiplier * (currentX + borderSize[2])) - ti.imageOffsetLeft, (int)Math.Round(sizeMultiplier * (currentY + borderSize[0])) - ti.imageOffsetTop);
+                return;
             }
 
             public void DrawSelectedTile(OrderedTile tile, Options1 optionsObject, int sizeMultiplier, SavedImages imageMemory, float[] borderSize) // Drawing a tile (with saved coordinates and a pre-selected type)
             {
-                foreach (SavedImages.TileImage ti in imageMemory.tileImages)
-                {
-                    if (ti.imageName == GetRealAsset(tile, tile.tileType, optionsObject, tile.tileTypeData.asset))
-                    {
-                        g.DrawImage(ti.renderedImage, (int)Math.Round(sizeMultiplier * (tile.xPosition + borderSize[2])) - ti.imageOffsetLeft, (int)Math.Round(sizeMultiplier * (tile.yPosition + borderSize[0])) - ti.imageOffsetTop);
-                        return;
-                    }
-                }
+                var ti = imageMemory.GetTileImage(GetRealAsset(tile, tile.tileType, optionsObject, tile.tileTypeData.asset));
+                g.DrawImage(ti.renderedImage, (int)Math.Round(sizeMultiplier * (tile.xPosition + borderSize[2])) - ti.imageOffsetLeft, (int)Math.Round(sizeMultiplier * (tile.yPosition + borderSize[0])) - ti.imageOffsetTop);
+                return;
             }
 
             public void ColorBackground(Color color1, Color color2, string[] map, Options1.BatchSettings batchOption, float[] borderSize) // Filling in background colors
