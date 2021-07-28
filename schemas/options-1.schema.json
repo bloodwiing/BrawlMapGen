@@ -457,6 +457,11 @@
         "uniqueItems": true,
         "required": [ "find", "replace" ]
       }
+    },
+    "allowTileRandomizations": {
+      "description": "Toggles asset randomizations",
+      "type": "boolean",
+      "default": false
     }
   },
   "required": [ "format", "preset", "batch" ]

@@ -23,6 +23,7 @@ namespace BMG
         public Render render { get; set; } = new Render();
         public AutoCrop autoCrop { get; set; } = new AutoCrop();
         public AssetSwitcher[] assetSwitchers { get; set; }
+        public bool allowTileRandomizations { get; set; } = true;
 
         public class Replace
         {

@@ -82,7 +82,8 @@
                 },
                 "asset": {
                   "description": "The location of the SVG file",
-                  "type": "string"
+                  "type": "string",
+                  "pattern": "^.+\\.[Ss][Vv][Gg]$"
                 },
                 "sound": {
                   "description": "The sound file it plays when it is placed [DEPRECATED]",
@@ -111,6 +112,56 @@
                 "tileTransitions": {
                   "description": "A toggle for tile gap connectors [DEPRECATED]",
                   "type": "boolean"
+                },
+                "randomizer": {
+                  "description": "Makes the same tile look differently automatically",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "tileParts": {
+                        "description": "The offsets of the asset",
+                        "type": "object",
+                        "properties": {
+                          "top": {
+                            "type": "integer"
+                          },
+                          "mid": {
+                            "type": "integer"
+                          },
+                          "bot": {
+                            "type": "integer"
+                          },
+                          "left": {
+                            "type": "integer"
+                          },
+                          "right": {
+                            "type": "integer"
+                          }
+                        },
+                        "default": {
+                          "top": 0,
+                          "mid": 1000,
+                          "bot": 0,
+                          "left": 0,
+                          "right": 0
+                        },
+                        "required": [ "top", "mid", "bot", "left", "right" ]
+                      },
+                      "asset": {
+                        "description": "The location of the SVG file",
+                        "type": "string",
+                        "pattern": "^.+\\.[Ss][Vv][Gg]$"
+                      }
+                    },
+                    "required": [ "asset" ]
+                  },
+                  "minItems": 1,
+                  "default": [ 
+                    {
+                      "asset": "file.svg"
+                    }
+                  ]
                 }
               },
               "default": {
@@ -121,7 +172,7 @@
                   "left": 0,
                   "right": 0
                 },
-                "asset": ""
+                "asset": "file.svg"
               },
               "required": [ "tileParts", "asset" ]
             },

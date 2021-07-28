@@ -46,17 +46,22 @@ namespace BMG
             public TileLink tileLinks { get; set; }
         }
 
-        public class TileType
+        public class TileTypeBase
         {
             public TileParts tileParts { get; set; }
+            public string asset { get; set; }
+        }
+
+        public class TileType : TileTypeBase
+        {
             public string color { get; set; }
             public bool detailed { get; set; }
             public bool visible { get; set; }
             public string other { get; set; }
-            public string asset { get; set; }
             public int? orderHor { get; set; }
             public int? order { get; set; }
             public bool tileTransitions { get; set; } = false;
+            public TileTypeBase[] randomizer { get; set; }
         }
 
         public class TileParts
