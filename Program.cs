@@ -28,7 +28,6 @@ namespace BMG
             // Fun statistical ending numbers
             int tilesDrawn = 0;
             int mapsDrawn = 0;
-            List<char> tilesFailedChars = new List<char>();
             Dictionary<char, int> tilesFailed = new Dictionary<char, int>();
 
             Options1 options = new Options1();
@@ -79,6 +78,7 @@ namespace BMG
 
                     StreamReader r = new StreamReader(oLoc);
                     oStr = r.ReadToEnd();
+                    r.Close();
                 }
 
                 var format = JsonConvert.DeserializeObject<OptionsBase>(oStr);
@@ -762,10 +762,9 @@ namespace BMG
 
                                 if (!tileDrawn)
                                 {
-                                    if (!tilesFailedChars.Contains(tTile))
+                                    if (!tilesFailed.ContainsKey(tTile))
                                     {
                                         tilesFailed.Add(tTile, 1);
-                                        tilesFailedChars.Add(tTile);
                                     }
                                     else
                                         tilesFailed[tTile]++;
@@ -975,7 +974,7 @@ namespace BMG
             else
             {
                 logger.Log("  Unrecognized tiles encountered:");
-                foreach (var t in tilesFailedChars)
+                foreach (var t in tilesFailed.Keys)
                     logger.Log("    \"" + t + "\": " + tilesFailed[t]);
             }
 
