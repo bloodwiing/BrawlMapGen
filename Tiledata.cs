@@ -32,7 +32,7 @@ namespace BMG
         }
 
         public PresetOptions presetOptions { get; set; }
-        public char[] ignoreTiles { get; set; }
+        public char[] ignoreTiles { get; set; } = new char[0];
         public Tile[] tiles { get; set; }
         public Biome[] biomes { get; set; }
         public Biome defaultBiome { get; set; }

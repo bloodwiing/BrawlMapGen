@@ -36,7 +36,7 @@ namespace BMG
             public string[] map { get; set; }
             public int biome { get; set; }
             public int sizeMultiplier { get; set; }
-            public char[] skipTiles { get; set; }
+            public char[] skipTiles { get; set; } = new char[0];
             public Replace[] replaceTiles { get; set; }
             public string exportFileName { get; set; }
             public Tiledata.TileDefault[] overrideBiome { get; set; }

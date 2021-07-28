@@ -432,11 +432,10 @@ namespace BMG
 
                                 var tile = tTile;
 
-                                foreach (Options1.Replace repTile in batchOption.replaceTiles) // Specified Tile Code Replacer
-                                {
-                                    if (tile == repTile.from)
-                                        tile = repTile.to;
-                                }
+                                if (batchOption.replaceTiles != null)
+                                    foreach (Options1.Replace repTile in batchOption.replaceTiles) // Specified Tile Code Replacer
+                                        if (tile == repTile.from)
+                                            tile = repTile.to;
 
                                 if (batchOption.skipTiles.Contains(tile)) // Specified Tile Skipper
                                 {
