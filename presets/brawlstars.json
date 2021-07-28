@@ -3901,10 +3901,70 @@
 				"right": 475
 			},
 			"asset": "rope_post_waterpark_tr.svg"
+		},
+		{
+			"tileParts": {
+				"top": 850,
+				"mid": 1000,
+				"bot": -50,
+				"left": -206,
+				"right": -206
+			},
+			"asset": "power_line.svg"
+		},
+		{
+			"tileParts": {
+				"top": 1450,
+				"mid": 1000,
+				"bot": -50,
+				"left": -206,
+				"right": -206
+			},
+			"asset": "power_line_t.svg"
+		},
+		{
+			"tileParts": {
+				"top": 850,
+				"mid": 1000,
+				"bot": -50,
+				"left": -206,
+				"right": 261
+			},
+			"asset": "power_line_r.svg"
+		},
+		{
+			"tileParts": {
+				"top": 1450,
+				"mid": 1000,
+				"bot": -50,
+				"left": -206,
+				"right": 261
+			},
+			"asset": "power_line_tr.svg"
 		}
 		],
 		"tileLinks": {
 			"rules": [
+			{
+				"condition": "*1**1***",
+				"requiredBiome": 13,
+				"changeTileType": 27
+			},
+			{
+				"condition": "*0**1***",
+				"requiredBiome": 13,
+				"changeTileType": 26
+			},
+			{
+				"condition": "*1**0***",
+				"requiredBiome": 13,
+				"changeTileType": 25
+			},
+			{
+				"condition": "********",
+				"requiredBiome": 13,
+				"changeTileType": 24
+			},
 			{
 				"condition": "*1**1***",
 				"requiredBiome": 20,
