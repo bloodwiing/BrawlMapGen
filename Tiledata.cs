@@ -37,6 +37,7 @@ namespace BMG
         public Biome[] biomes { get; set; }
         public Biome defaultBiome { get; set; }
         public Gamemode[] gamemodes { get; set; }
+        public Dictionary<string, TileDefault[]> metadata { get; set; } = new Dictionary<string, TileDefault[]>();
 
         public class Tile
         {

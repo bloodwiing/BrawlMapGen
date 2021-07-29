@@ -322,17 +322,17 @@
                 "showBiome": {
                   "description": "Shows the biome of the map",
                   "type": "boolean",
-                  "default": false
+                  "default": true
                 },
                 "showTile": {
                   "description": "Shows the curent tile",
                   "type": "boolean",
-                  "default": false
+                  "default": true
                 }
               },
               "default": {
-                "showBiome": false,
-                "showTile": false
+                "showBiome": true,
+                "showTile": true
               }
             }
           }
@@ -345,7 +345,7 @@
         "disableUpdate": {
           "description": "Makes the title bar static and doesn't update it. Good for faster performance",
           "type": "boolean",
-          "default": true
+          "default": false
         }
       }
     },
@@ -380,7 +380,7 @@
         "enabled": {
           "description": "Toggles the feature",
           "type": "boolean",
-          "default": true
+          "default": false
         },
         "tiles": {
           "description": "The tiles that it will try to crop out",
@@ -458,10 +458,23 @@
         "required": [ "find", "replace" ]
       }
     },
-    "allowTileRandomizations": {
-      "description": "Toggles asset randomizations",
-      "type": "boolean",
-      "default": false
+    "randomizers": {
+      "description": "Changes asset randomization options",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "description": "Toggles randomizations",
+          "type": "boolean",
+          "default": true
+        },
+        "seed": {
+          "description": "Sets the randomizers seed",
+          "type": "integer"
+        }
+      },
+      "default": {
+        "enabled": true
+      }
     }
   },
   "required": [ "format", "preset", "batch" ]

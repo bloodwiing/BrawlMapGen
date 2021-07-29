@@ -177,7 +177,12 @@ namespace BMG
                     if (savedTileImageList.ContainsKey(single.sizeMultiplier))
                         continue;
 
-                    savedTileImageList.Add(single.sizeMultiplier, new SavedImages(options, single.sizeMultiplier, logger)); // Register tile size
+                    var si = new SavedImages(options, single.sizeMultiplier, logger);
+
+                    if (options.randomizers.enabled && options.randomizers.seed != null)
+                        si.SetRandomSeed(options.randomizers.seed.GetValueOrDefault());
+
+                    savedTileImageList.Add(single.sizeMultiplier, si); // Register tile size
                 }
                 logger.LogSetup("Registered tilesizes:", false);
                 foreach (var si in savedTileImageList)
@@ -193,6 +198,9 @@ namespace BMG
                     logger.Title.Job.IncreaseJob();
 
                     SavedImages selectedTileImageList = savedTileImageList[batchOption.sizeMultiplier];
+
+                    if (batchOption.randomSeed != null)
+                        selectedTileImageList.SetRandomSeed(batchOption.randomSeed.GetValueOrDefault());
 
                     bNumber++;
 
@@ -416,6 +424,42 @@ namespace BMG
                             {
                                 logger.Title.Status.IncreaseStatus();
                                 logger.Title.RefreshTitle();
+
+                                if (batchOption.mapMetadata != null)
+                                {
+                                    foreach (string metaKey in batchOption.mapMetadata.Keys)
+                                        foreach (var datum in batchOption.mapMetadata[metaKey])
+                                            if (datum.x == currentX && datum.y == currentY)
+                                            {
+                                                if (!tiledata.metadata.TryGetValue(metaKey, out var mTiles))
+                                                    continue;
+
+                                                var mTile = mTiles[datum.t];
+
+                                                foreach (var lTile in tiledata.tiles)
+                                                {
+                                                    if (lTile.tileName == mTile.tile)
+                                                    {
+                                                        var found = lTile.tileTypes[mTile.type];
+
+                                                        if ((drawPass == 0 && found.order.GetValueOrDefault() < 0) ||
+                                                            (drawPass == 1 && found.order.GetValueOrDefault() >= 0))
+                                                        {
+                                                            logger.LogTile(new TileActionTypes(1, 0, 0, 1, 0, 0), lTile, currentY, currentX, yLength, xLength, Logger.TileEvent.orderedTileDraw);
+                                                            orderedTiles.Add(new OrderedTile()
+                                                            {
+                                                                tileTypeData = found,
+                                                                tileType = mTile.type,
+                                                                xPosition = currentX,
+                                                                yPosition = currentY,
+                                                                tileCode = lTile.tileCode,
+                                                                tileName = lTile.tileName
+                                                            });
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                }
 
                                 bool tileDrawn = false;
 
@@ -1076,6 +1120,27 @@ namespace BMG
                 d = _d == 1;
             }
 
+            public TileActionTypes(bool _m, bool _g, bool _s, bool _o, bool _h, bool _d)
+            {
+                m = _m;
+                g = _g;
+                s = _s;
+                o = _o;
+                h = _h;
+                d = _d;
+            }
+
+            public TileActionTypes(byte _m, byte _g, byte _s, byte _o, byte _h, byte _d)
+            {
+                m = _m == 1;
+                g = _g == 1;
+                s = _s == 1;
+                o = _o == 1;
+                h = _h == 1;
+                d = _d == 1;
+            }
+
+            public bool m = false;
             public bool g;
             public bool s;
             public bool o;
@@ -1215,13 +1280,21 @@ namespace BMG
             string t;
             string n = tile.tileName.ToUpper();
 
-            if (tat.g) p = "g"; else p = " ";
+            if (tat.m) p = "m"; else p = " ";
+            if (tat.g) p += "g"; else p = " ";
             if (tat.s) p += "s"; else p += " ";
             if (tat.o) p += "o"; else p += " ";
             if (tat.h) p += "h"; else p += " ";
             if (tat.d) p += "d"; else p += " ";
 
-            if (tat.g)
+            if (tat.m)
+            {
+                if (tat.d)
+                    t = "DRAWN METADATA TILE AS \"" + n + "\".";
+                else
+                    t = "REGISTERED METADATA TILE \"" + n + "\".";
+            }
+            else if (tat.g)
             {
                 if (tat.o)
                     t = "MODIFIED TO \"" + n + "\".";

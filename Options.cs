@@ -23,7 +23,7 @@ namespace BMG
         public Render render { get; set; } = new Render();
         public AutoCrop autoCrop { get; set; } = new AutoCrop();
         public AssetSwitcher[] assetSwitchers { get; set; }
-        public bool allowTileRandomizations { get; set; } = true;
+        public Randomizers randomizers { get; set; } = new Randomizers();
 
         public class Replace
         {
@@ -44,6 +44,8 @@ namespace BMG
             public SpecialTileRules[] specialTileRules { get; set; }
             public float[] emptyBorderAmount { get; set; } = new float[] { 1 };
             public string gamemode { get; set; }
+            public int? randomSeed { get; set; }
+            public Dictionary<string, Metadata[]> mapMetadata { get; set; }
         }
 
         public class ConsoleOptions
@@ -149,6 +151,19 @@ namespace BMG
         {
             public string tile { get; set; }
             public int type { get; set; }
+        }
+
+        public class Randomizers
+        {
+            public bool enabled { get; set; } = true;
+            public int? seed { get; set; }
+        }
+
+        public class Metadata
+        {
+            public int x { get; set; }
+            public int y { get; set; }
+            public int t { get; set; }
         }
 
     }

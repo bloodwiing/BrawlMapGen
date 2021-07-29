@@ -11,7 +11,7 @@ namespace BMG
     {
         private readonly Dictionary<string, TileImage> tileImages = new Dictionary<string, TileImage>();
 
-        private readonly Random rnd = new Random();
+        private Random rnd = new Random();
 
         private readonly Options1 optionsObject;
         private readonly int sizeMultiplier;
@@ -24,12 +24,17 @@ namespace BMG
             this.logger = logger;
         }
 
+        public void SetRandomSeed(int seed)
+        {
+            rnd = new Random(seed);
+        }
+
         public TileImage GetTileImage(Tiledata.TileType tile)
         {
             string asset = tile.asset;
             Tiledata.TileTypeBase final = tile;
 
-            if (tile.randomizer != null && optionsObject.allowTileRandomizations)
+            if (tile.randomizer != null && optionsObject.randomizers.enabled)
             {
                 final = tile.randomizer[rnd.Next(tile.randomizer.Length)];
                 asset = final.asset;

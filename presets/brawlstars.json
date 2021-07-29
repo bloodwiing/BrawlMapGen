@@ -4273,9 +4273,136 @@
 				},
 				{
 					"asset": "bolt_1.svg"
+				},
+				{
+					"asset": "bolt_2.svg"
+				},
+				{
+					"asset": "bolt_3.svg"
 				}
 			],
 			"orderHor": 3
+		},
+		{
+			"tileParts": {
+				"top": -700,
+				"mid": 1000,
+				"bot": 400,
+				"left": 100,
+				"right": 100
+			},
+			"asset": "number_1.svg",
+			"order": 4
+		},
+		{
+			"tileParts": {
+				"top": -700,
+				"mid": 1000,
+				"bot": 400,
+				"left": 100,
+				"right": 100
+			},
+			"asset": "number_2.svg",
+			"order": 4
+		},
+		{
+			"tileParts": {
+				"top": -706,
+				"mid": 1000,
+				"bot": 750,
+				"left": -158,
+				"right": -158
+			},
+			"asset": "number_3.svg",
+			"order": 4
+		},
+		{
+			"tileParts": {
+				"top": -750,
+				"mid": 1000,
+				"bot": 750,
+				"left": 125,
+				"right": 125
+			},
+			"asset": "number_4.svg",
+			"order": 4
+		},
+		{
+			"tileParts": {
+				"top": -700,
+				"mid": 1000,
+				"bot": 400,
+				"left": 100,
+				"right": 100
+			},
+			"asset": "number_5.svg",
+			"order": 4
+		},
+		{
+			"tileParts": {
+				"top": -700,
+				"mid": 1000,
+				"bot": 400,
+				"left": 100,
+				"right": 100
+			},
+			"asset": "number_6.svg",
+			"order": 4
+		},
+		{
+			"tileParts": {
+				"top": -700,
+				"mid": 1000,
+				"bot": 400,
+				"left": 100,
+				"right": 100
+			},
+			"asset": "number_7.svg",
+			"order": 4
+		},
+		{
+			"tileParts": {
+				"top": -700,
+				"mid": 1000,
+				"bot": 400,
+				"left": 100,
+				"right": 100
+			},
+			"asset": "number_8.svg",
+			"order": 4
+		},
+		{
+			"tileParts": {
+				"top": -700,
+				"mid": 1000,
+				"bot": 400,
+				"left": 100,
+				"right": 100
+			},
+			"asset": "number_9.svg",
+			"order": 4
+		},
+		{
+			"tileParts": {
+				"top": -700,
+				"mid": 1000,
+				"bot": 400,
+				"left": 100,
+				"right": 100
+			},
+			"asset": "number_10.svg",
+			"order": 4
+		},
+		{
+			"tileParts": {
+				"top": -700,
+				"mid": 1000,
+				"bot": 400,
+				"left": 100,
+				"right": 100
+			},
+			"asset": "number_unk.svg",
+			"order": 4
 		}
 		]
 	}
@@ -5617,5 +5744,53 @@
 			"drawOrder": 1
 		}]
 	}
-	]
+	],
+	"metadata": {
+		"bolts": [
+			{
+				"tile": "siegeBolt",
+				"type": 1
+			},
+			{
+				"tile": "siegeBolt",
+				"type": 2
+			},
+			{
+				"tile": "siegeBolt",
+				"type": 3
+			},
+			{
+				"tile": "siegeBolt",
+				"type": 4
+			},
+			{
+				"tile": "siegeBolt",
+				"type": 5
+			},
+			{
+				"tile": "siegeBolt",
+				"type": 6
+			},
+			{
+				"tile": "siegeBolt",
+				"type": 7
+			},
+			{
+				"tile": "siegeBolt",
+				"type": 8
+			},
+			{
+				"tile": "siegeBolt",
+				"type": 9
+			},
+			{
+				"tile": "siegeBolt",
+				"type": 10
+			},
+			{
+				"tile": "siegeBolt",
+				"type": 11
+			}
+		]
+	}
 }
