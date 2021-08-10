@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Linq;
+using Newtonsoft.Json.Linq;
+using System;
 
 namespace BMG
 {
@@ -33,11 +35,16 @@ namespace BMG
 
         public PresetOptions presetOptions { get; set; }
         public char[] ignoreTiles { get; set; } = new char[0];
+
         public Tile[] tiles { get; set; }
         public Biome[] biomes { get; set; }
         public Biome defaultBiome { get; set; }
         public Gamemode[] gamemodes { get; set; }
         public Dictionary<string, TileDefault[]> metadata { get; set; } = new Dictionary<string, TileDefault[]>();
+
+        private Background[] _backgrounds;
+        public Background[] backgrounds { get => _backgrounds; set { _backgrounds = value; RegisterParameters(value); } }
+        public AMGBlockManager BackgroundManagerInstance = new AMGBlockManager();
 
         public class Tile
         {
@@ -80,11 +87,16 @@ namespace BMG
             public int type { get; set; }
         }
 
+        public class BackgroundChoice
+        {
+            public string name { get; set; }
+            public Dictionary<string, object> parameters { get; set; }
+        }
+
         public class Biome
         {
             public string name { get; set; }
-            public string color1 { get; set; }
-            public string color2 { get; set; }
+            public BackgroundChoice background { get; set; }
             public TileDefault[] defaults { get; set; }
         }
 
@@ -149,6 +161,46 @@ namespace BMG
         public class PresetOptions
         {
             public int tileTransitionSize { get; set; }
+        }
+
+        public class AMGBlocksParameter
+        {
+            public string name { get; set; }
+            public string type { get; set; }
+
+            private object _default;
+            public object @default
+            {
+                get => _default;
+                set
+                {
+                    if (value is JObject jObject)
+                    {
+                        if (jObject.ContainsKey("r") && jObject.ContainsKey("g") && jObject.ContainsKey("b"))
+                            jObject.Add("type", "COLOR");
+                        else
+                            throw new ApplicationException("Unknown default parameter type for " + name);
+                    }
+                    _default = value;
+                }
+            }
+        }
+
+        public class Background
+        {
+            public string name { get; set; }
+            public IActionBlock blocks { get; set; }
+            public AMGBlockFunction function;
+            public AMGBlocksParameter[] parameters { get; set; } = new AMGBlocksParameter[0];
+        }
+
+        private void RegisterParameters(Background[] bgs)
+        {
+            foreach (var bg in bgs)
+            {
+                bg.function = new AMGBlockFunction(bg.blocks, bg.parameters);
+                BackgroundManagerInstance.RegisterFunction(bg.name, bg.function);
+            }
         }
 
     }
