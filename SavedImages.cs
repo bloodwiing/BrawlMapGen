@@ -15,13 +15,11 @@ namespace BMG
 
         private readonly Options1 optionsObject;
         private readonly int sizeMultiplier;
-        private readonly Program.Logger logger;
 
-        public SavedImages(Options1 optionsObject, int sizeMultiplier, Program.Logger logger)
+        public SavedImages(Options1 optionsObject, int sizeMultiplier)
         {
             this.optionsObject = optionsObject;
             this.sizeMultiplier = sizeMultiplier;
-            this.logger = logger;
         }
 
         public void SetRandomSeed(int seed)
@@ -46,7 +44,7 @@ namespace BMG
             if (tileImages.ContainsKey(asset))
                 return tileImages[asset];
 
-            var instance = new TileImage(optionsObject, sizeMultiplier, logger, final);
+            var instance = new TileImage(optionsObject, sizeMultiplier, final);
             tileImages.Add(asset, instance);
             return instance;
         }
@@ -60,7 +58,7 @@ namespace BMG
             public int imageWidth;
             public int imageHeight;
 
-            public TileImage(Options1 optionsObject, int sizeMultiplier, Program.Logger logger, Tiledata.TileTypeBase tile)
+            public TileImage(Options1 optionsObject, int sizeMultiplier, Tiledata.TileTypeBase tile)
             {
                 string path = string.Format("./assets/tiles/{0}/{1}", optionsObject.preset, tile.asset);
 
@@ -72,7 +70,7 @@ namespace BMG
                 imageOffsetTop = (int)Math.Round((double)tile.tileParts.top * sizeMultiplier / 1000);
                 imageOffsetLeft = (int)Math.Round((double)tile.tileParts.left * sizeMultiplier / 1000);
 
-                logger.LogAAL(Program.Logger.AALDirection.In, "./assets/tiles/" + optionsObject.preset + "/" + tile.asset);
+                Logger.LogAAL(Logger.AALDirection.In, "./assets/tiles/" + optionsObject.preset + "/" + tile.asset);
                 var document = SvgDocument.Open(path);
 
                 imageWidth = (int)Math.Round((double)document.Width * sizeMultiplier);
