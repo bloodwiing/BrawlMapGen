@@ -280,103 +280,12 @@
       "description": "The list of all biomes supported",
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the biome",
-            "type": "string"
-          },
-          "color1": {
-            "description": "The first color of the chequerboard tiles",
-            "type": "string",
-            "pattern": "^(,?(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])){3}$"
-          },
-          "color2": {
-            "description": "The second color of the chequerboard tiles",
-            "type": "string",
-            "pattern": "^(,?(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])){3}$"
-          },
-          "defaults": {
-            "description": "The tile types used for the biome",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "tile": {
-                  "description": "The ID of the tile",
-                  "type": "string"
-                },
-                "type": {
-                  "description": "The type to be used of the tile",
-                  "type": "integer"
-                }
-              },
-              "default": {
-                "tile": "",
-                "type": 0
-              },
-              "required": [ "tile", "type" ]
-            }
-          }
-        },
-        "default": {
-          "name": "Your new biome",
-          "color1": "255,255,255",
-          "color2": "244,244,244",
-          "defaults": []
-        },
-        "required": [ "name", "color1", "color2", "defaults" ]
+        "$ref": "#/$defs/biome"
       }
     },
     "defaultBiome": {
       "description": "The default biome if the user passed an invalid biome number",
-      "type": "object",
-      "properties": {
-        "name": {
-          "description": "The name of the biome",
-          "type": "string"
-        },
-        "color1": {
-          "description": "The first color of the chequerboard tiles",
-          "type": "string",
-          "pattern": "^(,?(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])){3}$"
-        },
-        "color2": {
-          "description": "The second color of the chequerboard tiles",
-          "type": "string",
-          "pattern": "^(,?(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])){3}$"
-        },
-        "defaults": {
-          "description": "The tile types used for the biome",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "tile": {
-                "description": "The ID of the tile",
-                "type": "string"
-              },
-              "type": {
-                "description": "The type to be used of the tile",
-                "type": "integer"
-              }
-            },
-            "default": {
-              "tile": "",
-              "type": 0
-            },
-            "required": [ "tile", "type" ]
-          },
-          "minItems": 1
-        }
-      },
-      "default": {
-        "name": "Your new default biome",
-        "color1": "255,255,255",
-        "color2": "244,244,244",
-        "defaults": []
-      },
-      "required": [ "name", "color1", "color2", "defaults" ]
+      "$ref": "#/$defs/biome"
     },
     "gamemodes": {
       "description": "The game modes supported by this preset",
@@ -472,7 +381,232 @@
         },
         "required": [ "name" ]
       }
+    },
+    "backgrounds": {
+      "description": "Programmable BMG backgrounds",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name/ID of the background",
+            "type": "string"
+          },
+          "blocks": {
+            "$ref": "./amg-mark.schema.json"
+          },
+          "parameters": {
+            "description": "External parameters for the background blocks",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "description": "The Name/ID of the parameter",
+                  "type": "string",
+                  "default": "Your new background"
+                }
+              },
+              "oneOf": [
+                {
+                  "properties": {
+                    "type": {
+                      "description": "Data type of the parameter",
+                      "type": "string",
+                      "const": "Integer",
+                      "enum": [ "Integer", "String", "Boolean", "Color" ],
+                      "default": ""
+                    },
+                    "default": {
+                      "description": "The default value",
+                      "type": "number"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "type": {
+                      "description": "Data type of the parameter",
+                      "type": "string",
+                      "const": "String",
+                      "enum": [ "Integer", "String", "Boolean", "Color" ],
+                      "default": ""
+                    },
+                    "default": {
+                      "description": "The default value",
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "type": {
+                      "description": "Data type of the parameter",
+                      "type": "string",
+                      "const": "Boolean",
+                      "enum": [ "Integer", "String", "Boolean", "Color" ],
+                      "default": ""
+                    },
+                    "default": {
+                      "description": "The default value",
+                      "type": "boolean"
+                    }
+                  }
+                },
+                {
+                  "properties": {
+                    "type": {
+                      "description": "Data type of the parameter",
+                      "type": "string",
+                      "const": "Color",
+                      "enum": [ "Integer", "String", "Boolean", "Color" ],
+                      "default": ""
+                    },
+                    "default": {
+                      "description": "The default value",
+                      "$ref": "#/$defs/color"
+                    }
+                  }
+                }
+              ],
+              "default": {
+                "name": "Your new parameter",
+                "type": ""
+              },
+              "required": [ "name", "type" ]
+            },
+            "default": [
+              {
+                "name": "Your new parameter",
+                "type": ""
+              }
+            ]
+          }
+        },
+        "default": {
+          "name": "Your new background",
+          "blocks": {
+            "type": "RETURN",
+            "value": null
+          }
+        },
+        "required": [ "name", "blocks" ]
+      }
     }
   },
-  "required": [ "tiles", "biomes", "defaultBiome", "gamemodes" ]
+  "required": [ "tiles", "biomes", "defaultBiome", "gamemodes" ],
+  "$defs": {
+    "color": {
+      "type": "object",
+      "properties": {
+        "r": {
+          "description": "Red value",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 255
+        },
+        "g": {
+          "description": "Green value",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 255
+        },
+        "b": {
+          "description": "Blue value",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 255
+        }
+      },
+      "default": {
+        "r": 0,
+        "g": 0,
+        "b": 0
+      },
+      "additionalProperties": false,
+      "required": [ "r", "g", "b" ]
+    },
+    "biome": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The name of the biome",
+          "type": "string"
+        },
+        "background": {
+          "description": "The Background assigned to the biome",
+          "type": "object",
+          "properties": {
+            "name": {
+              "description": "The Name/ID of the Background",
+              "type": "string",
+              "default": "Your Background Name/ID"
+            },
+            "parameters": {
+              "description": "The options for the Background",
+              "type": "object",
+              "additionalProperties": {
+                "oneOf": [
+                  {
+                    "type": [ "number", "string", "boolean" ]
+                  },
+                  {
+                    "$ref": "#/$defs/color"
+                  }
+                ],
+                "examples": [
+                  0,
+                  true,
+                  false,
+                  "",
+                  {
+                    "r": 0,
+                    "g": 0,
+                    "b": 0
+                  }
+                ]
+              }
+            }
+          },
+          "default": {
+            "name": "Your Background Name/ID",
+            "parameters": {}
+          },
+          "required": [ "name", "parameters" ]
+        },
+        "defaults": {
+          "description": "The tile types used for the biome",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tile": {
+                "description": "The ID of the tile",
+                "type": "string"
+              },
+              "type": {
+                "description": "The type to be used of the tile",
+                "type": "integer"
+              }
+            },
+            "default": {
+              "tile": "",
+              "type": 0
+            },
+            "required": [ "tile", "type" ]
+          },
+          "minItems": 1
+        }
+      },
+      "default": {
+        "name": "Your new default biome",
+        "background": {
+          "name": "Your Background Name/ID",
+          "parameters": {}
+        },
+        "defaults": []
+      },
+      "required": [ "name", "background", "defaults" ]
+    }
+  }
 }

@@ -7,9 +7,7 @@
     "format": {
       "description": "BMG Options JSON format specifier (value 1 for this schema)",
       "type": "integer",
-      "default": 1,
-      "minValue": 1,
-      "maxValue": 1
+      "const": 1
     },
     "preset": {
       "description": "The preset to use for BMG",

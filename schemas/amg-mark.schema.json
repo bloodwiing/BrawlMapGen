@@ -1,0 +1,818 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$ref": "#/$defs/$action/$invalid",
+  "title": "AMG!Mark Code written in JSON objects to be interpreted by BMG/AMG",
+  "description": "AMG!Mark Action Code Block",
+  "$defs": {
+    "$action": {
+      "$invalid": {
+        "$ref": "#/$defs/$action/$examples",
+        "description": "Invalid Action block. Must have a valid type",
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "The type of the Action block",
+            "type": "string",
+            "enum": [ "IF", "RETURN", "RUN" ],
+            "default": ""
+          }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "type": { "const": "IF" } } },
+            "then": {
+              "$ref": "#/$defs/$action/IF"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "RETURN" } } },
+            "then": {
+              "$ref": "#/$defs/$action/RETURN"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "RUN" } } },
+            "then": {
+              "$ref": "#/$defs/$action/RUN"
+            }
+          }
+        ],
+        "required": [ "type" ]
+      },
+      "IF": {
+        "description": "IF Action block. Runs code on condition",
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/$defs/$action/$invalid/properties/type"
+          },
+          "condition": {
+            "description": "The condition of the IF block",
+            "$ref": "#/$defs/$condition/$invalid"
+          },
+          "then": {
+            "description": "Code ran if the condition is met",
+            "$ref": "#/$defs/$action/$invalid"
+          },
+          "else": {
+            "description": "Code ran if the condition is not met",
+            "$ref": "#/$defs/$action/$invalid"
+          }
+        },
+        "additionalProperties": false,
+        "required": [ "condition", "then" ]
+      },
+      "RETURN": {
+        "description": "RETURN Action block. Stops the code and yields a result",
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/$defs/$action/$invalid/properties/type"
+          },
+          "value": {
+            "description": "The return value",
+            "examples": [
+              true,
+              false,
+              "",
+              0,
+              {
+                "type": "NUMBER",
+                "key": ""
+              },
+              {
+                "type": "COLOR",
+                "r": 0,
+                "g": 0,
+                "b": 0
+              },
+              {
+                "type": "PARAMETER",
+                "name": null
+              }
+            ],
+            "oneOf": [
+              {
+                "type": [ "number", "string", "boolean" ]
+              },
+              {
+                "$ref": "#/$defs/$number/$invalid"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [ "value" ]
+      },
+      "RUN": {
+        "description": "RUN Action block. Runs a Block function with parameters",
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/$defs/$action/$invalid/properties/type"
+          },
+          "name": {
+            "description": "The condition of the IF block",
+            "type": "string",
+            "minLength": 1
+          },
+          "parameters": {
+            "description": "Parameters for running the function",
+            "type": "object",
+            "additionalProperties": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/$number/$invalid"
+                },
+                {
+                  "type": [ "number", "string", "boolean" ]
+                }
+              ]
+            },
+            "default": {
+              "Your parameter": "Your value"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": [ "name" ]
+      },
+      "$examples": {
+        "default": {
+          "type": ""
+        },
+        "examples": [
+          {
+            "type": "IF",
+            "condition": null
+          },
+          {
+            "type": "RETURN",
+            "value": null
+          },
+          {
+            "type": "RUN",
+            "name": "Your function name"
+          }
+        ]
+      }
+    },
+    "$condition": {
+      "$invalid": {
+        "$ref": "#/$defs/$condition/$examples",
+        "description": "Invalid Condition block. Must have a valid type",
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "The type of the Condition block",
+            "type": "string",
+            "enum": [
+              "==", "!=", "<", "<=", ">", ">=",
+              "OR", "NOR", "AND", "NAND", "XOR", "XNOR", "NOT"
+            ],
+            "default": ""
+          }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "type": { "const": "==" } } },
+            "then": {
+              "$ref": "#/$defs/$condition/$equalityBase",
+              "description": "EQUALS Condition block. Returns TRUE if inputs match"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "!=" } } },
+            "then": {
+              "$ref": "#/$defs/$condition/$equalityBase",
+              "description": "NOT EQUALS Condition block. Returns TRUE if inputs don't match"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "<" } } },
+            "then": {
+              "$ref": "#/$defs/$condition/$compareBase",
+              "description": "LESS Condition block. Returns TRUE if A is less than B"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "<=" } } },
+            "then": {
+              "$ref": "#/$defs/$condition/$compareBase",
+              "description": "LESS OR EQUALS Condition block. Returns TRUE if A is less or equal to B"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": ">" } } },
+            "then": {
+              "$ref": "#/$defs/$condition/$compareBase",
+              "description": "GREATER Condition block. Returns TRUE if A is greater than B"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": ">=" } } },
+            "then": {
+              "$ref": "#/$defs/$condition/$compareBase",
+              "description": "GREATER OR EQUALS Condition block. Returns TRUE if A is greater or equals to B"
+            }
+          },
+          
+          {
+            "if": { "properties": { "type": { "const": "OR" } } },
+            "then": {
+              "$ref": "#/$defs/$condition/$logicBase",
+              "description": "OR Condition block. Returns TRUE if any input is TRUE"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "NOR" } } },
+            "then": {
+              "$ref": "#/$defs/$condition/$logicBase",
+              "description": "NOT OR Condition block. Returns TRUE if no input is TRUE"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "AND" } } },
+            "then": {
+              "$ref": "#/$defs/$condition/$logicBase",
+              "description": "AND Condition block. Returns TRUE if both inputs are TRUE"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "NAND" } } },
+            "then": {
+              "$ref": "#/$defs/$condition/$logicBase",
+              "description": "NAND Condition block. Returns TRUE if one or none inputs are TRUE"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "XOR" } } },
+            "then": {
+              "$ref": "#/$defs/$condition/$logicBase",
+              "description": "EXCLUSIVE OR Condition block. Returns TRUE if only one input is TRUE"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "XNOR" } } },
+            "then": {
+              "$ref": "#/$defs/$condition/$logicBase",
+              "description": "EXCLUSIVE NOT OR Condition block. Returns TRUE if none or both inputs are TRUE"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "NOT" } } },
+            "then": {
+              "description": "NOT Condition block. Returns TRUE if input is FALSE",
+              "type": "object",
+              "properties": {
+                "type": {
+                  "$ref": "#/$defs/$condition/$invalid/properties/type"
+                },
+                "input": {
+                  "description": "The input",
+                  "oneOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    {
+                      "$ref": "#/$defs/$condition/$invalid"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [ "input" ]
+            }
+          }
+        ],
+        "required": [ "type" ]
+      },
+      "$equalityBase": {
+        "type": "object",
+        "$ref": "#/$defs/$diValueBase"
+      },
+      "$compareBase": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/$defs/$condition/$invalid/properties/type"
+          },
+          "a": {
+            "description": "The first input",
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/$number/NUMBER"
+              },
+              {
+                "$ref": "#/$defs/$number/PARAMETER"
+              },
+              {
+                "$ref": "#/$defs/$number/COLOR"
+              },
+              {
+                "$ref": "#/$defs/$number/$numberMath"
+              }
+            ]
+          },
+          "b": {
+            "description": "The first input",
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/$number/NUMBER"
+              },
+              {
+                "$ref": "#/$defs/$number/PARAMETER"
+              },
+              {
+                "$ref": "#/$defs/$number/COLOR"
+              },
+              {
+                "$ref": "#/$defs/$number/$numberMath"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [ "a", "b" ]
+      },
+      "$logicBase": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/$defs/$condition/$invalid/properties/type"
+          },
+          "a": {
+            "description": "The first input",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "$ref": "#/$defs/$condition/$invalid"
+              }
+            ]
+          },
+          "b": {
+            "description": "The second input",
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "$ref": "#/$defs/$condition/$invalid"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [ "a", "b" ]
+      },
+      "$examples": {
+        "examples": [
+          {
+            "type": "==",
+            "a": null,
+            "b": null
+          },
+          {
+            "type": "!=",
+            "a": null,
+            "b": null
+          },
+          {
+            "type": "<",
+            "a": null,
+            "b": null
+          },
+          {
+            "type": "<=",
+            "a": null,
+            "b": null
+          },
+          {
+            "type": ">",
+            "a": null,
+            "b": null
+          },
+          {
+            "type": ">=",
+            "a": null,
+            "b": null
+          },
+
+          {
+            "type": "OR",
+            "a": null,
+            "b": null
+          },
+          {
+            "type": "NOR",
+            "a": null,
+            "b": null
+          },
+          {
+            "type": "AND",
+            "a": null,
+            "b": null
+          },
+          {
+            "type": "NAND",
+            "a": null,
+            "b": null
+          },
+          {
+            "type": "XOR",
+            "a": null,
+            "b": null
+          },
+          {
+            "type": "XNOR",
+            "a": null,
+            "b": null
+          },
+          {
+            "type": "NOT",
+            "input": null
+          }
+        ]
+      }
+    },
+    "$number": {
+      "$invalid": {
+        "$ref": "#/$defs/$number/$examples",
+        "description": "Invalid Value block. Must have a valid type",
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "The type of the Value block",
+            "type": "string",
+            "enum": [
+              "NUMBER", "COLOR", "PARAMETER",
+              "+", "-", "*", "/", "%"
+            ],
+            "default": ""
+          }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "type": { "const": "NUMBER" } } },
+            "then": {
+              "$ref": "#/$defs/$number/NUMBER"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "COLOR" } } },
+            "then": {
+              "$ref": "#/$defs/$number/COLOR"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "PARAMETER" } } },
+            "then": {
+              "$ref": "#/$defs/$number/PARAMETER"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "+" } } },
+            "then": {
+              "$ref": "#/$defs/$number/add"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "-" } } },
+            "then": {
+              "$ref": "#/$defs/$number/sub"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "*" } } },
+            "then": {
+              "$ref": "#/$defs/$number/mul"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "div" } } },
+            "then": {
+              "$ref": "#/$defs/$number/div"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "%" } } },
+            "then": {
+              "$ref": "#/$defs/$number/rem"
+            }
+          }
+        ],
+        "required": [ "type" ]
+      },
+      "NUMBER": {
+        "description": "NUMBER Value block. Has access to generator data [numbers only]",
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/$defs/$number/$invalid/properties/type"
+          },
+          "key": {
+            "description": "The name of the data",
+            "type": "string",
+            "pattern": "^(?!.*->?$).*",
+            "enum": [
+              "MAP->INDEX",
+
+              "MAP->SIZE->HEIGHT",
+              "MAP->SIZE->WIDTH",
+
+              "DRAWER->CURSOR->X",
+              "DRAWER->CURSOR->Y"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [ "key" ]
+      },
+      "COLOR": {
+        "description": "COLOR Value block. Stores a color",
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/$defs/$number/$invalid/properties/type"
+          },
+          "r": {
+            "description": "Red value",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 255
+          },
+          "g": {
+            "description": "Green value",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 255
+          },
+          "b": {
+            "description": "Blue value",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 255
+          }
+        },
+        "additionalProperties": false,
+        "required": [ "r", "g", "b" ]
+      },
+      "PARAMETER": {
+        "description": "PARAMETER Value block. Has access to external parameters",
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/$defs/$number/$invalid/properties/type"
+          },
+          "name": {
+            "description": "The Name/ID of the parameter",
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": [ "name" ]
+      },
+      "$numberMath": {
+        "type": "object",
+        "$ref": "#/$defs/$number/$examples",
+        "properties": {
+          "type": {
+            "$ref": "#/$defs/$number/$invalid/properties/type"
+          },
+          "a": {
+            "description": "The first input",
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/$number/NUMBER"
+              },
+              {
+                "$ref": "#/$defs/$number/COLOR"
+              },
+              {
+                "$ref": "#/$defs/$number/PARAMETER"
+              },
+              {
+                "$ref": "#/$defs/$number/$numberMath"
+              }
+            ]
+          },
+          "b": {
+            "description": "The first input",
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/$number/NUMBER"
+              },
+              {
+                "$ref": "#/$defs/$number/COLOR"
+              },
+              {
+                "$ref": "#/$defs/$number/PARAMETER"
+              },
+              {
+                "$ref": "#/$defs/$number/$numberMath"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [ "a", "b" ]
+      },
+      "add": {
+        "description": "ADDITION Value block. Adds numbers together",
+        "$ref": "#/$defs/$number/$numberMath"
+      },
+      "sub": {
+        "description": "SUBTRACTION Value block. Subtracts from a number",
+        "$ref": "#/$defs/$number/$numberMath"
+      },
+      "mul": {
+        "description": "MULTIPLICATION Value block. Multiplies numbers together",
+        "$ref": "#/$defs/$number/$numberMath"
+      },
+      "div": {
+        "description": "DIVISION Value block. Divides a number",
+        "$ref": "#/$defs/$number/$numberMath"
+      },
+      "rem": {
+        "description": "REMAINDER Value block. Gets the remainder of the number division [only for integers]",
+        "$ref": "#/$defs/$number/$numberMath"
+      },
+      "$examples": {
+        "default": {
+          "type": ""
+        },
+        "examples": [
+          0,
+          {
+            "type": "NUMBER",
+            "key": ""
+          },
+          {
+            "type": "COLOR",
+            "r": 0,
+            "g": 0,
+            "b": 0
+          },
+          {
+            "type": "PARAMETER",
+            "name": null
+          },
+          {
+            "type": "+",
+            "a": null,
+            "b": null
+          },
+          {
+            "type": "-",
+            "a": null,
+            "b": null
+          },
+          {
+            "type": "*",
+            "a": null,
+            "b": null
+          },
+          {
+            "type": "/",
+            "a": null,
+            "b": null
+          },
+          {
+            "type": "%",
+            "a": null,
+            "b": null
+          }
+        ]
+      }
+    },
+    "$examples": {
+      "default": {
+        "type": ""
+      },
+      "examples": [
+        {
+          "type": "NUMBER",
+          "key": ""
+        }
+      ]
+    },
+    "$diValueBase": {
+      "oneOf": [
+        {
+          "properties": {
+            "type": {
+              "$ref": "#/$defs/$condition/$invalid/properties/type"
+            },
+            "a": {
+              "description": "The first input",
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/$number/$invalid"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "examples": [
+                true,
+                false,
+                "",
+                0,
+                {
+                  "type": "NUMBER",
+                  "key": ""
+                },
+                {
+                  "type": "COLOR",
+                  "r": 0,
+                  "g": 0,
+                  "b": 0
+                },
+                {
+                  "type": "PARAMETER",
+                  "name": null
+                }
+              ]
+            },
+            "b": {
+              "description": "The second input",
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/$number/$invalid",
+                  "default": {
+                    "type": "NUMBER",
+                    "key": ""
+                  }
+                },
+                {
+                  "type": "number",
+                  "default": 0
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "type": {
+              "$ref": "#/$defs/$condition/$invalid/properties/type"
+            },
+            "a": {
+              "description": "The first input",
+              "type": "string"
+            },
+            "b": {
+              "description": "The second input",
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "type": {
+              "$ref": "#/$defs/$condition/$invalid/properties/type"
+            },
+            "a": {
+              "description": "The first input",
+              "type": "boolean"
+            },
+            "b": {
+              "description": "The second input",
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        }
+      ],
+      "required": [ "a", "b" ]
+    }
+  }
+}
