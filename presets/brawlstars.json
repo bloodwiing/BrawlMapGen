@@ -4307,9 +4307,9 @@
 		},
 		{
 			"tileParts": {
-				"top": -706,
+				"top": -406,
 				"mid": 1000,
-				"bot": 750,
+				"bot": 450,
 				"left": -158,
 				"right": -158
 			},
@@ -4318,9 +4318,9 @@
 		},
 		{
 			"tileParts": {
-				"top": -750,
+				"top": -550,
 				"mid": 1000,
-				"bot": 750,
+				"bot": 550,
 				"left": 125,
 				"right": 125
 			},
@@ -4408,731 +4408,973 @@
 	}
 	],
 	"biomes": [
-	{
-		"name": "canyon",
-		"color1": "237,158,110",
-		"color2": "249,166,117",
-		"defaults": [
-		{
-			"tile": "blocking2",
-			"type": 2
-		}
-		]
-	},
-	{
-		"name": "jungle",
-		"color1": "222,172,113",
-		"color2": "234,180,118",
-		"defaults": [
-		{
-			"tile": "blocking2",
-			"type": 1
-		}
-		]
-	},
-	{
-		"name": "mine",
-		"color1": "91,64,79",
-		"color2": "96,68,83",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 1
-		},
-		{
-			"tile": "forest",
-			"type": 1
-		},
-		{
-			"tile": "respawningWall",
-			"type": 1
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 1
-		},
-		{
-			"tile": "ropeFence",
-			"type": 4
-		}
-		]
-	},
-	{
-		"name": "canyon_showdown",
-		"color1": "187,127,93",
-		"color2": "198,135,98",
-		"defaults": [
-		{
-			"tile": "blocking2",
-			"type": 2
-		},
-		{
-			"tile": "forest",
-			"type": 2
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 1
-		}
-		]
-	},
-	{
-		"name": "grassfield",
-		"color1": "57,142,84",
-		"color2": "60,150,88",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 0
-		},
-		{
-			"tile": "blocking2",
-			"type": 2
-		},
-		{
-			"tile": "indestructible",
-			"type": 1
-		}
-		]
-	},
-	{
-		"name": "snowy",
-		"color1": "45,154,242",
-		"color2": "47,162,255",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 2
-		},
-		{
-			"tile": "blocking2",
-			"type": 3
-		},
-		{
-			"tile": "blocking3",
-			"type": 1
-		},
-		{
-			"tile": "blocking4",
-			"type": 1
-		},
-		{
-			"tile": "forest",
-			"type": 3
-		},
-		{
-			"tile": "respawningWall",
-			"type": 2
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 2
-		}
-		]
-	},
-	{
-		"name": "town",
-		"color1": "140,84,109",
-		"color2": "148,90,115",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 3
-		},
-		{
-			"tile": "blocking2",
-			"type": 2
-		},
-		{
-			"tile": "blocking3",
-			"type": 0
-		},
-		{
-			"tile": "blocking4",
-			"type": 0
-		},
-		{
-			"tile": "forest",
-			"type": 0
-		},
-		{
-			"tile": "respawningWall",
-			"type": 3
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 0
-		},
-		{
-			"tile": "fence",
-			"type": 3
-		}
-		]
-	},
-	{
-    	"name": "retro",
-		"color1": "85,63,105",
-		"color2": "90,66,111",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 4
-		},
-		{
-			"tile": "blocking2",
-			"type": 4
-		},
-		{
-			"tile": "blocking3",
-			"type": 2
-		},
-		{
-			"tile": "blocking4",
-			"type": 2
-		},
-		{
-			"tile": "forest",
-			"type": 4
-		},
-		{
-			"tile": "respawningWall",
-			"type": 3
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 3
-		},
-		{
-			"tile": "fence",
-			"type": 3
-		}
-		]
-	},
-	{
-    	"name": "mortuary",
-		"color1": "70,49,78",
-		"color2": "74,52,82",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 5
-		},
-		{
-			"tile": "blocking2",
-			"type": 5
-		},
-		{
-			"tile": "blocking3",
-			"type": 3
-		},
-		{
-			"tile": "blocking4",
-			"type": 3
-		},
-		{
-			"tile": "forest",
-			"type": 5
-		},
-		{
-			"tile": "respawningWall",
-			"type": 4
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 4
-		},
-		{
-			"tile": "fence",
-			"type": 3
-		},
-		{
-			"tile": "ropeFence",
-			"type": 8
-		}
-		]
-	},
-	{
-    	"name": "darryl",
-		"color1": "213,116,84",
-		"color2": "224,122,89",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 6
-		},
-		{
-			"tile": "blocking2",
-			"type": 6
-		},
-		{
-			"tile": "blocking3",
-			"type": 0
-		},
-		{
-			"tile": "blocking4",
-			"type": 0
-		},
-		{
-			"tile": "forest",
-			"type": 6
-		},
-		{
-			"tile": "respawningWall",
-			"type": 5
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 5
-		},
-		{
-			"tile": "fence",
-			"type": 3
-		}
-		]
-	},
-	{
-    	"name": "arcade",
-		"color1": "47,42,75",
-		"color2": "50,44,79",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 7
-		},
-		{
-			"tile": "blocking2",
-			"type": 7
-		},
-		{
-			"tile": "blocking3",
-			"type": 0
-		},
-		{
-			"tile": "blocking4",
-			"type": 4
-		},
-		{
-			"tile": "forest",
-			"type": 0
-		},
-		{
-			"tile": "respawningWall",
-			"type": 6
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 3
-		},
-		{
-			"tile": "fence",
-			"type": 3
-		}
-		]
-	},
-	{
-    	"name": "galaxy_arena",
-		"color1": "57,142,84",
-		"color2": "60,150,88",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 7
-		},
-		{
-			"tile": "blocking2",
-			"type": 4
-		},
-		{
-			"tile": "blocking3",
-			"type": 4
-		},
-		{
-			"tile": "blocking4",
-			"type": 2
-		},
-		{
-			"tile": "forest",
-			"type": 0
-		},
-		{
-			"tile": "respawningWall",
-			"type": 6
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 5
-		},
-		{
-			"tile": "fence",
-			"type": 3
-		},
-		{
-			"tile": "indestructible",
-			"type": 1
-		}
-		]
-	},
-	{
-    	"name": "lamporium",
-		"color1": "175,86,80",
-		"color2": "188,90,87",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 8
-		},
-		{
-			"tile": "blocking2",
-			"type": 8
-		},
-		{
-			"tile": "blocking3",
-			"type": 5
-		},
-		{
-			"tile": "blocking4",
-			"type": 5
-		},
-		{
-			"tile": "forest",
-			"type": 7
-		},
-		{
-			"tile": "respawningWall",
-			"type": 7
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 1
-		},
-		{
-			"tile": "fence",
-			"type": 33
-		}
-		]
-	},
-	{
-    	"name": "mini",
-		"color1": "57,57,81",
-		"color2": "60,62,87",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 9
-		},
-		{
-			"tile": "blocking2",
-			"type": 9
-		},
-		{
-			"tile": "blocking3",
-			"type": 6
-		},
-		{
-			"tile": "blocking4",
-			"type": 6
-		},
-		{
-			"tile": "forest",
-			"type": 8
-		},
-		{
-			"tile": "respawningWall",
-			"type": 8
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 6
-		},
-		{
-			"tile": "fence",
-			"type": 43
-		},
-		{
-			"tile": "ropeFence",
-			"type": 1
-		}
-		]
-	},
-	{
-    	"name": "gift",
-		"color1": "128,66,82",
-		"color2": "133,70,86",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 10
-		},
-		{
-			"tile": "blocking2",
-			"type": 10
-		},
-		{
-			"tile": "blocking3",
-			"type": 7
-		},
-		{
-			"tile": "blocking4",
-			"type": 6
-		},
-		{
-			"tile": "forest",
-			"type": 9
-		},
-		{
-			"tile": "respawningWall",
-			"type": 9
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 7
-		},
-		{
-			"tile": "fence",
-			"type": 53
-		},
-		{
-			"tile": "ropeFence",
-			"type": 12
-		}
-		]
-	},
-	{
-    	"name": "bandstand",
-		"color1": "234,141,95",
-		"color2": "247,148,100",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 11
-		},
-		{
-			"tile": "blocking2",
-			"type": 11
-		},
-		{
-			"tile": "blocking3",
-			"type": 0
-		},
-		{
-			"tile": "blocking4",
-			"type": 3
-		},
-		{
-			"tile": "forest",
-			"type": 7
-		},
-		{
-			"tile": "respawningWall",
-			"type": 0
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 0
-		},
-		{
-			"tile": "fence",
-			"type": 53
-		},
-		{
-			"tile": "ropeFence",
-			"type": 12
-		}
-		]
-	},
-	{
-    	"name": "snowtel",
-		"color1": "42,66,109",
-		"color2": "50,70,115",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 12
-		},
-		{
-			"tile": "blocking2",
-			"type": 12
-		},
-		{
-			"tile": "blocking3",
-			"type": 0
-		},
-		{
-			"tile": "blocking4",
-			"type": 3
-		},
-		{
-			"tile": "forest",
-			"type": 3
-		},
-		{
-			"tile": "respawningWall",
-			"type": 10
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 8
-		},
-		{
-			"tile": "fence",
-			"type": 73
-		},
-		{
-			"tile": "ropeFence",
-			"type": 12
-		}
-		]
-	},
-	{
-    	"name": "scrapyard",
-		"color1": "46,40,75",
-		"color2": "48,42,79",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 13
-		},
-		{
-			"tile": "blocking2",
-			"type": 13
-		},
-		{
-			"tile": "blocking3",
-			"type": 0
-		},
-		{
-			"tile": "blocking4",
-			"type": 2
-		},
-		{
-			"tile": "forest",
-			"type": 1
-		},
-		{
-			"tile": "respawningWall",
-			"type": 11
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 3
-		},
-		{
-			"tile": "fence",
-			"type": 76
-		},
-		{
-			"tile": "ropeFence",
-			"type": 16
-		}
-		]
-	},
-	{
-    	"name": "starrforce",
-		"color1": "27,54,94",
-		"color2": "28,57,99",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 14
-		},
-		{
-			"tile": "blocking2",
-			"type": 14
-		},
-		{
-			"tile": "blocking3",
-			"type": 8
-		},
-		{
-			"tile": "blocking4",
-			"type": 7
-		},
-		{
-			"tile": "forest",
-			"type": 10
-		},
-		{
-			"tile": "respawningWall",
-			"type": 12
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 9
-		},
-		{
-			"tile": "fence",
-			"type": 86
-		},
-		{
-			"tile": "ropeFence",
-			"type": 16
-		}
-		]
-	},
-	{
-    	"name": "actionshow",
-		"color1": "237,158,110",
-		"color2": "249,166,117",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 15
-		},
-		{
-			"tile": "blocking2",
-			"type": 15
-		},
-		{
-			"tile": "forest",
-			"type": 2
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 10
-		}
-		]
-	},
-	{
-    	"name": "waterpark",
-		"color1": "240,162,187",
-		"color2": "254,171,198",
-		"defaults": [
-		{
-			"tile": "blocking1",
-			"type": 16
-		},
-		{
-			"tile": "blocking2",
-			"type": 16
-		},
-		{
-			"tile": "blocking3",
-			"type": 0
-		},
-		{
-			"tile": "blocking4",
-			"type": 8
-		},
-		{
-			"tile": "forest",
-			"type": 7
-		},
-		{
-			"tile": "respawningWall",
-			"type": 13
-		},
-		{
-			"tile": "blockingDestroyableWithWeapon",
-			"type": 11
-		}
-		]
-	}
-	],
+    {
+      "name": "canyon",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 249,
+            "g": 166,
+            "b": 117
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking2",
+        "type": 2
+      }
+      ]
+    },
+    {
+      "name": "jungle",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 234,
+            "g": 180,
+            "b": 119
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking2",
+        "type": 1
+      }
+      ]
+    },
+    {
+      "name": "mine",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 96,
+            "g": 68,
+            "b": 84
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 1
+      },
+      {
+        "tile": "forest",
+        "type": 1
+      },
+      {
+        "tile": "respawningWall",
+        "type": 1
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 1
+      },
+      {
+        "tile": "ropeFence",
+        "type": 4
+      }
+      ]
+    },
+    {
+      "name": "canyon_showdown",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 249,
+            "g": 166,
+            "b": 117
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking2",
+        "type": 2
+      },
+      {
+        "tile": "forest",
+        "type": 2
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 1
+      }
+      ]
+    },
+    {
+      "name": "grassfield",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 60,
+            "g": 150,
+            "b": 87
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 0
+      },
+      {
+        "tile": "blocking2",
+        "type": 2
+      },
+      {
+        "tile": "indestructible",
+        "type": 1
+      }
+      ]
+    },
+    {
+      "name": "snowy",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 47,
+            "g": 162,
+            "b": 255
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 2
+      },
+      {
+        "tile": "blocking2",
+        "type": 3
+      },
+      {
+        "tile": "blocking3",
+        "type": 1
+      },
+      {
+        "tile": "blocking4",
+        "type": 1
+      },
+      {
+        "tile": "forest",
+        "type": 3
+      },
+      {
+        "tile": "respawningWall",
+        "type": 2
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 2
+      }
+      ]
+    },
+    {
+      "name": "town",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 148,
+            "g": 90,
+            "b": 115
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 3
+      },
+      {
+        "tile": "blocking2",
+        "type": 2
+      },
+      {
+        "tile": "blocking3",
+        "type": 0
+      },
+      {
+        "tile": "blocking4",
+        "type": 0
+      },
+      {
+        "tile": "forest",
+        "type": 0
+      },
+      {
+        "tile": "respawningWall",
+        "type": 3
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 0
+      },
+      {
+        "tile": "fence",
+        "type": 3
+      }
+      ]
+    },
+    {
+      "name": "retro",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 90,
+            "g": 66,
+            "b": 111
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 4
+      },
+      {
+        "tile": "blocking2",
+        "type": 4
+      },
+      {
+        "tile": "blocking3",
+        "type": 2
+      },
+      {
+        "tile": "blocking4",
+        "type": 2
+      },
+      {
+        "tile": "forest",
+        "type": 4
+      },
+      {
+        "tile": "respawningWall",
+        "type": 3
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 3
+      },
+      {
+        "tile": "fence",
+        "type": 3
+      }
+      ]
+    },
+    {
+      "name": "mortuary",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 74,
+            "g": 52,
+            "b": 82
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 5
+      },
+      {
+        "tile": "blocking2",
+        "type": 5
+      },
+      {
+        "tile": "blocking3",
+        "type": 3
+      },
+      {
+        "tile": "blocking4",
+        "type": 3
+      },
+      {
+        "tile": "forest",
+        "type": 5
+      },
+      {
+        "tile": "respawningWall",
+        "type": 4
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 4
+      },
+      {
+        "tile": "fence",
+        "type": 3
+      },
+      {
+        "tile": "ropeFence",
+        "type": 8
+      }
+      ]
+    },
+    {
+      "name": "darryl",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 224,
+            "g": 122,
+            "b": 89
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 6
+      },
+      {
+        "tile": "blocking2",
+        "type": 6
+      },
+      {
+        "tile": "blocking3",
+        "type": 0
+      },
+      {
+        "tile": "blocking4",
+        "type": 0
+      },
+      {
+        "tile": "forest",
+        "type": 6
+      },
+      {
+        "tile": "respawningWall",
+        "type": 5
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 5
+      },
+      {
+        "tile": "fence",
+        "type": 3
+      }
+      ]
+    },
+    {
+      "name": "arcade",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 50,
+            "g": 44,
+            "b": 79
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 7
+      },
+      {
+        "tile": "blocking2",
+        "type": 7
+      },
+      {
+        "tile": "blocking3",
+        "type": 0
+      },
+      {
+        "tile": "blocking4",
+        "type": 4
+      },
+      {
+        "tile": "forest",
+        "type": 0
+      },
+      {
+        "tile": "respawningWall",
+        "type": 6
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 3
+      },
+      {
+        "tile": "fence",
+        "type": 3
+      }
+      ]
+    },
+    {
+      "name": "galaxy_arena",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 60,
+            "g": 150,
+            "b": 87
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 7
+      },
+      {
+        "tile": "blocking2",
+        "type": 4
+      },
+      {
+        "tile": "blocking3",
+        "type": 4
+      },
+      {
+        "tile": "blocking4",
+        "type": 2
+      },
+      {
+        "tile": "forest",
+        "type": 0
+      },
+      {
+        "tile": "respawningWall",
+        "type": 6
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 5
+      },
+      {
+        "tile": "fence",
+        "type": 3
+      },
+      {
+        "tile": "indestructible",
+        "type": 1
+      }
+      ]
+    },
+    {
+      "name": "lamporium",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 188,
+            "g": 90,
+            "b": 87
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 8
+      },
+      {
+        "tile": "blocking2",
+        "type": 8
+      },
+      {
+        "tile": "blocking3",
+        "type": 5
+      },
+      {
+        "tile": "blocking4",
+        "type": 5
+      },
+      {
+        "tile": "forest",
+        "type": 7
+      },
+      {
+        "tile": "respawningWall",
+        "type": 7
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 1
+      },
+      {
+        "tile": "fence",
+        "type": 33
+      }
+      ]
+    },
+    {
+      "name": "mini",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 60,
+            "g": 62,
+            "b": 87
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 9
+      },
+      {
+        "tile": "blocking2",
+        "type": 9
+      },
+      {
+        "tile": "blocking3",
+        "type": 6
+      },
+      {
+        "tile": "blocking4",
+        "type": 6
+      },
+      {
+        "tile": "forest",
+        "type": 8
+      },
+      {
+        "tile": "respawningWall",
+        "type": 8
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 6
+      },
+      {
+        "tile": "fence",
+        "type": 43
+      },
+      {
+        "tile": "ropeFence",
+        "type": 1
+      }
+      ]
+    },
+    {
+      "name": "gift",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 133,
+            "g": 70,
+            "b": 86
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 10
+      },
+      {
+        "tile": "blocking2",
+        "type": 10
+      },
+      {
+        "tile": "blocking3",
+        "type": 7
+      },
+      {
+        "tile": "blocking4",
+        "type": 6
+      },
+      {
+        "tile": "forest",
+        "type": 9
+      },
+      {
+        "tile": "respawningWall",
+        "type": 9
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 7
+      },
+      {
+        "tile": "fence",
+        "type": 53
+      },
+      {
+        "tile": "ropeFence",
+        "type": 12
+      }
+      ]
+    },
+    {
+      "name": "bandstand",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 247,
+            "g": 148,
+            "b": 100
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 11
+      },
+      {
+        "tile": "blocking2",
+        "type": 11
+      },
+      {
+        "tile": "blocking3",
+        "type": 0
+      },
+      {
+        "tile": "blocking4",
+        "type": 3
+      },
+      {
+        "tile": "forest",
+        "type": 7
+      },
+      {
+        "tile": "respawningWall",
+        "type": 0
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 0
+      },
+      {
+        "tile": "fence",
+        "type": 53
+      },
+      {
+        "tile": "ropeFence",
+        "type": 12
+      }
+      ]
+    },
+    {
+      "name": "snowtel",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 50,
+            "g": 70,
+            "b": 115
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 12
+      },
+      {
+        "tile": "blocking2",
+        "type": 12
+      },
+      {
+        "tile": "blocking3",
+        "type": 0
+      },
+      {
+        "tile": "blocking4",
+        "type": 3
+      },
+      {
+        "tile": "forest",
+        "type": 3
+      },
+      {
+        "tile": "respawningWall",
+        "type": 10
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 8
+      },
+      {
+        "tile": "fence",
+        "type": 73
+      },
+      {
+        "tile": "ropeFence",
+        "type": 12
+      }
+      ]
+    },
+    {
+      "name": "scrapyard",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 48,
+            "g": 42,
+            "b": 79
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 13
+      },
+      {
+        "tile": "blocking2",
+        "type": 13
+      },
+      {
+        "tile": "blocking3",
+        "type": 0
+      },
+      {
+        "tile": "blocking4",
+        "type": 2
+      },
+      {
+        "tile": "forest",
+        "type": 1
+      },
+      {
+        "tile": "respawningWall",
+        "type": 11
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 3
+      },
+      {
+        "tile": "fence",
+        "type": 76
+      },
+      {
+        "tile": "ropeFence",
+        "type": 16
+      }
+      ]
+    },
+    {
+      "name": "starrforce",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 28,
+            "g": 57,
+            "b": 99
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 14
+      },
+      {
+        "tile": "blocking2",
+        "type": 14
+      },
+      {
+        "tile": "blocking3",
+        "type": 8
+      },
+      {
+        "tile": "blocking4",
+        "type": 7
+      },
+      {
+        "tile": "forest",
+        "type": 10
+      },
+      {
+        "tile": "respawningWall",
+        "type": 12
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 9
+      },
+      {
+        "tile": "fence",
+        "type": 86
+      },
+      {
+        "tile": "ropeFence",
+        "type": 16
+      }
+      ]
+    },
+    {
+      "name": "actionshow",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 249,
+            "g": 166,
+            "b": 117
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 15
+      },
+      {
+        "tile": "blocking2",
+        "type": 15
+      },
+      {
+        "tile": "forest",
+        "type": 2
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 10
+      }
+      ]
+    },
+    {
+      "name": "waterpark",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 254,
+            "g": 171,
+            "b": 198
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 16
+      },
+      {
+        "tile": "blocking2",
+        "type": 16
+      },
+      {
+        "tile": "blocking3",
+        "type": 0
+      },
+      {
+        "tile": "blocking4",
+        "type": 8
+      },
+      {
+        "tile": "forest",
+        "type": 7
+      },
+      {
+        "tile": "respawningWall",
+        "type": 13
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 11
+      }
+      ]
+    },
+		{
+      "name": "modded volleybrawl",
+      "background": {
+        "name": "VolleybrawlCustom",
+        "parameters": {
+          "redColor": {
+            "r": 246,
+            "g": 74,
+            "b": 74
+          },
+          "blueColor": {
+            "r": 59,
+            "g": 103,
+            "b": 251
+          },
+          "whiteColor": {
+            "r": 252,
+            "g": 252,
+            "b": 252
+          }
+        }
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 7
+      },
+      {
+        "tile": "blocking2",
+        "type": 4
+      },
+      {
+        "tile": "blocking3",
+        "type": 4
+      },
+      {
+        "tile": "blocking4",
+        "type": 2
+      },
+      {
+        "tile": "forest",
+        "type": 0
+      },
+      {
+        "tile": "respawningWall",
+        "type": 6
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 5
+      },
+      {
+        "tile": "fence",
+        "type": 3
+      },
+      {
+        "tile": "indestructible",
+        "type": 1
+      }
+      ]
+    }
+  ],
 	"defaultBiome":
 	{
-    	"name": "invalid biome",
-		"color1": "0,0,0",
-		"color2": "255,0,220",
+		"name": "invalid biome",
+		"background": {
+			"name": "__ABSChequerboard",
+			"parameters": {
+				"color1": {
+					"r": 0,
+					"g": 0,
+					"b": 0
+				},
+				"color2": {
+					"r": 255,
+					"g": 0,
+					"b": 220
+				}
+			}
+		},
 		"defaults": [
 		{
 			"tile": "blocking1",
@@ -5792,5 +6034,156 @@
 				"type": 11
 			}
 		]
-	}
+	},
+	"backgrounds": [
+    {
+      "name": "VolleybrawlCustom",
+      "parameters": [
+        {
+          "name": "redColor",
+          "type": "Color"
+        },
+        {
+          "name": "blueColor",
+          "type": "Color"
+        },
+        {
+          "name": "whiteColor",
+          "type": "Color"
+        }
+      ],
+      "blocks": {
+        "type": "IF",
+        "condition": {
+          "type": "<=",
+          "a": {
+            "type": "NUMBER",
+            "key": "DRAWER->CURSOR->Y"
+          },
+          "b": 11
+        },
+        "then": {
+          "type": "RUN",
+          "name": "Chequerboard",
+          "parameters": {
+            "color": {
+              "type": "PARAMETER",
+              "name": "redColor"
+            }
+          }
+        },
+        "else": {
+          "type": "IF",
+          "condition": {
+            "type": ">=",
+            "a": {
+              "type": "NUMBER",
+              "key": "DRAWER->CURSOR->Y"
+            },
+            "b": 13
+          },
+          "then": {
+            "type": "RUN",
+            "name": "Chequerboard",
+            "parameters": {
+              "color": {
+                "type": "PARAMETER",
+                "name": "blueColor"
+              }
+            }
+          },
+          "else": {
+            "type": "RUN",
+            "name": "Chequerboard",
+            "parameters": {
+              "color": {
+                "type": "PARAMETER",
+                "name": "whiteColor"
+              }
+            }
+          }
+        }
+      }
+    },
+		{
+      "name": "Chequerboard",
+      "parameters": [
+        {
+          "name": "color",
+          "type": "Color"
+        }
+      ],
+      "blocks": {
+        "type": "RUN",
+        "name": "__ABSChequerboard",
+        "parameters": {
+          "color1": {
+            "type": "*",
+            "a": {
+              "type": "PARAMETER",
+              "name": "color"
+            },
+            "b": 242
+          },
+          "color2": {
+            "type": "PARAMETER",
+            "name": "color"
+          }
+        }
+      }
+    },
+    {
+      "name": "__ABSChequerboard",
+      "parameters": [
+        {
+          "name": "color1",
+          "type": "Color"
+        },
+        {
+          "name": "color2",
+          "type": "Color"
+        }
+      ],
+      "blocks": {
+        "type": "IF",
+        "condition": {
+          "type": "==",
+          "a": 0,
+          "b": {
+            "type": "%",
+            "a": {
+              "type": "+",
+              "a": {
+                "type": "NUMBER",
+                "key": "DRAWER->CURSOR->X"
+              },
+              "b": {
+                "type": "%",
+                "a": {
+                  "type": "NUMBER",
+                  "key": "DRAWER->CURSOR->Y"
+                },
+                "b": 2
+              }
+            },
+            "b": 2
+          }
+        },
+        "then": {
+          "type": "RETURN",
+          "value": {
+            "type": "PARAMETER",
+            "name": "color1"
+          }
+        },
+        "else": {
+          "type": "RETURN",
+          "value": {
+            "type": "PARAMETER",
+            "name": "color2"
+          }
+        }
+      }
+    }
+	]
 }
