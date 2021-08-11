@@ -292,90 +292,30 @@
       "type": "array",
       "items": {
         "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name/ID of the game mode",
-            "type": "string"
-          },
-          "specialTiles": {
-            "description": "Tiles that are added after drawing the map at specific locations",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "tile": {
-                  "description": "The ID of the tile",
-                  "type": "string"
+        "allOf": [
+          {
+            "properties": {
+              "name": {
+                "description": "The name/ID of the game mode",
+                "type": "string"
+              },
+              "variants": {
+                "description": "Game mode variants depending on the biomes",
+                "type": "object",
+                "additionalProperties": {
+                  "$ref": "#/$defs/gamemode",
+                  "default": {}
                 },
-                "type": {
-                  "description": "The type of the tile",
-                  "type": "integer"
-                },
-                "position": {
-                  "description": "The position of the tile. Horizontal,vertical",
-                  "type": "string",
-                  "pattern": "^([lmr]|-?\\d+),([tmb]|-?\\d+)$"
-                },
-                "drawOrder": {
-                  "description": "Tile-ordering similar system when to draw the tile (supports negative numbers)",
-                  "type": "integer"
+                "default": {
+                  "Your Biome name": {}
                 }
-              },
-              "default": {
-                "tile": "",
-                "type": 0,
-                "position": "m,m",
-                "drawOrder": 1
-              },
-              "required": [ "tile", "type", "position", "drawOrder" ]
+              }
             }
           },
-          "overrideBiome": {
-            "description": "Biome modifications",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "tile": {
-                  "description": "The tile ID of the biome",
-                  "type": "string"
-                },
-                "type": {
-                  "description": "The new type of the tile",
-                  "type": "integer"
-                }
-              },
-              "default": {
-                "tile": "",
-                "type": 0
-              },
-              "required": [ "tile", "type" ]
-            }
-          },
-          "mapModder": {
-            "description": "Map modifications, overwriting the map data to have different tiles",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "tile": {
-                  "description": "The ID of the tile that will be placed in the map data",
-                  "type": "string"
-                },
-                "position": {
-                  "description": "The location where the tile will be placed. Horizontal,vertical",
-                  "type": "string",
-                  "pattern": "^([lmr]|-?\\d+),([tmb]|-?\\d+)$"
-                }
-              },
-              "default": {
-                "tile": "",
-                "position": "m,m"
-              },
-              "required": [ "tile", "position" ]
-            }
+          {
+            "$ref": "#/$defs/gamemode"
           }
-        },
+        ],
         "default": {
           "name": "Your new game mode"
         },
@@ -607,6 +547,88 @@
         "defaults": []
       },
       "required": [ "name", "background", "defaults" ]
+    },
+    "gamemode": {
+      "properties": {
+        "specialTiles": {
+          "description": "Tiles that are added after drawing the map at specific locations",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tile": {
+                "description": "The ID of the tile",
+                "type": "string"
+              },
+              "type": {
+                "description": "The type of the tile",
+                "type": "integer"
+              },
+              "position": {
+                "description": "The position of the tile. Horizontal,vertical",
+                "type": "string",
+                "pattern": "^([lmr]|-?\\d+),([tmb]|-?\\d+)$"
+              },
+              "drawOrder": {
+                "description": "Tile-ordering similar system when to draw the tile (supports negative numbers)",
+                "type": "integer"
+              }
+            },
+            "default": {
+              "tile": "",
+              "type": 0,
+              "position": "m,m",
+              "drawOrder": 1
+            },
+            "required": [ "tile", "type", "position", "drawOrder" ]
+          }
+        },
+        "overrideBiome": {
+          "description": "Biome modifications",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tile": {
+                "description": "The tile ID of the biome",
+                "type": "string"
+              },
+              "type": {
+                "description": "The new type of the tile",
+                "type": "integer"
+              }
+            },
+            "default": {
+              "tile": "",
+              "type": 0
+            },
+            "required": [ "tile", "type" ]
+          }
+        },
+        "mapModder": {
+          "description": "Map modifications, overwriting the map data to have different tiles",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tile": {
+                "description": "The ID of the tile that will be placed in the map data",
+                "type": "string"
+              },
+              "position": {
+                "description": "The location where the tile will be placed. Horizontal,vertical",
+                "type": "string",
+                "pattern": "^([lmr]|-?\\d+),([tmb]|-?\\d+)$"
+              }
+            },
+            "default": {
+              "tile": "",
+              "position": "m,m"
+            },
+            "required": [ "tile", "position" ]
+          }
+        }
+      }
     }
   }
 }

@@ -131,12 +131,17 @@ namespace BMG
             public string asset { get; set; }
         }
 
-        public class Gamemode
+        public class GamemodeBase
         {
-            public string name { get; set; }
             public SpecialTile[] specialTiles { get; set; }
             public TileDefault[] overrideBiome { get; set; }
             public MapMod[] mapModder { get; set; }
+        }
+
+        public class Gamemode : GamemodeBase
+        {
+            public string name { get; set; }
+            public Dictionary<string, GamemodeBase> variants { get; set; }
         }
 
         public class SpecialTile

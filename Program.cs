@@ -241,13 +241,18 @@ namespace BMG
                     else
                         Logger.LogStatus("Drawing map (#" + AMGState.map.index + ")...");
 
-                    Tiledata.Gamemode mapGamemode = null;
+                    Tiledata.GamemodeBase mapGamemode = null;
                     foreach (var gm in tiledata.gamemodes)
                     {
                         if (gm == null || batchOption.gamemode == null)
                             break;
                         if (gm.name == batchOption.gamemode)
-                            mapGamemode = gm;
+                        {
+                            if (gm.variants != null && gm.variants.TryGetValue(mapBiome.name, out var gamemode))
+                                mapGamemode = gamemode;
+                            else
+                                mapGamemode = gm;
+                        }
                     }
 
                     if (mapGamemode != null) // Draw Gamemode Tiles (Before every other tile)
@@ -513,16 +518,13 @@ namespace BMG
                                                         break;
                                                     }
 
-                                            if (batchOption.gamemode != null) // Biome overrider (from Gamemode options)
-                                                if (mapGamemode != null)
-                                                    if (mapGamemode.overrideBiome != null)
-                                                        if (mapGamemode.name == batchOption.gamemode)
-                                                            foreach (var overrideTile in mapGamemode.overrideBiome)
-                                                                if (overrideTile.tile == tileDefault.tile)
-                                                                {
-                                                                    setTileDefault = overrideTile;
-                                                                    break;
-                                                                }
+                                            if (batchOption.gamemode != null && mapGamemode != null && mapGamemode.overrideBiome != null) // Biome overrider (from Gamemode options)
+                                                foreach (var overrideTile in mapGamemode.overrideBiome)
+                                                    if (overrideTile.tile == tileDefault.tile)
+                                                    {
+                                                        setTileDefault = overrideTile;
+                                                        break;
+                                                    }
 
                                             if (setTileDefault.tile == aTile.tileName)
                                             {
@@ -1123,7 +1125,7 @@ namespace BMG
                     continue;
                 }
 
-                if (bg.parameters != null)
+                if (bg.parameters != null && bg.parameters.Count > 0)
                     result = tiledata.BackgroundManagerInstance.RunFunction(bg.name, bg.parameters);
                 else
                     result = tiledata.BackgroundManagerInstance.RunFunction(bg.name);
@@ -1746,7 +1748,7 @@ namespace BMG
             string n = tile.tileName.ToUpper();
 
             if (tat.m) p = "m"; else p = " ";
-            if (tat.g) p += "g"; else p = " ";
+            if (tat.g) p += "g"; else p += " ";
             if (tat.s) p += "s"; else p += " ";
             if (tat.o) p += "o"; else p += " ";
             if (tat.h) p += "h"; else p += " ";

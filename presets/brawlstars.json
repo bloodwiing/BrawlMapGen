@@ -3278,6 +3278,28 @@
 			},
 			"asset": "basket_hoop_red_range.svg",
 			"order": -1
+		},
+		{
+			"tileParts": {
+				"top": 2000,
+				"mid": 1000,
+				"bot": 2000,
+				"left": 2000,
+				"right": 2000
+			},
+			"asset": "volleyball_mod.svg",
+			"order": -1
+		},
+		{
+			"tileParts": {
+				"top": 350,
+				"mid": 1000,
+				"bot": 200,
+				"left": 175,
+				"right": 175
+			},
+			"asset": "volleyball.svg",
+			"order": 3
 		}
 		]
 	},
@@ -5299,24 +5321,8 @@
       "name": "modded volleybrawl",
       "background": {
         "name": "VolleybrawlCustom",
-        "parameters": {
-          "redColor": {
-            "r": 246,
-            "g": 74,
-            "b": 74
-          },
-          "blueColor": {
-            "r": 59,
-            "g": 103,
-            "b": 251
-          },
-          "whiteColor": {
-            "r": 252,
-            "g": 252,
-            "b": 252
-          }
-        }
-      },
+        "parameters": {}
+			},
       "defaults": [
       {
         "tile": "blocking1",
@@ -5353,7 +5359,15 @@
       {
         "tile": "indestructible",
         "type": 1
-      }
+      },
+			{
+				"tile": "player1",
+				"type": 1
+			},
+			{
+				"tile": "player2",
+				"type": 1
+			}
       ]
     }
   ],
@@ -5525,6 +5539,140 @@
 	"gamemodes": [
 	{
 		"name": "Gem Grab",
+		"variants": {
+			"snowy": {
+				"mapModder": [
+				{
+					"tile": "objective",
+					"position": "m,m"
+				}],
+				"overrideBiome": [
+				{
+					"tile": "objective",
+					"type": 7
+				}]
+			},
+			"town": {
+				"mapModder": [
+				{
+					"tile": "objective",
+					"position": "m,m"
+				}],
+				"overrideBiome": [
+				{
+					"tile": "objective",
+					"type": 10
+				}]
+			},
+			"retro": {
+				"mapModder": [
+				{
+					"tile": "objective",
+					"position": "m,m"
+				}],
+				"overrideBiome": [
+				{
+					"tile": "objective",
+					"type": 12
+				}]
+			},
+			"mortuary": {
+				"mapModder": [
+				{
+					"tile": "objective",
+					"position": "m,m"
+				}],
+				"overrideBiome": [
+				{
+					"tile": "objective",
+					"type": 11
+				}]
+			},
+			"darryl": {
+				"mapModder": [
+				{
+					"tile": "objective",
+					"position": "m,m"
+				}],
+				"overrideBiome": [
+				{
+					"tile": "objective",
+					"type": 13
+				}]
+			},
+			"lamporium": {
+				"mapModder": [
+				{
+					"tile": "objective",
+					"position": "m,m"
+				}],
+				"overrideBiome": [
+				{
+					"tile": "objective",
+					"type": 20
+				}]
+			},
+			"mini": {
+				"mapModder": [
+				{
+					"tile": "objective",
+					"position": "m,m"
+				}],
+				"overrideBiome": [
+				{
+					"tile": "objective",
+					"type": 22
+				}]
+			},
+			"gift": {
+				"mapModder": [
+				{
+					"tile": "objective",
+					"position": "m,m"
+				}],
+				"overrideBiome": [
+				{
+					"tile": "objective",
+					"type": 24
+				}]
+			},
+			"bandstand": {
+				"mapModder": [
+				{
+					"tile": "objective",
+					"position": "m,m"
+				}],
+				"overrideBiome": [
+				{
+					"tile": "objective",
+					"type": 20
+				}]
+			},
+			"snowtel": {
+				"mapModder": [
+				{
+					"tile": "objective",
+					"position": "m,m"
+				}],
+				"overrideBiome": [
+				{
+					"tile": "objective",
+					"type": 11
+				}]
+			},
+			"starrforce": {
+				"mapModder": [
+				{
+					"tile": "objective",
+					"position": "m,m"
+				}],
+				"overrideBiome": [
+				{
+					"tile": "objective",
+					"type": 25
+				}]
+			}
+		},
     "mapModder": [
     {
       "tile": "objective",
@@ -5535,6 +5683,18 @@
 			"tile": "objective",
 			"type": 0
 		}]
+	},
+	{
+		"name": "Heist",
+		"variants": {
+			"mini": {
+				"overrideBiome": [
+				{
+					"tile": "objective",
+					"type": 23
+				}]
+			}
+		}
 	},
 	{
 		"name": "Bounty",
@@ -5551,6 +5711,33 @@
 	},
 	{
 		"name": "Brawl Ball",
+		"variants": {
+			"galaxy_arena": {
+				"specialTiles": [
+				{
+					"tile": "objective",
+					"type": 18,
+					"position": "m,2",
+					"drawOrder": 2
+				},
+				{
+					"tile": "objective",
+					"type": 19,
+					"position": "m,-2",
+					"drawOrder": 2
+				}],
+				"overrideBiome": [
+				{
+					"tile": "objective",
+					"type": 17
+				}],
+				"mapModder": [
+				{
+					"tile": "objective",
+					"position": "m,m"
+				}]
+			}
+		},
 		"specialTiles": [
 		{
 			"tile": "objective",
@@ -5587,19 +5774,6 @@
 			"type": 4
 		}
 		]
-	},
-	{
-		"name": "Snowy Gem Grab",
-    "mapModder": [
-    {
-      "tile": "objective",
-      "position": "m,m"
-    }],
-		"overrideBiome": [
-		{
-			"tile": "objective",
-			"type": 7
-		}]
 	},
 	{
 		"name": "Big Game",
@@ -5684,32 +5858,6 @@
 		}]
 	},
 	{
-		"name": "Town Gem Grab",
-    "mapModder": [
-    {
-      "tile": "objective",
-      "position": "m,m"
-    }],
-		"overrideBiome": [
-		{
-			"tile": "objective",
-			"type": 10
-		}]
-	},
-	{
-		"name": "Retro Gem Grab",
-    "mapModder": [
-    {
-      "tile": "objective",
-      "position": "m,m"
-    }],
-		"overrideBiome": [
-		{
-			"tile": "objective",
-			"type": 11
-		}]
-	},
-	{
     "name": "Takedown",
     "overrideBiome": [
     {
@@ -5741,32 +5889,6 @@
 		}]
   },
 	{
-		"name": "Mortuary Gem Grab",
-    "mapModder": [
-    {
-      "tile": "objective",
-      "position": "m,m"
-    }],
-		"overrideBiome": [
-		{
-			"tile": "objective",
-			"type": 12
-		}]
-	},
-	{
-		"name": "Darryl Gem Grab",
-    "mapModder": [
-    {
-      "tile": "objective",
-      "position": "m,m"
-    }],
-		"overrideBiome": [
-		{
-			"tile": "objective",
-			"type": 13
-		}]
-	},
-	{
 		"name": "Present Plunder",
 		"overrideBiome": [
       {
@@ -5783,45 +5905,6 @@
       "type": 16
     }
     ]
-	},
-	{
-		"name": "PSG Brawl Ball",
-		"specialTiles": [
-		{
-			"tile": "objective",
-			"type": 18,
-			"position": "m,2",
-			"drawOrder": 2
-		},
-		{
-			"tile": "objective",
-			"type": 19,
-			"position": "m,-2",
-			"drawOrder": 2
-		}],
-		"overrideBiome": [
-		{
-			"tile": "objective",
-			"type": 17
-		}],
-		"mapModder": [
-		{
-			"tile": "objective",
-			"position": "m,m"
-		}]
-	},
-	{
-		"name": "Bazaar Gem Grab",
-    "mapModder": [
-    {
-      "tile": "objective",
-      "position": "m,m"
-    }],
-		"overrideBiome": [
-		{
-			"tile": "objective",
-			"type": 20
-		}]
 	},
 	{
 		"name": "Hot Zone (mod)",
@@ -5842,28 +5925,6 @@
 		]
 	},
 	{
-		"name": "Mini Gem Grab",
-    "mapModder": [
-    {
-      "tile": "objective",
-      "position": "m,m"
-    }],
-		"overrideBiome": [
-		{
-			"tile": "objective",
-			"type": 22
-		}]
-	},
-	{
-		"name": "Mini Heist",
-		"overrideBiome": [
-		{
-			"tile": "objective",
-			"type": 23
-		}
-		]
-	},
-	{
 		"name": "Super City Rampage (mod)",
 		"overrideBiome": [
 		{
@@ -5871,58 +5932,6 @@
 			"type": 6
 		}
 		]
-	},
-	{
-		"name": "Gift Gem Grab",
-    "mapModder": [
-    {
-      "tile": "objective",
-      "position": "m,m"
-    }],
-		"overrideBiome": [
-		{
-			"tile": "objective",
-			"type": 24
-		}]
-	},
-	{
-		"name": "Bandstand Gem Grab",
-    "mapModder": [
-    {
-      "tile": "objective",
-      "position": "m,m"
-    }],
-		"overrideBiome": [
-		{
-			"tile": "objective",
-			"type": 20
-		}]
-	},
-	{
-		"name": "Snowtel Gem Grab",
-    "mapModder": [
-    {
-      "tile": "objective",
-      "position": "m,m"
-    }],
-		"overrideBiome": [
-		{
-			"tile": "objective",
-			"type": 11
-		}]
-	},
-	{
-		"name": "Space Gem Grab",
-    "mapModder": [
-    {
-      "tile": "objective",
-      "position": "m,m"
-    }],
-		"overrideBiome": [
-		{
-			"tile": "objective",
-			"type": 25
-		}]
 	},
 	{
 		"name": "Hold The Trophy",
@@ -5944,6 +5953,23 @@
 	},
 	{
 		"name": "Volley Brawl",
+		"variants": {
+			"modded volleybrawl": {
+				"specialTiles": [
+				{
+					"tile": "objective",
+					"type": 35,
+					"position": "m,m",
+					"drawOrder": 1
+				},
+				{
+					"tile": "objective",
+					"type": 36,
+					"position": "m,m",
+					"drawOrder": 2
+				}]
+			}
+		},
 		"specialTiles": [
 		{
 			"tile": "objective",
@@ -6038,20 +6064,6 @@
 	"backgrounds": [
     {
       "name": "VolleybrawlCustom",
-      "parameters": [
-        {
-          "name": "redColor",
-          "type": "Color"
-        },
-        {
-          "name": "blueColor",
-          "type": "Color"
-        },
-        {
-          "name": "whiteColor",
-          "type": "Color"
-        }
-      ],
       "blocks": {
         "type": "IF",
         "condition": {
@@ -6067,8 +6079,10 @@
           "name": "Chequerboard",
           "parameters": {
             "color": {
-              "type": "PARAMETER",
-              "name": "redColor"
+              "type": "COLOR",
+              "r": 218,
+              "g": 51,
+              "b": 63
             }
           }
         },
@@ -6087,8 +6101,10 @@
             "name": "Chequerboard",
             "parameters": {
               "color": {
-                "type": "PARAMETER",
-                "name": "blueColor"
+                "type": "COLOR",
+                "r": 59,
+                "g": 103,
+                "b": 251
               }
             }
           },
@@ -6097,8 +6113,10 @@
             "name": "Chequerboard",
             "parameters": {
               "color": {
-                "type": "PARAMETER",
-                "name": "whiteColor"
+                "type": "COLOR",
+                "r": 252,
+                "g": 252,
+                "b": 252
               }
             }
           }
