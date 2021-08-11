@@ -52,8 +52,6 @@ namespace BMG
         public class TileImage
         {
             public Bitmap renderedImage;
-            public int imageOffsetTop;
-            public int imageOffsetLeft;
             public string imageName;
             public int imageWidth;
             public int imageHeight;
@@ -66,9 +64,6 @@ namespace BMG
                     throw new FileNotFoundException("File " + path + " does not exist.");
 
                 imageName = tile.asset;
-
-                imageOffsetTop = (int)Math.Round((double)tile.tileParts.top * sizeMultiplier / 1000);
-                imageOffsetLeft = (int)Math.Round((double)tile.tileParts.left * sizeMultiplier / 1000);
 
                 Logger.LogAAL(Logger.AALDirection.In, "./assets/tiles/" + optionsObject.preset + "/" + tile.asset);
                 var document = SvgDocument.Open(path);
