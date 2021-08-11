@@ -2789,22 +2789,22 @@
 		"tileTypes": [
 		{
 			"tileParts": {
-				"top": 334,
+				"top": 350,
 				"mid": 1000,
-				"bot": 334,
-				"left": 334,
-				"right": 334
+				"bot": 350,
+				"left": 350,
+				"right": 350
 			},
 			"asset": "player_blue.svg",
 			"order": 1
 		},
 		{
 			"tileParts": {
-				"top": 334,
+				"top": 350,
 				"mid": 1000,
-				"bot": 334,
-				"left": 334,
-				"right": 334
+				"bot": 350,
+				"left": 350,
+				"right": 350
 			},
 			"asset": "player_gray.svg",
 			"order": 1
@@ -2817,22 +2817,22 @@
 		"tileTypes": [
 		{
 			"tileParts": {
-				"top": 334,
+				"top": 350,
 				"mid": 1000,
-				"bot": 334,
-				"left": 334,
-				"right": 334
+				"bot": 350,
+				"left": 350,
+				"right": 350
 			},
 			"asset": "player_red.svg",
 			"order": 1
 		},
 		{
 			"tileParts": {
-				"top": 334,
+				"top": 350,
 				"mid": 1000,
-				"bot": 334,
-				"left": 334,
-				"right": 334
+				"bot": 350,
+				"left": 350,
+				"right": 350
 			},
 			"asset": "player_gray.svg",
 			"order": 1
