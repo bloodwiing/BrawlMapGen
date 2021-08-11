@@ -6132,9 +6132,9 @@
             "parameters": {
               "color": {
                 "type": "COLOR",
-                "r": 59,
-                "g": 103,
-                "b": 251
+                "r": 85,
+                "g": 99,
+                "b": 237
               }
             }
           },
@@ -6153,6 +6153,63 @@
         }
       }
     },
+		{
+			"name": "__VOLLEYFunc",
+			"parameters": [
+				{
+					"name": "color",
+					"type": "Color"
+				}
+			],
+			"blocks": {
+				"type": "IF",
+				"condition": {
+					"type": "==",
+					"a": {
+						"type": "%",
+						"a": {
+							"type": "/",
+							"a": {
+								"type": "NUMBER",
+								"key": "DRAWER->CURSOR->Y"
+							},
+							"b": 5
+						},
+						"b": 2
+					},
+					"b": 0
+				},
+				"then": {
+					"type": "RUN",
+					"name": "Chequerboard",
+					"parameters": {
+						"color": {
+							"type": "PARAMETER",
+							"name": "color"
+						}
+					}
+				},
+				"else": {
+					"type": "RUN",
+					"name": "Chequerboard",
+					"parameters": {
+						"color": {
+							"type": "*",
+							"a": {
+								"type": "PARAMETER",
+								"name": "color"
+							},
+							"b": {
+								"type": "COLOR",
+								"r": 234,
+								"g": 212,
+								"b": 241
+							}
+						}
+					}
+				}
+			}
+		},
 		{
       "name": "Chequerboard",
       "parameters": [
