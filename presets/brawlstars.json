@@ -2808,6 +2808,17 @@
 			},
 			"asset": "player_gray.svg",
 			"order": 1
+		},
+		{
+			"tileParts": {
+				"top": 350,
+				"mid": 1000,
+				"bot": 350,
+				"left": 350,
+				"right": 350
+			},
+			"asset": "player_white.svg",
+			"order": 1
 		}
 		]
 	},
@@ -2889,6 +2900,17 @@
 				"right": 2200
 			},
 			"asset": "mega_spawn_mod.svg",
+			"order": 1
+		},
+		{
+			"tileParts": {
+				"top": 350,
+				"mid": 1000,
+				"bot": 350,
+				"left": 350,
+				"right": 350
+			},
+			"asset": "player_white.svg",
 			"order": 1
 		}
 		]
@@ -5967,6 +5989,14 @@
 					"type": 36,
 					"position": "m,m",
 					"drawOrder": 2
+				}],
+				"overrideBiome": [{
+					"tile": "player1",
+					"type": 2
+				},
+				{
+					"tile": "player2",
+					"type": 7
 				}]
 			}
 		},
