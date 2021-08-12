@@ -466,7 +466,8 @@
             "type": "string",
             "enum": [
               "NUMBER", "COLOR", "PARAMETER",
-              "+", "-", "*", "/", "//", "%"
+              "+", "-", "*", "/", "//", "%",
+              "POW", "SQRT"
             ],
             "default": ""
           }
@@ -530,6 +531,18 @@
             "then": {
               "description": "REMAINDER Value block. Gets the remainder of the number division [only for integers]",
               "$ref": "#/$defs/$number/$numberMath"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "POW" } } },
+            "then": {
+              "$ref": "#/$defs/$number/POW"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "SQRT" } } },
+            "then": {
+              "$ref": "#/$defs/$number/SQRT"
             }
           }
         ],
@@ -607,15 +620,19 @@
         "additionalProperties": false,
         "required": [ "name" ]
       },
-      "$numberMath": {
+      "POW": {
+        "description": "POWER Value block. Raises a number to the exponent",
         "type": "object",
-        "$ref": "#/$defs/$number/$examples",
         "properties": {
           "type": {
             "$ref": "#/$defs/$number/$invalid/properties/type"
           },
-          "a": {
-            "description": "The first input",
+          "base": {
+            "allOf": [
+              {
+                "description": "The base number, which to raise"
+              }
+            ],
             "oneOf": [
               {
                 "type": "number"
@@ -634,8 +651,40 @@
               }
             ]
           },
-          "b": {
-            "description": "The second input",
+          "exponent": {
+            "allOf": [
+              {
+                "description": "The exponent, which to raise to"
+              }
+            ],
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/$number/NUMBER"
+              },
+              {
+                "$ref": "#/$defs/$number/PARAMETER"
+              },
+              {
+                "$ref": "#/$defs/$number/$numberMath"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [ "base", "exponent" ]
+      },
+      "SQRT": {
+        "description": "SQUARE ROOT Value block. Gets the square root of a number",
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/$defs/$number/$invalid/properties/type"
+          },
+          "input": {
+            "description": "The input of the Value block",
             "oneOf": [
               {
                 "type": "number"
@@ -651,6 +700,39 @@
               },
               {
                 "$ref": "#/$defs/$number/$numberMath"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [ "input" ]
+      },
+      "$numberMath": {
+        "type": "object",
+        "$ref": "#/$defs/$number/$examples",
+        "properties": {
+          "type": {
+            "$ref": "#/$defs/$number/$invalid/properties/type"
+          },
+          "a": {
+            "description": "The first input",
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/$number/$invalid"
+              }
+            ]
+          },
+          "b": {
+            "description": "The second input",
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/$number/$invalid"
               }
             ]
           }
@@ -699,9 +781,23 @@
             "b": null
           },
           {
+            "type": "//",
+            "a": null,
+            "b": null
+          },
+          {
             "type": "%",
             "a": null,
             "b": null
+          },
+          {
+            "type": "POW",
+            "base": null,
+            "exponent": null
+          },
+          {
+            "type": "SQRT",
+            "input": null
           }
         ]
       }

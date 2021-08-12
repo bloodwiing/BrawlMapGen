@@ -21,6 +21,7 @@ namespace BMG
                 return 0;
             return (byte)value;
         }
+        public static byte ByteClamp(float value) => ByteClamp((int)MathF.Round(value));
 
         public static implicit operator ColorData(int value)
         {
@@ -95,6 +96,17 @@ namespace BMG
                 b = ByteClamp(b.b * 255 % a.b)
             };
         }
+
+        public static ColorData Pow(ColorData b, float p)
+        {
+            return new ColorData()
+            {
+                r = ByteClamp(MathF.Pow((float)b.r / 255, p)),
+                g = ByteClamp(MathF.Pow((float)b.g / 255, p)),
+                b = ByteClamp(MathF.Pow((float)b.b / 255, p))
+            };
+        }
+        public ColorData Pow(float p) => Pow(this, p);
 
         public static bool operator ==(ColorData a, ColorData b)
         {
@@ -893,6 +905,128 @@ namespace BMG
         }
     }
 
+    public class POWBlock : ValueBlock
+    {
+        public override BlockData.ValueType ValueType()
+        {
+            if (IsColor)
+                return BlockData.ValueType.color;
+            return BlockData.ValueType.integer;
+        }
+
+        public override void SetParameters(AMGBlockParameters pars)
+        {
+            if (@base is IBlock aBlock)
+                aBlock.SetParameters(pars);
+            if (exponent is IBlock bBlock)
+                bBlock.SetParameters(pars);
+        }
+
+        public bool IsColor => ColorData.ObjectHasColorData(@base);
+
+        public override float Float()
+        {
+            return Calculate();
+        }
+
+        public override ColorData Color()
+        {
+            if (IsColor)
+                return CalculateColor();
+            return (ColorData)Calculate();
+        }
+
+        public override object Data()
+        {
+            if (IsColor)
+                return CalculateColor();
+            return Calculate();
+        }
+
+        private BlockData _base = new BlockData();
+        public object @base
+        {
+            get => _base.Data;
+            set => _base.SetData(value);
+        }
+        public float GetBase() => _base.GetNumber();
+        public ColorData GetBaseColor() => _base.GetColor();
+
+        private BlockData _exp = new BlockData();
+        public object exponent
+        {
+            get => _exp.Data;
+            set => _exp.SetData(value);
+        }
+        public float GetExponent() => _exp.GetNumber();
+
+        public float Calculate()
+        {
+            return MathF.Pow(GetBase(), GetExponent());
+        }
+
+        public ColorData CalculateColor()
+        {
+            return GetBaseColor().Pow(GetExponent());
+        }
+    }
+
+    public class SQRTBlock : ValueBlock
+    {
+        public override BlockData.ValueType ValueType()
+        {
+            if (IsColor)
+                return BlockData.ValueType.color;
+            return BlockData.ValueType.integer;
+        }
+
+        public override void SetParameters(AMGBlockParameters pars)
+        {
+            if (input is IBlock aBlock)
+                aBlock.SetParameters(pars);
+        }
+
+        public bool IsColor => ColorData.ObjectHasColorData(input);
+
+        public override float Float()
+        {
+            return Calculate();
+        }
+
+        public override ColorData Color()
+        {
+            if (IsColor)
+                return CalculateColor();
+            return (ColorData)Calculate();
+        }
+
+        public override object Data()
+        {
+            if (IsColor)
+                return CalculateColor();
+            return Calculate();
+        }
+
+        private BlockData _input = new BlockData();
+        public object input
+        {
+            get => _input.Data;
+            set => _input.SetData(value);
+        }
+        public float GetInput() => _input.GetNumber();
+        public ColorData GetInputColor() => _input.GetColor();
+
+        public float Calculate()
+        {
+            return MathF.Sqrt(GetInput());
+        }
+
+        public ColorData CalculateColor()
+        {
+            return GetInputColor().Pow(.5f);
+        }
+    }
+
     // ----- READER -------------
 
     public class AMGBlockReader : Newtonsoft.Json.Converters.CustomCreationConverter<IBlock>
@@ -965,6 +1099,10 @@ namespace BMG
                     return typeof(DIVFLOORBlock);
                 case "%":
                     return typeof(REMBlock);
+                case "POW":
+                    return typeof(POWBlock);
+                case "SQRT":
+                    return typeof(SQRTBlock);
             }
 
             throw new ApplicationException("Unknown block type detected: " + type);
