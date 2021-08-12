@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="0.28819469mm"
    height="0.46572804mm"
    viewBox="0 0 0.28819469 0.46572804"
    version="1.1"
    id="svg22817"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   sodipodi:docname="fence_cor_lunar.svg">
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="fence_cor_lunar.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs22811">
     <radialGradient
@@ -55,8 +55,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="256"
-     inkscape:cx="0.24153002"
-     inkscape:cy="0.96525197"
+     inkscape:cx="0.2421875"
+     inkscape:cy="0.96679688"
      inkscape:document-units="mm"
      inkscape:current-layer="g22023-5-6"
      showgrid="false"
@@ -67,7 +67,8 @@
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:document-rotation="0" />
+     inkscape:document-rotation="0"
+     inkscape:pagecheckerboard="0" />
   <metadata
      id="metadata22814">
     <rdf:RDF>
@@ -96,14 +97,11 @@
          width="5.4455566"
          id="rect21989-1-5"
          style="opacity:1;fill:#000000;fill-opacity:0.18000001;fill-rule:nonzero;stroke:none;stroke-width:4.05429649;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill;filter:url(#filter1957)" />
-      <rect
-         style="opacity:1;fill:#e998a9;fill-opacity:1;fill-rule:nonzero;stroke:#793a43;stroke-width:0.99000001;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
-         id="rect21985-16-4"
-         width="4.9415903"
-         height="7.2670498"
-         x="-486.53934"
-         y="-1469.194"
-         ry="0.77890831" />
+      <path
+         id="path836"
+         style="color:#000000;fill:#793a43;stroke-width:0.18361;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none;paint-order:markers stroke fill"
+         d="M 0.234375 0 C 0.10636564 0 0 0.10636197 0 0.234375 L 0 1.2832031 C 0 1.4112162 0.10636564 1.515625 0.234375 1.515625 L 0.85546875 1.515625 C 0.98347811 1.515625 1.0898438 1.4112162 1.0898438 1.2832031 L 1.0898438 0.234375 C 1.0898438 0.10636197 0.98347811 0 0.85546875 0 L 0.234375 0 z "
+         transform="matrix(5.4463204,0,0,5.4463204,-487.03484,-1469.6889)" />
       <rect
          ry="0.77890831"
          y="-1469.194"
