@@ -509,7 +509,7 @@
             }
           },
           {
-            "if": { "properties": { "type": { "const": "div" } } },
+            "if": { "properties": { "type": { "const": "/" } } },
             "then": {
               "$ref": "#/$defs/$number/div"
             }
@@ -620,7 +620,7 @@
             ]
           },
           "b": {
-            "description": "The first input",
+            "description": "The second input",
             "oneOf": [
               {
                 "type": "number"
