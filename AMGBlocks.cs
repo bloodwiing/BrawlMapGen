@@ -868,6 +868,18 @@ namespace BMG
     }
 
     public class DIVFLOORBlock : MathBlock
+    {
+        public override float Calculate()
+        {
+            return MathF.Floor(GetA() / GetB());
+        }
+
+        public override ColorData CalculateColor()
+        {
+            return GetAColor() / GetBColor();
+        }
+    }
+
     public class REMBlock : MathBlock
     {
         public override float Calculate()
@@ -949,6 +961,8 @@ namespace BMG
                     return typeof(MULBlock);
                 case "/":
                     return typeof(DIVBlock);
+                case "//":
+                    return typeof(DIVFLOORBlock);
                 case "%":
                     return typeof(REMBlock);
             }

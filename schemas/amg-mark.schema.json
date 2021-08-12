@@ -466,7 +466,7 @@
             "type": "string",
             "enum": [
               "NUMBER", "COLOR", "PARAMETER",
-              "+", "-", "*", "/", "%"
+              "+", "-", "*", "/", "//", "%"
             ],
             "default": ""
           }
@@ -512,6 +512,12 @@
             "if": { "properties": { "type": { "const": "/" } } },
             "then": {
               "$ref": "#/$defs/$number/div"
+            }
+          },
+          {
+            "if": { "properties": { "type": { "const": "//" } } },
+            "then": {
+              "$ref": "#/$defs/$number/floordiv"
             }
           },
           {
@@ -657,6 +663,10 @@
       },
       "div": {
         "description": "DIVISION Value block. Divides a number",
+        "$ref": "#/$defs/$number/$numberMath"
+      },
+      "floordiv": {
+        "description": "FLOOR DIVISION Value block. Divides a number and floors it. [doesn't work for colors]",
         "$ref": "#/$defs/$number/$numberMath"
       },
       "rem": {
