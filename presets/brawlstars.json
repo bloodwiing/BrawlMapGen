@@ -2103,6 +2103,36 @@
 		"tileLinks": {
 			"rules": [
 			{
+				"condition": "***11***",
+				"requiredBiome": 22,
+				"changeTileType": 31
+			},
+			{
+				"condition": "*1****1*",
+				"requiredBiome": 22,
+				"changeTileType": 32
+			},
+			{
+				"condition": "*0****1*",
+				"requiredBiome": 22,
+				"changeTileType": 30
+			},
+			{
+				"condition": "*1****0*",
+				"requiredBiome": 22,
+				"changeTileType": 30
+			},
+			{
+				"condition": "***01***",
+				"requiredBiome": 22,
+				"changeTileType": 30
+			},
+			{
+				"condition": "***10***",
+				"requiredBiome": 22,
+				"changeTileType": 30
+			},
+			{
 				"condition": "*1*10***",
 				"requiredBiome": 20,
 				"changeTileType": 102
@@ -4896,7 +4926,7 @@
       },
       {
         "tile": "respawningWall",
-        "type": 6
+        "type": 3
       },
       {
         "tile": "blockingDestroyableWithWeapon",
@@ -5391,6 +5421,51 @@
 				"type": 1
 			}
       ]
+    },
+    {
+      "name": "modded galaxy_arena",
+      "background": {
+        "name": "GalaxyCustom",
+				"parameters": {}
+      },
+      "defaults": [
+      {
+        "tile": "blocking1",
+        "type": 7
+      },
+      {
+        "tile": "blocking2",
+        "type": 4
+      },
+      {
+        "tile": "blocking3",
+        "type": 4
+      },
+      {
+        "tile": "blocking4",
+        "type": 2
+      },
+      {
+        "tile": "forest",
+        "type": 0
+      },
+      {
+        "tile": "respawningWall",
+        "type": 3
+      },
+      {
+        "tile": "blockingDestroyableWithWeapon",
+        "type": 5
+      },
+      {
+        "tile": "fence",
+        "type": 3
+      },
+      {
+        "tile": "indestructible",
+        "type": 1
+      }
+      ]
     }
   ],
 	"defaultBiome":
@@ -5758,6 +5833,31 @@
 					"tile": "objective",
 					"position": "m,m"
 				}]
+			},
+			"modded galaxy_arena": {
+				"specialTiles": [
+				{
+					"tile": "objective",
+					"type": 18,
+					"position": "m,2",
+					"drawOrder": 2
+				},
+				{
+					"tile": "objective",
+					"type": 19,
+					"position": "m,-2",
+					"drawOrder": 2
+				}],
+				"overrideBiome": [
+				{
+					"tile": "objective",
+					"type": 17
+				}],
+				"mapModder": [
+				{
+					"tile": "objective",
+					"position": "m,m"
+				}]
 			}
 		},
 		"specialTiles": [
@@ -6102,7 +6202,14 @@
             "type": "NUMBER",
             "key": "DRAWER->CURSOR->Y"
           },
-          "b": 11
+          "b": {
+						"type": "-",
+						"a": {
+							"type": "NUMBER",
+							"key": "MAP->SIZE->MIDDLE->Y"
+						},
+						"b": 1
+					}
         },
         "then": {
           "type": "RUN",
@@ -6124,7 +6231,14 @@
               "type": "NUMBER",
               "key": "DRAWER->CURSOR->Y"
             },
-            "b": 13
+						"b": {
+							"type": "+",
+							"a": {
+								"type": "NUMBER",
+								"key": "MAP->SIZE->MIDDLE->Y"
+							},
+							"b": 1
+						}
           },
           "then": {
             "type": "RUN",
@@ -6154,56 +6268,75 @@
       }
     },
 		{
-			"name": "__VOLLEYFunc",
-			"parameters": [
-				{
-					"name": "color",
-					"type": "Color"
-				}
-			],
+			"name": "GalaxyCustom",
 			"blocks": {
 				"type": "IF",
 				"condition": {
 					"type": "==",
 					"a": {
-						"type": "%",
-						"a": {
-							"type": "/",
-							"a": {
-								"type": "NUMBER",
-								"key": "DRAWER->CURSOR->Y"
-							},
-							"b": 5
-						},
-						"b": 2
+						"type": "NUMBER",
+						"key": "DRAWER->CURSOR->Y"
 					},
-					"b": 0
+					"b": {
+						"type": "NUMBER",
+						"key": "MAP->SIZE->MIDDLE->Y"
+					}
 				},
 				"then": {
 					"type": "RUN",
 					"name": "Chequerboard",
 					"parameters": {
 						"color": {
-							"type": "PARAMETER",
-							"name": "color"
+							"type": "COLOR",
+							"r": 120,
+							"g": 188,
+							"b": 153
 						}
 					}
 				},
 				"else": {
-					"type": "RUN",
-					"name": "Chequerboard",
-					"parameters": {
-						"color": {
-							"type": "*",
+					"type": "IF",
+					"condition": {
+						"type": "==",
+						"a": {
+							"type": "%",
 							"a": {
-								"type": "PARAMETER",
-								"name": "color"
+								"type": "//",
+								"a": {
+									"type": "+",
+									"a": {
+										"type": "NUMBER",
+										"key": "DRAWER->CURSOR->Y"
+									},
+									"b": 6
+								},
+								"b": 5
 							},
-							"b": {
+							"b": 2
+						},
+						"b": 0
+					},
+					"then": {
+						"type": "RUN",
+						"name": "Chequerboard",
+						"parameters": {
+							"color": {
 								"type": "COLOR",
-								"r": 234,
-								"g": 212,
-								"b": 241
+								"r": 33,
+								"g": 152,
+								"b": 76
+							}
+						}
+					},
+					"else": {
+						"type": "RUN",
+						"name": "Chequerboard",
+						"parameters": {
+							"color": {
+								"type": "COLOR",
+								"r": 0,
+								"g": 135,
+								"b": 83
 							}
 						}
 					}
