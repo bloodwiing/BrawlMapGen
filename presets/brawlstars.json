@@ -5398,7 +5398,7 @@
       },
       {
         "tile": "respawningWall",
-        "type": 6
+        "type": 3
       },
       {
         "tile": "blockingDestroyableWithWeapon",
