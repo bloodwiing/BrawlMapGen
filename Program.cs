@@ -1833,21 +1833,28 @@ namespace BMG
 
     public static class AMGState
     {
+        public class Vector2
+        {
+            public int x = 0;
+            public int y = 0;
+
+            public Vector2() { }
+            public Vector2(int x, int y)
+            {
+                this.x = x;
+                this.y = y;
+            }
+        }
+
         public class Drawer
         {
-            public class Cursor
-            {
-                public int x = 0;
-                public int y = 0;
-            }
-
             public void ResetCursor()
             {
                 cursor.x = 0;
                 cursor.y = 0;
             }
 
-            public Cursor cursor = new Cursor();
+            public Vector2 cursor = new Vector2();
 
             public static int _tilesDrawn = 0;
             public int tilesDrawn => _tilesDrawn;
@@ -1865,10 +1872,17 @@ namespace BMG
                 public int height;
                 public int width;
 
+                public Vector2 middle;
+
                 public Size(int height, int width)
                 {
                     this.height = height;
                     this.width = width;
+
+                    middle = new Vector2(
+                        width / 2 - (width + 1) % 2,
+                        height / 2 - (height + 1) % 2
+                        );
                 }
             }
 
@@ -2004,10 +2018,15 @@ namespace BMG
                 case "MAP->INDEX":
                     return map.index;
 
-                case "MAP->SIZE->HEIGHT":
-                    return map.size.height;
                 case "MAP->SIZE->WIDTH":
                     return map.size.width;
+                case "MAP->SIZE->HEIGHT":
+                    return map.size.height;
+
+                case "MAP->SIZE->MIDDLE->X":
+                    return map.size.middle.x;
+                case "MAP->SIZE->MIDDLE->Y":
+                    return map.size.middle.y;
 
                 case "DRAWER->CURSOR->X":
                     return drawer.cursor.x;

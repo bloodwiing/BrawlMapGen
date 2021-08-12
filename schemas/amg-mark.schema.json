@@ -543,8 +543,11 @@
             "enum": [
               "MAP->INDEX",
 
-              "MAP->SIZE->HEIGHT",
               "MAP->SIZE->WIDTH",
+              "MAP->SIZE->HEIGHT",
+
+              "MAP->SIZE->MIDDLE->X",
+              "MAP->SIZE->MIDDLE->Y",
 
               "DRAWER->CURSOR->X",
               "DRAWER->CURSOR->Y"
