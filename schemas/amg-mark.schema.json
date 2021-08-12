@@ -493,37 +493,43 @@
           {
             "if": { "properties": { "type": { "const": "+" } } },
             "then": {
-              "$ref": "#/$defs/$number/add"
+              "description": "ADDITION Value block. Adds numbers together",
+              "$ref": "#/$defs/$number/$numberMath"
             }
           },
           {
             "if": { "properties": { "type": { "const": "-" } } },
             "then": {
-              "$ref": "#/$defs/$number/sub"
+              "description": "SUBTRACTION Value block. Subtracts from a number",
+              "$ref": "#/$defs/$number/$numberMath"
             }
           },
           {
             "if": { "properties": { "type": { "const": "*" } } },
             "then": {
-              "$ref": "#/$defs/$number/mul"
+              "description": "MULTIPLICATION Value block. Multiplies numbers together",
+              "$ref": "#/$defs/$number/$numberMath"
             }
           },
           {
             "if": { "properties": { "type": { "const": "/" } } },
             "then": {
-              "$ref": "#/$defs/$number/div"
+              "description": "DIVISION Value block. Divides a number",
+              "$ref": "#/$defs/$number/$numberMath"
             }
           },
           {
             "if": { "properties": { "type": { "const": "//" } } },
             "then": {
-              "$ref": "#/$defs/$number/floordiv"
+              "description": "FLOOR DIVISION Value block. Divides a number and floors it. [doesn't work for colors]",
+              "$ref": "#/$defs/$number/$numberMath"
             }
           },
           {
             "if": { "properties": { "type": { "const": "%" } } },
             "then": {
-              "$ref": "#/$defs/$number/rem"
+              "description": "REMAINDER Value block. Gets the remainder of the number division [only for integers]",
+              "$ref": "#/$defs/$number/$numberMath"
             }
           }
         ],
@@ -651,30 +657,6 @@
         },
         "additionalProperties": false,
         "required": [ "a", "b" ]
-      },
-      "add": {
-        "description": "ADDITION Value block. Adds numbers together",
-        "$ref": "#/$defs/$number/$numberMath"
-      },
-      "sub": {
-        "description": "SUBTRACTION Value block. Subtracts from a number",
-        "$ref": "#/$defs/$number/$numberMath"
-      },
-      "mul": {
-        "description": "MULTIPLICATION Value block. Multiplies numbers together",
-        "$ref": "#/$defs/$number/$numberMath"
-      },
-      "div": {
-        "description": "DIVISION Value block. Divides a number",
-        "$ref": "#/$defs/$number/$numberMath"
-      },
-      "floordiv": {
-        "description": "FLOOR DIVISION Value block. Divides a number and floors it. [doesn't work for colors]",
-        "$ref": "#/$defs/$number/$numberMath"
-      },
-      "rem": {
-        "description": "REMAINDER Value block. Gets the remainder of the number division [only for integers]",
-        "$ref": "#/$defs/$number/$numberMath"
       },
       "$examples": {
         "default": {
