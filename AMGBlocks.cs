@@ -5,6 +5,13 @@ using System;
 
 namespace BMG
 {
+    // ----- VERSION -------------
+
+    public class AMGBlocks
+    {
+        public static AMGState.Version version = new AMGState.Version(1, 1, 0, "Beta");
+    }
+
     // ----- DATA TYPES -------------
 
     public class ColorData

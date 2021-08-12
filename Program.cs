@@ -23,7 +23,7 @@ namespace BMG
 
             Dictionary<char, int> tilesFailed = new Dictionary<char, int>();
 
-            Options1 options = new Options1();
+            Options1 options;
 
             try
             {
@@ -86,9 +86,14 @@ namespace BMG
                 Logger.LogSpacer();
                 
                 Logger.Log("  BMG (Brawl Map Gen)");
-                Logger.Log(string.Format("    Version: v{0}.{1}.{2} {3}", AMGState.version.major, AMGState.version.minor, AMGState.version.patch, AMGState.version.access));
-                Logger.Log("    Created by: RedH1ghway (aka BloodWiing)");
+                Logger.Log("    Created by: BloodWiing");
                 Logger.Log("    Helped by: 4JR, Henry, tryso");
+
+                Logger.LogSpacer();
+
+                Logger.Log("  VERSION");
+                Logger.Log(string.Format("    BrawlMapGen -- {0}", AMGState.version));
+                Logger.Log(string.Format("    AMG!Blocks -- {0}", AMGBlocks.version));
 
                 Logger.LogSpacer();
                 Logger.LogSpacer();
@@ -1968,17 +1973,30 @@ namespace BMG
 
         public class Version
         {
-            public int major = 1;
-            public int minor = 9;
-            public int patch = 4;
-            public string access = "Beta";
+            public int major;
+            public int minor;
+            public int patch;
+            public string access;
+
+            public Version(int major, int minor, int patch, string access)
+            {
+                this.major = major;
+                this.minor = minor;
+                this.patch = patch;
+                this.access = access;
+            }
+
+            public override string ToString()
+            {
+                return string.Format("v{0}.{1}.{2} {3}", major, minor, patch, access);
+            }
         }
 
         private static Stopwatch _stopwatch = new Stopwatch();
 
         public static Drawer drawer = new Drawer();
         public static Map map = new Map();
-        public static Version version = new Version();
+        public static Version version = new Version(1, 9, 4, "Release");
 
         public static void NewMap(Options1.BatchSettings batch)
         {
