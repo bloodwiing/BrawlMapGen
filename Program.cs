@@ -100,7 +100,6 @@ namespace BMG
 
                 Logger.LogStatus("App is launched!");
                 Logger.LogSetup("Loading preset: \"" + options.preset.ToUpper() + "\"...");
-                Logger.LogAAL(Logger.AALDirection.In, "./presets/" + options.preset + ".json");
 
                 Logger.Title.Job.UpdateJob(0, 1, "Preparing...");
                 Logger.Title.Status.UpdateStatus(0, 1, "Loading preset...");
