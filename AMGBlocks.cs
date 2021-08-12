@@ -16,7 +16,7 @@ namespace BMG
         public static byte ByteClamp(int value)
         {
             if (value > 255)
-                return 255;
+                return (byte)(value % 256);
             if (value < 0)
                 return 0;
             return (byte)value;
@@ -80,9 +80,9 @@ namespace BMG
         {
             return new ColorData()
             {
-                r = ByteClamp(a.r * 255 / b.r),
-                g = ByteClamp(a.g * 255 / b.g),
-                b = ByteClamp(a.b * 255 / b.b)
+                r = ByteClamp(b.r * 255 / a.r),
+                g = ByteClamp(b.g * 255 / a.g),
+                b = ByteClamp(b.b * 255 / a.b)
             };
         }
 
@@ -90,9 +90,9 @@ namespace BMG
         {
             return new ColorData()
             {
-                r = ByteClamp(a.r * 255 % b.r),
-                g = ByteClamp(a.g * 255 % b.g),
-                b = ByteClamp(a.b * 255 % b.b)
+                r = ByteClamp(b.r * 255 % a.r),
+                g = ByteClamp(b.g * 255 % a.g),
+                b = ByteClamp(b.b * 255 % a.b)
             };
         }
 
@@ -476,7 +476,9 @@ namespace BMG
 
         public override ColorData Color()
         {
-            return CalculateColor();
+            if (IsColor)
+                return CalculateColor();
+            return (ColorData)Calculate();
         }
 
         public override object Data()
@@ -759,6 +761,7 @@ namespace BMG
         public string key { get; set; }
 
         public override float Float() => AMGState.GetNumber(key);
+        public override ColorData Color() => (ColorData)AMGState.GetNumber(key);
         public override object Data() => AMGState.GetNumber(key);
 
         public override void SetParameters(AMGBlockParameters pars)
@@ -864,6 +867,7 @@ namespace BMG
         }
     }
 
+    public class DIVFLOORBlock : MathBlock
     public class REMBlock : MathBlock
     {
         public override float Calculate()
