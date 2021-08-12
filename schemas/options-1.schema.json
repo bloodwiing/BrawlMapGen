@@ -159,6 +159,10 @@
             "description": "The game mode of the map",
             "type": "string",
             "minLength": 1
+          },
+          "randomSeed": {
+            "description": "Map-specific seed. Affects the current and all other maps after",
+            "type": "number"
           }
         },
         "default": {
