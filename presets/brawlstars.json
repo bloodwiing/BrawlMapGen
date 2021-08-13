@@ -2133,6 +2133,36 @@
 				"changeTileType": 30
 			},
 			{
+				"condition": "***11***",
+				"requiredBiome": 21,
+				"changeTileType": 31
+			},
+			{
+				"condition": "*1****1*",
+				"requiredBiome": 21,
+				"changeTileType": 32
+			},
+			{
+				"condition": "*0****1*",
+				"requiredBiome": 21,
+				"changeTileType": 30
+			},
+			{
+				"condition": "*1****0*",
+				"requiredBiome": 21,
+				"changeTileType": 30
+			},
+			{
+				"condition": "***01***",
+				"requiredBiome": 21,
+				"changeTileType": 30
+			},
+			{
+				"condition": "***10***",
+				"requiredBiome": 21,
+				"changeTileType": 30
+			},
+			{
 				"condition": "*1*10***",
 				"requiredBiome": 20,
 				"changeTileType": 102
@@ -5064,10 +5094,6 @@
       {
         "tile": "blocking3",
         "type": 7
-      },
-      {
-        "tile": "blocking4",
-        "type": 6
       },
       {
         "tile": "forest",
