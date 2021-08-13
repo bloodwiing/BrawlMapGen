@@ -529,7 +529,7 @@
           {
             "if": { "properties": { "type": { "const": "%" } } },
             "then": {
-              "description": "REMAINDER Value block. Gets the remainder of the number division [only for integers]",
+              "description": "MODULO Value block. Gets the remainder of the number division [only for integers]",
               "$ref": "#/$defs/$number/$numberMath"
             }
           },
