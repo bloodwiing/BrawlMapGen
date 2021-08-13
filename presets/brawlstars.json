@@ -5723,6 +5723,18 @@
 					"type": 13
 				}]
 			},
+			"arcade": {
+				"mapModder": [
+				{
+					"tile": "objective",
+					"position": "m,m"
+				}],
+				"overrideBiome": [
+				{
+					"tile": "objective",
+					"type": 10
+				}]
+			},
 			"lamporium": {
 				"mapModder": [
 				{
