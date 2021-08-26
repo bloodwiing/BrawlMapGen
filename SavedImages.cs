@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 
@@ -71,7 +72,11 @@ namespace BMG
                 imageWidth = (int)Math.Round((double)document.Width * sizeMultiplier);
                 imageHeight = (int)Math.Round((double)document.Height * sizeMultiplier);
 
-                renderedImage = document.Draw(imageWidth, imageHeight);
+                renderedImage = new Bitmap(imageWidth, imageHeight, PixelFormat.Format32bppArgb);
+
+                var renderer = SvgRenderer.FromImage(renderedImage);
+                renderer.ScaleTransform(sizeMultiplier, sizeMultiplier);
+                document.Draw(renderer);
             }
 
         }
