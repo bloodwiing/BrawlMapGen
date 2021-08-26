@@ -3003,6 +3003,16 @@
 			},
 			"asset": "player_white.svg",
 			"order": 1
+		},
+		{
+			"tileParts": {
+				"top": 0,
+				"mid": 1000,
+				"bot": 0,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "nothing.svg"
 		}
 		]
 	},
@@ -3095,6 +3105,17 @@
 				"right": 350
 			},
 			"asset": "player_white.svg",
+			"order": 1
+		},
+		{
+			"tileParts": {
+				"top": 350,
+				"mid": 1000,
+				"bot": 350,
+				"left": 350,
+				"right": 350
+			},
+			"asset": "player_green.svg",
 			"order": 1
 		}
 		]
@@ -6125,7 +6146,33 @@
 		},
 		{
 			"tile": "player2",
+			"type": 8
+		}
+		]
+	},
+	{
+		"name": "Solo Showdown",
+		"overrideBiome": [
+		{
+			"tile": "player1",
+			"type": 1
+		},
+		{
+			"tile": "player2",
 			"type": 4
+		}
+		]
+	},
+	{
+		"name": "Duo Showdown",
+		"overrideBiome": [
+		{
+			"tile": "player1",
+			"type": 3
+		},
+		{
+			"tile": "player2",
+			"type": 1
 		}
 		]
 	},
