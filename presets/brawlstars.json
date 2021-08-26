@@ -840,8 +840,8 @@
 				"top": 522,
 				"mid": 1000,
 				"bot": 300,
-				"left": 50,
-				"right": 50
+				"left": 0,
+				"right": 0
 			},
 			"asset": "old_tv.svg"
 		},
