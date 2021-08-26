@@ -189,6 +189,16 @@
 				"right": 0
 			},
 			"asset": "waterpark_rock.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 250,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "wall_block_castle.svg"
 		}
 		]
 	},
@@ -365,6 +375,16 @@
 				"right": 0
 			},
 			"asset": "waterpark_wall.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 250,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "wall_block_castle.svg"
 		}
 		]
 	},
@@ -461,6 +481,16 @@
 				"right": 50
 			},
 			"asset": "x_box.svg"
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 250,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "crate_red_orange.svg"
 		}
 		]
 	},
@@ -695,6 +725,18 @@
 			"color": "pink round",
 			"asset": "grass_pink_round.svg",
 			"tileTransitions": true
+		},
+		{
+			"tileParts": {
+				"top": 500,
+				"mid": 1000,
+				"bot": 250,
+				"left": 0,
+				"right": 0
+			},
+			"color": "teal",
+			"asset": "grass_teal.svg",
+			"tileTransitions": true
 		}
 		]
 	},
@@ -842,6 +884,16 @@
 				"right": 88
 			},
 			"asset": "surfboard.svg"
+		},
+		{
+			"tileParts": {
+				"top": 525,
+				"mid": 1000,
+				"bot": 250,
+				"left": 43,
+				"right": 43
+			},
+			"asset": "plant_castle.svg"
 		}
 		]
 	},
@@ -968,6 +1020,16 @@
 				"right": 0
 			},
 			"asset": "sand_bucket.svg"
+		},
+		{
+			"tileParts": {
+				"top": -100,
+				"mid": 1000,
+				"bot": 250,
+				"left": -50,
+				"right": -50
+			},
+			"asset": "pizza_box.svg"
 		}
 		]
 	},
@@ -2098,10 +2160,72 @@
 			},
 			"asset": "waterpark_fence_bl.svg",
 			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 616,
+				"mid": 1000,
+				"bot": 250,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "fence_hor_castle.svg",
+			"orderHor": 1
+		},
+		{
+			"tileParts": {
+				"top": 616,
+				"mid": 1000,
+				"bot": 0,
+				"left": -150,
+				"right": -150
+			},
+			"asset": "fence_ver_castle.svg"
+		},
+		{
+			"tileParts": {
+				"top": 550,
+				"mid": 1000,
+				"bot": 250,
+				"left": 0,
+				"right": 0
+			},
+			"asset": "fence_cor_castle.svg",
+			"orderHor": 1
 		}
 		],
 		"tileLinks": {
 			"rules": [
+			{
+				"condition": "*1****0*",
+				"requiredBiome": 23,
+				"changeTileType": 105
+			},
+			{
+				"condition": "*0****1*",
+				"requiredBiome": 23,
+				"changeTileType": 105
+			},
+			{
+				"condition": "***01***",
+				"requiredBiome": 23,
+				"changeTileType": 105
+			},
+			{
+				"condition": "***10***",
+				"requiredBiome": 23,
+				"changeTileType": 105
+			},
+			{
+				"condition": "*1****1*",
+				"requiredBiome": 23,
+				"changeTileType": 104
+			},
+			{
+				"condition": "*0****0*",
+				"requiredBiome": 23,
+				"changeTileType": 103
+			},
 			{
 				"condition": "***11***",
 				"requiredBiome": 22,
@@ -3381,6 +3505,17 @@
 				"right": 175
 			},
 			"asset": "volleyball.svg",
+			"order": 3
+		},
+		{
+			"tileParts": {
+				"top": 450,
+				"mid": 1000,
+				"bot": 750,
+				"left": 450,
+				"right": 450
+			},
+			"asset": "mine_castle.svg",
 			"order": 3
 		}
 		]
@@ -5492,7 +5627,54 @@
         "type": 1
       }
       ]
-    }
+    },
+    {
+      "name": "castle",
+      "background": {
+        "name": "Chequerboard",
+        "parameters": {
+          "color": {
+            "r": 73,
+            "g": 68,
+            "b": 99
+          }
+        }
+      },
+			"defaults": [
+				{
+					"tile": "blocking1",
+					"type": 17
+				},
+				{
+					"tile": "blocking2",
+					"type": 17
+				},
+				{
+					"tile": "blocking3",
+					"type": 9
+				},
+				{
+					"tile": "blocking4",
+					"type": 3
+				},
+				{
+					"tile": "forest",
+					"type": 11
+				},
+				{
+					"tile": "respawningWall",
+					"type": 14
+				},
+				{
+					"tile": "blockingDestroyableWithWeapon",
+					"type": 12
+				},
+				{
+					"tile": "fence",
+					"type": 105
+				}
+			]
+		}
   ],
 	"defaultBiome":
 	{
@@ -5805,6 +5987,18 @@
 				{
 					"tile": "objective",
 					"type": 25
+				}]
+			},
+			"castle": {
+				"mapModder": [
+				{
+					"tile": "objective",
+					"position": "m,m"
+				}],
+				"overrideBiome": [
+				{
+					"tile": "objective",
+					"type": 37
 				}]
 			}
 		},
