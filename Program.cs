@@ -1995,7 +1995,7 @@ namespace BMG
 
         public static Drawer drawer = new Drawer();
         public static Map map = new Map();
-        public static Version version = new Version(1, 9, 4, "Release");
+        public static Version version = new Version(1, 9, 5, "Release");
 
         public static void NewMap(Options1.BatchSettings batch)
         {
