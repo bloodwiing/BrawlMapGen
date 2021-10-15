@@ -1,0 +1,60 @@
+name: Multi-platform build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        include:
+        
+          - artifact-name: Win
+            runtime-os: win-x64
+            
+          - artifact-name: Linux
+            runtime-os: linux-x64
+          
+          - artifact-name: macOS
+            runtime-os: osx-x64
+
+    steps:
+
+    - name: Setup Cache 
+      uses: actions/cache@v2.1.6
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
+    - name: Checkout GitHub Actions
+      uses: actions/checkout@v2.3.4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1.8.2
+      with:
+        dotnet-version: '2.2'
+        
+    - name: Restore dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: dotnet restore BMG.sln
+  
+    - name: Build
+      run: dotnet build BMG.sln --configuration Release --no-restore
+    
+    - name: Publish application [${{ matrix.artifact-name }}]
+      run: dotnet publish BMG.sln -c Release --self-contained --no-restore -r ${{ matrix.runtime-os }} -f netcoreapp2.2 -o ./output
+      
+    - name: Upload Artifact [${{ matrix.artifact-name }}]
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        name: ${{ matrix.artifact-name }}-Artifact
+        path: ./output
+        
