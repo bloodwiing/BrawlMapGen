@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Threading;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using AMGBlocks;
 
 namespace BMG
 {
@@ -93,7 +94,7 @@ namespace BMG
 
                 Logger.Log("  VERSION");
                 Logger.Log(string.Format("    BrawlMapGen -- {0}", AMGState.version));
-                Logger.Log(string.Format("    AMG!Blocks -- {0}", AMGBlocks.version));
+                Logger.Log(string.Format("    AMG!Blocks -- {0}", AMGBlocks.AMGBlocks.version));
 
                 Logger.LogSpacer();
                 Logger.LogSpacer();
