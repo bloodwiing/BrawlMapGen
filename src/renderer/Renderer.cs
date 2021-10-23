@@ -66,6 +66,77 @@ namespace BMG
         //}
 
 
+        public void DrawGameMode(GameModeBase gameMode, GameModePass pass)
+        {
+            if (gameMode == null)
+                return;
+
+            if (gameMode.SpecialTiles != null)
+                DrawGameModeSpecials(gameMode, pass);
+        }
+
+
+        private void DrawGameModeSpecials(GameModeBase gameMode, GameModePass pass)
+        {
+            foreach (var special in gameMode.SpecialTiles)
+            {
+                // CHECK PASS
+
+                if (special.Pass == pass)
+                    continue;
+
+
+                // GET DATA
+
+                Vector2 position = Utils.ParsePosition(special.Position);
+                TileVariantBase tile = preset.GetTileVariant(special.Tile, special.Type);
+
+
+                // DRAW TILE
+
+                DrawTile(tile, options, position);
+                AMGState.drawer.DrawnTile();
+                //Logger.LogTile(new TileActionTypes(1, 0, 0, 0, 1), oTile, ysLoc, xsLoc, yLength, xLength, Logger.TileEvent.tileDraw);
+            }
+        }
+
+
+        public void DrawTile(TileVariantBase tile, OptionsBase options, Vector2 position)
+        {
+            // GET ASSET
+
+            TileVariantBase asset = tile;
+
+
+            // CALCULATE ASSET OFFSET
+
+            Vector2 offset = asset.Offset.Clone();
+            offset *= map.Scale;
+            offset /= 1000;
+
+
+            // CALCULATE REAL CANVAS POSITION
+
+            position += (map.Margin.left, map.Margin.top);
+            position *= map.Scale;
+            position += offset;
+
+
+
+            // GET CACHED IMAGE
+
+            var image = Cache.GetInstance(options, map.Scale).GetTileImage(asset);
+
+
+            // RENDER
+
+            graphics.DrawImage(
+                image.renderedImage,
+                position
+                );
+        }
+
+
         //public void DrawTile(Tiledata.Tile tile, int type, OptionsOld optionsObject, int sizeMultiplier, int currentX, int currentY, SavedImages imageMemory, float[] borderSize) // Drawing a tile (normal)
         //{
         //    var real = GetRealAsset(tile, type, optionsObject, tile.tileTypes[type].asset);

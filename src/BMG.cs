@@ -15,7 +15,6 @@ namespace BMG
         public PresetBase preset { get; private set; }
 
         readonly Dictionary<char, int> tilesFailed = new Dictionary<char, int>();
-        readonly Dictionary<int, SavedImages> savedTileImageList = new Dictionary<int, SavedImages>();
 
 
         public BMG(OptionsBase options)
@@ -26,8 +25,11 @@ namespace BMG
 
         public void Run()
         {
-            //try
-            //{
+
+#if !DEBUG
+            try
+            {
+#endif
                 AMGState.StartTimer();
 
                 Intro();  // Intro text
@@ -35,14 +37,17 @@ namespace BMG
                 OptimizeMaps();  // Incl. & Excl.
                 Prepare();  // Fallback
                 DrawMaps();  // Generation
-            //}
-            //catch (Exception e)
-            //{
-            //    Logger.LogError(e);
-            //}
+
+#if !DEBUG
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e);
+            }
+#endif
         }
 
-        
+
         private void Intro()
         {
             Logger.UpdateOptions(options, AMGState.version.major + "." + AMGState.version.minor + "." + AMGState.version.patch);
@@ -167,24 +172,6 @@ namespace BMG
                 Logger.Title.Job.IncreaseJob();
 
 
-                // LOAD IMAGE CACHE FOR SCALE
-
-                SavedImages selectedTileImageList;
-                if (!savedTileImageList.ContainsKey(map.Scale))
-                {
-                    selectedTileImageList = new SavedImages(options, map.Scale);
-                    savedTileImageList.Add(map.Scale, selectedTileImageList);
-                }
-                else
-                    selectedTileImageList = savedTileImageList[map.Scale];
-
-
-                // SET SEED
-
-                if (map.GenerationSeed != null)
-                    selectedTileImageList.SetRandomSeed(map.GenerationSeed.GetValueOrDefault());
-
-
                 // MAP VALIDATION
 
                 Logger.LogSpacer();
@@ -223,7 +210,7 @@ namespace BMG
         {
             // GET BIOME
 
-            BiomeBase mapBiome = preset.GetBiome(map.Biome);
+            BiomeBase biome = preset.GetBiome(map.Biome);
 
 
             // SETUP RENDERER
@@ -231,12 +218,13 @@ namespace BMG
             Renderer renderer = new Renderer(map, options, preset);
 
             Logger.LogSpacer();
-            Logger.Log($"Map details:\n  Width: {renderer.CanvasWidth}px\n  Height: {renderer.CanvasHeight}px\n  Biome: \"{mapBiome.Name}\"\n");
+            Logger.Log($"Map details:\n  Width: {renderer.CanvasWidth}px\n  Height: {renderer.CanvasHeight}px\n  Biome: {biome.Name.ToUpper()}\n");
 
 
             // RENDER
 
             MakeBackground(renderer, map);
+            DrawTiles(renderer, map, biome);
 
 
             renderer.ExportImage();
@@ -253,6 +241,20 @@ namespace BMG
             renderer.ColorBackground(map);
 
             Logger.LogStatus("Background drawn.");
+        }
+
+
+        private void DrawTiles(Renderer renderer, MapBase map, BiomeBase biome)
+        {
+            Logger.LogSetup("Drawing Map tiles...");
+            Logger.LogStatus($"Drawing Map (\"{map.GetName()}\")...");
+
+
+            // RENDER GAME MODE PASS 1
+
+            GameModeBase gameMode = preset.GetGameMode(map, biome);
+
+            renderer.DrawGameMode(gameMode, GameModePass.BACK);
         }
     }
 }

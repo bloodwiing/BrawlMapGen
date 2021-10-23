@@ -75,27 +75,6 @@ namespace BMG
             {
                 
 
-                
-
-                    Logger.LogSetup("Drawing map tiles...");
-                    if (batchOption.name != "?number?")
-                        Logger.LogStatus("Drawing map (\"" + batchOption.name + "\")...");
-                    else
-                        Logger.LogStatus("Drawing map (#" + AMGState.map.index + ")...");
-
-                    Tiledata.GamemodeBase mapGamemode = null;
-                    foreach (var gm in tiledata.gamemodes)
-                    {
-                        if (gm == null || batchOption.gamemode == null)
-                            break;
-                        if (gm.name == batchOption.gamemode)
-                        {
-                            if (gm.variants != null && gm.variants.TryGetValue(mapBiome.name, out var gamemode))
-                                mapGamemode = gamemode;
-                            else
-                                mapGamemode = gm;
-                        }
-                    }
 
                     if (mapGamemode != null) // Draw Gamemode Tiles (Before every other tile)
                     {

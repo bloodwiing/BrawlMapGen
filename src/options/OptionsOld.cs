@@ -33,6 +33,9 @@ namespace BMG
         public override ConsoleOptionsBase ConsoleOpts => console;
         public override TitleOptionsBase TitleOpts => title;
 
+        public override bool HasRandomizer => randomizers.enabled;
+        public override int? RandomizerSeed => randomizers.seed;
+
 
         public string setPath { get; set; }
         public string preset { get; set; }
@@ -100,7 +103,9 @@ namespace BMG
                     return new Margin(t, b, l, r);
                 }
             }
-                
+
+            public override string GameMode => gamemode;
+
             public override int? GenerationSeed => randomSeed;
 
 

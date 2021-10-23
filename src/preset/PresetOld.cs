@@ -10,9 +10,13 @@ namespace BMG
     public class PresetOld : PresetBase
     {
         // IMPLEMENTATIONS
+        public override TileBase[] Tiles => tiles;
+
         public override Dictionary<string, BiomeBase> Biomes => _biomeDict.ToDictionary(item => item.Key, item => (BiomeBase)item.Value);
         public override BiomeBase[] BiomeArray => biomes;
         public override BiomeBase DefaultBiome => defaultBiome;
+
+        public override Dictionary<string, GameModeDefinitionBase> GameModes => _gameModeDict.ToDictionary(item => item.Key, item => (GameModeDefinitionBase)item.Value);
 
 
         [OnDeserialized]
@@ -39,55 +43,88 @@ namespace BMG
 
                 _biomeDict.TryAdd(biome.name, biome);
             }
+
+            foreach (var gameMode in gamemodes)
+                _gameModeDict.TryAdd(gameMode.name, gameMode);
         }
 
         public PresetOptions presetOptions { get; set; }
         public char[] ignoreTiles { get; set; } = new char[0];
 
         private Dictionary<string, BiomeData> _biomeDict = new Dictionary<string, BiomeData>();
+        private Dictionary<string, GameModeData> _gameModeDict = new Dictionary<string, GameModeData>();
 
         public Tile[] tiles { get; set; }
         public BiomeData[] biomes { get; set; }
         public BiomeData defaultBiome { get; set; }
-        public Gamemode[] gamemodes { get; set; }
+        public GameModeData[] gamemodes { get; set; }
         public Dictionary<string, TileDefault[]> metadata { get; set; } = new Dictionary<string, TileDefault[]>();
 
         private Background[] _backgrounds;
         public Background[] backgrounds { get => _backgrounds; set { _backgrounds = value; RegisterParameters(value); } }
 
-        public class Tile
+        public class Tile : TileBase
         {
+            // IMPLEMENTATIONS
+
+            public override string Name => tileName;
+            public override char Code => tileCode;
+            public override TileVariantBase[] Variants => tileTypes;
+
+
             public string tileName { get; set; }
             public char tileCode { get; set; }
             public TileType[] tileTypes { get; set; }
             public TileLink tileLinks { get; set; }
         }
 
-        public class TileTypeBase
+        public class TileTypeBase : TileAssetBase
         {
+            // IMPLEMENTATIONS
+
+            public override string Asset => asset;
+            public override Vector2 Offset
+            {
+                get => new Vector2(-tileParts.left, -tileParts.top);
+                set => tileParts = new TileParts() { top = -value.y, left = -value.x };
+            }
+
+
             public TileParts tileParts { get; set; }
             public string asset { get; set; }
         }
 
-        public class TileType : TileTypeBase
+        public class TileType : TileVariantBase
         {
-            public string color { get; set; }
-            public bool detailed { get; set; }
-            public bool visible { get; set; }
-            public string other { get; set; }
+            // IMPLEMENTATIONS
+
+            public override string Asset => asset;
+            public override Vector2 Offset
+            {
+                get => new Vector2(-tileParts.left, -tileParts.top);
+                set => tileParts = new TileParts() { top = -value.y, left = -value.x };
+            }
+
+            public override int? RowLayer => orderHor;
+            public override int? Layer => order;
+            public override TileAssetBase[] Randomizer => randomizer;
+
+
+            public TileParts tileParts { get; set; }
+            public string asset { get; set; }
+
             public int? orderHor { get; set; }
             public int? order { get; set; }
-            public bool tileTransitions { get; set; } = false;
             public TileTypeBase[] randomizer { get; set; }
         }
 
         public class TileParts
         {
-            public int top { get; set; }
-            public int mid { get; set; }
-            public int bot { get; set; }
-            public int left { get; set; }
-            public int right { get; set; }
+            public int top { get; set; } = 0;
+            public int mid { get; set; } = 1000;
+            public int bot { get; set; } = 0;
+            public int left { get; set; } = 0;
+            public int right { get; set; } = 0;
         }
 
         public class TileDefault
@@ -140,29 +177,83 @@ namespace BMG
             public string asset { get; set; }
         }
 
-        public class GamemodeBase
+        public class GameModeDataVariant : GameModeBase
         {
+            // IMPLEMENTATIONS
+            
+            public override SpecialBase[] SpecialTiles => specialTiles;
+            public override Dictionary<string, int> BiomeOverrides => _overrideDict;
+            public override ModBase[] MapMods => mapModder;
+
+
+            [OnDeserialized]
+            internal void Prepare(StreamingContext context)
+            {
+                foreach (var ob in overrideBiome)
+                    _overrideDict.TryAdd(ob.tile, ob.type);
+            }
+
+            private Dictionary<string, int> _overrideDict = new Dictionary<string, int>();
+
+
             public SpecialTile[] specialTiles { get; set; }
             public TileDefault[] overrideBiome { get; set; }
             public MapMod[] mapModder { get; set; }
         }
 
-        public class Gamemode : GamemodeBase
+        public class GameModeData : GameModeDefinitionBase
         {
+            // IMPLEMENTATIONS
+
+            public override string Name => name;
+            public override SpecialBase[] SpecialTiles => specialTiles;
+            public override Dictionary<string, int> BiomeOverrides => _overrideDict;
+            public override ModBase[] MapMods => mapModder;
+            public override Dictionary<string, GameModeBase> Variants => variants.ToDictionary(item => item.Key, item => (GameModeBase)item.Value);
+
+
+            [OnDeserialized]
+            internal void Prepare(StreamingContext context)
+            {
+                if (overrideBiome != null)
+                    foreach (var ob in overrideBiome)
+                        _overrideDict.TryAdd(ob.tile, ob.type);
+            }
+
+            private Dictionary<string, int> _overrideDict = new Dictionary<string, int>();
+
+
             public string name { get; set; }
-            public Dictionary<string, GamemodeBase> variants { get; set; }
+            public SpecialTile[] specialTiles { get; set; }
+            public TileDefault[] overrideBiome { get; set; }
+            public MapMod[] mapModder { get; set; }
+            public Dictionary<string, GameModeDataVariant> variants { get; set; } = new Dictionary<string, GameModeDataVariant>();
         }
 
-        public class SpecialTile
+        public class SpecialTile : GameModeBase.SpecialBase
         {
+            // IMPLEMENTATIONS
+
+            public override string Tile => tile;
+            public override int Type => type;
+            public override string Position => position;
+            public override GameModePass Pass => drawOrder == 1 ? GameModePass.BACK : GameModePass.FRONT;
+
+
             public string tile { get; set; }
             public int type { get; set; }
             public string position { get; set; }
             public int drawOrder { get; set; }
         }
 
-        public class MapMod
+        public class MapMod : GameModeBase.ModBase
         {
+            // IMPLEMENTATIONS
+
+            public override string Tile => tile;
+            public override string Position => position;
+
+
             public string tile { get; set; }
             public string position { get; set; }
         }

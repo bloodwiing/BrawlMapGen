@@ -36,6 +36,12 @@ namespace BMG
 
         public abstract ConsoleOptionsBase ConsoleOpts { get; }
         public abstract TitleOptionsBase TitleOpts { get; }
+
+
+        // RANDOMIZER
+
+        public abstract bool HasRandomizer { get; }
+        public abstract int? RandomizerSeed { get; }
     }
 
 
@@ -109,6 +115,8 @@ namespace BMG
         public abstract char[] VoidTiles { get; }
 
         public abstract Margin Margin { get; }
+
+        public abstract string GameMode { get; }
 
         public abstract int? GenerationSeed { get; }
     }
