@@ -1,14 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Linq;
+﻿using AMGBlocks;
 using Newtonsoft.Json.Linq;
 using System;
-using AMGBlocks;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
 
 namespace BMG
 {
-    public class Tiledata
+    public class PresetOld : PresetBase
     {
+        // IMPLEMENTATIONS
+        public override Dictionary<string, BiomeBase> Biomes => _biomeDict.ToDictionary(item => item.Key, item => (BiomeBase)item.Value);
+        public override BiomeBase[] BiomeArray => biomes;
+        public override BiomeBase DefaultBiome => defaultBiome;
+
 
         [OnDeserialized]
         internal void Prepare(StreamingContext context)
@@ -31,21 +36,24 @@ namespace BMG
                 }
 
                 biome.defaults = update.ToArray();
-            }    
+
+                _biomeDict.TryAdd(biome.name, biome);
+            }
         }
 
         public PresetOptions presetOptions { get; set; }
         public char[] ignoreTiles { get; set; } = new char[0];
 
+        private Dictionary<string, BiomeData> _biomeDict = new Dictionary<string, BiomeData>();
+
         public Tile[] tiles { get; set; }
-        public Biome[] biomes { get; set; }
-        public Biome defaultBiome { get; set; }
+        public BiomeData[] biomes { get; set; }
+        public BiomeData defaultBiome { get; set; }
         public Gamemode[] gamemodes { get; set; }
         public Dictionary<string, TileDefault[]> metadata { get; set; } = new Dictionary<string, TileDefault[]>();
 
         private Background[] _backgrounds;
         public Background[] backgrounds { get => _backgrounds; set { _backgrounds = value; RegisterParameters(value); } }
-        public AMGBlockManager BackgroundManagerInstance = new AMGBlockManager();
 
         public class Tile
         {
@@ -94,17 +102,17 @@ namespace BMG
             public Dictionary<string, object> parameters { get; set; }
         }
 
-        public class Biome
+        public class BiomeData : BiomeBase
         {
+            public override string Name => name;
+
+            public override bool HasBackground => background != null;
+            public override string BackgroundName => background.name;
+            public override Dictionary<string, object> BackgroundOptions => background.parameters;
+
             public string name { get; set; }
             public BackgroundChoice background { get; set; }
             public TileDefault[] defaults { get; set; }
-        }
-
-        public Biome GetBiome(int index)
-        {
-            if (index <= biomes.Length - 1) return biomes[index];
-            return defaultBiome;
         }
 
         public class TileLink
@@ -169,8 +177,15 @@ namespace BMG
             public int tileTransitionSize { get; set; }
         }
 
-        public class AMGBlocksParameter
+        public class AMGBlocksParameter : BlocksParameterBase
         {
+            // IMPLEMENTATIONS
+
+            public override string Name => name;
+            public override string Type => type;
+            public override object Default { get => @default; set => @default = value; }
+
+
             public string name { get; set; }
             public string type { get; set; }
 
@@ -192,23 +207,19 @@ namespace BMG
             }
         }
 
-        public class Background
+        public class Background : BackgroundBase
         {
+            // IMPLEMENTATIONS
+
+            public override string Name => name;
+            public override IActionBlock Blocks => blocks;
+            public override BlocksParameterBase[] Parameters => parameters;
+
+
             public string name { get; set; }
             public IActionBlock blocks { get; set; }
-            public AMGBlockFunction function;
             public AMGBlocksParameter[] parameters { get; set; } = new AMGBlocksParameter[0];
         }
 
-        private void RegisterParameters(Background[] bgs)
-        {
-            foreach (var bg in bgs)
-            {
-                bg.function = new AMGBlockFunction(bg.blocks, bg.parameters);
-                BackgroundManagerInstance.RegisterFunction(bg.name, bg.function);
-            }
-        }
-
     }
-
 }

@@ -115,18 +115,18 @@ namespace AMGBlocks
     {
         private AMGBlockManager _manager;
 
-        private Tiledata.AMGBlocksParameter[] _format;
+        private BlocksParameterBase[] _format;
         private Dictionary<string, BlockData> _data = new Dictionary<string, BlockData>();
 
-        public AMGBlockParameters(Tiledata.AMGBlocksParameter[] format)
+        public AMGBlockParameters(BlocksParameterBase[] format)
         {
             List<string> uniques = new List<string>();
 
             foreach (var f in format)
-                if (uniques.Contains(f.name))
-                    throw new ApplicationException("Parameter name " + f.name + " reused");
+                if (uniques.Contains(f.Name))
+                    throw new ApplicationException($"Parameter NAME \"{f.Name}\" reused");
                 else
-                    uniques.Add(f.name);
+                    uniques.Add(f.Name);
 
             _format = format;
         }
@@ -143,25 +143,25 @@ namespace AMGBlocks
                 try
                 {
                     var newData = new BlockData();
-                    newData.SetData(pars[param.name]);
+                    newData.SetData(pars[param.Name]);
 
-                    if ((param.type == "Integer" && newData.Type != BlockData.ValueType.integer) ||
-                        (param.type == "String" && newData.Type != BlockData.ValueType.@string) ||
-                        (param.type == "Boolean" && newData.Type != BlockData.ValueType.boolean) ||
-                        (param.type == "Color" && newData.Type != BlockData.ValueType.color))
+                    if ((param.Type == "Integer" && newData.Type != BlockData.ValueType.integer) ||
+                        (param.Type == "String" && newData.Type != BlockData.ValueType.@string) ||
+                        (param.Type == "Boolean" && newData.Type != BlockData.ValueType.boolean) ||
+                        (param.Type == "Color" && newData.Type != BlockData.ValueType.color))
                         throw new ApplicationException(
                             string.Format(
                                 "Parameter {0} type does not match. Expected {1}, got {2}",
-                                param.name,
-                                param.type,
+                                param.Name,
+                                param.Type,
                                 newData.GetTypeString()
                             ));
 
-                    newPars.Add(param.name, newData);
+                    newPars.Add(param.Name, newData);
                 }
                 catch (KeyNotFoundException)
                 {
-                    throw new ApplicationException("Missing parameter " + param.name);
+                    throw new ApplicationException("Missing parameter " + param.Name);
                 }
             }
 
@@ -177,13 +177,13 @@ namespace AMGBlocks
         {
             foreach (var f in _format)
             {
-                if (f.name == key)
+                if (f.Name == key)
                 {
                     bool exists = _data.TryGetValue(key, out BlockData datum);
 
                     BlockData.ValueType expected;
 
-                    switch (f.type)
+                    switch (f.Type)
                     {
                         case "Integer":
                             expected = BlockData.ValueType.integer;
@@ -205,7 +205,7 @@ namespace AMGBlocks
                             throw new ApplicationException(string.Format(
                                 "Parameter '{0}' type is invalid: {1}",
                                 key,
-                                f.type
+                                f.Type
                             ));
                     }
 
@@ -215,19 +215,19 @@ namespace AMGBlocks
                             throw new ApplicationException(string.Format(
                                 "Parameter '{0}' type mismatch. Expected {1}, Got {2}",
                                 key,
-                                f.type,
+                                f.Type,
                                 datum.GetTypeString()
                             ));
                         return datum;
                     }
-                    if (f.@default != null)
+                    if (f.Default != null)
                     {
-                        var gen = new BlockData(f.@default);
+                        var gen = new BlockData(f.Default);
                         if (gen.Type != expected)
                             throw new ApplicationException(string.Format(
                                 "Parameter '{0}' type mismatch. Expected {1}, Got {2}",
                                 key,
-                                f.type,
+                                f.Type,
                                 gen.GetTypeString()
                             ));
                         return gen;
@@ -261,7 +261,7 @@ namespace AMGBlocks
 
         private AMGBlockManager manager;
 
-        public AMGBlockFunction(IActionBlock parentBlock, Tiledata.AMGBlocksParameter[] pars)
+        public AMGBlockFunction(IActionBlock parentBlock, BlocksParameterBase[] pars)
         {
             this.parentBlock = parentBlock;
             parameters = new AMGBlockParameters(pars);
@@ -300,7 +300,7 @@ namespace AMGBlocks
                 throw new ApplicationException("Block function name '" + name + "' already exists");
             function.RegisterManager(this);
         }
-        public void RegisterFunction(string name, IActionBlock parentBlock, Tiledata.AMGBlocksParameter[] pars)
+        public void RegisterFunction(string name, IActionBlock parentBlock, BlocksParameterBase[] pars)
         {
             RegisterFunction(name, new AMGBlockFunction(parentBlock, pars));
         }

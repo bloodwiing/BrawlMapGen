@@ -6,6 +6,7 @@ using System;
 using AMGBlocks.Action;
 using AMGBlocks.Condition;
 using AMGBlocks.Value;
+using BMG.State;
 
 namespace AMGBlocks
 {

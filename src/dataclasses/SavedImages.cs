@@ -10,16 +10,16 @@ namespace BMG
 {
     public class SavedImages
     {
-        private readonly Dictionary<string, TileImage> tileImages = new Dictionary<string, TileImage>();
+        //private readonly Dictionary<string, TileImage> tileImages = new Dictionary<string, TileImage>();
 
         private Random rnd = new Random();
 
-        private readonly Options1 optionsObject;
+        private readonly OptionsBase options;
         private readonly int sizeMultiplier;
 
-        public SavedImages(Options1 optionsObject, int sizeMultiplier)
+        public SavedImages(OptionsBase options, int sizeMultiplier)
         {
-            this.optionsObject = optionsObject;
+            this.options = options;
             this.sizeMultiplier = sizeMultiplier;
         }
 
@@ -28,58 +28,58 @@ namespace BMG
             rnd = new Random(seed);
         }
 
-        public TileImage GetTileImage(Tiledata.TileType tile)
-        {
-            string asset = tile.asset;
-            Tiledata.TileTypeBase final = tile;
+        //public TileImage GetTileImage(Tiledata.TileType tile)
+        //{
+        //    string asset = tile.asset;
+        //    Tiledata.TileTypeBase final = tile;
 
-            if (tile.randomizer != null && optionsObject.randomizers.enabled)
-            {
-                final = tile.randomizer[rnd.Next(tile.randomizer.Length)];
-                asset = final.asset;
+        //    if (tile.randomizer != null && options.randomizers.enabled)
+        //    {
+        //        final = tile.randomizer[rnd.Next(tile.randomizer.Length)];
+        //        asset = final.asset;
 
-                if (final.tileParts == null)
-                    final.tileParts = tile.tileParts;
-            }
+        //        if (final.tileParts == null)
+        //            final.tileParts = tile.tileParts;
+        //    }
 
-            if (tileImages.ContainsKey(asset))
-                return tileImages[asset];
+        //    if (tileImages.ContainsKey(asset))
+        //        return tileImages[asset];
 
-            var instance = new TileImage(optionsObject, sizeMultiplier, final);
-            tileImages.Add(asset, instance);
-            return instance;
-        }
+        //    var instance = new TileImage(options, sizeMultiplier, final);
+        //    tileImages.Add(asset, instance);
+        //    return instance;
+        //}
 
-        public class TileImage
-        {
-            public Bitmap renderedImage;
-            public string imageName;
-            public int imageWidth;
-            public int imageHeight;
+        //public class TileImage
+        //{
+        //    public Bitmap renderedImage;
+        //    public string imageName;
+        //    public int imageWidth;
+        //    public int imageHeight;
 
-            public TileImage(Options1 optionsObject, int sizeMultiplier, Tiledata.TileTypeBase tile)
-            {
-                string path = string.Format("./assets/tiles/{0}/{1}", optionsObject.preset, tile.asset);
+        //    public TileImage(OptionsOld optionsObject, int sizeMultiplier, Tiledata.TileTypeBase tile)
+        //    {
+        //        string path = string.Format("./assets/tiles/{0}/{1}", optionsObject.preset, tile.asset);
 
-                if (!File.Exists(path))
-                    throw new FileNotFoundException("File " + path + " does not exist.");
+        //        if (!File.Exists(path))
+        //            throw new FileNotFoundException("File " + path + " does not exist.");
 
-                imageName = tile.asset;
+        //        imageName = tile.asset;
 
-                Logger.LogAAL(Logger.AALDirection.In, "./assets/tiles/" + optionsObject.preset + "/" + tile.asset);
-                var document = SvgDocument.Open(path);
+        //        Logger.LogAAL(Logger.AALDirection.In, "./assets/tiles/" + optionsObject.preset + "/" + tile.asset);
+        //        var document = SvgDocument.Open(path);
 
-                imageWidth = (int)Math.Round((double)document.Width * sizeMultiplier);
-                imageHeight = (int)Math.Round((double)document.Height * sizeMultiplier);
+        //        imageWidth = (int)Math.Round((double)document.Width * sizeMultiplier);
+        //        imageHeight = (int)Math.Round((double)document.Height * sizeMultiplier);
 
-                renderedImage = new Bitmap(imageWidth, imageHeight, PixelFormat.Format32bppArgb);
+        //        renderedImage = new Bitmap(imageWidth, imageHeight, PixelFormat.Format32bppArgb);
 
-                var renderer = SvgRenderer.FromImage(renderedImage);
-                renderer.ScaleTransform(sizeMultiplier, sizeMultiplier);
-                document.Draw(renderer);
-            }
+        //        var renderer = SvgRenderer.FromImage(renderedImage);
+        //        renderer.ScaleTransform(sizeMultiplier, sizeMultiplier);
+        //        document.Draw(renderer);
+        //    }
 
-        }
+        //}
 
     }
 
