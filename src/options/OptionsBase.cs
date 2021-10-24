@@ -111,8 +111,39 @@ namespace BMG
             }
         }
 
+        public Range GetLayerRange(PresetBase preset, BiomeBase biome)
+        {
+            Range range = null;
+
+
+            // CHECK ALL LAYERS
+
+            foreach (TileBase tile in preset.Tiles)
+            {
+                TileVariantBase variant = tile.GetVariant(biome);
+
+                if (range == null)
+                    range = new Range(variant.Layer);
+                else
+                    range.Insert(variant.Layer);
+
+                range.Insert(variant.RowLayer);
+            }
+
+
+            return range;
+        }
+
         public abstract int Scale { get; set; }
         public abstract char[] VoidTiles { get; }
+
+        public abstract Dictionary<string, int> BiomeOverrides { get; }
+
+        public void ApplyOverrides(BiomeBase biome)
+        {
+            foreach ((string tile, int type) in BiomeOverrides)
+                biome.ApplyOverride(tile, type);
+        }
 
         public abstract Margin Margin { get; }
 

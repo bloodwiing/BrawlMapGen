@@ -105,8 +105,8 @@ namespace BMG
                 set => tileParts = new TileParts() { top = -value.y, left = -value.x };
             }
 
-            public override int? RowLayer => orderHor;
-            public override int? Layer => order;
+            public override int RowLayer => orderHor.GetValueOrDefault(0);
+            public override int Layer => order.GetValueOrDefault(0);
             public override TileAssetBase[] Randomizer => randomizer;
 
 
@@ -141,11 +141,27 @@ namespace BMG
 
         public class BiomeData : BiomeBase
         {
+            // IMPLEMENTATIONS
+
             public override string Name => name;
 
             public override bool HasBackground => background != null;
             public override string BackgroundName => background.name;
             public override Dictionary<string, object> BackgroundOptions => background.parameters;
+
+            protected override Dictionary<string, int> TileVariants => _tileVariants;
+
+
+            [OnDeserialized]
+            internal void Prepare(StreamingContext context)
+            {
+                foreach (var def in defaults)
+                    _tileVariants.TryAdd(def.tile, def.type);
+            }
+
+
+            private Dictionary<string, int> _tileVariants = new Dictionary<string, int>();
+
 
             public string name { get; set; }
             public BackgroundChoice background { get; set; }

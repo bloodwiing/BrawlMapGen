@@ -94,14 +94,71 @@ namespace BMG
 
                 // DRAW TILE
 
-                DrawTile(tile, options, position);
+                DrawTile(tile, position);
                 AMGState.drawer.DrawnTile();
                 //Logger.LogTile(new TileActionTypes(1, 0, 0, 0, 1), oTile, ysLoc, xsLoc, yLength, xLength, Logger.TileEvent.tileDraw);
             }
         }
 
 
-        public void DrawTile(TileVariantBase tile, OptionsBase options, Vector2 position)
+        public void RenderMap(BiomeBase biome, Range renderRange)
+        {
+            // RENDER EACH LAYER
+
+            RenderMapLayer(biome, 0);
+
+            //foreach (int layer in renderRange)
+            //    RenderMapLayer(biome, layer);
+        }
+
+
+        public void RenderMapLayer(BiomeBase biome, int layer)
+        {
+            // RESET CURSOR
+
+            AMGState.ResetState();
+
+
+            // RUN ON WHOLE MAP
+
+            while (!AMGState.map.drawn)
+            {
+                // SKIP IF VOID
+
+                if (map.VoidTiles.Contains(AMGState.ReadAtCursor()))
+                {
+                    AMGState.MoveCursor();
+                    continue;
+                }
+
+
+                TileBase tile = preset.GetTile(AMGState.ReadAtCursor());
+
+                if (tile == null)
+                {
+                    AMGState.MoveCursor();
+                    continue;
+                }
+
+
+
+                TileVariantBase variant = tile.GetVariant(biome);
+
+
+                if (variant.Asset != "?binary?.svg")
+                    DrawTile(variant, AMGState.drawer.cursor);
+                AMGState.MoveCursor();
+            }
+        }
+
+
+        private void RenderRow()
+        {
+
+        }
+
+
+        public void DrawTile(TileVariantBase tile, Vector2 position)
         {
             // GET ASSET
 
@@ -174,7 +231,7 @@ namespace BMG
 
             // RESET CURSOR
 
-            AMGState.drawer.ResetCursor();
+            AMGState.ResetState();
 
 
             // GET BACKGROUND OR DEFAULT

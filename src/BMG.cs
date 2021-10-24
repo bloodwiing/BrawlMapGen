@@ -250,11 +250,32 @@ namespace BMG
             Logger.LogStatus($"Drawing Map (\"{map.GetName()}\")...");
 
 
-            // RENDER GAME MODE PASS 1
+            // GET GAME MODE AND APPLY MOD
 
             GameModeBase gameMode = preset.GetGameMode(map, biome);
+            if (gameMode != null) gameMode.ApplyToState(preset);
+
+
+            // OVERRIDE BIOME
+
+            biome.ResetOverrides();
+            if (gameMode != null) gameMode.ApplyOverrides(biome);
+            map.ApplyOverrides(biome);
+
+
+            // GAME MODE SPECIAL TILES BACK
 
             renderer.DrawGameMode(gameMode, GameModePass.BACK);
+
+
+            // GET LOWEST AND HIGHEST Z
+
+            Range renderRange = map.GetLayerRange(preset, biome);
+
+
+            // RENDER IN RANGE
+
+            renderer.RenderMap(biome, renderRange);
         }
     }
 }

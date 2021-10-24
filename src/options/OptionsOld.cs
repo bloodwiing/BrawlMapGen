@@ -56,6 +56,12 @@ namespace BMG
             public char to { get; set; }
         }
 
+        public class Override
+        {
+            public string tile { get; set; }
+            public int type { get; set; }
+        }
+
         public class BatchSettings : MapBase
         {
 
@@ -66,6 +72,9 @@ namespace BMG
             public override object Biome => biome;
             public override int Scale { get => sizeMultiplier; set => sizeMultiplier = value; }
             public override char[] VoidTiles => skipTiles;
+
+            public override Dictionary<string, int> BiomeOverrides => _overrideDict;
+
 
             public override Margin Margin
             {
@@ -109,6 +118,17 @@ namespace BMG
             public override int? GenerationSeed => randomSeed;
 
 
+            [OnDeserialized]
+            internal void Prepare(StreamingContext context)
+            {
+                foreach (var @override in overrideBiome)
+                    _overrideDict.TryAdd(@override.tile, @override.type);
+            }
+
+
+            Dictionary<string, int> _overrideDict = new Dictionary<string, int>();
+
+
             public string name { get; set; } = "MAP_{INDEX}";
             public string[] map { get; set; }
             public object biome { get; set; }
@@ -116,7 +136,7 @@ namespace BMG
             public char[] skipTiles { get; set; } = new char[0];
             public Replace[] replaceTiles { get; set; }
             public string exportFileName { get; set; }
-            //public Tiledata.TileDefault[] overrideBiome { get; set; }
+            public Override[] overrideBiome { get; set; } = new Override[0];
             public SpecialTileRules[] specialTileRules { get; set; }
             public float[] emptyBorderAmount { get; set; } = new float[] { 1 };
             public string gamemode { get; set; }

@@ -76,51 +76,6 @@ namespace BMG
                 
 
 
-                    if (mapGamemode != null) // Draw Gamemode Tiles (Before every other tile)
-                    {
-                        if (mapGamemode.specialTiles != null)
-                            foreach (var st in mapGamemode.specialTiles)
-                            {
-                                if (st.drawOrder == 1)
-                                {
-                                    foreach (Tiledata.Tile oTile in tiledata.tiles)
-                                    {
-                                        if (oTile.tileName == st.tile)
-                                        {
-                                            string xsLoc = st.position.Split(',')[0].Trim().ToLower();
-                                            string ysLoc = st.position.Split(',')[1].Trim().ToLower();
-                                            if (!int.TryParse(xsLoc, out int xLoc))
-                                            {
-                                                if (xsLoc == "left" || xsLoc == "l") { xLoc = 0; xsLoc = "L"; }
-                                                else if (xsLoc == "mid" || xsLoc == "m") { xLoc = (xLength - 1) / 2; xsLoc = "M"; }
-                                                else if (xsLoc == "right" || xsLoc == "r") { xLoc = xLength - 1; xsLoc = "R"; }
-                                            }
-                                            if (!int.TryParse(ysLoc, out int yLoc))
-                                            {
-                                                if (ysLoc == "top" || ysLoc == "t") { yLoc = 0; ysLoc = "T"; }
-                                                else if (ysLoc == "mid" || ysLoc == "m") { yLoc = (yLength - 1) / 2; ysLoc = "M"; }
-                                                else if (ysLoc == "bottom" || ysLoc == "bot" || ysLoc == "b") { yLoc = yLength - 1; ysLoc = "B"; }
-                                            }
-
-                                            if (xLoc < 0)
-                                            {
-                                                xLoc = xLength - (1 + xLoc / -1);
-                                                xsLoc = xLoc.ToString();
-                                            }
-                                            if (yLoc < 0)
-                                            {
-                                                yLoc = yLength - (1 + yLoc / -1);
-                                                ysLoc = yLoc.ToString();
-                                            }
-
-                                            tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, selectedTileImageList, border);
-                                            AMGState.drawer.DrawnTile();
-                                            Logger.LogTile(new TileActionTypes(1, 0, 0, 0, 1), oTile, ysLoc, xsLoc, yLength, xLength, Logger.TileEvent.tileDraw);
-                                        }
-                                    }
-                                }
-                            }
-
                         if (mapGamemode.mapModder != null)
                             foreach (var mod in mapGamemode.mapModder)
                                 foreach (Tiledata.Tile oTile in tiledata.tiles)
@@ -641,49 +596,7 @@ namespace BMG
                                 AMGState.drawer.DrawnTile();
                             }
 
-                        if (mapGamemode != null && drawPass == 1) // Draw Gamemode tiles (after everything else)
-                            if (mapGamemode.specialTiles != null)
-                                foreach (var st in mapGamemode.specialTiles)
-                                {
-                                    if (st.drawOrder == 2)
-                                    {
-                                        foreach (Tiledata.Tile oTile in tiledata.tiles)
-                                        {
-                                            if (oTile.tileName == st.tile)
-                                            {
-                                                string xsLoc = st.position.Split(',')[0].Trim().ToLower();
-                                                string ysLoc = st.position.Split(',')[1].Trim().ToLower();
-                                                if (!int.TryParse(xsLoc, out int xLoc))
-                                                {
-                                                    if (xsLoc == "left" || xsLoc == "l") { xLoc = 0; xsLoc = "L"; }
-                                                    else if (xsLoc == "mid" || xsLoc == "m") { xLoc = (xLength - 1) / 2; xsLoc = "M"; }
-                                                    else if (xsLoc == "right" || xsLoc == "r") { xLoc = xLength - 1; xsLoc = "R"; }
-                                                }
-                                                if (!int.TryParse(ysLoc, out int yLoc))
-                                                {
-                                                    if (ysLoc == "top" || ysLoc == "t") { yLoc = 0; ysLoc = "T"; }
-                                                    else if (ysLoc == "mid" || ysLoc == "m") { yLoc = (yLength - 1) / 2; ysLoc = "M"; }
-                                                    else if (ysLoc == "bottom" || ysLoc == "bot" || ysLoc == "b") { yLoc = yLength - 1; ysLoc = "B"; }
-                                                }
-
-                                                if (xLoc < 0)
-                                                {
-                                                    xLoc = xLength - (1 + xLoc / -1);
-                                                    xsLoc = xLoc.ToString();
-                                                }
-                                                if (yLoc < 0)
-                                                {
-                                                    yLoc = yLength - (1 + yLoc / -1);
-                                                    ysLoc = yLoc.ToString();
-                                                }
-
-                                                tileDrawer.DrawTile(oTile, st.type, options, sizeMultiplier, xLoc, yLoc, selectedTileImageList, border);
-                                                AMGState.drawer.DrawnTile();
-                                                Logger.LogTile(new TileActionTypes(1, 0, 0, 0, 1), oTile, ysLoc, xsLoc, yLength, xLength, Logger.TileEvent.tileDraw);
-                                            }
-                                        }
-                                    }
-                                }
+                        
 
                     }
 

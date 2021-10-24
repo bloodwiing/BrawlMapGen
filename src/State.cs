@@ -25,6 +25,7 @@ namespace BMG.State
             public void DrawnMap() => _tilesDrawn++;
         }
 
+
         public class MapState
         {
             public Rectangle size => new Rectangle(data.Length, data[0].Length);
@@ -59,6 +60,7 @@ namespace BMG.State
             }
         }
 
+
         public class Version
         {
             public int major;
@@ -80,16 +82,25 @@ namespace BMG.State
             }
         }
 
+
         private static Stopwatch _stopwatch = new Stopwatch();
 
         public static DrawerState drawer = new DrawerState();
         public static MapState map = new MapState();
         public static Version version = new Version(1, 10, 0, "Dev");
 
+
         public static void NewMap(MapBase map)
         {
             drawer = new DrawerState();
             AMGState.map = new MapState(map);
+        }
+
+
+        public static void ResetState()
+        {
+            drawer.ResetCursor();
+            map.drawn = false;
         }
 
         public static void MoveCursor()
@@ -112,10 +123,12 @@ namespace BMG.State
             return map.data[drawer.cursor.y][drawer.cursor.x];
         }
 
+
         public static void StartTimer() => _stopwatch.Start();
         public static void StopTimer() => _stopwatch.Stop();
 
         public static long time => _stopwatch.ElapsedMilliseconds;
+
 
         public static float GetNumber(string name)
         {

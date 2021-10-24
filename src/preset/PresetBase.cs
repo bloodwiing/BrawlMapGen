@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using AMGBlocks;
+using BMG.State;
 
 namespace BMG
 {
@@ -29,6 +30,12 @@ namespace BMG
         public TileVariantBase GetTileVariant(string name, int variant)
         {
             TileBase tile = GetTile(name);
+            return tile.GetVariant(variant);
+        }
+
+        public TileVariantBase GetTileVariant(char code, int variant)
+        {
+            TileBase tile = GetTile(code);
             return tile.GetVariant(variant);
         }
 
@@ -64,7 +71,7 @@ namespace BMG
                 return GetBiome(Convert.ToInt32(@long));
             if (key is string @string)
                 return GetBiome(@string);
-            throw new ApplicationException($"BIOME needs to be an INT or STRING, not {key.GetType()}");
+            throw new ApplicationException($"BIOME needs to be an INT or STRING, not {key.GetType().ToString().ToUpper()}");
         }
 
         public abstract BiomeBase DefaultBiome { get; }
@@ -113,8 +120,8 @@ namespace BMG
 
     public abstract class TileVariantBase : TileAssetBase
     {
-        public abstract int? RowLayer { get; }
-        public abstract int? Layer { get; }
+        public abstract int RowLayer { get; }
+        public abstract int Layer { get; }
 
         public abstract TileAssetBase[] Randomizer { get; }
     }
@@ -133,6 +140,11 @@ namespace BMG
                 return Variants[variant];
             return Variants[0];
         }
+
+        public TileVariantBase GetVariant(BiomeBase biome)
+        {
+            return GetVariant(biome.GetTileVariant(Name));
+        }
     }
 
 
@@ -143,6 +155,26 @@ namespace BMG
         public abstract bool HasBackground { get; }
         public abstract string BackgroundName { get; }
         public abstract Dictionary<string, object> BackgroundOptions { get; }
+
+        protected abstract Dictionary<string, int> TileVariants { get; }
+        private Dictionary<string, int> Overrides;
+
+        public void ResetOverrides()
+        {
+            Overrides = new Dictionary<string, int>();
+        }
+
+        public void ApplyOverride(string tile, int type)
+        {
+            Overrides[tile] = type;
+        }
+
+        public int GetTileVariant(string tile)
+        {
+            if (Overrides.TryGetValue(tile, out int type))
+                return type;
+            return TileVariants.GetValueOrDefault(tile, 0);
+        }
     }
 
 
@@ -165,6 +197,31 @@ namespace BMG
         public abstract SpecialBase[] SpecialTiles { get; }
         public abstract Dictionary<string, int> BiomeOverrides { get; }
         public abstract ModBase[] MapMods { get; }
+
+        public void ApplyToState(PresetBase preset)
+        {
+            if (MapMods == null)
+                return;
+
+            foreach (ModBase mod in MapMods)
+            {
+                Vector2 position = Utils.ParsePosition(mod.Position);
+
+                TileBase tile = preset.GetTile(mod.Tile);
+
+                var row = AMGState.map.data[position.y].ToCharArray();
+                row[position.x] = tile.Code;
+                AMGState.map.data[position.y] = string.Join("", row);
+
+                //Logger.LogTile(new TileActionTypes(1, 0, 1, 0, 0), oTile, ysLoc, xsLoc, yLength, xLength, Logger.TileEvent.gamemodeModding);
+            }
+        }
+
+        public void ApplyOverrides(BiomeBase biome)
+        {
+            foreach ((string tile, int type) in BiomeOverrides)
+                biome.ApplyOverride(tile, type);
+        }
     }
 
 
