@@ -1,21 +1,12 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
-using BMG;
-using System;
-using AMGBlocks.Action;
-using AMGBlocks.Condition;
-using AMGBlocks.Value;
+﻿using AMGBlocks.Value;
 using BMG.State;
 
 namespace AMGBlocks
 {
-
     public class AMGBlocks
     {
         public static AMGState.Version version = new AMGState.Version(1, 1, 0, "Beta");
     }
-
 
 
     // ----- INTEFACES -------------

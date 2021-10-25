@@ -118,8 +118,6 @@ namespace BMG
                     break;
             }
 
-            //preset = JsonConvert.DeserializeObject<PresetOld>(json, new AMGBlockReader());
-
             Logger.LogSetup($"PRESET loaded: \"{options.Preset.ToUpper()}\"!", false);
             Logger.LogStatus($"All assets will be loading according to the \"{options.Preset.ToUpper()}\" PRESET.");
             Logger.LogSpacer();

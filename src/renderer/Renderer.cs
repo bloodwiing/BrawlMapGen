@@ -1,5 +1,6 @@
 ﻿using AMGBlocks;
 using BMG.State;
+using BMG.Cache;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -217,7 +218,7 @@ namespace BMG
 
             // GET CACHED IMAGE
 
-            var image = Cache.GetInstance(options, map.Scale).GetTileImage(asset);
+            var image = CacheManager.GetInstance(options, map.Scale).GetImage(asset);
 
 
             // RENDER
@@ -227,34 +228,6 @@ namespace BMG
                 position
                 );
         }
-
-
-        //public void DrawTile(Tiledata.Tile tile, int type, OptionsOld optionsObject, int sizeMultiplier, int currentX, int currentY, SavedImages imageMemory, float[] borderSize) // Drawing a tile (normal)
-        //{
-        //    var real = GetRealAsset(tile, type, optionsObject, tile.tileTypes[type].asset);
-
-        //    int offTop = (int)Math.Round((double)real.tileParts.top * sizeMultiplier / 1000);
-        //    int offLeft = (int)Math.Round((double)real.tileParts.left * sizeMultiplier / 1000);
-
-        //    var ti = imageMemory.GetTileImage(real);
-
-        //    graphics.DrawImage(ti.renderedImage, (int)Math.Round(sizeMultiplier * (currentX + borderSize[2])) - offLeft, (int)Math.Round(sizeMultiplier * (currentY + borderSize[0])) - offTop);
-        //    return;
-        //}
-
-
-        //public void DrawSelectedTile(OrderedTile tile, OptionsOld optionsObject, int sizeMultiplier, SavedImages imageMemory, float[] borderSize) // Drawing a tile (with saved coordinates and a pre-selected type)
-        //{
-        //    var real = GetRealAsset(tile, tile.tileType, optionsObject, tile.tileTypeData.asset);
-
-        //    int offTop = (int)Math.Round((double)real.tileParts.top * sizeMultiplier / 1000);
-        //    int offLeft = (int)Math.Round((double)real.tileParts.left * sizeMultiplier / 1000);
-
-        //    var ti = imageMemory.GetTileImage(real);
-
-        //    graphics.DrawImage(ti.renderedImage, (int)Math.Round(sizeMultiplier * (tile.xPosition + borderSize[2])) - offLeft, (int)Math.Round(sizeMultiplier * (tile.yPosition + borderSize[0])) - offTop);
-        //    return;
-        //}
 
 
         public void ColorBackground(MapBase map) // Filling in background colors
