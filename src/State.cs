@@ -16,6 +16,8 @@ namespace BMG.State
 
             public Vector2 cursor = new Vector2();
 
+            public bool rowDrawn = false;
+
             public static int _tilesDrawn = 0;
             public int tilesDrawn => _tilesDrawn;
             public void DrawnTile() => _tilesDrawn++;
@@ -101,6 +103,13 @@ namespace BMG.State
         {
             drawer.ResetCursor();
             map.drawn = false;
+            drawer.rowDrawn = false;
+        }
+
+        public static void ResetRowState()
+        {
+            drawer.cursor.x = 0;
+            drawer.rowDrawn = false;
         }
 
         public static void MoveCursor()
@@ -108,13 +117,39 @@ namespace BMG.State
             drawer.cursor.x++;
             if (drawer.cursor.x >= map.size.width)
             {
+                drawer.rowDrawn = true;
+
                 drawer.cursor.x = 0;
                 drawer.cursor.y++;
+
                 if (drawer.cursor.y >= map.size.height)
                 {
-                    drawer.cursor.y = 0;
                     map.drawn = true;
+
+                    drawer.cursor.y = 0;
                 }
+            }
+        }
+
+        public static void MoveHorCursor()
+        {
+            drawer.cursor.x++;
+            if (drawer.cursor.x >= map.size.width)
+            {
+                drawer.rowDrawn = true;
+
+                drawer.cursor.x = 0;
+            }
+        }
+
+        public static void MoveVerCursor()
+        {
+            drawer.cursor.y++;
+            if (drawer.cursor.y >= map.size.height)
+            {
+                map.drawn = true;
+
+                drawer.cursor.y = 0;
             }
         }
 

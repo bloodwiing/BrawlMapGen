@@ -22,6 +22,7 @@ namespace BMG
         }
     }
 
+
     public class CacheInstance
     {
         private readonly Dictionary<string, TileImage> tileImages = new Dictionary<string, TileImage>();
@@ -70,6 +71,7 @@ namespace BMG
         }
     }
 
+
     public class TileImage
     {
         public Bitmap renderedImage;
@@ -79,14 +81,14 @@ namespace BMG
 
         public TileImage(OptionsBase options, int scale, TileAssetBase tile)
         {
-            string path = string.Format("./assets/tiles/{0}/{1}", options.Preset, tile.Asset);
+            string path = string.Format("./presets/{0}/assets/{1}", options.Preset, tile.Asset);
 
             if (!File.Exists(path))
                 throw new FileNotFoundException("File " + path + " does not exist.");
 
             imageName = tile.Asset;
 
-            Logger.LogAAL(Logger.AALDirection.In, "./assets/tiles/" + options.Preset + "/" + tile.Asset);
+            Logger.LogAAL(Logger.AALDirection.In, path);
             var document = SvgDocument.Open(path);
 
             imageWidth = (int)Math.Round((double)document.Width * scale);

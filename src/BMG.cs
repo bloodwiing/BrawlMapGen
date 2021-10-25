@@ -89,7 +89,7 @@ namespace BMG
             Logger.Title.UpdateStatusDetails(options.Preset.ToUpper(), Logger.TitleClass.StatusDetailsType.basic);
             Logger.Title.RefreshTitle();
 
-            string fileloc = $"./presets/{options.Preset}.json";
+            string fileloc = $"./presets/{options.Preset}/preset.json";
 
             if (!File.Exists(fileloc))
             {
@@ -108,9 +108,17 @@ namespace BMG
             reader.Close();
 
 
-            // SET PRESET
+            // LOAD PRESET
 
-            preset = JsonConvert.DeserializeObject<PresetOld>(json, new AMGBlockReader());
+            PresetMeta meta = JsonConvert.DeserializeObject<PresetMeta>(json);
+            switch (meta.Format)
+            {
+                case PresetType.Old:
+                    preset = PresetOld.LoadPreset(meta);
+                    break;
+            }
+
+            //preset = JsonConvert.DeserializeObject<PresetOld>(json, new AMGBlockReader());
 
             Logger.LogSetup($"PRESET loaded: \"{options.Preset.ToUpper()}\"!", false);
             Logger.LogStatus($"All assets will be loading according to the \"{options.Preset.ToUpper()}\" PRESET.");
@@ -263,7 +271,7 @@ namespace BMG
             map.ApplyOverrides(biome);
 
 
-            // GAME MODE SPECIAL TILES BACK
+            // RENDER GAME MODE SPECIAL TILES BACK
 
             renderer.DrawGameMode(gameMode, GameModePass.BACK);
 
@@ -276,6 +284,11 @@ namespace BMG
             // RENDER IN RANGE
 
             renderer.RenderMap(biome, renderRange);
+
+
+            // RENDER GAME MODE SPECIAL TILES FRONT
+
+            renderer.DrawGameMode(gameMode, GameModePass.FRONT);
         }
     }
 }

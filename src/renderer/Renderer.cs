@@ -82,7 +82,7 @@ namespace BMG
             {
                 // CHECK PASS
 
-                if (special.Pass == pass)
+                if (special.Pass != pass)
                     continue;
 
 
@@ -105,14 +105,12 @@ namespace BMG
         {
             // RENDER EACH LAYER
 
-            RenderMapLayer(biome, 0);
-
-            //foreach (int layer in renderRange)
-            //    RenderMapLayer(biome, layer);
+            foreach (int layer in renderRange)
+                RenderMapLayer(biome, layer, renderRange);
         }
 
 
-        public void RenderMapLayer(BiomeBase biome, int layer)
+        public void RenderMapLayer(BiomeBase biome, int layer, Range renderRange)
         {
             // RESET CURSOR
 
@@ -123,38 +121,75 @@ namespace BMG
 
             while (!AMGState.map.drawn)
             {
+                // RENDER EVERY ROW RANGE TIMES
+
+                foreach (int rowLayer in renderRange)
+                    RenderRow(biome, layer, rowLayer);
+
+
+                // CONTINUE ROWS
+
+                AMGState.MoveVerCursor();
+            }
+        }
+
+
+        private void RenderRow(BiomeBase biome, int layer, int rowLayer)
+        {
+            // RESET STATE FOR ROW
+
+            AMGState.ResetRowState();
+
+
+            while (!AMGState.drawer.rowDrawn)
+            {
                 // SKIP IF VOID
 
                 if (map.VoidTiles.Contains(AMGState.ReadAtCursor()))
                 {
-                    AMGState.MoveCursor();
+                    AMGState.MoveHorCursor();
                     continue;
                 }
 
+
+                // GET TILE IF EXISTS
 
                 TileBase tile = preset.GetTile(AMGState.ReadAtCursor());
 
                 if (tile == null)
                 {
-                    AMGState.MoveCursor();
+                    AMGState.MoveHorCursor();
                     continue;
                 }
 
 
+                // GET VARIANT AND DRAW
 
                 TileVariantBase variant = tile.GetVariant(biome);
 
 
+                // SKIP IF NOT MEANT FOR LAYER
+
+                if (variant.Layer != layer)
+                {
+                    AMGState.MoveHorCursor();
+                    continue;
+                }
+
+                if (variant.RowLayer != rowLayer)
+                {
+                    AMGState.MoveHorCursor();
+                    continue;
+                }
+
+
+                // DRAW TILE
+
                 if (variant.Asset != "?binary?.svg")
                     DrawTile(variant, AMGState.drawer.cursor);
-                AMGState.MoveCursor();
+
+                AMGState.MoveHorCursor();
             }
-        }
-
-
-        private void RenderRow()
-        {
-
         }
 
 

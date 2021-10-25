@@ -1,7 +1,9 @@
 ﻿using AMGBlocks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -9,7 +11,36 @@ namespace BMG
 {
     public class PresetOld : PresetBase
     {
+        // LOADING
+
+        public static PresetOld LoadPreset(PresetMeta meta)
+        {
+            if (meta.Format != PresetType.Old)
+                throw new ApplicationException("PRESET TYPE loading mismatch");
+
+
+            string mainFile = (string)meta.Options["MainFile"];
+            string file = Path.Combine("presets", meta.Name, mainFile);
+
+
+            Logger.LogAAL(Logger.AALDirection.In, file);
+            StreamReader reader = new StreamReader(file);
+            string data = reader.ReadToEnd();
+            reader.Close();
+
+
+            var instance = JsonConvert.DeserializeObject<PresetOld>(data, new AMGBlockReader());  // TODO: Converters
+
+
+            instance.Meta = meta;
+
+
+            return instance;
+        }
+
+
         // IMPLEMENTATIONS
+
         public override TileBase[] Tiles => tiles;
 
         public override Dictionary<string, BiomeBase> Biomes => _biomeDict.ToDictionary(item => item.Key, item => (BiomeBase)item.Value);

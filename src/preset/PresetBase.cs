@@ -5,8 +5,20 @@ using BMG.State;
 
 namespace BMG
 {
+    public enum PresetType
+    {
+        Invalid     = 0,
+        Old         = 1,
+        New         = 2
+    }
+
     public abstract class PresetBase
     {
+        // META
+
+        public PresetMeta Meta { get; protected set; }
+
+
         // TILES
 
         public abstract TileBase[] Tiles { get; }

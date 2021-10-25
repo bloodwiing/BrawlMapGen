@@ -1,0 +1,9 @@
+﻿{
+  "Name": "brawlstars",
+  "Version": "0.1",
+  "Format": 1,
+  "Options": {
+    "MainFile": "data.json",
+    "DataFolder": "assets"
+  }
+}
