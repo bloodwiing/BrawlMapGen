@@ -73,9 +73,6 @@
 	<Content Include="packages.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="presets\brawlstars.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -96,7 +93,9 @@
     <PackageReference Include="System.Security.Permissions" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="src\abstract\" />
+    <Content Include="presets\**\*.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
-  <ProjectExtensions><VisualStudio><UserProperties presets_4brawlstars_1json__JsonSchema="..\schemas\preset.schema.json" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 </Project>
