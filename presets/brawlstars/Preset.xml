@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?format 1 ?>
+<Preset displayName="Brawl Stars" version="0.1">
+  <Req>1.9.5</Req>
+  <Base>brawlstars</Base>
+  <Linker>
+    <Data>data.json</Data>
+    <Assets>assets</Assets>
+  </Linker>
+</Preset>

@@ -18,13 +18,13 @@ namespace BMG
         MapBase map;
 
         OptionsBase options;
-        PresetBase preset;
+        Preset.PresetBase preset;
 
         public int CanvasWidth => bitmap.Width;
         public int CanvasHeight => bitmap.Height;
 
 
-        public Renderer(MapBase map, OptionsBase options, PresetBase preset)
+        public Renderer(MapBase map, OptionsBase options, Preset.PresetBase preset)
         {
             Margin margin = map.Margin;
             Rectangle size = map.Size;

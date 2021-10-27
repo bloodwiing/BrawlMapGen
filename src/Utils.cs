@@ -66,5 +66,12 @@ namespace BMG
 
             return new Vector2(x, y);
         }
+
+
+        public static string ReadFileString(string file)
+        {
+            using (StreamReader reader = new StreamReader(file))
+                return reader.ReadToEnd();
+        }
     }
 }

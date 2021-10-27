@@ -25,7 +25,7 @@ namespace BMG
         public abstract Dictionary<string, int> BiomeOverrides { get; }
         public abstract ModBase[] MapMods { get; }
 
-        public void ApplyToState(PresetBase preset)
+        public void ApplyToState(Preset.PresetBase preset)
         {
             if (MapMods == null)
                 return;

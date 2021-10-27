@@ -7,29 +7,27 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace BMG
+namespace BMG.Preset.Old
 {
-    public class PresetOld : PresetBase
+    public class Preset : PresetBase
     {
         // LOADING
 
-        public static PresetOld LoadPreset(PresetMeta meta)
+        public static Preset LoadPreset(Meta meta)
         {
             if (meta.Format != PresetType.Old)
                 throw new ApplicationException("PRESET TYPE loading mismatch");
 
 
-            string mainFile = (string)meta.Options["MainFile"];
-            string file = Path.Combine("presets", meta.Name, mainFile);
+            string file = Path.Combine(".", "presets", meta.Name, meta.Linker.Data);
+            string data;
 
 
-            Logger.LogAAL(Logger.AALDirection.In, file);
-            StreamReader reader = new StreamReader(file);
-            string data = reader.ReadToEnd();
-            reader.Close();
+            using (StreamReader reader = new StreamReader(file))
+                data = reader.ReadToEnd();
 
 
-            var instance = JsonConvert.DeserializeObject<PresetOld>(data, new AMGBlockReader());  // TODO: Converters
+            var instance = JsonConvert.DeserializeObject<Preset>(data, new AMGBlockReader());  // TODO: Converters
 
 
             instance.Meta = meta;

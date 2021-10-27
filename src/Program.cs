@@ -43,10 +43,7 @@ namespace BMG
                     Environment.Exit(1);
                 }
 
-                Logger.LogAAL(Logger.AALDirection.In, oLoc);
-                StreamReader r = new StreamReader(oLoc);
-                oStr = r.ReadToEnd();
-                r.Close();
+                oStr = Utils.ReadFileString(oLoc);
             }
 
             BMG generator;

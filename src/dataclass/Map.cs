@@ -73,7 +73,7 @@ namespace BMG
         }
 
 
-        public Range GetLayerRange(PresetBase preset, BiomeBase biome)
+        public Range GetLayerRange(Preset.PresetBase preset, BiomeBase biome)
         {
             Range range = null;
 

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?format 2 ?>
+<Preset displayName="Brawl Stars" version="0.1">
+  <Req>1.10.0</Req>
+  <Base>brawlstars</Base>
+  <Linker>
+    <Biomes>Data/Biomes.xml</Biomes>
+    <Modes>Data/Modes.xml</Modes>
+    <Tiles>Data/Tiles.xml</Tiles>
+  </Linker>
+</Preset>

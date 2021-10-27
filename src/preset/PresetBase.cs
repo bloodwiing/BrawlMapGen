@@ -2,13 +2,13 @@
 using System;
 using AMGBlocks;
 
-namespace BMG
+namespace BMG.Preset
 {
     public abstract class PresetBase
     {
         // META
 
-        public PresetMeta Meta { get; protected set; }
+        public MetaBase Meta { get; protected set; }
 
 
         // TILES

@@ -12,7 +12,7 @@ namespace BMG
     class BMG
     {
         readonly OptionsBase options;
-        public PresetBase preset { get; private set; }
+        public Preset.PresetBase preset { get; private set; }
 
         readonly Dictionary<char, int> tilesFailed = new Dictionary<char, int>();
 
@@ -82,41 +82,15 @@ namespace BMG
 
         private void LoadPreset()
         {
-            // CHECK FILE
-
             Logger.Title.Job.UpdateJob(0, 1, "Preparing...");
             Logger.Title.Status.UpdateStatus(0, 1, "Loading PRESET...");
             Logger.Title.UpdateStatusDetails(options.Preset.ToUpper(), Logger.TitleClass.StatusDetailsType.basic);
             Logger.Title.RefreshTitle();
 
-            string fileloc = $"./presets/{options.Preset}/preset.json";
-
-            if (!File.Exists(fileloc))
-            {
-                Logger.LogError($"PRESET doesn't exist\n  [FileReader] Unable to find file in location \"{fileloc}\"");
-                Logger.Save("log.txt");
-                Thread.Sleep(3000);
-                Environment.Exit(1);
-            }
-
-
-            // READ FILE
-
-            Logger.LogAAL(Logger.AALDirection.In, fileloc);
-            StreamReader reader = new StreamReader(fileloc);
-            string json = reader.ReadToEnd();
-            reader.Close();
-
 
             // LOAD PRESET
 
-            PresetMeta meta = JsonConvert.DeserializeObject<PresetMeta>(json);
-            switch (meta.Format)
-            {
-                case PresetType.Old:
-                    preset = PresetOld.LoadPreset(meta);
-                    break;
-            }
+            preset = Preset.Loader.LoadPreset(options.Preset);
 
             Logger.LogSetup($"PRESET loaded: \"{options.Preset.ToUpper()}\"!", false);
             Logger.LogStatus($"All assets will be loading according to the \"{options.Preset.ToUpper()}\" PRESET.");
