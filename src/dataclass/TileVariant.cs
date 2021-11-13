@@ -1,9 +1,17 @@
 ﻿namespace BMG
 {
+    public abstract class EffectBase
+    {
+        public abstract EffectType type { get; }
+    }
+
+
     public abstract class TileAssetBase
     {
         public abstract Vector2 Offset { get; set; }
         public abstract string Asset { get; }
+
+        public abstract EffectBase[] Effects { get; }
     }
 
 

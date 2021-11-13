@@ -19,7 +19,7 @@ namespace BMG.Preset.Old
                 throw new ApplicationException("PRESET TYPE loading mismatch");
 
 
-            string file = Path.Combine(".", "presets", meta.Name, meta.Linker.Data);
+            string file = Path.Combine(".", "presets", meta.SystemName, meta.Linker.Data);
             string data;
 
 
@@ -98,7 +98,7 @@ namespace BMG.Preset.Old
 
             public override string Name => tileName;
             public override char Code => tileCode;
-            public override TileVariantBase[] Variants => tileTypes;
+            protected override TileVariantBase[] Variants => tileTypes;
 
 
             public string tileName { get; set; }
@@ -117,6 +117,8 @@ namespace BMG.Preset.Old
                 get => new Vector2(-tileParts.left, -tileParts.top);
                 set => tileParts = new TileParts() { top = -value.y, left = -value.x };
             }
+
+            public override BMG.EffectBase[] Effects => throw new NotImplementedException();
 
 
             public TileParts tileParts { get; set; }
@@ -137,6 +139,8 @@ namespace BMG.Preset.Old
             public override int RowLayer => orderHor.GetValueOrDefault(0);
             public override int Layer => order.GetValueOrDefault(0);
             public override TileAssetBase[] Randomizer => randomizer;
+
+            public override BMG.EffectBase[] Effects => throw new NotImplementedException();
 
 
             public TileParts tileParts { get; set; }

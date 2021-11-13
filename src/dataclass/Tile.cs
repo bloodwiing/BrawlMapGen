@@ -5,8 +5,8 @@
         public abstract string Name { get; }
         public abstract char Code { get; }
 
+        protected abstract TileVariantBase[] Variants { get; }
 
-        public abstract TileVariantBase[] Variants { get; }
 
         public TileVariantBase GetVariant(int variant)
         {

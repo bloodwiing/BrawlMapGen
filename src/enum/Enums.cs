@@ -13,4 +13,12 @@
         BACK    = 0,
         FRONT   = 1
     }
+
+
+    public enum EffectType
+    {
+        Invalid     = 0,
+        Add         = 1,
+        Multiply    = 2
+    }
 }

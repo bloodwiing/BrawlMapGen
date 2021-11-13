@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.IO;
+using System.Xml.Serialization;
 
 namespace BMG.Preset.New
 {
@@ -14,8 +15,13 @@ namespace BMG.Preset.New
 
         public override PresetBase GetPreset()
         {
-            throw new System.NotImplementedException();
+            return Preset.LoadPreset(this);
         }
+
+
+        public string BiomesFile => Path.Combine(SystemPath, Linker.Biomes);
+        public string ModesFile => Path.Combine(SystemPath, Linker.Modes);
+        public string TilesFile => Path.Combine(SystemPath, Linker.Tiles);
     }
 
 
