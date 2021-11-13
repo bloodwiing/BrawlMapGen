@@ -46,13 +46,13 @@ namespace BMG
                 oStr = Utils.ReadFileString(oLoc);
             }
 
-            BMG generator;
+            Generator generator;
 
             dynamic format = JsonConvert.DeserializeObject(oStr);
 
             // FORMAT 1
             if ((int)format.format == 1)
-                generator = new BMG(JsonConvert.DeserializeObject<OptionsOld>(oStr));
+                generator = new Generator(JsonConvert.DeserializeObject<OptionsOld>(oStr));
 
             // INVALID
             else

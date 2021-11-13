@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace BMG
 {
-    class BMG
+    class Generator
     {
         readonly OptionsBase options;
         public Preset.PresetBase preset { get; private set; }
@@ -17,7 +17,7 @@ namespace BMG
         readonly Dictionary<char, int> tilesFailed = new Dictionary<char, int>();
 
 
-        public BMG(OptionsBase options)
+        public Generator(OptionsBase options)
         {
             this.options = options;
         }
