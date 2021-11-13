@@ -9,7 +9,6 @@ namespace BMG
     {
         static void Main(string[] args)
         {
-
             var fArgs = " " + string.Join(" ", args);
 
             string oLoc = "options.json";

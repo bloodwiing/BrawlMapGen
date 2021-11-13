@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Tile code="M" name="blocking1" >
+  <Variant>
+    <Layer asset="test" >
+      <Offset precision="1000" >
+        <x>500</x>
+        <y>-900</y>
+      </Offset>
+      <Effects>
+        <Add color="ffffff"></Add>
+        <Multiply color="00ff00"></Multiply>
+        <Multiply color="110022"></Multiply>
+      </Effects>
+    </Layer>
+    <Layer asset="ok" >
+      <Offset precision="1000" >
+        <x>69</x>
+        <y>-69</y>
+      </Offset>
+    </Layer>
+    <Layer asset="see" >
+    </Layer>
+  </Variant>
+</Tile>

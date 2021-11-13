@@ -1,0 +1,10 @@
+﻿ASSET CrateRedOrange
+
+VARIANT {
+	FILE SVG CrateRedOrange.svg
+
+	OFFSET PRECISION=1000 {
+		X 500
+		Y -300
+	}
+}

@@ -7,6 +7,7 @@
     <RootNamespace>BMG</RootNamespace>
     <AssemblyName>BMG</AssemblyName>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RuntimeFrameworkVersion>2.2.8</RuntimeFrameworkVersion>
     <RuntimeIdentifiers>win-x64;linux-x64;osx-x64</RuntimeIdentifiers>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
@@ -40,9 +41,10 @@
     <RepositoryUrl>https://github.com/thedonciuxx/BrawlMapGen</RepositoryUrl>
     <PackageId>BrawlMapGen</PackageId>
     <Description>A generator which generates map images from arrays of strings and vector tiles.</Description>
-    <Authors>TheDonciuxX</Authors>
+    <Authors>BLOODWIING</Authors>
     <DelaySign>false</DelaySign>
     <ApplicationIcon>icon.ico</ApplicationIcon>
+    <Version>1.10.0</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath></OutputPath>
@@ -66,11 +68,14 @@
     <Content Include="**\*.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="**\*.asset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Remove="bin\**" />
     <Content Remove="bin\**" />
     <EmbeddedResource Remove="bin\**" />
     <None Remove="bin\**" />
-	<Content Include="packages.config">
+	<Content Include="..\packages.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -101,7 +106,15 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Remove="presets\brawlstars2\Assets\Walls\CrateRedOrange.svg" />
+    <None Remove="presets\brawlstars2\Data\Biomes.xml" />
+    <None Remove="presets\brawlstars2\Data\Modes.xml" />
+    <None Remove="presets\brawlstars2\Data\Tiles.xml" />
+    <None Remove="presets\brawlstars2\Data\Tiles\blocking1.xml" />
     <None Remove="presets\brawlstars\Preset.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Idle\Idle.csproj" />
   </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 </Project>
