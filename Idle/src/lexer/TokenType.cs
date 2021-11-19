@@ -5,8 +5,13 @@
         EOF,
         EOL,  // \r\n
 
+        COMMENT,  // # ...
+
         TEXT_BLOCK,  // """ A """
         TEXT_ROW,  // "A B C"
+
+        MACRO,  // FALSE
+
         TEXT,  // ABC
         
         NUMBER,  // 123

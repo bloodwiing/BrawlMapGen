@@ -41,6 +41,27 @@ namespace Idle.Parser
                     this.value = float.Parse(value);
                     break;
 
+                case TokenType.MACRO:
+                    
+                    switch (value)
+                    {
+                        case "NULL":
+                            type = PropertyType.NULL;
+                            this.value = null;
+                            break;
+
+                        case "TRUE":
+                        case "FALSE":
+                            type = PropertyType.BOOLEAN;
+                            this.value = value == "TRUE";
+                            break;
+
+                        default:
+                            throw new NotImplementedException();
+                    }
+
+                    break;
+
                 default:
                     throw new NotImplementedException();
             }

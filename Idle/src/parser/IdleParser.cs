@@ -71,6 +71,7 @@ namespace Idle.Parser
                         case TokenType.TEXT:
                         case TokenType.FRACTION:
                         case TokenType.NUMBER:
+                        case TokenType.MACRO:
 
                             pItem.SetFlag(new Flag()
                             {

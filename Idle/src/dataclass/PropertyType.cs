@@ -4,6 +4,9 @@
     {
         UNSET,
 
+        NULL,
+        BOOLEAN,
+
         TEXT,
         NUMBER,
         FRACTION,

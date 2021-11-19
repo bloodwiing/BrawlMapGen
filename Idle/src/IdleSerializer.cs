@@ -16,8 +16,8 @@ namespace Idle.Serialization
 
             foreach (FieldInfo fieldInfo in type.GetFields())
             {
-                if (!PopulateProperty(obj, type, atom, fieldInfo))
-                    PopulateFlag(obj, type, atom, fieldInfo);
+                if (!PopulateProperty(obj, atom, fieldInfo))
+                    PopulateFlag(obj, atom, fieldInfo);
             }
 
             return obj;
@@ -28,7 +28,17 @@ namespace Idle.Serialization
             return (T)Deserialize(typeof(T), atom);
         }
 
-        private static bool PopulateProperty(object obj, Type type, Atom atom, FieldInfo fieldInfo)
+        public static T Deserialize<T>(IdleReader reader)
+        {
+            return (T)Deserialize(typeof(T), reader.HeadAtom);
+        }
+
+        public static object Deserialize(Type type, IdleReader reader)
+        {
+            return Deserialize(type, reader.HeadAtom);
+        }
+
+        private static bool PopulateProperty(object obj, Atom atom, FieldInfo fieldInfo)
         {
             // Get attribute
             var attrib = fieldInfo.GetCustomAttribute<IdlePropertyAttribute>();
@@ -41,8 +51,18 @@ namespace Idle.Serialization
             if (!atom.TryGetProperty(attrib.label, out Property property))
                 return false;
 
+            // If null
+            if (
+                Nullable.GetUnderlyingType(fieldInfo.FieldType) != null &&
+                property.DataType == PropertyType.NULL)
+            {
+                fieldInfo.SetValue(
+                    obj,
+                    null);
+            }
+
             // If iterable
-            if (IsIterable(fieldInfo.FieldType))
+            else if (IsIterable(fieldInfo.FieldType))
             {
                 Type itemType = GetIterableItemType(fieldInfo.FieldType);
 
@@ -111,7 +131,7 @@ namespace Idle.Serialization
             return true;
         }
 
-        private static bool PopulateFlag(object obj, Type type, Atom atom, FieldInfo fieldInfo)
+        private static bool PopulateFlag(object obj, Atom atom, FieldInfo fieldInfo)
         {
             // Get attribute
             IdleFlagBase attrib = fieldInfo.GetCustomAttribute<IdleFlagAttribute>();
@@ -195,6 +215,16 @@ namespace Idle.Serialization
 
                 }
 
+            }
+
+            // If null
+            else if (
+                Nullable.GetUnderlyingType(fieldInfo.FieldType) != null &&
+                flag.Value.type == PropertyType.NULL)
+            {
+                fieldInfo.SetValue(
+                    obj,
+                    null);
             }
 
             // Sytstem built-in
@@ -314,11 +344,21 @@ namespace Idle.Serialization
                         else
                         {
                             if (flag.Value.type == PropertyType.UNSET)
-                                throw new Exception($"Mismatching types ({flag.Value.type} => {fieldInfo.FieldType})");
+                            {
+                                fieldInfo.SetValue(
+                                    obj,
+                                    !flag.Negated);
+                            }
 
-                            fieldInfo.SetValue(
-                                obj,
-                                !flag.Negated);
+                            else if (flag.Value.type == PropertyType.BOOLEAN)
+                            {
+                                fieldInfo.SetValue(
+                                    obj,
+                                    flag.Value.value);
+                            }
+
+                            else
+                                throw new Exception($"Mismatching types ({flag.Value.type} => {fieldInfo.FieldType})");
                         }
 
                         break;

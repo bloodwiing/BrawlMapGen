@@ -8,11 +8,16 @@ namespace Idle.Lexer
         {
             new TokenDefinition(TokenType.EOL, @"^\r?\n"),
 
+            new TokenDefinition(TokenType.COMMENT, @"^#.*"),
+
             new TokenDefinition(TokenType.FRACTION, @"-?\d*\\.\d*"),
             new TokenDefinition(TokenType.NUMBER, @"^(-?\d+)"),
 
             new TokenDefinition(TokenType.TEXT_BLOCK, @"^(['""]){3}([\S\s]*)\1{3}"),
             new TokenDefinition(TokenType.TEXT_ROW, @"^(['""])([^\1\\]*?(?:\\.[^\1\\]*?)*)\1"),
+
+            new TokenDefinition(TokenType.MACRO, @"^(NULL|FALSE|TRUE)"),
+
             new TokenDefinition(TokenType.TEXT, @"^([A-Za-z_][\w-]*)"),
 
             new TokenDefinition(TokenType.BRACKET_L, @"^{"),
@@ -37,6 +42,11 @@ namespace Idle.Lexer
                 if (match.Matched)
                 {
                     m_remaining = match.RemainingText;
+
+                    // Skip comments
+                    if (match.Type == TokenType.COMMENT)
+                        continue;
+
                     yield return new Token(match);
                 }
                 else
