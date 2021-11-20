@@ -42,7 +42,7 @@ namespace Idle.Parser
         private void ReadProperty(Atom atom)
         {
             // If empty line, no property
-            if (m_enum.Current.Type == TokenType.EOL)
+            if (m_enum.Current.Type == TokenType.EOS)
                 return;
 
             if (m_enum.Current.Type != TokenType.TEXT)
@@ -57,7 +57,7 @@ namespace Idle.Parser
             while (m_enum.MoveNext())
             {
                 // New line - end property
-                if (m_enum.Current.Type == TokenType.EOL)
+                if (m_enum.Current.Type == TokenType.EOS || m_enum.Current.Type == TokenType.BRACKET_R)
                     break;
 
                 // If it's a value flag, read further and set it

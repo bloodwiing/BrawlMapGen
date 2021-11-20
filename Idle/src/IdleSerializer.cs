@@ -10,6 +10,11 @@ namespace Idle.Serialization
 {
     public static class IdleSerializer
     {
+        public static object Deserialize(Type type, IdleReader reader)
+        {
+            return Deserialize(type, reader.HeadAtom);
+        }
+
         public static object Deserialize(Type type, Atom atom)
         {
             object obj = Activator.CreateInstance(type);
@@ -23,19 +28,14 @@ namespace Idle.Serialization
             return obj;
         }
 
-        public static T Deserialize<T>(Atom atom)
-        {
-            return (T)Deserialize(typeof(T), atom);
-        }
-
         public static T Deserialize<T>(IdleReader reader)
         {
             return (T)Deserialize(typeof(T), reader.HeadAtom);
         }
 
-        public static object Deserialize(Type type, IdleReader reader)
+        public static T Deserialize<T>(Atom atom)
         {
-            return Deserialize(type, reader.HeadAtom);
+            return (T)Deserialize(typeof(T), atom);
         }
 
         private static bool PopulateProperty(object obj, Atom atom, FieldInfo fieldInfo)
@@ -69,6 +69,9 @@ namespace Idle.Serialization
                 // If System built-in
                 if (itemType.Namespace == "System")
                 {
+                    if (property.DataType == PropertyType.COLOR)
+                        throw new Exception($"COLOR '{property.Label}' can only be deserialized into fields of struct Color, not {itemType}");
+
                     if (property.DataType == PropertyType.ATOM)
                         throw new Exception($"Mismatching types for '{property.Label}' ({property.DataType} => {fieldInfo.FieldType})");
 
@@ -82,17 +85,35 @@ namespace Idle.Serialization
                 // If custom class
                 else
                 {
-                    if (property.DataType != PropertyType.ATOM)
-                        throw new Exception($"Mismatching types for '{property.Label}' ({property.DataType}[] => {fieldInfo.FieldType})");
+                    // If color
+                    if (property.DataType == PropertyType.COLOR)
+                    {
+                        if (itemType != typeof(Color))
+                            throw new Exception($"COLOR '{property.Label}' can only be deserialized into fields of struct Color, not {itemType}");
 
-                    var iter = property.Select(
-                        x => Deserialize(itemType, (Atom)x.Value));
+                        var iter = property.Select(x => x.Value);
 
-                    fieldInfo.SetValue(
-                        obj,
-                        ConvertEnumerable(
-                            fieldInfo.FieldType,
-                            iter));
+                        fieldInfo.SetValue(
+                            obj,
+                            ConvertEnumerable(
+                                fieldInfo.FieldType,
+                                iter));
+                    }
+
+                    else
+                    {
+                        if (property.DataType != PropertyType.ATOM)
+                            throw new Exception($"Mismatching types for '{property.Label}' ({property.DataType}[] => {fieldInfo.FieldType})");
+
+                        var iter = property.Select(
+                            x => Deserialize(itemType, (Atom)x.Value));
+
+                        fieldInfo.SetValue(
+                            obj,
+                            ConvertEnumerable(
+                                fieldInfo.FieldType,
+                                iter));
+                    }
                 }
             }
 
@@ -102,7 +123,10 @@ namespace Idle.Serialization
                 // If System built-in
                 if (fieldInfo.FieldType.Namespace == "System")
                 {
-                    if (property.DataType == PropertyType.ATOM)
+                    if (property.DataType == PropertyType.COLOR)
+                        throw new Exception($"COLOR '{property.Label}' can only be deserialized into fields of struct Color, not {fieldInfo.FieldType}");
+
+                    if (property.DataType == PropertyType.ATOM || property.DataType == PropertyType.COLOR)
                         throw new Exception($"Mismatching types for '{property.Label}' ({property.DataType} => {fieldInfo.FieldType})");
 
                     if (property.IsArray)
@@ -116,15 +140,29 @@ namespace Idle.Serialization
                 // If custom class
                 else
                 {
-                    if (property.DataType != PropertyType.ATOM)
-                        throw new Exception($"Mismatching types for '{property.Label}' ({property.DataType} => {fieldInfo.FieldType})");
+                    // If color
+                    if (property.DataType == PropertyType.COLOR)
+                    {
+                        if (fieldInfo.FieldType != typeof(Color))
+                            throw new Exception($"COLOR '{property.Label}' can only be deserialized into fields of struct Color, not {fieldInfo.FieldType}");
 
-                    if (property.IsArray)
-                        throw new Exception($"Mismatching types for '{property.Label}' ({property.DataType}[] => {fieldInfo.FieldType})");
+                        fieldInfo.SetValue(
+                            obj,
+                            property[0].Value);
+                    }
 
-                    fieldInfo.SetValue(
-                        obj,
-                        Deserialize(fieldInfo.FieldType, (Atom)property[0].Value));
+                    else
+                    {
+                        if (property.DataType != PropertyType.ATOM)
+                            throw new Exception($"Mismatching types for '{property.Label}' ({property.DataType} => {fieldInfo.FieldType})");
+
+                        if (property.IsArray)
+                            throw new Exception($"Mismatching types for '{property.Label}' ({property.DataType}[] => {fieldInfo.FieldType})");
+
+                        fieldInfo.SetValue(
+                            obj,
+                            Deserialize(fieldInfo.FieldType, (Atom)property[0].Value));
+                    }
                 }
             }
 

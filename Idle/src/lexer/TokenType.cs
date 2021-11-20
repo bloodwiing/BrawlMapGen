@@ -3,14 +3,15 @@
     public enum TokenType
     {
         EOF,
-        EOL,  // \r\n
+        EOS,  // \r\n  ;
 
-        COMMENT,  // # ...
+        COMMENT,  // $ ...
 
         TEXT_BLOCK,  // """ A """
         TEXT_ROW,  // "A B C"
 
         MACRO,  // FALSE
+        COLOR,  // #FFF
 
         TEXT,  // ABC
         

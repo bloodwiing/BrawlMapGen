@@ -4,11 +4,12 @@ namespace Idle.Lexer
 {
     public class IdleLexer
     {
+        // language=regex
         private static TokenDefinition[] m_definitions =
         {
-            new TokenDefinition(TokenType.EOL, @"^\r?\n"),
+            new TokenDefinition(TokenType.EOS, @"^\r?\n|^;"),
 
-            new TokenDefinition(TokenType.COMMENT, @"^#.*"),
+            new TokenDefinition(TokenType.COMMENT, @"^\$.*"),
 
             new TokenDefinition(TokenType.FRACTION, @"-?\d*\\.\d*"),
             new TokenDefinition(TokenType.NUMBER, @"^(-?\d+)"),
@@ -17,8 +18,9 @@ namespace Idle.Lexer
             new TokenDefinition(TokenType.TEXT_ROW, @"^(['""])([^\1\\]*?(?:\\.[^\1\\]*?)*)\1"),
 
             new TokenDefinition(TokenType.MACRO, @"^(NULL|FALSE|TRUE)"),
+            new TokenDefinition(TokenType.COLOR, @"^#([A-F\d]{8}|[A-F\d]{6}|[A-F\d]{3,4})"),
 
-            new TokenDefinition(TokenType.TEXT, @"^([A-Za-z_][\w-]*)"),
+            new TokenDefinition(TokenType.TEXT, @"^([A-Z_][\w-]*)"),
 
             new TokenDefinition(TokenType.BRACKET_L, @"^{"),
             new TokenDefinition(TokenType.BRACKET_R, @"^}"),

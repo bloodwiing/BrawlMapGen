@@ -10,6 +10,9 @@
         TEXT,
         NUMBER,
         FRACTION,
+
+        COLOR,
+
         ATOM
     }
 }

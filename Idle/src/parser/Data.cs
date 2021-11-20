@@ -62,6 +62,11 @@ namespace Idle.Parser
 
                     break;
 
+                case TokenType.COLOR:
+                    type = PropertyType.COLOR;
+                    this.value = Color.Parse(value);
+                    break;
+
                 default:
                     throw new NotImplementedException();
             }
