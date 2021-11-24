@@ -1,13 +1,9 @@
-﻿using System;
-
-namespace Idle.Serialization
+﻿namespace Idle.Serialization.Abstract
 {
-    public abstract class IdleFlagBase : Attribute
+    public abstract class IdleChildFlagBase : IdleAbstractFlag
     {
         public string label { get; protected set; }
         public int index { get; protected set; } = 0;
-
-        public abstract bool Nameless { get; }
 
         public abstract Flag GetFlag(Item item);
         public abstract bool TryGetFlag(Item item, out Flag flag);

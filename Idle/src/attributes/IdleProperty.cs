@@ -2,12 +2,12 @@
 
 namespace Idle.Serialization
 {
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
     public class IdlePropertyAttribute : Attribute
     {
         public readonly string label;
 
-        public IdlePropertyAttribute(string label = null)
+        public IdlePropertyAttribute(string label)
         {
             this.label = label;
         }

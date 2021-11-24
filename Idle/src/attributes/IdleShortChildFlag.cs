@@ -1,21 +1,22 @@
-﻿using System;
+﻿using Idle.Serialization.Abstract;
+using System;
 
 namespace Idle.Serialization
 {
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple=false)]
-    public class IdleNamelessFlagAttribute : IdleFlagBase
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple=false)]
+    public class IdleShortChildFlagAttribute : IdleChildFlagBase
     {
         public readonly int position;
 
         public override bool Nameless => true;
 
-        public IdleNamelessFlagAttribute(string label, int position)
+        public IdleShortChildFlagAttribute(string label, int position = 0)
         {
             this.label = label;
             this.position = position;
         }
 
-        public IdleNamelessFlagAttribute(string label, int index, int position) : this(label, position)
+        public IdleShortChildFlagAttribute(string label, int index, int position = 0) : this(label, position)
         {
             this.index = index;
         }

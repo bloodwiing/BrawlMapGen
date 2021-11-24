@@ -9,6 +9,8 @@ namespace Idle
 {
     public class Property : IEnumerable<Item>
     {
+        public readonly Atom Owner;
+
         public readonly string Label;
         private readonly List<Item> m_items = new List<Item>();
 
@@ -17,8 +19,10 @@ namespace Idle
         public bool IsArray => m_items.Count > 1;
         public bool IsSingle => m_items.Count == 1;
 
-        public Property(string label)
+        public Property(Atom owner, string label)
         {
+            Owner = owner;
+
             Label = label;
         }
 
@@ -73,6 +77,8 @@ namespace Idle
 
         private readonly Dictionary<string, Flag> m_flags = new Dictionary<string, Flag>();
         private Data m_value;
+
+        public Dictionary<string, Flag> InternalFlags => m_flags;
 
         public PropertyType ValueType => m_value.type;
         public object Value => m_value.value;

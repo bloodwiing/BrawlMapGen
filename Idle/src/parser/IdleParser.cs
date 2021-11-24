@@ -12,7 +12,7 @@ namespace Idle.Parser
 
         public IdleParser(IEnumerator<Token> tokens)
         {
-            m_head = new Atom();
+            m_head = new Atom(null, null);
             m_enum = tokens;
         }
 
@@ -28,22 +28,26 @@ namespace Idle.Parser
             {
                 switch (m_enum.Current.Type)
                 {
+                    // If new property is } or EOL, end atom
                     case TokenType.EOF:
                     case TokenType.BRACKET_R:
                         return;
 
+                    // If empty line, no property
+                    case TokenType.EOS:
+                        continue;
+
                     default:
-                        ReadProperty(atom);
+                        if (ReadProperty(atom))
+                            return;
                         break;
                 }
             }
         }
 
-        private void ReadProperty(Atom atom)
+        private bool ReadProperty(Atom atom)
         {
-            // If empty line, no property
-            if (m_enum.Current.Type == TokenType.EOS)
-                return;
+            bool interruped = false;
 
             if (m_enum.Current.Type != TokenType.TEXT)
                 throw new Exception("Property labels must be TEXT");
@@ -56,8 +60,14 @@ namespace Idle.Parser
 
             while (m_enum.MoveNext())
             {
+                if (m_enum.Current.Type == TokenType.BRACKET_R)
+                {
+                    interruped = true;
+                    break;
+                }
+
                 // New line - end property
-                if (m_enum.Current.Type == TokenType.EOS || m_enum.Current.Type == TokenType.BRACKET_R)
+                if (m_enum.Current.Type == TokenType.EOS)
                     break;
 
                 // If it's a value flag, read further and set it
@@ -97,10 +107,20 @@ namespace Idle.Parser
                 // If { then it means an atom is the value
                 if (m_enum.Current.Type == TokenType.BRACKET_L)
                 {
-                    Atom child = new Atom();
+                    // Instantiate child
+                    Atom child = new Atom(atom, property);
+
+                    // Reference own flags
+                    child.PassFlags(pItem.InternalFlags);
+
+                    // Fill properties
                     PopulateAtom(child);
+
+                    // Set as value for property item
                     pItem.SetValue(new Data(child));
-                    return;
+
+                    // Return as if uninterrupted
+                    return false;
                 }
 
                 if (m_enum.Current.Type == TokenType.NOT)
@@ -117,6 +137,8 @@ namespace Idle.Parser
                 throw new Exception($"Property '{property.Label}' must have a Value");
 
             pItem.SetValue(previous.Value);
+
+            return interruped;
         }
     }
 }
