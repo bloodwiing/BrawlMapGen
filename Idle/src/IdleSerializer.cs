@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Runtime.Serialization;
+using Idle.Exceptions;
 using Idle.Extensions;
 using Idle.Serialization.Abstract;
 
@@ -81,10 +80,10 @@ namespace Idle.Serialization
                 if (itemType.Namespace == "System")
                 {
                     if (property.DataType == PropertyType.COLOR)
-                        throw new Exception($"COLOR '{property.Label}' can only be deserialized into fields of struct Color, not {itemType}");
+                        throw new ColorSerializationException(property, itemType);
 
                     if (property.DataType == PropertyType.ATOM)
-                        throw new Exception($"Mismatching types for '{property.Label}' ({property.DataType} => {containerInfo.ContainerType})");
+                        throw new MismatchingTypeException(property, containerInfo.ContainerType);
 
                     containerInfo.SetValue(
                         obj,
@@ -100,7 +99,7 @@ namespace Idle.Serialization
                     if (property.DataType == PropertyType.COLOR)
                     {
                         if (itemType != typeof(Color))
-                            throw new Exception($"COLOR '{property.Label}' can only be deserialized into fields of struct Color, not {itemType}");
+                            throw new ColorSerializationException(property, itemType);
 
                         var iter = property.Select(x => x.Value);
 
@@ -114,7 +113,7 @@ namespace Idle.Serialization
                     else
                     {
                         if (property.DataType != PropertyType.ATOM)
-                            throw new Exception($"Mismatching types for '{property.Label}' ({property.DataType}[] => {containerInfo.ContainerType})");
+                            throw new MismatchingTypeException(property, containerInfo.ContainerType);
 
                         var iter = property.Select(
                             x => Deserialize(itemType, (Atom)x.Value));
@@ -135,13 +134,10 @@ namespace Idle.Serialization
                 if (containerInfo.ContainerType.Namespace == "System")
                 {
                     if (property.DataType == PropertyType.COLOR)
-                        throw new Exception($"COLOR '{property.Label}' can only be deserialized into fields of struct Color, not {containerInfo.ContainerType}");
+                        throw new ColorSerializationException(property, containerInfo.ContainerType);
 
-                    if (property.DataType == PropertyType.ATOM || property.DataType == PropertyType.COLOR)
-                        throw new Exception($"Mismatching types for '{property.Label}' ({property.DataType} => {containerInfo.ContainerType})");
-
-                    if (property.IsArray)
-                        throw new Exception($"Mismatching types for '{property.Label}' ({property.DataType}[] => {containerInfo.ContainerType})");
+                    if (property.DataType == PropertyType.ATOM || property.DataType == PropertyType.COLOR || property.IsArray)
+                        throw new MismatchingTypeException(property, containerInfo.ContainerType);
 
                     containerInfo.SetValue(
                         obj,
@@ -155,7 +151,7 @@ namespace Idle.Serialization
                     if (property.DataType == PropertyType.COLOR)
                     {
                         if (containerInfo.ContainerType != typeof(Color))
-                            throw new Exception($"COLOR '{property.Label}' can only be deserialized into fields of struct Color, not {containerInfo.ContainerType}");
+                            throw new ColorSerializationException(property, containerInfo.ContainerType);
 
                         containerInfo.SetValue(
                             obj,
@@ -164,11 +160,8 @@ namespace Idle.Serialization
 
                     else
                     {
-                        if (property.DataType != PropertyType.ATOM)
-                            throw new Exception($"Mismatching types for '{property.Label}' ({property.DataType} => {containerInfo.ContainerType})");
-
-                        if (property.IsArray)
-                            throw new Exception($"Mismatching types for '{property.Label}' ({property.DataType}[] => {containerInfo.ContainerType})");
+                        if (property.DataType != PropertyType.ATOM || property.IsArray)
+                            throw new MismatchingTypeException(property, containerInfo.ContainerType);
 
                         containerInfo.SetValue(
                             obj,
@@ -206,7 +199,7 @@ namespace Idle.Serialization
 
                 // If Property array
                 if (property.IsArray)
-                    throw new Exception($"Cannot differentiate Child Flags when in Property Arrays ('{flagAttrib.label}')");
+                    throw new ChildFlagArrayException(flagAttrib);
 
                 // Check Flag
                 if (!flagAttrib.TryGetFlag(item, out flag))
@@ -230,11 +223,11 @@ namespace Idle.Serialization
 
             // If iterable
             if (IsIterable(containerInfo.ContainerType))
-                throw new Exception($"Flags ('{containerInfo.ContainerType}') cannot be iterable");
+                throw new FlagIterableException(containerInfo.ContainerType);
 
             // If custom class
             else if (containerInfo.ContainerType.Namespace != "System" && !containerInfo.ContainerType.IsEnum)
-                throw new Exception($"Flags ('{containerInfo.ContainerType}') cannot be a custom class");
+                throw new FlagCustomClassException(containerInfo.ContainerType);
 
             // Enum
             else if (containerInfo.ContainerType.IsEnum)
@@ -279,7 +272,7 @@ namespace Idle.Serialization
                     }
 
                     else
-                        throw new Exception($"Enums ('{containerInfo.Name}') must be NUMBER or TEXT as input");
+                        throw new EnumTypeException(containerInfo);
 
                 }
 
@@ -313,13 +306,13 @@ namespace Idle.Serialization
 
                         if (attrib.Nameless)
                         {
-                            throw new Exception("Nameless Flags can only be string");
+                            throw new ShortFlagTypeException();
                         }
 
                         else
                         {
                             if (flag.Value.type != PropertyType.NUMBER)
-                                throw new Exception($"Mismatching types for '{property.Label}:{flag.Name}' ({flag.Value.type} => {containerInfo.ContainerType})");
+                                throw new MismatchingFlagTypeException(property, flag, containerInfo.ContainerType);
 
                             containerInfo.SetValue(
                                 obj,
@@ -334,14 +327,14 @@ namespace Idle.Serialization
 
                         if (attrib.Nameless)
                         {
-                            throw new Exception("Nameless Flags can only be string");
+                            throw new ShortFlagTypeException();
                         }
 
                         else
                         {
 
                             if (flag.Value.type != PropertyType.FRACTION)
-                                throw new Exception($"Mismatching types for '{property.Label}:{flag.Name}' ({flag.Value.type} => {containerInfo.ContainerType})");
+                                throw new MismatchingFlagTypeException(property, flag, containerInfo.ContainerType);
 
                             containerInfo.SetValue(
                                 obj,
@@ -381,18 +374,18 @@ namespace Idle.Serialization
 
                         if (attrib.Nameless)
                         {
-                            throw new Exception("Nameless Flags can only be string");
+                            throw new ShortFlagTypeException();
                         }
 
                         else
                         {
                             if (flag.Value.type != PropertyType.TEXT)
-                                throw new Exception($"Mismatching types for '{property.Label}:{flag.Name}' ({flag.Value.type} => {containerInfo.ContainerType})");
+                                throw new MismatchingFlagTypeException(property, flag, containerInfo.ContainerType);
 
                             char[] chArray = ((string)flag.Value.value).ToCharArray();
 
                             if (chArray.Length != 1)
-                                throw new Exception($"Invalid data size for '{property.Label}:{flag.Name}' (Expected 1 : Got {chArray.Length})");
+                                throw new MismatchingDataSizeException(property, flag, chArray.Length);
 
                             containerInfo.SetValue(
                                 obj,
@@ -406,7 +399,7 @@ namespace Idle.Serialization
 
                         if (attrib.Nameless)
                         {
-                            throw new Exception("Nameless Flags can only be string");
+                            throw new ShortFlagTypeException();
                         }
 
                         else
@@ -426,14 +419,14 @@ namespace Idle.Serialization
                             }
 
                             else
-                                throw new Exception($"Mismatching types ({flag.Value.type} => {containerInfo.ContainerType})");
+                                throw new MismatchingFlagTypeException(property, flag, containerInfo.ContainerType);
                         }
 
                         break;
 
                     default:
 
-                        throw new NotImplementedException("Invalid type");
+                        throw new NotImplementedException();
                 }
 
             }

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
+﻿using Idle.Exceptions;
+using System;
 using System.Text.RegularExpressions;
 
 namespace Idle
 {
     public struct Color
     {
-        byte r, g, b, a;
+        public byte r, g, b, a;
 
         public Color(byte r, byte g, byte b, byte a = 255)
         {
@@ -31,7 +31,7 @@ namespace Idle
             input = input.Trim().TrimStart('#');
 
             if (!Regex.IsMatch(input, @"[A-Z\d]+"))
-                throw new Exception("Invalid Color parsing data");
+                throw new ColorParseException();
 
             uint value = uint.Parse(input, System.Globalization.NumberStyles.HexNumber);
 

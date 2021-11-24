@@ -1,9 +1,8 @@
-﻿using Idle.Parser;
-using System;
+﻿using Idle.Exceptions;
+using Idle.Parser;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Idle
 {
@@ -31,7 +30,12 @@ namespace Idle
             if (DataType == PropertyType.UNSET)
                 DataType = item.ValueType;
             else if (DataType != item.ValueType)
-                throw new Exception($"Property List Type mismatch on '{Label}' ({DataType} != {item.ValueType})");
+                throw new PropertyListTypeMismatchException(this, item);
+        }
+
+        public string DisplayType()
+        {
+            return DataType.ToString() + (IsArray ? "[]" : "");
         }
 
         public Item NewItem()

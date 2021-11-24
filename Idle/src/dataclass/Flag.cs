@@ -1,5 +1,5 @@
-﻿using Idle.Parser;
-using System;
+﻿using Idle.Exceptions;
+using Idle.Parser;
 
 namespace Idle
 {
@@ -17,7 +17,7 @@ namespace Idle
         public static implicit operator Flag(Data input)
         {
             if (input.type != PropertyType.TEXT)
-                throw new Exception("Flag Name must be TEXT");
+                throw new FlagNameException();
             return new Flag() { Name = (string)input.value };
         }
     }

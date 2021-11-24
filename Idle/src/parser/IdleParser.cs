@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using Idle.Exceptions;
 using Idle.Lexer;
 
 namespace Idle.Parser
@@ -50,7 +49,7 @@ namespace Idle.Parser
             bool interruped = false;
 
             if (m_enum.Current.Type != TokenType.TEXT)
-                throw new Exception("Property labels must be TEXT");
+                throw new PropertyLabelTypeMismatchException(m_enum.Current.Type);
 
             Property property = atom.CreateOrGetProperty(m_enum.Current.Data);
             Item pItem = property.NewItem();
@@ -96,7 +95,7 @@ namespace Idle.Parser
 
                         default:
 
-                            throw new Exception("Value Flags must have TEXT_ROW, TEXT, NUMBER or FRACTION as the Value");
+                            throw new FlagValueTypeException(m_enum.Current.Type);
                     }
                 }
 
@@ -134,7 +133,7 @@ namespace Idle.Parser
             }
 
             if (previous == null)
-                throw new Exception($"Property '{property.Label}' must have a Value");
+                throw new MissingPropertyValueException(property);
 
             pItem.SetValue(previous.Value);
 
