@@ -1,0 +1,33 @@
+﻿GAME NAME=BRAWL_BALL {
+
+	BASE {
+		INSERT { TILE objective 5; POS { X m; Y 2 }; PASS FRONT; }
+		INSERT { TILE objective 6; POS { X m; Y 2 }; PASS FRONT; }
+
+		OVERRIDE {
+			objective 4
+		}
+
+		MODIFY { TILE objective; POS { X m; Y m }; }
+	}
+
+	OVERRIDES {
+
+		GALAXY_ARENA {
+			INSERT { TILE objective 18; POS { X m; Y 2 }; PASS FRONT; }
+			INSERT { TILE objective 19; POS { X m; Y 2 }; PASS FRONT; }
+
+			OVERRIDE {
+				objective 17
+			}
+
+			MODIFY { TILE objective; POS { X m; Y m }; }
+		}
+
+		GALAXY_ARENA_MOD {
+			REF GALAXY_ARENA
+		}
+
+	}
+
+}

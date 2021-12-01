@@ -1,0 +1,16 @@
+﻿DEFAULT {
+
+  NAME INVALID
+
+  BACKGROUND '_ABSChequerboard' {
+    COLOR1 #000000
+    COLOR2 #ff00dc
+  }
+
+  TILES {
+    blocking1 0
+  }
+
+}
+
+EXTERNAL 'Biomes/**.*'

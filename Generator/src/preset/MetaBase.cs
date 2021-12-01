@@ -19,7 +19,7 @@ namespace BMG.Preset
 
         public virtual PresetType Format => PresetType.Invalid;
 
-        public abstract PresetBase GetPreset();
+        public abstract IPreset GetPreset();
 
         public string SystemPath => Path.Combine(".", "presets", SystemName);
     }

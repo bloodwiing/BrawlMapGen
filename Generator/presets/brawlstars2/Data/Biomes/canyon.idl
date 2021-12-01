@@ -1,0 +1,11 @@
+﻿BIOME NAME=CANYON {
+
+	BACKGROUND 'Chequerboard' {
+	  COLOR #f9a675
+	}
+
+	TILES {
+	  blocking2 2
+	}
+
+}

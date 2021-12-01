@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace BMG
 {
-    public abstract class MapBase
+    public abstract class MapBase : IMap
     {
-        public abstract string RawName { get; set; }
+        public abstract string RawName { get; set; }  // ---
         public string GetName()
         {
             return Utils.StringVariables(
@@ -19,8 +19,29 @@ namespace BMG
         }
 
 
-        public abstract string[] Data { get; set; }
-        public abstract object Biome { get; }
+        public bool IsEmpty => Data == null || Data.Length == 0 || Data[0].Length == 0;
+        public abstract string[] Data { get; set; }  // ---
+        public abstract object Biome { get; }  // ---
+
+        public IBiome GetBiome(IPreset preset)
+        {
+            switch (Biome)
+            {
+                case string res:
+                    return preset.GetBiome(res);
+                case int res:
+                    return preset.GetBiome(res);
+                case long res:
+                    return preset.GetBiome(Convert.ToInt32(res));
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        public IGame GetGame(IPreset preset, IBiome biome)
+        {
+            return preset.GetGame(GameMode, biome);
+        }
 
         public Rectangle Size => new Rectangle(Data.Length, Data[0].Length);
         public void AutoCrop(char[] tiles)
@@ -73,36 +94,23 @@ namespace BMG
         }
 
 
-        public Range GetLayerRange(Preset.PresetBase preset, BiomeBase biome)
+        public abstract int Scale { get; set; }
+
+        public void UseForAutoCrop(OptionsBase options)
         {
-            Range range = null;
-
-
-            // CHECK ALL LAYERS
-
-            foreach (TileBase tile in preset.Tiles)
-            {
-                TileVariantBase variant = tile.GetVariant(biome);
-
-                if (range == null)
-                    range = new Range(variant.Layer);
-                else
-                    range.Insert(variant.Layer);
-
-                range.Insert(variant.RowLayer);
-            }
-
-
-            return range;
+            options.AutoCrop = VoidTiles;
         }
 
+        public bool IsVoid(char c)
+        {
+            return VoidTiles.Contains(c);
+        }
 
-        public abstract int Scale { get; set; }
-        public abstract char[] VoidTiles { get; }
+        public abstract char[] VoidTiles { get; }  // ---
 
-        public abstract Dictionary<string, int> BiomeOverrides { get; }
+        public abstract Dictionary<string, int> BiomeOverrides { get; }  // ---
 
-        public void ApplyOverrides(BiomeBase biome)
+        public void ApplyOverrides(IBiome biome)
         {
             foreach ((string tile, int type) in BiomeOverrides)
                 biome.ApplyOverride(tile, type);
@@ -110,8 +118,8 @@ namespace BMG
 
         public abstract Margin Margin { get; }
 
-        public abstract string GameMode { get; }
+        public abstract string GameMode { get; }  // ---
 
-        public abstract int? GenerationSeed { get; }
+        public abstract int? GenerationSeed { get; }  // ---
     }
 }

@@ -101,6 +101,13 @@ namespace BMG.Preset.Old
             protected override TileVariantBase[] Variants => tileTypes;
 
 
+            /*
+                if (variant - 1 <= Variants.Length)
+                    return Variants[variant];
+                return Variants[0];
+            */
+
+
             public string tileName { get; set; }
             public char tileCode { get; set; }
             public TileType[] tileTypes { get; set; }

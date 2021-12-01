@@ -1,0 +1,21 @@
+﻿TILE CODE='M' NAME=blocking1 {
+
+  VARIANT {
+
+    LAYER {
+      ASSET "test"
+      OFFSET PRECISION=1000 { X 500; Y -900 }
+
+      EFFECT ADD #ffffff
+      EFFECT MULTIPLY #00ff00
+      EFFECT MULTIPLY #110022
+    }
+
+    LAYER {
+      ASSET "ok"
+      OFFSET PRECISION=1000 { X 69; Y -69 }
+    }
+
+  }
+
+}

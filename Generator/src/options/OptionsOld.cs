@@ -14,7 +14,7 @@ namespace BMG
         public override bool SaveLog => saveLogFile;
         public override string Output => exportFolderName;
 
-        public override MapBase[] Maps { get => batch; set => batch = (BatchSettings[])value; }
+        public override IMap[] Maps { get => batch; set => batch = (BatchSettings[])value; }
 
         public override MapOptimizerBase MapOptimizer => render;
         public override void OptimizeMaps()

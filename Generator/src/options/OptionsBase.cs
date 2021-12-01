@@ -18,8 +18,8 @@ namespace BMG
 
         // MAPS
 
-        public abstract MapBase[] Maps { get; set; }
-        public MapBase GetMap(int index) { return Maps[index]; }
+        public abstract IMap[] Maps { get; set; }
+        public IMap GetMap(int index) { return Maps[index]; }
         public int MapCount => Maps.Length;
 
         public abstract MapOptimizerBase MapOptimizer { get; }

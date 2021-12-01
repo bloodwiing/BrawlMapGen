@@ -3,19 +3,19 @@
 namespace BMG.Preset.Old
 {
     [XmlRoot("Preset")]
-    public class Meta : MetaBase
+    public abstract class Meta : MetaBase
     {
-        public override PresetType Format => PresetType.Old;
+        //public override PresetType Format => PresetType.Old;
 
 
         [XmlElement("Linker")]
         public Linker Linker { get; set; }
 
 
-        public override PresetBase GetPreset()
-        {
-            return Preset.LoadPreset(this);
-        }
+        //public override IPreset GetPreset()
+        //{
+        //    return Preset.LoadPreset(this);
+        //}
     }
 
 

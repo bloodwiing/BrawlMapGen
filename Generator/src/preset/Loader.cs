@@ -8,7 +8,7 @@ namespace BMG.Preset
 {
     public class Loader
     {
-        public static PresetBase LoadPreset(string name)
+        public static IPreset LoadPreset(string name)
         {
             // MAKE PATH
 
@@ -27,9 +27,9 @@ namespace BMG.Preset
 
             switch (ProcessFile(file, out XmlDocument document))
             {
-                case PresetType.Old:
-                    meta = Deserialize<Old.Meta>(document);
-                    break;
+                //case PresetType.Old:
+                //    meta = Deserialize<Old.Meta>(document);
+                //    break;
 
                 case PresetType.New:
                     meta = Deserialize<New.Meta>(document);
@@ -99,7 +99,7 @@ namespace BMG.Preset
         }
 
 
-        public bool TryLoadPreset(string name, out PresetBase preset)
+        public bool TryLoadPreset(string name, out IPreset preset)
         {
             try
             {

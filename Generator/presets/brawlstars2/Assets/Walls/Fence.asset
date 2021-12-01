@@ -1,0 +1,45 @@
+﻿ASSET FenceLunar
+
+$ DO NOT CHANGE THESE FILES
+$ THEY SERVE IMPORTANT DATA FOR GENERATION
+
+DEFAULTS { HINDEX 1 }
+
+VARIANT ID=UR {
+
+	FILE SVG 'FenceLunar_ur.svg'
+
+	OFFSET PRECISION=1000 {
+		X 500
+		Y -300
+	}
+	
+}
+
+VARIANT ID=UL {
+
+	FILE SVG 'FenceLunar_ul.svg'
+
+	OFFSET PRECISION=1000 {
+		X 500
+		Y -300
+	}
+	
+}
+
+$ ...
+
+SELECTOR ADAPTIVE {
+
+	DEFAULT HOR
+
+	RULESET !STRICT {
+
+		RULE CONDITION='-1- 1- ---' { SELECT UL }
+		RULE CONDITION='-1- -1 ---' { SELECT UR }
+		$ ...
+		RULE CONDITION='-1- -- -1-' { SELECT VER }
+
+	}
+
+}
