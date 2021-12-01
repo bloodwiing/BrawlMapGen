@@ -30,7 +30,7 @@ namespace Idle
         {
             input = input.Trim().TrimStart('#');
 
-            if (!Regex.IsMatch(input, @"[A-Z\d]+"))
+            if (!Regex.IsMatch(input, @"[A-F\d]+", RegexOptions.IgnoreCase))
                 throw new ColorParseException();
 
             uint value = uint.Parse(input, System.Globalization.NumberStyles.HexNumber);

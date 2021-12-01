@@ -15,6 +15,22 @@ namespace Idle.Extensions
                     x.GetGenericTypeDefinition() == typeof(IEnumerable<>));
         }
 
+        public static Type GetIDictionaryValueType(this Type type)
+        {
+            foreach (var it in type.GetInterfaces())
+            {
+                if (!it.IsGenericType)
+                    continue;
+
+                if (it.GetGenericTypeDefinition() != typeof(IDictionary<,>))
+                    continue;
+
+                return it.GetGenericArguments()[1];
+            }
+
+            return null;
+        }
+
         public static bool IsList(this Type type)
         {
             return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);

@@ -5,6 +5,7 @@ using System.Reflection;
 using Idle.Exceptions;
 using Idle.Extensions;
 using Idle.Serialization.Abstract;
+using System.Collections;
 
 namespace Idle.Serialization
 {
@@ -50,31 +51,65 @@ namespace Idle.Serialization
 
         private static bool PopulateProperty(object obj, Atom atom, ContainerInfo containerInfo)
         {
-            // Get attribute
             var attrib = containerInfo.GetCustomAttribute<IdlePropertyAttribute>();
 
-            // If no attribute, skip
             if (attrib == null)
                 return false;
 
-            // Check Atom
             if (!atom.TryGetProperty(attrib.label, out Property property))
                 return false;
 
+            containerInfo.SetValue(
+                obj,
+                GetObjectData(property, containerInfo.ContainerType));
+
+            return true;
+        }
+
+        private static object GetObjectData(Property property, Type containerType)
+        {
             // If null
             if (
-                Nullable.GetUnderlyingType(containerInfo.ContainerType) != null &&
-                property.DataType == PropertyType.NULL)
+                property.DataType == PropertyType.NULL && (
+                    Nullable.GetUnderlyingType(containerType) != null ||
+                    containerType.Namespace != "System"
+                ))
             {
-                containerInfo.SetValue(
-                    obj,
-                    null);
+                return null;
+            }
+
+            // If Dictionary
+            else if (typeof(IDictionary).IsAssignableFrom(containerType))
+            {
+                if (property.DataType != PropertyType.ATOM)
+                    throw new MismatchingTypeException(property, containerType);
+
+                var main = (Atom)property[0].Value;
+
+                PropertyType? valueType = null;
+
+                var instance = (IDictionary)Activator.CreateInstance(containerType);
+
+                foreach (var item in main.Properties)
+                {
+                    if (valueType == null)
+                        valueType = item.DataType;
+
+                    else if (valueType != item.DataType)
+                        throw new DictionaryValueTypeException(property, valueType.Value, item.DataType);
+
+                    instance.Add(
+                        item.Label,
+                        GetObjectData(item, containerType.GetIDictionaryValueType()));
+                }
+
+                return instance;
             }
 
             // If iterable
-            else if (IsIterable(containerInfo.ContainerType))
+            else if (IsIterable(containerType))
             {
-                Type itemType = GetIterableItemType(containerInfo.ContainerType);
+                Type itemType = GetIterableItemType(containerType);
 
                 // If System built-in
                 if (itemType.Namespace == "System")
@@ -83,13 +118,11 @@ namespace Idle.Serialization
                         throw new ColorSerializationException(property, itemType);
 
                     if (property.DataType == PropertyType.ATOM)
-                        throw new MismatchingTypeException(property, containerInfo.ContainerType);
+                        throw new MismatchingTypeException(property, containerType);
 
-                    containerInfo.SetValue(
-                        obj,
-                        ConvertEnumerable(
-                            containerInfo.ContainerType,
-                            property.Select(x => x.Value)));
+                    return ConvertEnumerable(
+                        containerType,
+                        property.Select(x => x.Value));
                 }
 
                 // If custom class
@@ -101,28 +134,45 @@ namespace Idle.Serialization
                         if (itemType != typeof(Color))
                             throw new ColorSerializationException(property, itemType);
 
-                        var iter = property.Select(x => x.Value);
+                        return ConvertEnumerable(
+                            containerType,
+                            property.Select(x => x.Value));
+                    }
 
-                        containerInfo.SetValue(
-                            obj,
-                            ConvertEnumerable(
-                                containerInfo.ContainerType,
-                                iter));
+                    // If enum
+                    else if (itemType.IsEnum)
+                    {
+                        Type enumType = Enum.GetUnderlyingType(itemType);
+
+                        // Parse text or int
+                        if (property.DataType == PropertyType.TEXT || property.DataType == PropertyType.NUMBER)
+                        {
+                            var a = property
+                                    .Select(x => EnumExtensions.ParseOrNull(enumType, x.Value)).ToArray();
+
+                            return ConvertEnumerable(
+                                containerType,
+                                property
+                                    .Select(x => EnumExtensions.ParseOrNull(enumType, x.Value))
+                                    .Where(x => x != null));
+                        }
+
+                        else
+                            throw new EnumTypeException(containerType);
+
                     }
 
                     else
                     {
                         if (property.DataType != PropertyType.ATOM)
-                            throw new MismatchingTypeException(property, containerInfo.ContainerType);
+                            throw new MismatchingTypeException(property, containerType);
 
                         var iter = property.Select(
                             x => Deserialize(itemType, (Atom)x.Value));
 
-                        containerInfo.SetValue(
-                            obj,
-                            ConvertEnumerable(
-                                containerInfo.ContainerType,
-                                iter));
+                        return ConvertEnumerable(
+                            containerType,
+                            iter);
                     }
                 }
             }
@@ -131,17 +181,51 @@ namespace Idle.Serialization
             else
             {
                 // If System built-in
-                if (containerInfo.ContainerType.Namespace == "System")
+                if (containerType.Namespace == "System")
                 {
+                    // If generic
+                    if (containerType == typeof(object))
+                    {
+                        if (property.IsArray)
+                            return property.Select(x => x.Value).ToArray();
+
+                        else
+                            return property[0].Value;
+                    }
+
                     if (property.DataType == PropertyType.COLOR)
-                        throw new ColorSerializationException(property, containerInfo.ContainerType);
+                        throw new ColorSerializationException(property, containerType);
 
                     if (property.DataType == PropertyType.ATOM || property.DataType == PropertyType.COLOR || property.IsArray)
-                        throw new MismatchingTypeException(property, containerInfo.ContainerType);
+                        throw new MismatchingTypeException(property, containerType);
 
-                    containerInfo.SetValue(
-                        obj,
-                        property[0].Value);
+                    return property[0].Value;
+                }
+
+                // If enum
+                else if (containerType.IsEnum)
+                {
+                    Type enumType = Enum.GetUnderlyingType(containerType);
+
+                    // Parse text
+                    if (property.DataType == PropertyType.TEXT)
+                    {
+                        if (Enum.TryParse(containerType, property[0].Value.ToString(), true, out object result))
+                            return result;
+
+                        else
+                            return Convert.ChangeType(0, enumType);
+                    }
+
+                    // Parse int
+                    else if (property.DataType == PropertyType.NUMBER)
+                    {
+                        return Convert.ChangeType(property[0].Value, enumType);
+                    }
+
+                    else
+                        throw new EnumTypeException(containerType);
+
                 }
 
                 // If custom class
@@ -150,35 +234,29 @@ namespace Idle.Serialization
                     // If color
                     if (property.DataType == PropertyType.COLOR)
                     {
-                        if (containerInfo.ContainerType != typeof(Color))
-                            throw new ColorSerializationException(property, containerInfo.ContainerType);
+                        if (containerType != typeof(Color))
+                            throw new ColorSerializationException(property, containerType);
 
-                        containerInfo.SetValue(
-                            obj,
-                            property[0].Value);
+                        return property[0].Value;
                     }
 
                     else
                     {
                         if (property.DataType != PropertyType.ATOM || property.IsArray)
-                            throw new MismatchingTypeException(property, containerInfo.ContainerType);
+                            throw new MismatchingTypeException(property, containerType);
 
-                        containerInfo.SetValue(
-                            obj,
-                            Deserialize(containerInfo.ContainerType, (Atom)property[0].Value));
+                        return Deserialize(
+                            containerType,
+                            (Atom)property[0].Value);
                     }
                 }
             }
-
-            return true;
         }
 
         private static bool PopulateFlag(object obj, Atom atom, ContainerInfo containerInfo)
         {
-            // Get attribute
             IdleAbstractFlag attrib = containerInfo.GetCustomAttribute<IdleAbstractFlag>(true);
 
-            // If no attribute, skip
             if (attrib == null)
                 return false;
 
@@ -189,19 +267,15 @@ namespace Idle.Serialization
             // If is a Child Flag
             if (attrib is IdleChildFlagBase flagAttrib)
             {
-                // Check Atom
                 if (!atom.TryGetProperty(flagAttrib.label, out property))
                     return false;
 
-                // Check Property
                 if (!property.TryGetItem(flagAttrib.index, out Item item))
                     return false;
 
-                // If Property array
                 if (property.IsArray)
                     throw new ChildFlagArrayException(flagAttrib);
 
-                // Check Flag
                 if (!flagAttrib.TryGetFlag(item, out flag))
                     return false;
             }
@@ -212,16 +286,13 @@ namespace Idle.Serialization
                 // Make Property itself
                 property = atom.OwnProperty;
 
-                // Check Flag
                 if (!atomFlagAttrib.TryGetFlag(atom, out flag))
                     return false;
             }
 
-            // Can't be neither
             else
                 throw new NotImplementedException();
 
-            // If iterable
             if (IsIterable(containerInfo.ContainerType))
                 throw new FlagIterableException(containerInfo.ContainerType);
 

@@ -6,16 +6,24 @@ namespace Idle
 {
     public class IdleReader
     {
-        public readonly Atom HeadAtom;
+        public Atom HeadAtom { get; private set; }
+
+        public IdleReader(TextReader reader)
+        {
+            Read(reader);
+        }
 
         public IdleReader(string path)
         {
-            string data;
-
             using (StreamReader stream = new StreamReader(path))
             {
-                data = stream.ReadToEnd();
+                Read(stream);
             }
+        }
+
+        private void Read(TextReader reader)
+        {
+            string data = reader.ReadToEnd();
 
             IdleLexer lexer = new IdleLexer(data);
             var tokens = lexer.Tokenize();

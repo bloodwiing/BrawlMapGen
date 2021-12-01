@@ -58,6 +58,10 @@ namespace Idle.Exceptions
         public EnumTypeException(ContainerInfo containerInfo)
             : base($"Enums ('{containerInfo.Name}') must be NUMBER or TEXT as input")
         { }
+
+        public EnumTypeException(Type receivedType)
+            : base($"Enums must be NUMBER or TEXT as input (received {receivedType})")
+        { }
     }
 
     class ShortFlagTypeException : Exception
@@ -106,6 +110,13 @@ namespace Idle.Exceptions
     {
         public ColorParseException()
             : base("Invalid Color parsing data")
+        { }
+    }
+
+    class DictionaryValueTypeException : Exception
+    {
+        public DictionaryValueTypeException(Property property, PropertyType expected, PropertyType received)
+            : base($"Dictionary value type inconsistency on '{property.Label}' (expected {expected}, received {received})")
         { }
     }
 }

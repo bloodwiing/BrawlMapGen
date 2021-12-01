@@ -116,7 +116,7 @@ namespace Idle
 
         public bool TryGetFlag(int index, out Flag flag)
         {
-            if (index > m_flags.Count + 1)
+            if (index >= m_flags.Count)
             {
                 flag = null;
                 return false;
