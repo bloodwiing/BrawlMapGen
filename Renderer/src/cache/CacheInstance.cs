@@ -36,13 +36,13 @@ namespace BMG.Cache
         }
 
 
-        public TileCache GetImage(TileVariantBase tile)
+        public TileCache GetImage(GraphicLayer layer)
         {
             // GET ORIGINAL TILE
 
-            string asset = tile.Asset;
+            string asset = layer.Asset;
 
-
+            /*
             // RANDOMIZE TILE [TEMP]
 
             TileAssetBase final = tile;
@@ -52,9 +52,10 @@ namespace BMG.Cache
                 final = tile.Randomizer[rnd.Next(tile.Randomizer.Length)];
                 asset = final.Asset;
 
-                if (final.Offset == null)
-                    final.Offset = tile.Offset;
+                //if (final.Offset == null)
+                //    final.Offset = tile.Offset;
             }
+            */
 
 
             // IF ALREADY CACHED -> RETURN CACHE
@@ -65,7 +66,7 @@ namespace BMG.Cache
 
             // IF NOT -> MAKE CACHE
 
-            var instance = new TileCache(options, scale, final);
+            var instance = new TileCache(options, scale, layer);
             tileImages.Add(asset, instance);
             return instance;
         }

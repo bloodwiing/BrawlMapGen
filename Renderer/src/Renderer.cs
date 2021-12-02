@@ -1,11 +1,8 @@
-﻿using AMGBlocks;
-using BMG.State;
-using BMG.Cache;
+﻿using BMG.Cache;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace BMG
@@ -15,16 +12,16 @@ namespace BMG
         Graphics graphics;
         Bitmap bitmap;
 
-        MapBase map;
+        public IMap map { get; private set; }
 
         OptionsBase options;
-        Preset.PresetBase preset;
+        IPreset preset;
 
         public int CanvasWidth => bitmap.Width;
         public int CanvasHeight => bitmap.Height;
 
 
-        public Renderer(MapBase map, OptionsBase options, Preset.PresetBase preset)
+        public Renderer(IMap map, OptionsBase options, IPreset preset)
         {
             Margin margin = map.Margin;
             Rectangle size = map.Size;
@@ -67,7 +64,7 @@ namespace BMG
         //}
 
 
-        public void DrawGameMode(GameModeBase gameMode, GameModePass pass)
+        public void DrawGameMode(IGame gameMode, GameModePass pass)
         {
             if (gameMode == null)
                 return;
@@ -77,32 +74,31 @@ namespace BMG
         }
 
 
-        private void DrawGameModeSpecials(GameModeBase gameMode, GameModePass pass)
+        private void DrawGameModeSpecials(IGame gameMode, GameModePass pass)
         {
-            foreach (var special in gameMode.SpecialTiles)
+            gameMode.SpecialTiles.Reset();
+
+            while (gameMode.SpecialTiles.MoveNext())
             {
+                var graphic = gameMode.SpecialTiles.Current;
+
+
                 // CHECK PASS
 
-                if (special.Pass != pass)
+                if (graphic.Pass != pass)
                     continue;
-
-
-                // GET DATA
-
-                Vector2 position = Utils.ParsePosition(special.Position);
-                TileVariantBase tile = preset.GetTileVariant(special.Tile, special.Type);
 
 
                 // DRAW TILE
 
-                DrawTile(tile, position);
+                DrawGraphic(graphic, Vector2.Zero);
                 AMGState.drawer.DrawnTile();
                 //Logger.LogTile(new TileActionTypes(1, 0, 0, 0, 1), oTile, ysLoc, xsLoc, yLength, xLength, Logger.TileEvent.tileDraw);
             }
         }
 
 
-        public void RenderMap(BiomeBase biome, Range renderRange)
+        public void RenderMap(IBiome biome, Range renderRange)
         {
             // RENDER EACH LAYER
 
@@ -111,7 +107,7 @@ namespace BMG
         }
 
 
-        public void RenderMapLayer(BiomeBase biome, int layer, Range renderRange)
+        public void RenderMapLayer(IBiome biome, int layer, Range renderRange)
         {
             // RESET CURSOR
 
@@ -135,7 +131,7 @@ namespace BMG
         }
 
 
-        private void RenderRow(BiomeBase biome, int layer, int rowLayer)
+        private void RenderRow(IBiome biome, int layer, int rowLayer)
         {
             // RESET STATE FOR ROW
 
@@ -146,7 +142,7 @@ namespace BMG
             {
                 // SKIP IF VOID
 
-                if (map.VoidTiles.Contains(AMGState.ReadAtCursor()))
+                if (map.IsVoid(AMGState.ReadAtCursor()))
                 {
                     AMGState.MoveHorCursor();
                     continue;
@@ -155,7 +151,7 @@ namespace BMG
 
                 // GET TILE IF EXISTS
 
-                TileBase tile = preset.GetTile(AMGState.ReadAtCursor());
+                ITile tile = preset.GetTile(AMGState.ReadAtCursor());
 
                 if (tile == null)
                 {
@@ -164,20 +160,26 @@ namespace BMG
                 }
 
 
-                // GET VARIANT AND DRAW
+                // GET TILE GRAPHIC
 
-                TileVariantBase variant = tile.GetVariant(biome);
+                if (!preset.MakeTileGraphic(biome, tile, out Graphic graphic))
+                {
+                    // IF GRAPHIC FAILED
+
+                    AMGState.MoveHorCursor();
+                    continue;
+                }
 
 
                 // SKIP IF NOT MEANT FOR LAYER
 
-                if (variant.Layer != layer)
+                if (graphic.ZIndex != layer)
                 {
                     AMGState.MoveHorCursor();
                     continue;
                 }
 
-                if (variant.RowLayer != rowLayer)
+                if (graphic.HIndex != rowLayer)
                 {
                     AMGState.MoveHorCursor();
                     continue;
@@ -186,51 +188,56 @@ namespace BMG
 
                 // DRAW TILE
 
-                if (variant.Asset != "?binary?.svg")
-                    DrawTile(variant, AMGState.drawer.cursor);
-
+                DrawGraphic(graphic, AMGState.drawer.cursor);
                 AMGState.MoveHorCursor();
             }
         }
 
 
-        public void DrawTile(TileVariantBase tile, Vector2 position)
+        public void DrawGraphic(Graphic graphic, Vector2 position)
         {
-            // GET ASSET
+            // GET CACHE INSTANCE
 
-            TileVariantBase asset = tile;
-
-
-            // CALCULATE ASSET OFFSET
-
-            Vector2 offset = asset.Offset.Clone();
-            offset *= map.Scale;
-            offset /= 1000;
+            var cache = CacheManager.GetInstance(options, map.Scale);
 
 
             // CALCULATE REAL CANVAS POSITION
 
+            if (graphic.Position != null)
+                position = graphic.Position.Value;
+
             position += (map.Margin.left, map.Margin.top);
             position *= map.Scale;
-            position += offset;
 
 
+            // DRAW EVERY GRAPHIC LAYER
+            
+            foreach (var layer in graphic.Layers)
+            {
+                // GET CACHED IMAGE
 
-            // GET CACHED IMAGE
-
-            var image = CacheManager.GetInstance(options, map.Scale).GetImage(asset);
+                var image = cache.GetImage(layer);
 
 
-            // RENDER
+                // CALCULATE ASSET OFFSET
 
-            graphics.DrawImage(
-                image.renderedImage,
-                position
-                );
+                Vector2 offset = layer.Offset.Clone();
+                offset *= map.Scale;
+                offset /= 1000;
+
+
+                // RENDER
+
+                graphics.DrawImage(
+                    image.renderedImage,
+                    position + offset
+                    );
+
+            }
         }
 
 
-        public void ColorBackground(MapBase map) // Filling in background colors
+        public void ColorBackground(IMap map) // Filling in background colors
         {
             // SETUP
 
@@ -244,8 +251,46 @@ namespace BMG
 
             // GET BACKGROUND OR DEFAULT
 
-            BiomeBase bg = preset.GetBiome(map);
+            IBiome biome = preset.GetBiome(map);
 
+
+            // RUN ON EVERY TILE
+
+            if (!biome.HasBackground)
+                biome = preset.DefaultBiome;
+
+
+            // RUN ON EVERY TILE
+
+            while (!AMGState.map.drawn)
+            {
+                // SKIP IF VOID
+
+                if (map.IsVoid(AMGState.ReadAtCursor()))
+                {
+                    AMGState.MoveCursor();
+                    continue;
+                }
+
+
+                // RUN BLOCKS
+
+                Color color = biome.SolveBackgroundColor();
+
+
+                // FILL WITH RESULT COLOR
+
+                graphics.FillRectangle(
+                    new SolidBrush(color),  // Draw color
+                    (int)Math.Round(map.Scale * (AMGState.drawer.cursor.x + margin.left)),  // Pos X
+                    (int)Math.Round(map.Scale * (AMGState.drawer.cursor.y + margin.top)),  // Pos Y
+                    map.Scale, map.Scale  // Size
+                );
+                AMGState.MoveCursor();  // Continue
+                
+            }
+
+            /*
             if (!bg.HasBackground)
                 bg = preset.DefaultBiome;
 
@@ -288,6 +333,7 @@ namespace BMG
                 else
                     throw new ApplicationException("Expected a Color output from background blocks, but received " + result.GetType().ToString());
             }
+            */
         }
 
 

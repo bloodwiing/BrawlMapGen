@@ -1,6 +1,6 @@
 ﻿namespace BMG
 {
-    public class Margin
+    public struct Margin
     {
         public float top, bottom, left, right;
 

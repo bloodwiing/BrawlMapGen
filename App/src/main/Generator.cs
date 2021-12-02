@@ -11,8 +11,8 @@ namespace BMG
 {
     class Generator
     {
-        readonly OptionsBase options;
-        public Preset.PresetBase preset { get; private set; }
+        public readonly OptionsBase options;
+        public IPreset preset { get; private set; }
 
         readonly Dictionary<char, int> tilesFailed = new Dictionary<char, int>();
 
@@ -58,8 +58,8 @@ namespace BMG
             // CREDITS
 
             Logger.LogSpacer();
-            Logger.Log("  BMG (Brawl Map Gen)");
-            Logger.Log("    Created by: BloodWiing");
+            Logger.Log("  AMG (Advanced Map Gen)");
+            Logger.Log("    Created by: BLOODWIING");
             Logger.Log("    Helped by: 4JR, Henry, tryso");
 
 
@@ -67,7 +67,7 @@ namespace BMG
 
             Logger.LogSpacer();
             Logger.Log("  VERSION");
-            Logger.Log($"    BrawlMapGen -- {AMGState.version}");
+            Logger.Log($"    Generator -- {AMGState.version}");
             Logger.Log($"    AMG!Blocks -- {AMGBlocks.AMGBlocks.version}");
 
 
@@ -132,7 +132,7 @@ namespace BMG
 
             if (options.HasAutoCrop && options.AutoCrop.Length == 0)
             {
-                options.AutoCrop = options.GetMap(0).VoidTiles;
+                options.GetMap(0).UseForAutoCrop(options);
                 Logger.LogWarning("AUTO CROP is enabled, but empty. Defaulting to OPTIONS' first map's VOID TILES.\n Please make sure to update this setting next time", 15);
                 Thread.Sleep(10000);
             }
@@ -144,7 +144,7 @@ namespace BMG
             Logger.LogStatus("Map image generator starting...");
             Logger.Title.Job.UpdateJob(0, options.MapCount);
 
-            foreach (MapBase map in options.Maps)
+            foreach (var map in options.Maps)
             {
                 string mapName = map.GetName();
 
@@ -158,7 +158,7 @@ namespace BMG
                 Logger.LogStatus("Getting DATA...");
                 Logger.LogSetup($"Looking for DATA in {mapName}...");
 
-                if (map.Data == null)
+                if (map.IsEmpty)
                 {
                     Logger.LogWarning($"  DATA is empty!\n  [Object] DATA of MAP {mapName} is not defined.", 4);
                     continue;
@@ -186,11 +186,11 @@ namespace BMG
         }
 
 
-        private void GenerateMap(MapBase map)
+        private void GenerateMap(IMap map)
         {
             // GET BIOME
 
-            BiomeBase biome = preset.GetBiome(map.Biome);
+            IBiome biome = preset.GetBiome(map);
 
 
             // SETUP RENDERER
@@ -211,7 +211,7 @@ namespace BMG
         }
 
 
-        private void MakeBackground(Renderer renderer, MapBase map)
+        private void MakeBackground(Renderer renderer, IMap map)
         {
             // DRAW BACKGROUND
 
@@ -224,7 +224,7 @@ namespace BMG
         }
 
 
-        private void DrawTiles(Renderer renderer, MapBase map, BiomeBase biome)
+        private void DrawTiles(Renderer renderer, IMap map, IBiome biome)
         {
             Logger.LogSetup("Drawing Map tiles...");
             Logger.LogStatus($"Drawing Map (\"{map.GetName()}\")...");
@@ -232,25 +232,25 @@ namespace BMG
 
             // GET GAME MODE AND APPLY MOD
 
-            GameModeBase gameMode = preset.GetGameMode(map, biome);
-            if (gameMode != null) gameMode.ApplyToState(preset);
+            //IGame gameMode = preset.GetGameMode(map, biome);
+            //if (gameMode != null) gameMode.ApplyToState(preset);
 
 
             // OVERRIDE BIOME
 
             biome.ResetOverrides();
-            if (gameMode != null) gameMode.ApplyOverrides(biome);
+            //if (gameMode != null) gameMode.ApplyOverrides(biome);
             map.ApplyOverrides(biome);
 
 
             // RENDER GAME MODE SPECIAL TILES BACK
 
-            renderer.DrawGameMode(gameMode, GameModePass.BACK);
+            //renderer.DrawGameMode(gameMode, GameModePass.BACK);
 
 
             // GET LOWEST AND HIGHEST Z
 
-            Range renderRange = map.GetLayerRange(preset, biome);
+            Range renderRange = preset.GetIndexRange(map);
 
 
             // RENDER IN RANGE
@@ -260,7 +260,7 @@ namespace BMG
 
             // RENDER GAME MODE SPECIAL TILES FRONT
 
-            renderer.DrawGameMode(gameMode, GameModePass.FRONT);
+            //renderer.DrawGameMode(gameMode, GameModePass.FRONT);
         }
     }
 }

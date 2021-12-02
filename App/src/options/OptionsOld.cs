@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 
 namespace BMG
 {
-    public class OptionsOld : OptionsBase
+    public class OptionsOld : IOptions
     {
         // IMPLEMENTATIONS
 

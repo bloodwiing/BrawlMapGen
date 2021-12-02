@@ -13,7 +13,7 @@ namespace BMG.Cache
         public int imageWidth;
         public int imageHeight;
 
-        public TileCache(OptionsBase options, int scale, TileAssetBase tile)
+        public TileCache(OptionsBase options, int scale, GraphicLayer tile)
         {
             // GET SVG PATH [TEMP]
 

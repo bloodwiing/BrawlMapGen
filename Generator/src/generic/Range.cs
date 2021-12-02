@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BMG
 {
-    public class Range : IEnumerable<int>
+    public struct Range : IEnumerable<int>
     {
         int low, high;
 

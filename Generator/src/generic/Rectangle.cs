@@ -1,6 +1,6 @@
 ﻿namespace BMG
 {
-    public class Rectangle
+    public struct Rectangle
     {
         public int height;
         public int width;

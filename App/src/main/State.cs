@@ -47,12 +47,12 @@ namespace BMG.State
                 this.data = data;
                 _index++;
             }
-            public MapState(MapBase map)
+            public MapState(IMap map)
             {
                 name = map.GetName();
-                data = map.Data;
+                //data = map.Data;
 
-                if (map.Data.Length == 0 || map.Data[0].Length == 0)
+                if (map.IsEmpty)
                 {
                     Logger.LogWarning($"DATA is empty!\n  [Object] DATA of MAP {map.GetName()} is empty.", 4);
                     valid = false;
@@ -89,10 +89,10 @@ namespace BMG.State
 
         public static DrawerState drawer = new DrawerState();
         public static MapState map = new MapState();
-        public static Version version = new Version(1, 10, 0, "Dev");
+        public static Version version = new Version(2, 0, 0, "Dev");
 
 
-        public static void NewMap(MapBase map)
+        public static void NewMap(IMap map)
         {
             drawer = new DrawerState();
             AMGState.map = new MapState(map);

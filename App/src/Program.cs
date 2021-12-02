@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using Newtonsoft.Json;
 using System.Threading;
+using Idle;
+using Idle.Serialization;
 
 namespace BMG
 {
@@ -9,6 +12,14 @@ namespace BMG
     {
         static void Main(string[] args)
         {
+            //var reader = new IdleReader("./presets/brawlstars2/Assets/Walls/Water.asset");
+            //var a = reader.HeadAtom;
+            //var b = IdleSerializer.Deserialize<Asset>(reader);
+
+            //var c = b.ChooseVariant(0b01011011);
+
+            //return;
+
             var fArgs = " " + string.Join(" ", args);
 
             string oLoc = "options.json";

@@ -3,22 +3,37 @@ using System.Drawing;
 
 namespace BMG
 {
-    public class Vector2
+    public struct Vector2
     {
-        public int x = 0;
-        public int y = 0;
+        public int x;
+        public int y;
 
-        public Vector2() { }
+        public int precision;
+
         public Vector2(int x, int y)
         {
             this.x = x;
             this.y = y;
+
+            precision = 1;
+        }
+        public Vector2(int x, int y, int p)
+        {
+            this.x = x;
+            this.y = y;
+
+            precision = p;
         }
 
         public Vector2 Clone()
         {
-            return new Vector2(x, y);
+            return new Vector2(x, y, precision);
         }
+
+
+        public void SetX(int x) => this.x = x;
+        public void SetY(int y) => this.y = y;
+        public void SetPrecision(int p) => precision = p;
 
 
         public static implicit operator Vector2(int value)
@@ -68,5 +83,7 @@ namespace BMG
                 a.y / b.y
                 );
         }
+
+        public static Vector2 Zero => new Vector2(0, 0);
     }
 }
