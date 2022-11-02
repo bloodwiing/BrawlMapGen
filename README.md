@@ -5,6 +5,12 @@
 ![Vector count](https://shields-staging.herokuapp.com/github/directory-file-count/thedonciuxx/brawlmapgen/assets/tiles/brawlstars?type=file&extension=svg&label=tiles%20(excluding%20water))
 [![GitHub license](https://img.shields.io/github/license/thedonciuxx/BrawlMapGen)](https://github.com/thedonciuxx/BrawlMapGen/blob/master/COPYING)
 
+# Currently halted development!
+**Due to lack of motivation, I've decided to temporarly pause work on BMG 2.0**<br>
+**In the mean-time I will still support future Brawl Stars updates in a different forked repository that still uses 1.9.5**<br>
+**Here is a link to it: https://github.com/BloodwiingLegacy/BrawlMapGen/tree/develop**<br>
+**Make sure you're on the `develop` branch when checking that out!**
+
 # BrawlMapGen
 BMG (also known as AMG - Advanced Map Generator) is a generator which takes arrays of strings and tiles with vector graphics to make generated map images of any size.
 
